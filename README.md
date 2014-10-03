@@ -1,11 +1,9 @@
-GraVITas Premier League
+Riviera Premier League
 =======================
 
-The GraVITas Premier League code repository
+The Riviera Premier League code repository
 
-This website is hosted [here](http://www.gravitaspremierleague.com/)
-
-Please report any bugs or issues [here](https://github.com/IEEECS-VIT/GPL/issues) 
+Please report any bugs or issues [here](https://github.com/IEEECS-VIT/RPL/issues) 
 
 #### Instructions for Installation:
 ###### Install Node.js 0.10.x
@@ -14,7 +12,7 @@ Please report any bugs or issues [here](https://github.com/IEEECS-VIT/GPL/issues
     $ npm install
     
 ###### Install frontend dependencies manually (Microsoft Windows only)
-The npm postinstall script to run bower may not work properly on Windows, see [this issue](https://github.com/IEEECS-VIT/GPL/issues/13)
+The npm postinstall script to run bower may not work properly on Windows, see [this issue](https://github.com/IEEECS-VIT/RPL/issues/13)
 
     # npm -g install bower
     $ bower install
