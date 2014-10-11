@@ -20,10 +20,11 @@
 module.exports =
 {
     dot: [
+        "plenty of power behind that, the batsman nearly gave it all he had. The poor ball however, has to remain content with the pitch",
         "short ball and a slower one, he softly pulls it to short fine leg",
         "this was jammed full outside off, looks to dig it out",
         "drifting down the leg side and nearly clipped the leg stump on the way through",
-        "that's the line! The bowler bowls it on the corridor outside off and the ball shapes away late, fizzes past  the edge",
+        "that's the line! The bowler bowls it on the corridor outside off and the ball shapes away late, fizzes past the edge",
         "this one skidded through quickly and hit the back pad, looked like drifting down leg",
         "missed out, he drills it back to the bowler",
         "a bit too short and he finds cover",
