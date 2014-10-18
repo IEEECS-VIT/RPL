@@ -19,6 +19,14 @@
 
 module.exports =
 {
+    intro :
+    [
+
+    ],
+    end :
+    [
+
+    ],
     offside :
     [
 
@@ -31,6 +39,10 @@ module.exports =
     [
 
     ],
+    half :
+    [
+
+    ],
     pass :
     [
 
@@ -39,7 +51,8 @@ module.exports =
     [
 
     ],
-    foul : [
+    foul :
+    [
 
     ],
     red :

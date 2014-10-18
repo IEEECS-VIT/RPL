@@ -44,7 +44,7 @@ email_manager.dispatchResetPasswordLink = function (account, callback)
 
 email_manager.composeEmail = function (object)
 {
-    var link = 'http://gravitaspremierleague.com/reset?e=' + object.email + '&p=' + object.pass;
+    var link = 'http://rivierapremierleague.com/reset?e=' + object.email + '&p=' + object.pass;
     var html = "<html><body>";
     html += "Hi " + object.name + ",<br><br>";
     html += "Your username is :: <b>" + object.user + "</b><br><br>";

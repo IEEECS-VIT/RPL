@@ -51,87 +51,146 @@ exports.simulate = function (data, callback)
             return parseInt(Math.random() * 1000000000000000);
         }
 
-      /*  function Make(team)
+        var average_strike_rating = 0;
+        var average_mid_rating = 0;
+        var average_keep_rating = 0;
+        var average_def_rating = 0;
+        var keep_count = 0;
+        var def_count = 0;
+        var strike_count = 0;
+        var mid_count = 0;
+        var i;
+        function Make(team)
         {
-            var i;
-            this.bat_rating = [];
-            this.bat_average = [];
-            this.bat_strike_rate = [];
-            this.bowler_rating = [];
-            this.bowl_average = [];
-            this.bowl_strike_rate = [];
-            this.coach_rating = parseInt(team[11]['Rating (15)']);
-            if (this.coach_rating.toString() == 'NaN')
-            {
-                this.coach_rating = -50;
-            }
-            this.economy = [];
-            this.bowl_name = [];
-            this.bat_name = [];
-            var average_bat_rating = 0;
-            var average_bowl_rating = 0;
-            var batsman_count = 0;
-            var bowler_count = 0;
+            this.strike_rating = [];
+            this.strike_average = [];
+            this.strike_strike_rate = [];
+            this.keep_rating = [];
+            this.keep_average = [];
+            this.keep_strike_rate = [];
+            this.def_rating = [];
+            this.def_average = [];
+            this.def_strike_rate = [];
+            this.mid_rating = [];
+            this.mid_average = [];
+            this.mid_strike_rate = [];
+            this.coach_rating = 0;
+            this.formation = 0;
+            this.type = [];
+            this.fatigue = [50,50,50,50,50,50,50,50,50,50,50];
+            this.name = [];
             for (i = 0; i < 11; ++i)
             {
                 switch (team[i].Type)
                 {
-                    case 'bat':
-                        this.bat_average[batsman_count] = parseFloat(team[i]['Average']);
-                        this.bat_strike_rate[batsman_count] = parseFloat(team[i]['Strike Rate']);
-                        this.bat_rating[batsman_count] = parseInt(team[i]['Rating (900)']);
-                        this.bat_name[batsman_count] = team[i]['Name'];
-                        average_bat_rating = average_bat_rating + parseInt(team[i]['Rating (900)']);
-                        ++batsman_count;
+                    default:
+                        this.name[strike_count] = team[i]['Name'];
+                    case 'strike':
+                        this.strike_average[strike_count] = parseFloat(team[i]['Average']);
+                        this.strike_strike_rate[strike_count] = parseFloat(team[i]['Strike Rate']);
+                        this.strike_rating[strike_count] = parseInt(team[i]['Rating (900)']);
+                        this.type.push('strike');
+                        average_strike_rating += parseInt(team[i]['Rating (900)']);
+                        ++strike_count;
                         break;
-                    case 'bowl':
-                        this.bowl_average[bowler_count] = parseFloat(team[i]['Avg']);
-                        this.bowl_strike_rate[bowler_count] = parseFloat(team[i]['SR']);
-                        this.bowler_rating[bowler_count] = parseInt(team[i]['Rating (900)']);
-                        this.bat_average[batsman_count] = parseFloat(team[i]['Average']);
-                        this.bat_strike_rate[batsman_count] = parseFloat(team[i]['Strike Rate']);
-                        this.bat_rating[batsman_count] = 900 - parseInt(team[i]['Rating (900)']);
-                        this.economy[bowler_count] = parseFloat(team[i]['Economy']);
-                        this.bowl_name[bowler_count] = this.bat_name[batsman_count] = team[i]['Name'];
-                        average_bowl_rating = average_bowl_rating + parseInt(team[i]['Rating (900)']);
-                        ++bowler_count;
-                        ++batsman_count;
+                    case 'keep':
+                        this.keep_average[keep_count] = parseFloat(team[i]['Avg']);
+                        this.keep_strike_rate[keep_count] = parseFloat(team[i]['SR']);
+                        this.keep_rating[keep_count] = parseInt(team[i]['Rating (900)']);
+                        this.type.push('keep');
+                        ++keep_count;
+                        average_keep_rating += parseInt(team[i]['Rating (900)']);
                         break;
-                    case 'all':
-                        this.bowl_average[bowler_count] = parseFloat(team[i]['Avg']);
-                        this.bowl_strike_rate[bowler_count] = parseFloat(team[i]['SR']);
-                        this.bowler_rating[bowler_count] = parseInt(team[i]['Bowl']);
-                        this.bat_average[batsman_count] = parseFloat(team[i]['Average']);
-                        this.bat_strike_rate[batsman_count] = parseFloat(team[i]['Strike Rate']);
-                        this.bat_rating[batsman_count] = parseInt(team[i]['Bat']);
-                        this.economy[bowler_count] = parseFloat(team[i]['Economy']);
-                        this.bowl_name[bowler_count] = team[i]['Name'];
-                        this.bat_name[batsman_count] = team[i]['Name'];
-                        average_bat_rating += parseInt(team[i]['Bat']);
-                        average_bowl_rating += parseInt(team[i]['Bowl']);
-                        ++batsman_count;
-                        ++bowler_count;
+                    case 'def':
+                        this.def_average[def_count] = parseFloat(team[i]['Avg']);
+                        this.def_strike_rate[def_count] = parseFloat(team[i]['SR']);
+                        this.def_rating[def_count] = parseInt(team[i]['Bowl']);
+                        this.type.push('def');
+                        average_def_rating += parseInt(team[i]['Def']);
+                        ++def_count;
+                        break;
+                    case 'mid': //serious adjustments needed here
+                        this.mid_average[mid_count] = parseFloat(team[i]['Avg']);
+                        this.mid_strike_rate[mid_count] = parseFloat(team[i]['SR']);
+                        this.mid_rating[mid_count] = parseInt(team[i]['Bowl']);
+                        this.type.push('mid');
+                        average_mid_rating += parseInt(team[i]['Def']);
+                        ++mid_count;
+                        break;
+                    case 'coach':
+                        this.coach_rating = parseInt(team[i]['Rating (15)']);
                         break;
                 }
 
             }
-            average_bat_rating = parseFloat(average_bat_rating / 11);
-            average_bowl_rating = parseFloat(average_bowl_rating / 6);
-
+            if(!this.coach_rating)
+            {
+                this.coach_rating = -50;
+            }
+            average_def_rating = parseFloat ( average_def_rating ) / def_count;
+            average_mid_rating = parseFloat ( average_mid_rating ) / mid_count;
+            average_strike_rating = parseFloat ( average_strike_rating ) / strike_count;
+            average_keep_rating = parseFloat ( average_keep_rating ) / keep_count;
             for (i = 0; i < 11; ++i)
             {
-                if (i < 6)
+                switch(this.type[i])
                 {
-                    this.bowler_rating[i] += parseFloat(this.bowler_rating[i] )/5 - parseFloat(average_bowl_rating)/30 + parseInt(this.coach_rating);
+                    case 'strike':
+                        this.strike_rating[i] += parseFloat(this.strike_rating[i]) / (strike_count - 1) - parseFloat(average_strike_rating)/ ((strike_count - 1)*(strike_count - 2)) + parseInt(this.coach_rating);
+                        this.strike_rating = (this.strike_rating < 0)? ((this.coach_rating < 0)? (0) : (this.coach_rating)):(this.strike_rating);
+                        break;
+                    case 'keep':
+                        this.keep_rating[i] += parseFloat(this.keep_rating[i]) / (keep_count - 1) - parseFloat(average_keep_rating)/ ((keep_count - 1)*(keep_count - 2)) + parseInt(this.coach_rating);
+                        this.keep_rating = (this.keep_rating < 0)? ((this.coach_rating < 0)? (0) : (this.coach_rating)):(this.keep_rating);
+                        break;
+                    case 'def':
+                        this.def_rating[i] += parseFloat(this.def_rating[i]) / (def_count - 1) - parseFloat(average_def_rating)/ ((def_count - 1)*(def_count - 2)) + parseInt(this.coach_rating);
+                        this.def_rating = (this.def_rating < 0)? ((this.coach_rating < 0)? (0) : (this.coach_rating)):(this.def_rating);
+                        break;
+                    case 'mid':
+                        this.mid_rating[i] += parseFloat(this.mid_rating[i]) / (mid_count - 1) - parseFloat(average_mid_rating)/ ((mid_count - 1)*(mid_count - 2)) + parseInt(this.coach_rating);
+                        this.mid_rating = (this.mid_rating < 0)? ((this.coach_rating < 0)? (0) : (this.coach_rating)):(this.mid_rating);
+                        break;
+                    default:
+                        break;
                 }
-                this.bat_rating[i] += parseFloat(this.bat_rating[i]) / 10 - parseFloat(average_bat_rating)/110 + parseInt(this.coach_rating);
-                this.bat_rating = (this.bat_rating < 0)? ((this.coach_rating < 0)? (0) : (this.coach_rating)):(this.bat_rating);
             }
         }
-
         var team_object = [];
         team_object[0] = new Make(data.team[0].ratings);
+        average_strike_rating = 0;
+        average_mid_rating = 0;
+        average_keep_rating = 0;
+        average_def_rating = 0;
+        keep_count = 0;
+        def_count = 0;
+        strike_count = 0;
+        mid_count = 0;
         team_object[1] = new Make(data.team[1].ratings);
+        var Goals = [0,0];
+        var winner;
+        var temp;
+        var toss;
+        var individual_goals = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+        var passes = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+        var fouls = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+        var winner_index = -1;
+        var possession = [0,0];
+        var shots = [];
+        data.match.commentary = [];
+        toss = rand()%2;
+        data.match.commentary.push(' ' + data.team[+toss]._id + ' wins the toss, ');
+        if (rand() % 2)
+        {
+            toss = !toss;
+            data.match.commentary[data.match.commentary.length - 1] += data.team[+!toss]._id + ' shall kickoff.';
+        }
+        else
+        {
+            data.match.commentary[data.match.commentary.length - 1] += ' and chooses to kickoff.';
+        }
+        var async = require('async');
+        /*
         var winner;
         var temp;
         var delivery_score;
@@ -174,29 +233,6 @@ exports.simulate = function (data, callback)
         var bowl = [1200, 1200, 1200]; // increase to strengthen bowling
         var bat = [1100, 1100];    // decrease to strengthen batting
         var dot;
-        Total[0] = Total[1] = 0;
-        Overs[0] = Overs[1] = 120;
-        data.match.commentary = [];
-        if (rand() % 2)
-        {
-            toss = 1;
-        }
-        else
-        {
-            toss = 0;
-        }
-        data.match.commentary.push(' ' + data.team[+toss]._id + ' wins the toss and chooses to ');
-        if (rand() % 2)
-        {
-            data.match.commentary[data.match.commentary.length - 1] += 'bowl ';
-
-        }
-        else
-        {
-            toss = !toss;
-            data.match.commentary[data.match.commentary.length - 1] += 'bat ';
-        }
-        data.match.commentary[data.match.commentary.length - 1] += 'first  ';
         wickets[0] = wickets[1] = strike_index = previous_bowler = 0;
         for (i = 1; i < 6; ++i)
         {
@@ -895,17 +931,17 @@ exports.simulate = function (data, callback)
             console.log(data.team[+winner_index]._id + ' wins against ' + data.team[+!winner_index]._id);
             ++data.team[+!winner_index].loss;
             ++data.team[+winner_index].win;
-            data.team[+winner_index].points += 2;
+            data.team[+winner_index].points += 3;
             data.team[+winner_index].balls_for += Overs[+winner];
             data.team[+!winner_index].balls_for += Overs[+!winner];
-            data.team[+winner_index].runs_for += Total[+winner];
-            data.team[+!winner_index].runs_for += Total[+!winner];
+            data.team[+winner_index].goals_for += Total[+winner];
+            data.team[+!winner_index].goals_for += Total[+!winner];
             data.team[+winner_index].balls_against += Overs[+!winner];
             data.team[+!winner_index].balls_against += Overs[+winner];
-            data.team[+winner_index].runs_against += Total[+!winner];
-            data.team[+!winner_index].runs_against += Total[+winner];
-            data.team[+winner_index].net_run_rate = (((data.team[+winner_index].runs_for) / (data.team[+winner_index].balls_for) - (data.team[+winner_index].runs_against) / (data.team[+winner_index].balls_against)) * 6).toFixed(2);
-            data.team[+!winner_index].net_run_rate = (((data.team[+!winner_index].runs_for) / (data.team[+!winner_index].balls_for) - (data.team[+!winner_index].runs_against) / (data.team[+!winner_index].balls_against)) * 6).toFixed(2);
+            data.team[+winner_index].goals_against += Total[+!winner];
+            data.team[+!winner_index].goals_against += Total[+winner];
+            //data.team[+winner_index].net_run_rate = (((data.team[+winner_index].runs_for) / (data.team[+winner_index].balls_for) - (data.team[+winner_index].runs_against) / (data.team[+winner_index].balls_against)) * 6).toFixed(2);
+            //data.team[+!winner_index].net_run_rate = (((data.team[+!winner_index].runs_for) / (data.team[+!winner_index].balls_for) - (data.team[+!winner_index].runs_against) / (data.team[+!winner_index].balls_against)) * 6).toFixed(2);
         }
        */
     }
@@ -915,12 +951,10 @@ exports.simulate = function (data, callback)
     data.team[1].squad.pop();
     delete data.team[0].ratings;
     delete data.team[1].ratings;
-    // console.log(data);
     var newData = {
         team1: data.team[0],
         team2: data.team[1],
         match: data.match
     };
     callback(null, newData);
-
 };
