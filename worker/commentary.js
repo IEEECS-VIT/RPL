@@ -41,7 +41,7 @@ module.exports =
         "he tamely pushes it to the off side",
         "full and straying on the pads, clips the pads as he looks to flick it away",
         "this one moves away and he pokes at it, nearly edges it",
-        "decent shout for an lbw? Straightens and hits him on the top flap as he stays on the back foot,   looked close though, appeal turned down",
+        "decent shout for an lbw? Straightens and hits him on the top flap as he stays on the back foot, looked close though, appeal turned down",
         " tossed up and he pushes it back to the bowler",
         "he rocks back and cuts but can't beat extra cover",
         "very low and wide full toss, slips under the bat swing",

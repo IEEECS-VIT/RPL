@@ -51,7 +51,7 @@ exports.simulate = function (data, callback)
             return parseInt(Math.random() * 1000000000000000);
         }
 
-        function Make(team)
+      /*  function Make(team)
         {
             var i;
             this.bat_rating = [];
@@ -907,6 +907,7 @@ exports.simulate = function (data, callback)
             data.team[+winner_index].net_run_rate = (((data.team[+winner_index].runs_for) / (data.team[+winner_index].balls_for) - (data.team[+winner_index].runs_against) / (data.team[+winner_index].balls_against)) * 6).toFixed(2);
             data.team[+!winner_index].net_run_rate = (((data.team[+!winner_index].runs_for) / (data.team[+!winner_index].balls_for) - (data.team[+!winner_index].runs_against) / (data.team[+!winner_index].balls_against)) * 6).toFixed(2);
         }
+       */
     }
     ++data.team[0].played;
     ++data.team[1].played;
@@ -921,4 +922,5 @@ exports.simulate = function (data, callback)
         match: data.match
     };
     callback(null, newData);
+
 };
