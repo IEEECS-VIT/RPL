@@ -1,7 +1,7 @@
 {
-    "name": "GPL",
+    "name": "RPL",
     "version": "0.1.0",
-    "homepage": "https://github.com/IEEECS-VIT/GPL",
+    "homepage": "https://github.com/IEEECS-VIT/RPL",
     "authors": [
         "Aneesh Neelam <neelam.aneesh@gmail.com>",
         "Kashish Singhal <singhal2.kashish@gmail.com>",
@@ -11,7 +11,7 @@
         "Ayush Agarwal <agarwalayush161@gmail.com>",
         "Shivam Mathur <burnualive@hotmail.com>"
     ],
-    "description": "GraVITas Premier League",
+    "description": "Riviera Premier League",
     "main": "bin/www",
     "moduleType": [
         "globals",

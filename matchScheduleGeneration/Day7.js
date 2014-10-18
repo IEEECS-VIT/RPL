@@ -3,7 +3,7 @@
  */
 
 /*
- *  GraVITas Premier League
+ *  Riviera Premier League
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
