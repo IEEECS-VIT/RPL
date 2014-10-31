@@ -26,7 +26,10 @@
     <title>Riviera Premier League</title>
     <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
 
+    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
     <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
     <style>
         a {
@@ -47,32 +50,117 @@
             font-size: 125%;
             z-index: 1;
         }
-        button:hover{
-            box-shadow: inset 0 0 5px 5px rgba(0,0,0,0.1);
+
+        button:hover {
+            box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.1);
             z-index: 1;
         }
-        #login{
-            background: rgba(0,0,0,0.8);
+
+        #login_container {
             margin: 2% 0;
-            padding: 1% 2%;
-            box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
+            padding: 0;
+            z-index: 2;
         }
-        #login:hover{
-            box-shadow:inset 0 0 5px 5px rgba(0,0,0,0.5);
+
+        #login {
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+            margin: 0;
+            padding: 10%;
+            z-index: 2;
+        }
+
+        #login:hover {
+            box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
             cursor: pointer;
         }
+
         @media (max-width: 992px) {
             #login {
                 display: none;
             }
-        }
-        @media (min-width: 992px) {
-            #loginh,#loginl {
+
+            #register {
+                min-height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 2;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                padding: 0;
+                margin: 0;
                 display: none;
             }
-        }
-    </style>
 
+            #register #form {
+                background: rgba(0, 0, 0, 0.9);
+                width: 100%;
+                margin: 0;
+                color: white;
+                padding: 2%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #loginh, #loginl {
+                display: none;
+            }
+
+            #register {
+                min-height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 2;
+                position: fixed;
+                display: none;
+            }
+
+            #register #form {
+                background: rgba(0, 0, 0, 0.9);
+                margin: 2% 0;
+                color: white;
+                padding: 2%;
+            }
+            #login_box{
+                background: rgba(0, 0, 0, 0.8);
+                width: 100%;
+                box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+                margin: 0;
+                padding: 10%;
+                z-index: 2;
+            }
+        }
+
+    </style>
+    <script>
+        function reg(x) {
+            if (x === 1) {
+                document.getElementById('register').style.display = 'none';
+                /* $( document.getElementById('red') ).click(function() {
+                 $( "#register" ).show( "fade" );
+                 });*/
+            } else {
+                /*$( document.getElementById('x') ).click(function() {
+                 $( "#register" ).hide( "fade" );
+                 });*/
+                document.getElementById('register').style.display = 'block';
+            }
+
+        }
+     /*   function login(x){
+            if(x===1){
+                document.getElementById('login_container').className = 'col-md-3';
+                document.getElementById('login_container').style.position = '';
+                document.getElementById('login_container').innerHTML ="<div class='row'> <div class='col-md-4'> <a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a></div><div class='col-md-1' id='login_box'></div></div>";
+
+            } else{
+                document.getElementById('login_container').className = 'col-md-1';
+                document.getElementById('login_container').style.position = 'relative';
+                document.getElementById('login_container').innerHTML ="<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>"
+            }
+
+        }*/
+    </script>
 </head>
 <body style="background-color:rgba(200,200,200,0.5);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
@@ -83,7 +171,7 @@
         <div class="row">
 
             <div class="col-md-1 col-md-offset-2" align="center">
-                <img src="#" style="height:10em;"> <!--/images/rpllogo.jpg-->
+                <img src="/images/rplsmall.jpg" style="height:10em;"> <!--/images/rpllogo.jpg-->
             </div>
             <div class="col-md-1"></div>
             <!--Riviera Premier League -->
@@ -121,7 +209,7 @@
                         |
                     </li>
                     <li style="margin-left:4%">
-                        <a href="#"><h4>Register</h4></a>
+                        <a href="#" onclick="reg(2)" id="red"><h4>Register</h4></a>
                     </li>
                     <li style="margin-left:4%" id="loginl">
                         |
@@ -134,21 +222,43 @@
         </div>
 
     </div>
+    <!--Register-->
+    <div id="register" class="col-md-12">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id="form">
+            <div style="float: right">
+                <a href="#" onclick="reg(1)" id="x">X</a>
+            </div>
+            <h2 style="">Register</h2>
+
+            <form action="/register" method="post">
+
+            </form>
+        </div>
+    </div>
     <!--Content-->
-        <!--login-->
-    <a href="#"> <div class="col-md-1" style="float: right" id="login">
+    <!--login-->
+    <div class="col-md-1" style="float: right" id="login_container">
+        <a href="#" onclick="login(1)">
+            <div class="col-md-12" id="login">
                 Login
-            </div></a>
-        <!--Main box-->
+            </div>
+        </a>
+
+    </div>
+    <!--Main box-->
     <div class="col-md-2"></div>
     <div align="center" class="col-md-8"
          style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <img src="#" style="width: 100%; margin: 4% 0 0 0">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img src="#" style="width: 100%; margin: 4% 0 0 0">
+            </div>
         </div>
-      </div>
+        <div class="col-md-12" style="display: none">
+            <h1 style="font-size: 700%"> I love upma</h1>
+        </div>
         <div class="row" style="text-align: center;margin-bottom: 1%">
             <h2>
                 <small>The ultimate league is here this Riviera.<br/>Do you have what it takes to come out on top?<br/>Join
