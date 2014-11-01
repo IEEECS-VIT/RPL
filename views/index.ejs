@@ -56,31 +56,15 @@
             z-index: 1;
         }
 
-        #login_container {
-            margin: 2% 0;
-            padding: 0;
-            z-index: 2;
-        }
 
-        #login {
-            background: rgba(0, 0, 0, 0.8);
-            width: 100%;
-            box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
-            margin: 0;
-            padding: 10%;
-            z-index: 2;
-        }
-
-        #login:hover {
-            box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-        }
 
         @media (max-width: 992px) {
             #login {
                 display: none;
             }
-
+            #login_container{
+                display:none;
+            }
             #register {
                 min-height: 100%;
                 background: rgba(0, 0, 0, 0.5);
@@ -106,7 +90,31 @@
             #loginh, #loginl {
                 display: none;
             }
+            #login_container {
+                margin: 0;
+                padding: 0;
+                z-index: 3;
+                position: absolute;
 
+
+                top:40%;
+                right: -22.5%;
+            }
+
+            #login {
+                background: rgba(0, 0, 0, 0.8);
+                width: 100%;
+                box-shadow: -7px 3px 10px -1px rgba(0, 0, 0, 0.25),-6px 3px 10px -1px rgba(0, 0, 0, 0.25),-6px -3px 10px -1px rgba(0, 0, 0, 0.25);
+
+                margin: 0;
+                padding: 10%;
+                z-index: 2;
+            }
+
+            #login:hover {
+                box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
+                cursor: pointer;
+            }
             #register {
                 min-height: 100%;
                 background: rgba(0, 0, 0, 0.5);
@@ -121,13 +129,32 @@
                 color: white;
                 padding: 2%;
             }
-            #login_box{
+
+            #login_box {
                 background: rgba(0, 0, 0, 0.8);
-                width: 100%;
-                box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 3px 10px -1px rgba(0, 0, 0, 0.25),0 -3px 10px -1px rgba(0, 0, 0, 0.25);
+
+
                 margin: 0;
-                padding: 10%;
+                padding: 0;
                 z-index: 2;
+            }
+            #login_box form{
+                margin:3% 0;
+                border:none;
+            }
+            #login_box form input{
+                margin:2% 0;
+                border:1px solid rgba(0,0,0,0.6);
+                border-radius: 4px;
+                height: 2em;
+
+            }
+            #login_box form a{
+                color: rgba(255,255,255,0.7);
+            }
+            #login_box form a:hover{
+                font-weight: bold;
             }
         }
 
@@ -147,22 +174,21 @@
             }
 
         }
-     /*   function login(x){
-            if(x===1){
-                document.getElementById('login_container').className = 'col-md-3';
-                document.getElementById('login_container').style.position = '';
-                document.getElementById('login_container').innerHTML ="<div class='row'> <div class='col-md-4'> <a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a></div><div class='col-md-1' id='login_box'></div></div>";
+        function login(x) {
+              if(x===1){
 
-            } else{
-                document.getElementById('login_container').className = 'col-md-1';
-                document.getElementById('login_container').style.position = 'relative';
-                document.getElementById('login_container').innerHTML ="<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>"
-            }
+             document.getElementById('login_container').style.right = '0';
+                  document.getElementById('log').innerHTML ="<a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a>";
 
-        }*/
+             } else{
+            document.getElementById('login_container').style.right = '-22.5%';
+             document.getElementById('log').innerHTML ="<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>";
+             }
+
+        }
     </script>
 </head>
-<body style="background-color:rgba(200,200,200,0.5);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.5);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
 <div style="padding: 0;margin: 0;overflow: hidden">
     <!-- Header -->
@@ -238,13 +264,29 @@
     </div>
     <!--Content-->
     <!--login-->
-    <div class="col-md-1" style="float: right" id="login_container">
-        <a href="#" onclick="login(1)">
-            <div class="col-md-12" id="login">
-                Login
-            </div>
-        </a>
+    <div class="col-md-4" style="float: right" id="login_container">
+        <div class="row" style="padding: 0;margin: 0">
+            <div class="col-md-4" style="margin:0;padding: 0" id="log">
+                <a href="#" onclick="login(1)">
+                    <div class="col-md-12" id="login">
+                        Login
+                    </div>
 
+                </a>
+            </div>
+            <div class="col-md-8" id="login_box">
+                <form action="/register" method="post">
+
+                        <input name="u_name" type="text" placeholder="Username" />
+                    <br />
+                    <input name="pass" type="password" placeholder="Password" />
+                    <br />
+                    <a href="#" style="">forgot password?</a>
+                    <br />
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
     </div>
     <!--Main box-->
     <div class="col-md-2"></div>
