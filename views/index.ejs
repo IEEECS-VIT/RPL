@@ -76,7 +76,6 @@
                 margin: 0;
                 display: none;
             }
-
             #register #form {
                 background: rgba(0, 0, 0, 0.9);
                 width: 100%;
@@ -84,6 +83,26 @@
                 color: white;
                 padding: 2%;
             }
+            #login_small {
+                min-height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 2;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                padding: 0;
+                margin: 0;
+                display: none;
+            }
+            #login_small #form {
+                background: rgba(0, 0, 0, 0.9);
+                width: 100%;
+                margin: 0;
+                color: white;
+                padding: 2%;
+            }
+
+
         }
 
         @media (min-width: 992px) {
@@ -171,6 +190,9 @@
                 box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
                 z-index: 1;
             }
+            #login_small{
+                display: none;
+            }
         }
 
     </style>
@@ -186,6 +208,20 @@
                  $( "#register" ).hide( "fade" );
                  });*/
                 document.getElementById('register').style.display = 'block';
+            }
+
+        }
+        function log(x) {
+            if (x === 1) {
+                document.getElementById('login_small').style.display = 'none';
+                /* $( document.getElementById('red') ).click(function() {
+                 $( "#register" ).show( "fade" );
+                 });*/
+            } else {
+                /*$( document.getElementById('x') ).click(function() {
+                 $( "#register" ).hide( "fade" );
+                 });*/
+                document.getElementById('login_small').style.display = 'block';
             }
 
         }
@@ -256,7 +292,7 @@
                         |
                     </li>
                     <li style="margin-left:4%" id="loginh">
-                        <a href="#"><h4>Login</h4></a>
+                        <a href="#" onclick="log(2)"><h4>Login</h4></a>
                     </li>
                 </ul>
             </div>
@@ -277,6 +313,19 @@
             </form>
         </div>
     </div>
+    <div id="login_small" class="col-md-12">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id="form">
+            <div style="float: right">
+                <a href="#" onclick="log(1)" id="x">X</a>
+            </div>
+            <h2 style="">Login</h2>
+
+            <form action="/login" method="post">
+
+            </form>
+        </div>
+    </div>
     <!--Content-->
     <!--login-->
     <div class="col-md-4" style="float: right" id="login_container">
@@ -290,7 +339,7 @@
                 </a>
             </div>
             <div class="col-md-8" id="login_box">
-                <form action="/register" method="post">
+                <form action="/login" method="post">
 
                         <input name="u_name" type="text" placeholder="Username" />
                     <br />
