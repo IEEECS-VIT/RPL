@@ -215,6 +215,19 @@ router.get('/prizes', function (req, res) // page to view prizes
     }
     res.render('prizes', {Session: session });
 });
+router.get('/forgot', function (req, res) // page to change password
+{
+    var session;
+    if (req.signedCookies.name)
+    {
+        session = true;
+    }
+    else
+    {
+        session = false;
+    }
+    res.render('forgot', {Session: session });
+});
 
 router.get('/rule', function (req, res)
 {
