@@ -34,20 +34,21 @@
 <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
 <style>
 #bs-example-navbar-collapse-1 a {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
 }
+
 #bs-example-navbar-collapse-1 a:hover {
     color: white;
 }
+
 a {
     color: white;
 }
-#bs-example-navbar-collapse-1 li.active a{
-    color: rgba(0,0,0,0.8);
-    background: rgba(255,255,255,0.8);
+
+#bs-example-navbar-collapse-1 li.active a {
+    color: rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.8);
 }
-
-
 
 a:hover {
     text-decoration: underline;
@@ -72,22 +73,38 @@ button:hover {
 #login_small {
     display: none;
 }
-#brand{
+
+#brand {
     display: none;
 
 }
 
+.box {
+    background: white;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+
+}
+
+.box img {
+    margin: 2%;
+    width: 100%;
+    height: 10em;
+}
+
 @media (max-width: 992px) {
-    #header{
+    #header {
         display: none;
     }
-    #brand{
+
+    #brand {
         display: block;
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
     }
-    #brand:hover{
-        color: rgba(255,255,255,1);
+
+    #brand:hover {
+        color: rgba(255, 255, 255, 1);
     }
+
     #login {
         display: none;
     }
@@ -136,20 +153,21 @@ button:hover {
         padding: 2%;
     }
 
-
 }
 
 @media (min-width: 992px) {
     #bs-example-navbar-collapse-1 li {
         padding: 0;
         font-size: 130%;
-        left:29.5%;
-        margin-left:3% ;
+        left: 29.5%;
+        margin-left: 3%;
     }
-    #bs-example-navbar-collapse-1 ul{
+
+    #bs-example-navbar-collapse-1 ul {
         width: 100%;
 
     }
+
     #loginh, #loginl {
         display: none;
     }
@@ -178,8 +196,6 @@ button:hover {
         box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
         cursor: pointer;
     }
-
-
 
     #register #form {
         background: rgba(0, 0, 0, 0.9);
@@ -313,11 +329,13 @@ button:hover {
 <!--Register-->
 
 <!--test-->
-<nav class="navbar navbar-default" role="navigation" style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+<nav class="navbar navbar-default" role="navigation"
+     style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -331,7 +349,7 @@ button:hover {
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li class="active"><a href="/rule">Rules</a></li>
-                <li><a href="#">Prizes</a></li>
+                <li><a href="/prizes">Prizes</a></li>
                 <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
                 <li id="loginh">
                     <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">Login</a>
@@ -340,8 +358,10 @@ button:hover {
             </ul>
 
 
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
 </nav>
 
 <!--test-->
@@ -449,34 +469,64 @@ button:hover {
         </div>
     </div>
 </div>
-<!--Main box-->
-<div class="col-md-2"></div>
-<div align="center" class="col-md-8"
-     style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <img src="#" style="width: 100%; margin: 4% 0 0 0">
+<!--Rules-->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div align="center" class="col-md-8 box"
+         style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 ">
+                <img src="#" style="width: 100%; margin: 4% 0 0 0">
+            </div>
         </div>
-    </div>
-    <div class="col-md-12" style="display: none">
-        <h1 style="font-size: 700%"> I love upma</h1>
-    </div>
-    <div class="row" style="text-align: center;margin-bottom: 1%">
-        <h2>
-            <small>The ultimate league is here this Riviera.<br/>Do you have what it takes to come out on top?<br/>Join
-                the phenomenon.
-            </small>
-        </h2>
-    </div>
-    <div class="row" style="margin: 2% 0;z-index: 1">
 
-        <button style="margin-bottom: 2%" data-toggle="modal" data-target=".bs-example-modal-lg">
-            Begin
-        </button>
+        <div class="row" style="text-align: center;margin-bottom: 1%">
+            <h3>
+                <small>Rule 1</small>
+            </h3>
+        </div>
+
     </div>
+
+    <div align="center" class="col-md-4  col-md-offset-1  box"
+         style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 ">
+                <img src="#" style="width: 100%; margin: 4% 0 0 0">
+            </div>
+        </div>
+
+        <div class="row" style="text-align: center;margin-bottom: 1%">
+            <h3>
+                <small>Rule Split</small>
+            </h3>
+        </div>
+
+    </div>
+    <div align="center" class="col-md-4  col-md-offset-2  box"
+         style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 ">
+                <img src="#" style="width: 100%; margin: 4% 0 0 0">
+            </div>
+        </div>
+
+        <div class="row" style="text-align: center;margin-bottom: 1%">
+            <h3>
+                <small>Rule Split</small>
+            </h3>
+        </div>
+
+    </div>
+
+
+
+
+
 </div>
-
 <!--Footer -->
 <div class="col-md-12"
      style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
