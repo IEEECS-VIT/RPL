@@ -1,36 +1,248 @@
-fieldset {
-    border-radius: 5px;
-    border: 1px dashed rgba(255, 255, 255, 0.6);
 
+#bs-example-navbar-collapse-1 a {
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.drop {
-    /* display:none;*/
-    background: #555555;
-    margin: 0;
-
-}
-
-#act1 a, #act2 a, #act3 a, #act4 a {
-    background-color: rgba(60, 60, 60, 1);
+#bs-example-navbar-collapse-1 a:hover {
     color: white;
 }
 
-#noact1 a, #noact2 a, #noact3 a, #noact4 a {
-    background-color: rgba(60, 60, 60, 0.9);
+a {
     color: white;
 }
 
-#act1 a, #noact1 a {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+#bs-example-navbar-collapse-1 li.active a {
+    color: rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.8);
 }
 
-#act4 a, #noact4 a {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
+a:hover {
+    text-decoration: underline;
+    color: white;
+
+}
+form input {
+    margin: 2% 0;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+    height: 3em;
+    width: 70%;
+}
+button {
+    background: rgba(0, 0, 255, 0.85);
+    color: white;
+    border: none;
+    padding: 1.5% 4%;
+    font-size: 125%;
+    z-index: 1;
+}
+.button{
+    background: rgba(0, 0, 255, 0.85);
+    color: white;
+    border: none;
+    padding: 1.5% 4%;
+    font-size: 125%;
+
+    margin: 2%;
+
 }
 
-#panel1, #panel2, #panel3, #panel4 {
-    margin-top: 3%;
+.button:active{
+    color: white;
 }
+.button:hover {
+    box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    color: white;
+    text-decoration: none;
+}
+button:hover {
+    box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+#login_small {
+    display: none;
+}
+
+#brand {
+    display: none;
+
+}
+
+.box {
+    background: white;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+
+}
+
+.box img {
+    margin: 2%;
+    width: 100%;
+    height: 10em;
+}
+
+@media (max-width: 992px) {
+    #header {
+        display: none;
+    }
+
+    #brand {
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    #brand:hover {
+        color: rgba(255, 255, 255, 1);
+    }
+
+    #login {
+        display: none;
+    }
+
+    #login_container {
+        display: none;
+    }
+
+    #register {
+        min-height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    #register #form {
+        background: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        margin: 0;
+        color: white;
+        padding: 2%;
+    }
+
+    #login_small {
+        min-height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    #login_small #form {
+        background: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        margin: 0;
+        color: white;
+        padding: 2%;
+    }
+
+}
+
+@media (min-width: 992px) {
+    #bs-example-navbar-collapse-1 li {
+        padding: 0;
+        font-size: 130%;
+        left: 29.5%;
+        margin-left: 3%;
+    }
+
+    #bs-example-navbar-collapse-1 ul {
+        width: 100%;
+
+    }
+
+    #loginh, #loginl {
+        display: none;
+    }
+
+    #login_container {
+        margin: 0;
+        padding: 0;
+        z-index: 3;
+        position: absolute;
+
+        top: 40%;
+        right: -22.5%;
+    }
+
+    #login {
+        background: rgba(0, 0, 0, 0.8);
+        width: 100%;
+        box-shadow: -7px 3px 10px -1px rgba(0, 0, 0, 0.25), -6px 3px 10px -1px rgba(0, 0, 0, 0.25), -6px -3px 10px -1px rgba(0, 0, 0, 0.25);
+
+        margin: 0;
+        padding: 10%;
+        z-index: 2;
+    }
+
+    #login:hover {
+        box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
+
+    #register #form {
+        background: rgba(0, 0, 0, 0.9);
+        margin: 2% 0;
+        color: white;
+        padding: 2%;
+    }
+
+    #login_box {
+        background: rgba(0, 0, 0, 0.8);
+        box-shadow: 0 3px 10px -1px rgba(0, 0, 0, 0.25), 0 -3px 10px -1px rgba(0, 0, 0, 0.25);
+
+        margin: 0;
+        padding: 0;
+        z-index: 2;
+    }
+
+    #login_box form {
+        margin: 3% 0;
+        border: none;
+    }
+
+    #login_box form input {
+        margin: 2% 0;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 4px;
+        height: 2em;
+
+    }
+
+    #login_box form a {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    #login_box form a:hover {
+
+        color: rgba(255, 255, 255, 1);
+    }
+
+    #login_box form button {
+        background: rgba(50, 50, 255, 0.6);
+        color: white;
+        border: none;
+        padding: 1.5% 4%;
+        font-size: 125%;
+        z-index: 1;
+        border-radius: 2px;
+    }
+
+    #login_box form button:hover {
+        box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    #login_small {
+        display: none;
+    }
+}
+
