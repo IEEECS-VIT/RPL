@@ -22,228 +22,272 @@
 <![endif]-->
 <html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <title>Riviera Premier League</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+<meta charset="UTF-8">
+<title>Riviera Premier League</title>
+<link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+<link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
 
-    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
-    <style>
-        a {
-            color: white;
+<script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+<style>
+    #bs-example-navbar-collapse-1 a {
+        color: rgba(255,255,255,0.8);
+    }
+    #bs-example-navbar-collapse-1 a:hover {
+        color: white;
+    }
+    a {
+        color: white;
+    }
+    #bs-example-navbar-collapse-1 li.active a{
+        color: rgba(0,0,0,0.8);
+        background: rgba(255,255,255,0.8);
+    }
+
+
+
+    a:hover {
+        text-decoration: underline;
+        color: white;
+
+    }
+
+    button {
+        background: rgba(0, 0, 255, 0.85);
+        color: white;
+        border: none;
+        padding: 1.5% 4%;
+        font-size: 125%;
+        z-index: 1;
+    }
+
+    button:hover {
+        box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    #login_small {
+        display: none;
+    }
+    #brand{
+        display: none;
+
+    }
+
+    @media (max-width: 992px) {
+        #header{
+            display: none;
+        }
+        #brand{
+            display: block;
+            color: rgba(255,255,255,0.7);
+        }
+        #brand:hover{
+            color: rgba(255,255,255,1);
+        }
+        #login {
+            display: none;
         }
 
-        a:hover {
-            text-decoration: underline;
+        #login_container {
+            display: none;
+        }
+
+        #register {
+            min-height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            padding: 0;
+            margin: 0;
+            display: none;
+        }
+
+        #register #form {
+            background: rgba(0, 0, 0, 0.9);
+            width: 100%;
+            margin: 0;
             color: white;
+            padding: 2%;
+        }
+
+        #login_small {
+            min-height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            padding: 0;
+            margin: 0;
+            display: none;
+        }
+
+        #login_small #form {
+            background: rgba(0, 0, 0, 0.9);
+            width: 100%;
+            margin: 0;
+            color: white;
+            padding: 2%;
+        }
+
+
+    }
+
+    @media (min-width: 992px) {
+        #bs-example-navbar-collapse-1 li {
+            padding: 0;
+            font-size: 130%;
+            left:29.5%;
+            margin-left:3% ;
+        }
+        #bs-example-navbar-collapse-1 ul{
+            width: 100%;
+
+        }
+        #loginh, #loginl {
+            display: none;
+        }
+
+        #login_container {
+            margin: 0;
+            padding: 0;
+            z-index: 3;
+            position: absolute;
+
+            top: 40%;
+            right: -22.5%;
+        }
+
+        #login {
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            box-shadow: -7px 3px 10px -1px rgba(0, 0, 0, 0.25), -6px 3px 10px -1px rgba(0, 0, 0, 0.25), -6px -3px 10px -1px rgba(0, 0, 0, 0.25);
+
+            margin: 0;
+            padding: 10%;
+            z-index: 2;
+        }
+
+        #login:hover {
+            box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+
+
+        #register #form {
+            background: rgba(0, 0, 0, 0.9);
+            margin: 2% 0;
+            color: white;
+            padding: 2%;
+        }
+
+        #login_box {
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 3px 10px -1px rgba(0, 0, 0, 0.25), 0 -3px 10px -1px rgba(0, 0, 0, 0.25);
+
+            margin: 0;
+            padding: 0;
+            z-index: 2;
+        }
+
+        #login_box form {
+            margin: 3% 0;
+            border: none;
+        }
+
+        #login_box form input {
+            margin: 2% 0;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            height: 2em;
 
         }
 
-        button {
-            background: rgba(0, 0, 255, 0.85);
+        #login_box form a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #login_box form a:hover {
+
+            color: rgba(255, 255, 255, 1);
+        }
+
+        #login_box form button {
+            background: rgba(50, 50, 255, 0.6);
             color: white;
             border: none;
             padding: 1.5% 4%;
             font-size: 125%;
             z-index: 1;
+            border-radius: 2px;
         }
 
-        button:hover {
+        #login_box form button:hover {
             box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
+        #login_small {
+            display: none;
+        }
+    }
 
-
-        @media (max-width: 992px) {
-            #login {
-                display: none;
-            }
-            #login_container{
-                display:none;
-            }
-            #register {
-                min-height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 2;
-                position: fixed;
-                width: 100%;
-                top: 0;
-                padding: 0;
-                margin: 0;
-                display: none;
-            }
-            #register #form {
-                background: rgba(0, 0, 0, 0.9);
-                width: 100%;
-                margin: 0;
-                color: white;
-                padding: 2%;
-            }
-            #login_small {
-                min-height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 2;
-                position: fixed;
-                width: 100%;
-                top: 0;
-                padding: 0;
-                margin: 0;
-                display: none;
-            }
-            #login_small #form {
-                background: rgba(0, 0, 0, 0.9);
-                width: 100%;
-                margin: 0;
-                color: white;
-                padding: 2%;
-            }
-
-
+</style>
+<script>
+    function reg(x) {
+        if (x === 1) {
+            document.getElementById('register').style.display = 'none';
+            /* $( document.getElementById('red') ).click(function() {
+             $( "#register" ).show( "fade" );
+             });*/
+        } else {
+            /*$( document.getElementById('x') ).click(function() {
+             $( "#register" ).hide( "fade" );
+             });*/
+            document.getElementById('register').style.display = 'block';
         }
 
-        @media (min-width: 992px) {
-            #loginh, #loginl {
-                display: none;
-            }
-            #login_container {
-                margin: 0;
-                padding: 0;
-                z-index: 3;
-                position: absolute;
-
-
-                top:40%;
-                right: -22.5%;
-            }
-
-            #login {
-                background: rgba(0, 0, 0, 0.8);
-                width: 100%;
-                box-shadow: -7px 3px 10px -1px rgba(0, 0, 0, 0.25),-6px 3px 10px -1px rgba(0, 0, 0, 0.25),-6px -3px 10px -1px rgba(0, 0, 0, 0.25);
-
-                margin: 0;
-                padding: 10%;
-                z-index: 2;
-            }
-
-            #login:hover {
-                box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.5);
-                cursor: pointer;
-            }
-            #register {
-                min-height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 2;
-                position: fixed;
-                display: none;
-            }
-
-            #register #form {
-                background: rgba(0, 0, 0, 0.9);
-                margin: 2% 0;
-                color: white;
-                padding: 2%;
-            }
-
-            #login_box {
-                background: rgba(0, 0, 0, 0.8);
-                box-shadow: 0 3px 10px -1px rgba(0, 0, 0, 0.25),0 -3px 10px -1px rgba(0, 0, 0, 0.25);
-
-
-                margin: 0;
-                padding: 0;
-                z-index: 2;
-            }
-            #login_box form{
-                margin:3% 0;
-                border:none;
-            }
-            #login_box form input{
-                margin:2% 0;
-                border:1px solid rgba(0,0,0,0.6);
-                border-radius: 4px;
-                height: 2em;
-
-            }
-            #login_box form a{
-                color: rgba(255,255,255,0.7);
-            }
-            #login_box form a:hover{
-
-                color: rgba(255,255,255,1);
-            }
-            #login_box form button {
-                background: rgba(50, 50, 255, 0.6);
-                color: white;
-                border: none;
-                padding: 1.5% 4%;
-                font-size: 125%;
-                z-index: 1;
-                border-radius: 2px;
-            }
-
-            #login_box form button:hover {
-                box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
-                z-index: 1;
-            }
-            #login_small{
-                display: none;
-            }
+    }
+    function log(x) {
+        if (x === 1) {
+            document.getElementById('login_small').style.display = 'none';
+            /* $( document.getElementById('red') ).click(function() {
+             $( "#register" ).show( "fade" );
+             });*/
+        } else {
+            /*$( document.getElementById('x') ).click(function() {
+             $( "#register" ).hide( "fade" );
+             });*/
+            document.getElementById('login_small').style.display = 'block';
         }
 
-    </style>
-    <script>
-        function reg(x) {
-            if (x === 1) {
-                document.getElementById('register').style.display = 'none';
-                /* $( document.getElementById('red') ).click(function() {
-                 $( "#register" ).show( "fade" );
-                 });*/
-            } else {
-                /*$( document.getElementById('x') ).click(function() {
-                 $( "#register" ).hide( "fade" );
-                 });*/
-                document.getElementById('register').style.display = 'block';
-            }
+    }
+    function login(x) {
+        if (x === 1) {
 
-        }
-        function log(x) {
-            if (x === 1) {
-                document.getElementById('login_small').style.display = 'none';
-                /* $( document.getElementById('red') ).click(function() {
-                 $( "#register" ).show( "fade" );
-                 });*/
-            } else {
-                /*$( document.getElementById('x') ).click(function() {
-                 $( "#register" ).hide( "fade" );
-                 });*/
-                document.getElementById('login_small').style.display = 'block';
-            }
+            document.getElementById('login_container').style.right = '0';
+            document.getElementById('log').innerHTML = "<a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a>";
 
-        }
-        function login(x) {
-              if(x===1){
-
-             document.getElementById('login_container').style.right = '0';
-                  document.getElementById('log').innerHTML ="<a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a>";
-
-             } else{
+        } else {
             document.getElementById('login_container').style.right = '-22.5%';
-             document.getElementById('log').innerHTML ="<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>";
-             }
-
+            document.getElementById('log').innerHTML = "<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>";
         }
-    </script>
+
+    }
+</script>
 </head>
 <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.5);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
 <div style="padding: 0;margin: 0;overflow: hidden">
     <!-- Header -->
-    <div class="col-md-12" style="background: white">
+    <div class="col-md-12" style="background: white;z-index: 3" id="header">
         <!--logo-->
         <div class="row">
 
@@ -263,56 +307,45 @@
 
         </div>
         <!--Menu -->
-        <div class="row" style="box-shadow: 0 15px 15px 0 rgba(0,0,0,0.1);z-index:1;">
-            <div class="col-md-12"
-                 style="color: white;background:rgba(0,0,0,0.9);box-shadow: inset 0 10px 15px 1px rgba(255,255,255,0.2)">
-                <ul class="list-inline" style="margin:0;padding: 0">
-                    <li>
-                        <a href="#"><h4>Home</h4></a>
-                    </li>
-                    <li style="margin-left:4%">
-                        |
-                    </li>
-                    <li style="margin-left:4%">
-                        <a href="#"><h4>Rules</h4></a>
-                    </li>
-                    <li style="margin-left:4%">
-                        |
-                    </li>
-                    <li style="margin-left:4%">
-                        <a href="#"><h4>Prizes</h4></a>
-                    </li>
-                    <li style="margin-left:4%">
-                        |
-                    </li>
-                    <li style="margin-left:4%">
-                        <a href="#" onclick="reg(2)" id="red"><h4>Register</h4></a>
-                    </li>
-                    <li style="margin-left:4%" id="loginl">
-                        |
-                    </li>
-                    <li style="margin-left:4%" id="loginh">
-                        <a href="#" onclick="log(2)"><h4>Login</h4></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
 
     </div>
     <!--Register-->
-    <div id="register" class="col-md-12">
-        <div class="col-md-2"></div>
-        <div class="col-md-8" id="form">
-            <div style="float: right">
-                <a href="#" onclick="reg(1)" id="x">X</a>
+
+    <!--test-->
+    <nav class="navbar navbar-default" role="navigation" style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
             </div>
-            <h2 style="">Register</h2>
 
-            <form action="/register" method="post">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/rule">Rules</a></li>
+                    <li><a href="#">Prizes</a></li>
+                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
+                    <li id="loginh">
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">Login</a>
+                    </li>
 
-            </form>
-        </div>
-    </div>
+                </ul>
+
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!--test-->
+
     <div id="login_small" class="col-md-12">
         <div class="col-md-2"></div>
         <div class="col-md-8" id="form">
@@ -327,6 +360,70 @@
         </div>
     </div>
     <!--Content-->
+    <!--Register-->
+
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
+
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                                   style="color: #ffffff">×</span><span
+                                class="sr-only">Close</span></button>
+                    <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Register</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="/register" method="post">
+
+                        <input name="u_name" type="text" placeholder="Username"/>
+                        <br/>
+                        <input name="pass" type="password" placeholder="Password"/>
+                        <br/>
+                        <a href="#" style="">forgot password?</a>
+                        <br/>
+                        <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!--login modal-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
+
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                                   style="color: #ffffff">×</span><span
+                                class="sr-only">Close</span></button>
+                    <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Login</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="/register" method="post">
+
+                        <input name="u_name" type="text" placeholder="Username"/>
+                        <br/>
+                        <input name="pass" type="password" placeholder="Password"/>
+                        <br/>
+                        <a href="#" style="">forgot password?</a>
+                        <br/>
+                        <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
     <!--login-->
     <div class="col-md-4" style="float: right" id="login_container">
         <div class="row" style="padding: 0;margin: 0">
@@ -341,13 +438,13 @@
             <div class="col-md-8" id="login_box">
                 <form action="/login" method="post">
 
-                        <input name="u_name" type="text" placeholder="Username" />
-                    <br />
-                    <input name="pass" type="password" placeholder="Password" />
-                    <br />
+                    <input name="u_name" type="text" placeholder="Username"/>
+                    <br/>
+                    <input name="pass" type="password" placeholder="Password"/>
+                    <br/>
                     <a href="#" style="">forgot password?</a>
-                    <br />
-                    <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit </button>
+                    <br/>
+                    <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                 </form>
             </div>
         </div>
@@ -374,7 +471,7 @@
         </div>
         <div class="row" style="margin: 2% 0;z-index: 1">
 
-            <button>
+            <button style="margin-bottom: 2%" data-toggle="modal" data-target=".bs-example-modal-lg">
                 Begin
             </button>
         </div>
