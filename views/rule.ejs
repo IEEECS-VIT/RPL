@@ -132,14 +132,21 @@
             </div>
             <div class="modal-body">
                 <form action="/register" method="post">
-
-                    <input name="u_name" type="text" placeholder="Username"/>
+                    <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
+                    <br/>
+                    <input name="m_name" type="text" placeholder="Manager's Name" />
+                    <br/>
+                    <input name="t_name" type="text" placeholder="Team Name"/>
                     <br/>
                     <input name="pass" type="password" placeholder="Password"/>
                     <br/>
-                    <a href="/forgot" style="">forgot password?</a>
+                    <input name="cpass" type="password" placeholder="Confirm Password"/>
                     <br/>
-                    <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+                    <input name="pno" type="text" placeholder="Phone Number"/>
+                    <br/>
+                    <input name="email" type="email" placeholder="example@domain.com"/>
+                    <br/>
+                    <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
                 </form>
             </div>
 
@@ -161,9 +168,9 @@
                 <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Login</h2>
             </div>
             <div class="modal-body">
-                <form action="/register" method="post">
+                <form action="/login" method="post">
 
-                    <input name="u_name" type="text" placeholder="Username"/>
+                    <input name="t_name" type="text" placeholder="Team Name"/>
                     <br/>
                     <input name="pass" type="password" placeholder="Password"/>
                     <br/>
@@ -193,7 +200,7 @@
         <div class="col-md-8" id="login_box">
             <form action="/login" method="post">
 
-                <input name="u_name" type="text" placeholder="Username"/>
+                <input name="t_name" type="text" placeholder="Team Name"/>
                 <br/>
                 <input name="pass" type="password" placeholder="Password"/>
                 <br/>
