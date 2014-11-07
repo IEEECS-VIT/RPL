@@ -60,46 +60,93 @@ function valid_reset(){
     }
 }
 
-function front(){
-    setInterval(function () {change()},100);
-}
-var i=0;
-var f=1;
-var o =1;
-var t;
-function change(){
+function reg_valid()
+{
+    var display = "Error:\n";
+    var team_name = document.signin.t_name;
+    var pass = document.signin.rpass;
+    var cpass = document.signin.rcpass;
+    var email1 = document.signin.email;
+    var mob1 = document.signin.pno;
+    var manager1 = document.signin.m_name;
 
-   var x = document.getElementById('front');
-    if(i==0){
-        o= o - 0.1;
+    var i = 0;
+    if (manager1.value.length == 0)
+    {
+        i++;
+        manager1.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Enter Manager name.\n";
+    }
+    if (team_name.value.length == 0)
+    {
+        i++;
+        team_name.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Enter Team Name.\n";
+    } else if (team_name.value.length > 25) {
+        i++;
+        team_name.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Team Name is too long. Maximum 25 Character.\n";
+    }
+    if (pass.value.length == 0)
+    {
+        i++;
+        pass.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Enter Password.\n";
+    }
+    if (pass.value.length < 8 && pass.value.length != 0)
+    {
+        i++;
+        display += i.toString() + ". Password too short. Minimum 8 characters.\n";
+    }
+    if (cpass.value.length == 0)
+    {
+        i++;
+        cpass.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Enter Confirm Password.\n";
+    }
+
+    if (mob1.value.length == 0)
+    {
+        i++;
+        mob1.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Please enter a phone number.\n";
+    }
+    if (email1.value.length == 0)
+    {
+        i++;
+        email1.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Enter Email.\n";
+    }
+
+    if (pass.value != cpass.value)
+    {
+        i++;
+        pass.style.backgroundColor = 'Yellow';
+        cpass.style.backgroundColor = 'Yellow';
+        display += i.toString() + ". Password and confirm password do not match.\n";
+    }
+    for (var z = 0; z < mob1.value.length; z++)
+    {
+        if (isNaN(mob1.value[z]))
+        {
+            i++;
+            mob1.style.backgroundColor = 'Yellow';
+            display += i.toString() + ". Enter a valid mobile number.\n";
+            break;
+        }
+    }
+
+
+    if (display != "Error:\n")
+    {
+        confirm(display);
+        return false;
 
     }
     else
     {
-        o= o + 0.1;
-        o.toString();
-        x.style.opacity = t;
-
-
+        document.getElementById("reg").action = "/register";
+        document.getElementById("reg").method = "post";
+        document.getElementById("reg").submit();
     }
-
-    if(o<0){
-
-        f = f+1;
-        if(f==5){
-            f=1;
-        }
-        x.src= '/images/front'+ f.toString()+'.jpg';
-        i=1;
-
-            $( "#front" ).fadeIn( "slow", function() {
-// Animation complete
-            });
-
-
-    }else if(o>1)
-        {
-            i=0;
-        }
-
 }

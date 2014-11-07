@@ -132,22 +132,22 @@
                 <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Register</h2>
             </div>
             <div class="modal-body">
-                <form action="/register" method="post">
+                <form action="/register" method="post" name="signin" id="reg">
                     <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
                     <br/>
-                    <input name="m_name" type="text" placeholder="Manager's Name" />
+                    <input name="m_name" type="text" placeholder="Manager's Name" id="m_name" />
                     <br/>
-                    <input name="t_name" type="text" placeholder="Team Name"/>
+                    <input name="t_name" type="text" placeholder="Team Name" id="t_name"/>
                     <br/>
-                    <input name="pass" type="password" placeholder="Password"/>
+                    <input name="rpass" type="password" placeholder="Password" id="rpass"/>
                     <br/>
-                    <input name="cpass" type="password" placeholder="Confirm Password"/>
+                    <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass"/>
                     <br/>
-                    <input name="pno" type="text" placeholder="Phone Number"/>
+                    <input name="pno" type="text" placeholder="Phone Number" id="pno"/>
                     <br/>
-                    <input name="email" type="email" placeholder="example@domain.com"/>
+                    <input name="email" type="email" placeholder="example@domain.com" id="email"/>
                     <br/>
-                    <a href="#" class="button" style="font-size: 100%;margin: 2%">Submit</a>
+                    <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
                 </form>
             </div>
 
@@ -253,9 +253,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4" align="center"><a href="#">Riviera</a></div>
-        <div class="col-md-4" align="center"><a href="#">IEEE CS</a></div>
-        <div class="col-md-4" align="center"><a href="#">VIT</a></div>
+        <div class="col-md-4" align="center"><a href="http://www.vitriviera.com/"><img src="/images/riviera.png" style="width: 100%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="http://www.vit.ac.in/"><img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/></a></div>
 
     </div>
 </div>
