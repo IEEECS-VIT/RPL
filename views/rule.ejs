@@ -35,6 +35,14 @@
     <script src="/javascript/rpl.js"></script>
 </head>
 <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.5);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <!-- Container -->
 <div style="padding: 0;margin: 0;overflow: hidden">
 <!-- Header -->
@@ -64,6 +72,7 @@
 <!--Register-->
 
 <!--test-->
+
 <nav class="navbar navbar-default" role="navigation"
      style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
     <div class="container-fluid">
@@ -88,11 +97,14 @@
                 <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
                 <li id="loginh">
                     <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">Login</a>
+
                 </li>
 
             </ul>
-
-
+            <div id="fb-root"></div>
+            <div id="login_small" class="col-md-4">
+                <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true" style="margin:10%"></div>
+            </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -101,19 +113,7 @@
 
 <!--test-->
 
-<div id="login_small" class="col-md-12">
-    <div class="col-md-2"></div>
-    <div class="col-md-8" id="form">
-        <div style="float: right">
-            <a href="#" onclick="log(1)" id="x">X</a>
-        </div>
-        <h2 style="">Login</h2>
 
-        <form action="/login" method="post">
-
-        </form>
-    </div>
-</div>
 <!--Content-->
 <!--Register-->
 
@@ -216,53 +216,100 @@
     <div class="col-md-2"></div>
     <div align="center" class="col-md-8 box"
          style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 ">
-                <img src="#" style="width: 100%; margin: 4% 0 0 0">
-            </div>
-        </div>
 
-        <div class="row" style="text-align: center;margin-bottom: 1%">
-            <h3>
-                <small>Rule 1</small>
-            </h3>
+
+        <div class="row" style="text-align: left;margin: 2%">
+            <h1>
+                <small>Riviera Premier League is a Football Fantasy Premier League where you can create and manage your own football team!</small>
+            </h1>
+
+            <h2 id="ini" style="font-weight: bold; text-decoration: underline"><small>Initial Prep</small></h2>
+            <h4 ><small>
+                After you sign up you will be taken to the player selection page where you will decide your team.
+<br/><br/>
+                You will be give 100 million Euro in virtual money which you have to use to buy your team.
+<br/><br/>
+                The players are segregated into four categories: Forward, Midfielder, Defender and Goalkeeper. You need to choose atleast 1 of each type.
+<br/><br/>
+                The total number of players in your squad has to be 16.
+<br/><br/>
+                Now you will be taken to the formation selection page where you will have to select a playing formation for your team and decide who to put where.
+<br/><br/>
+                Note that if this is not done before the start of the matches then your team will automatically lose the match.
+<br/><br/>
+                After the initial prep is completed, you can login whenever you wish and change your formation!
+                </small> </h4>
+            <h2 id="lay" style="font-weight: bold; text-decoration: underline"><small>Layout</small></h2>
+            <h4><small>
+                    Once the league begins, your team will be pit against random opponents for 7 matches which will happen once each day.
+                    <br/><br/>
+                    After the first round of matches has been completed, the top 512 will be selected for the second round.
+                    <br/><br/>
+                    The second round will proceed in exactly the same manner as the first, only this time 8 people will be allowed through to the final round.
+                    <br/><br/>
+                    The final round is a LIVE AUCTION!
+                    <br/><br/>
+                    For the final round the shortlisted participants will have to come to VIT University during Riviera on 8th of February.
+                    <br/><br/>
+                    Once here the finalists will participate in live auctions with 100 million dollars in virtual money. and select their team again.
+                    <br/><br/>
+                    These teams will now play 7 matches and the top 3 out of these will be awarded the prizes!!
+            </small></h4>
+            <h2 id="mat" style="font-weight: bold; text-decoration: underline"><small>Matches</small></h2>
+            <h4><small>
+                    The matches will be simulated using a complex algorithm which we are not disclosing to maintain the integrity of the game.
+                    <br/><br/>
+                    Each win will fetch the team 3 points, lose will fetch 0 points and draw will fetch 1 point.
+                    <br/><br/>
+                    While selecting Teams for subsequent rounds, teams with same number of points will be considered on the basis of their Goal Difference and if GD is the same then the Goal Scored by the teams will be taken into consideration.
+            </small></h4>
+            <h2 id="liv" style="font-weight: bold; text-decoration: underline"><small>Live Auction</small></h2>
+            <h4><small>
+                    The buy-out limit for each participant is virtual Euro 100 million only.
+                    <br/><br/>
+                    There are four categories of purchases namely, Forwards, Midfielders, Defenders and Goalkeeper. Each squad
+                    must conform to the following structure total: 16 members only
+                    In extension, each playing eleven must confine to the following structure:
+                    Minimum Criteria: 1 Forward, 1 Goalkeeper, 1 Defenders, 1 Midfielders.
+                    <br/><br/>
+                    Bidding for football players starts at 10% of the base value stated within the informatory presentation(s), a
+                    copy of which shall be distributed to each participant prior to the commencement of the actual auction itself.
+                    <br/><br/>
+                    In order for a particular footballer to be eligible for bidding, the motion to bid must be ratified by at least
+                    one-half of the participants, via a show of hands.
+                    <br/><br/>
+                    If only one participant has exhibited interest for a particular player, then he / she is given the choice of buying
+                    that player at the indicated base price.
+                    <br/><br/>
+                    The minimum difference between two successive bids must be a minimum of virtual Euro 200,000/ -
+                    <br/><br/>
+                    In the event that a participant is unable to complete the 16 man squad within the prescribed structure, she /
+                    he shall be ejected from the auction immediately, all her / his bought players shall be returned to the auction
+                    pool and shall be subjected to the process of re-bidding.
+                    <br/><br/>
+                    Each participant shall be provided with an assistant, for the purposes of convenience. This assistant may not
+                    guide the participant on / with regard to any purchasing tactics whatsoever.
+                    <br/><br/>
+                    Periodic updates with regard to the remaining funds in the participant’s auction purse may be
+                    obtained on request from the auditor via that participant’s assistant only.
+                    <br/><br/>
+                    Disputes, if any, shall be resolved at the auctioneer’s discretion. Under no circumstances may participants
+                    engage in cross-talk.
+                    <br/><br/>
+                    Failure to comply with any of the aforementioned instructions shall result in immediate disqualification.
+            </small></h4>
+            <h5 style="font-weight: bold; text-decoration: underline"><small>Disclamer</small></h5>
+            <h6><small>
+                    All of the rules mentioned above are subject to change without any prior notice whatsoever. By appearing for the aforementioned auction, you agree to abide by the rules contained herein.
+                    <br/><br/>
+                    Disputes, if any, shall be resolved at the Event Coordinator’s discretion.
+            </small></h6>
+
         </div>
 
     </div>
 
-    <div align="center" class="col-md-4  col-md-offset-1  box"
-         style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 ">
-                <img src="#" style="width: 100%; margin: 4% 0 0 0">
-            </div>
-        </div>
 
-        <div class="row" style="text-align: center;margin-bottom: 1%">
-            <h3>
-                <small>Rule Split</small>
-            </h3>
-        </div>
-
-    </div>
-    <div align="center" class="col-md-4  col-md-offset-2  box"
-         style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 ">
-                <img src="#" style="width: 100%; margin: 4% 0 0 0">
-            </div>
-        </div>
-
-        <div class="row" style="text-align: center;margin-bottom: 1%">
-            <h3>
-                <small>Rule Split</small>
-            </h3>
-        </div>
-
-    </div>
 
 
 
@@ -289,6 +336,7 @@
         <div class="col-md-4" align="center"><a href="http://www.vit.ac.in/"><img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/></a></div>
 
     </div>
+    <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 </div>
 
 </div>
