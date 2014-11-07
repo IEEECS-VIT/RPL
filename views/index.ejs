@@ -23,151 +23,311 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>RPL</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/foundation/css/foundation.css"/>
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
+    <title>Riviera Premier League</title>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+
+    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
-    <script src="/bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
-    <script src="/bower_components/foundation/js/foundation/foundation.topbar.js"></script>
+    <script src="/javascript/rpl.js"></script>
+
 </head>
-<body style="background-color:#646464;font-family: 'PT Sans', sans-serif;height:100%;">
-<div style="min-height: 100%">
-    <div class="top-bar" data-topbar style="overflow: visible;" role="navigation">
-        <section class="top-bar-section small-only-text-center">
-            <ul class="left">
-                <li><a href="/"><img src="/images/small.png" style="height:42px;padding-bottom:3px;"/></a></li>
-                <li><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs.png" style="height:40px;"
-                                                                      align="center"/></a></li>
-
-            </ul>
-            <ul class="right">
-                <li class="has-dropdown not-click" style="border-radius: 5px">
-                    <a href="#" style="border-radius: 5px">Sign In</a>
-                    <ul class="dropdown" style="width:300%;">
-                        <form method="post" action="/login">
-                            <li class="title back js-generated">
-                                <h5>
-                                    <a href="javascript:void(0)">
-                                        Back
-                                    </a>
-                                </h5>
-                            </li>
+<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<div id="fb-root"></div>
 
 
-                            <li>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<!-- Container -->
+<div style="padding: 0;margin: 0;overflow: hidden">
+<!-- Header -->
+<div class="col-md-12" style="background: white;z-index: 3" id="header">
+    <!--logo-->
+    <div class="row">
 
-                                <div class="small-12 left" style="margin:1%;padding-bottom: 5%">
-                                    <div class="row">
-                                        <div class="small-3 columns" style="margin-left: -5%">
-                                            <label for="team" class="right inline" style="color: white;">Team
-                                                Name: </label>
-                                        </div>
-                                        <div class="small-9 columns">
-                                            <input type="text" id="team" name="team_name" placeholder="Team Name"
-                                                   value=""
-                                                   style="margin:-4% 0 0 1%;border-radius: 5px">
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="col-md-1 col-md-offset-2" align="center">
+            <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+        </div>
+        <div class="col-md-1"></div>
+        <!--Riviera Premier League -->
+        <div class="col-md-6" align="center" style="margin-left: -5%">
 
+            <h1 style="margin-top:7%">
+                <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League</small>
+            </h1>
 
-                                <!--Username/Team Name -->
-
-
-                                <div class="small-12 left" style="margin:1%;padding-bottom: 5%">
-                                    <div class="row" style="margin-top: 2%">
-                                        <div class="small-3 columns" style="margin-left: -5%">
-                                            <label for="pass" class="right inline"
-                                                   style="color: white;">Password: </label>
-                                        </div>
-                                        <div class="small-9 columns">
-                                            <input type="password" id="p
-                              ass" placeholder="Password" name="password" value=""
-                                                   style="margin:-4% 0 0 1%;border-radius: 5px">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- password-->
+        </div>
 
 
-                            </li>
-                            <li>
-                                <input type="submit" align="center" class="button [tiny small large]" value="Login"
-                                       id="button" name="login"
-                                       style="border-radius: 5px;background: rgba(30,30,30,1);margin-left: 38%;margin-bottom: 3%;"/>
-                            </li>
+    </div>
+    <!--Menu -->
 
 
-                        </form>
-                    </ul>
+</div>
+<!--Register-->
+<div id="login_small" class="col-md-4">
+    <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true" style="margin:10%"></div>
+</div>
+<!--test-->
+<nav class="navbar navbar-default" role="navigation"
+     style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/rule">Rules</a></li>
+                <li><a href="/prizes">Prizes</a></li>
+                <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
+                <li id="loginh">
+                    <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">Login</a>
                 </li>
+
             </ul>
 
-        </section>
+
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-    <!-- top bar -->
-    <br/>
+    <!-- /.container-fluid -->
+</nav>
 
-    <div class="row" align="center">
-        <ul class="breadcrumbs"
-            style="background:rgba(30,30,30,0.9); border: none; box-shadow: inset 0 0 5px 3px rgba(255,255,255,0.2);">
-            <li class="current"><a href="#" style="color: lightsteelblue;">Home</a></li>
-            <li><a href="/rule" style="color:#ffffff;">Rules</a></li>
-            <li><a href="/prizes" style="color:#ffffff;">Prizes</a></li>
-            <li><a href="/sponsor" style="color:#ffffff;">Sponsors</a></li>
-            <li><a href="/trail" style="color:#ffffff;">Trailer</a></li>
-        </ul>
+<!--test-->
+
+<div id="login_small" class="col-md-12">
+    <div class="col-md-2"></div>
+    <div class="col-md-8" id="form">
+        <div style="float: right">
+            <a href="#" onclick="log(1)" id="x">X</a>
+        </div>
+        <h2 style="">Login</h2>
+
+        <form action="/login" method="post">
+
+        </form>
     </div>
-    <div class="row" align="center">
-        <% if (response.length != 0) { %>
-        <p style="text-align: center;color: red;padding: 2%;font-weight: bold;margin: 1%;"><%= response %></p>
-        <% } else {
-        } %>
-        <div class="small-12 medium-12 large-12 columns"
-             style="background:rgba(32,98,172,0.9); border-radius: 5px 5px 5px 5px;border:5px;box-shadow: inset 20px 0 20px -10px rgba(0,0,0,0.2), inset -20px 0 20px -10px rgba(0,0,0,0.2),inset 0 -20px 20px rgba(0,0,0,0.2),inset 0 20px 20px rgba(0,0,0,0.2);">
-            <p style="margin-top:3%;font-family: 'PT Sans', sans-serif;font-size: 180%;color: white;font-weight:normal ">
-                Registrations are closed. <br />Please create your teams if you have not done so already.
-            </p>
+</div>
+<!--Content-->
+<!--Register-->
 
-            <img src="/images/logo.png" style="width:50%;margin:3%;margin-top: -5%"/>
 
-            <p style="margin-top:-5%;font-family: 'PT Sans', sans-serif;font-size: 180%;color: white;font-weight:normal ">
-                This <b>Riviera</b>, feel what it is like to be the owner of your very own football team.</p>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                               style="color: #ffffff">×</span><span
+                            class="sr-only">Close</span></button>
+                <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Register</h2>
+            </div>
+            <div class="modal-body">
+                <form action="/register" method="post" name="signin" id="reg">
+                    <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
+                    <br/>
+                    <input name="m_name" type="text" placeholder="Manager's Name" id="m_name" />
+                    <br/>
+                    <input name="t_name" type="text" placeholder="Team Name" id="t_name"/>
+                    <br/>
+                    <input name="rpass" type="password" placeholder="Password" id="rpass"/>
+                    <br/>
+                    <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass"/>
+                    <br/>
+                    <input name="pno" type="text" placeholder="Phone Number" id="pno"/>
+                    <br/>
+                    <input name="email" type="email" placeholder="example@domain.com" id="email"/>
+                    <br/>
+                    <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--login modal-->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                               style="color: #ffffff">×</span><span
+                            class="sr-only">Close</span></button>
+                <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Login</h2>
+            </div>
+            <div class="modal-body">
+                <form action="/login" method="post">
+
+                    <input name="t_name" type="text" placeholder="Team Name"/>
+                    <br/>
+                    <input name="pass" type="password" placeholder="Password"/>
+                    <br/>
+                    <a href="#" style="">forgot password?</a>
+                    <br/>
+                    <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!--login-->
+<div class="col-md-4" style="float: right" id="login_container">
+    <div class="row" style="padding: 0;margin: 0">
+        <div class="col-md-4" style="margin:0;padding: 0" id="log">
+            <a href="#" onclick="login(1)">
+                <div class="col-md-12" id="login">
+                    Login
+                </div>
+
+            </a>
+        </div>
+        <div class="col-md-8" id="login_box">
+            <form action="/login" method="post">
+
+                <input name="t_name" type="text" placeholder="Team Name"/>
+                <br/>
+                <input name="pass" type="password" placeholder="Password"/>
+                <br/>
+                <a href="/forgot" style="">forgot password?</a>
+                <br/>
+                <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Rules-->
+<div class="row">
+
+
+    <div align="center" class="col-md-8 col-md-offset-2"
+         style="background: rgba(255,255,255,1);margin-bottom: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+        <div class="row">
+
+            <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1 col-xs-10 col-xs-offset-1"  style="margin-top: 2%">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="/images/front1.jpg" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="/images/front2.jpg" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="/images/front3.jpg" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="/images/front4.jpg" alt="...">
+                            <div class="carousel-caption">
+                                ...
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                </div>
+        </div>
+        <div class="col-md-12" style="display: none">
+            <h1 style="font-size: 700%"> I love upma</h1>
+        </div>
+        <div class="row" style="text-align: center;margin-bottom: 1%">
+            <h2>
+                <small>The ultimate league is here this Riviera.<br/>Do you have what it takes to come out on top?<br/>Join
+                    the phenomenon.
+                </small>
+            </h2>
+        </div>
+        <div class="row" style="margin: 2% 0;z-index: 1">
+
+            <button style="margin-bottom: 2%" data-toggle="modal" data-target=".bs-example-modal-lg">
+                Begin
+            </button>
         </div>
     </div>
 
+
+
 </div>
-<!-- content -->
-<footer class="large-12" style="bottom:0; position:relative;">
-    <div class="top-bar" style="position:relative;margin:2% 0 0 0; overflow: hidden;">
-        <section class="top-bar-section">
-            <ul class="left">
-                <li style="display:block;"><a href="http://vitriviera.com/"><img src="/images/riviera.png"
-                                                                                  style="height:45px;"/></a></li>
-                <li><a href="http://www.vit.ac.in"><img src="/images/vit_logo_white.png"
-                                                        style="height:40px;padding-top: 5px" align="center"/></a></li>
-            </ul>
-            <ul class="right">
+<!--Footer -->
+<div class="col-md-12"
+     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
+    <hr/>
+    <div class="row">
+        <div class="col-md-12" align="center" style="text-align: center">
+            <a href="/developer">
+                <h4>
+                    Developers
+                </h4>
+            </a>
 
-                <li><a href="/developer"><img src="/images/symbol.png" style="height:35px;" align="center"/><span
-                                style="color:white;text-shadow: 1px 1px rgba(68,59,50,1);">Developers</span></a></li>
-
-            </ul>
-
-        </section>
-        <p style="margin-left: 46%; font-size:60%;color:white;bottom:0; margin-top:2%">&copy;IEEE-CS VIT Chapter</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" align="center"><a href="http://www.vitriviera.com/"><img src="/images/riviera.png" style="width: 100%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="http://www.vit.ac.in/"><img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/></a></div>
 
     </div>
-</footer>
-<!-- footer -->
-<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="/bower_components/foundation/js/foundation.min.js"></script>
-<script>
-    $(document).foundation();
+</div>
 
-    var doc = document.documentElement;
-    doc.setAttribute('data-useragent', navigator.userAgent);
-</script>
+</div>
 </body>
 </html>
+
