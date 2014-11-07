@@ -59,3 +59,47 @@ function valid_reset(){
         document.reset.submit();
     }
 }
+
+function front(){
+    setInterval(function () {change()},100);
+}
+var i=0;
+var f=1;
+var o =1;
+var t;
+function change(){
+
+   var x = document.getElementById('front');
+    if(i==0){
+        o= o - 0.1;
+
+    }
+    else
+    {
+        o= o + 0.1;
+        o.toString();
+        x.style.opacity = t;
+
+
+    }
+
+    if(o<0){
+
+        f = f+1;
+        if(f==5){
+            f=1;
+        }
+        x.src= '/images/front'+ f.toString()+'.jpg';
+        i=1;
+
+            $( "#front" ).fadeIn( "slow", function() {
+// Animation complete
+            });
+
+
+    }else if(o>1)
+        {
+            i=0;
+        }
+
+}
