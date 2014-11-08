@@ -32,12 +32,16 @@ function log(x) {
 function login(x) {
     if (x === 1) {
 
-        document.getElementById('login_container').style.right = '0';
+        document.getElementById('login_container').className = 'col-md-4';
+        document.getElementById('log').className = 'col-md-4';
         document.getElementById('log').innerHTML = "<a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a>";
+        document.getElementById('login_box').style.display = 'block';
 
     } else {
-        document.getElementById('login_container').style.right = '-22.5%';
+        document.getElementById('log').className = 'col-md-12';
+        document.getElementById('login_container').className = 'col-md-1';
         document.getElementById('log').innerHTML = "<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>";
+        document.getElementById('login_box').style.display = 'none';
     }
 
 }

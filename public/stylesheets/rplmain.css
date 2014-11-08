@@ -170,7 +170,7 @@ button:hover {
         position: absolute;
 
         top: 40%;
-        right: -22.5%;
+        right: 0;
     }
 
     #login {
