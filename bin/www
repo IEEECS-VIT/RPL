@@ -32,7 +32,7 @@ if (process.env.LOGENTRIES_TOKEN)
                             });
 }
 
-var debug = require('debug')('GPL');
+var debug = require('debug')('RPL');
 var path = require('path');
 
 var app = require(path.join(__dirname, '..', 'app'));
@@ -41,7 +41,7 @@ app.set('port', process.env.PORT || 3000);
 
 var onBind = function ()
 {
-    var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/GPL';
+    var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
     if (log)
     {
         log.log('info', {MongoUri: mongoUri, Port: server.address().port});
