@@ -32,6 +32,7 @@ if (process.env.LOGENTRIES_TOKEN)
 
 var mongoInterest = require(path.join(__dirname, '..', '..', 'db', 'mongo-interest'));
 var mongoUsers = require(path.join(__dirname, '..', '..', 'db', 'mongo-users'));
+var mongoPlayers = require(path.join(__dirname, '..', '..', 'db', 'mongo-players'));
 
 
 router.get('/', function (req, res)
@@ -375,6 +376,68 @@ router.get('/schedule', function (req, res) // schedule page
         session = 0;
     }
     res.render('schedule', {results: session });
+});
+
+router.get('/players', function (req, res) // page for all players, only available if no squad has been chosen
+{
+    var players = {};
+    var session;
+    if (req.signedCookies.name)
+    {
+        session = 1;
+    }
+    else
+    {
+        session = 0;
+    }
+
+    /*if (req.signedCookies.name)
+    {
+        var doc = {
+            "_id": req.signedCookies.name
+        };
+        var onFetchUser = function (err, document)
+        {
+            if (err)
+            {
+                //do something with the error
+                console.log(err.message);
+
+            }
+            else
+            {
+                if (document.team.length != 0)
+                {
+                    res.redirect("/home");
+                }
+                else
+                {*/
+                    var onFetch = function (err, documents)
+                    {
+                        if (err)
+                        {
+                            res.redirect('/home');
+                        }
+                        else
+                        {
+                            res.render('players', {
+                                Players: documents
+                            });
+                        }
+
+                    };
+                    mongoPlayers.fetchPlayers(onFetch);
+
+
+
+
+
+   /* }
+    else
+    {
+        res.redirect("/");
+    }*/
+    res.render('players', {Players: players});
 });
 
 module.exports = router;

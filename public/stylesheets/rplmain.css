@@ -6,15 +6,82 @@
 #bs-example-navbar-collapse-1 a:hover {
     color: white;
 }
+#home-bs-example-navbar-collapse-1 a {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#home-bs-example-navbar-collapse-1 a:hover {
+    color: white;
+}
 
 a {
     color: white;
 }
+/*#myTab{
+    padding: 0;
+    margin: 0;
+    background: none;
 
+}
+#myTab li{
+    background:rgba(0,0,0,0.8);
+    border: 0;
+    border-radius:0 ;
+    padding: 0;
+    margin: 0;
+
+}
+#myTab li a:hover{
+    background:rgba(0,0,0,0.8);
+    border-color:rgba(0,0,0,0.8) ;
+    border-radius:0 ;
+
+}
+#myTab .active a:hover{
+    background:rgba(255,255,255,1);
+    border-radius:0 ;
+    border-color: rgba(255,255,255,1);
+}
+#myTab .active a{
+    background:rgba(255,255,255,1);
+    border-radius:0 ;
+    border-color:white;
+}
+*/
 #bs-example-navbar-collapse-1 li.active a {
     color: rgba(0, 0, 0, 0.8);
     background: rgba(255, 255, 255, 0.8);
 }
+.content_wrap{
+    margin:0;
+    margin-bottom:2%;
+    padding: 0;
+}
+#dashboard_head{
+    padding: 0;
+    margin:0;
+}
+#dashboard_head a{
+
+    color: rgba(255,255,255,0.8);
+
+}
+#dashboard_head a:hover{
+
+    color: rgba(255,255,255,1);
+
+}
+#dashboard_head .active a{
+
+    color: rgba(0,0,0,0.7);
+
+}
+#dashboard_head .active a:hover{
+
+    color: rgba(0,0,0,0.8);
+
+}
+
 
 a:hover {
     text-decoration: underline;
@@ -60,7 +127,10 @@ button:hover {
     box-shadow: inset 0 0 5px 5px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
-
+#player_list{
+    background: rgba(0,0,0,0.9);
+    margin:0;
+}
 #login_small {
     display: none;
 }
@@ -81,12 +151,63 @@ button:hover {
     width: 100%;
     height: 10em;
 }
+#tab{
+    margin:0;
+    z-index: 2;
+    background: rgba(0,0,0,0.9);
+    position: relative;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+#list {
+    margin:0;
+    z-index: 2;
+    background: none;
+    position: relative;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+#squad{
+    border: none;
+    background: none;
+    color: #000000;
+    text-align: center;
+    margin:0 auto;
+
+
+}
+#squad li{
+    float: none;
+
+}
+
 
 @media (max-width: 992px) {
+
+
+    #squad h3,#squad hr{
+        display:none;
+    }
     #header {
         display: none;
     }
+    #dashboard_head{
+        background: rgba(0,0,0,0.9);
+    }
+    #player_list{
+        background: none;
+        padding:0;
+    }
 
+    #tab{
+        background: none;
+    }
+    #player_list h3{
+        display: none;
+    }
     #brand {
         display: block;
         color: rgba(255, 255, 255, 0.7);
@@ -143,10 +264,81 @@ button:hover {
         color: white;
         padding: 2%;
     }
-
+    #squad li{
+        float: left;
+    }
+    #squad ul{
+        margin:0;
+    }
+    #dis1,#dis2,#dis3,#dis4{
+        display: none;
+    }
 }
 
 @media (min-width: 992px) {
+    #dis1,#dis2,#dis3,#dis4{
+        list-style: none;
+        width: 100%;
+        color: white;
+
+        margin: 0;
+        text-align: center;
+        padding: 0;
+    }
+    #dis1 p ,#dis2 p ,#dis3 p ,#dis4 p{
+        margin:0;
+        padding:0;
+
+        width: 80%;
+
+    }
+
+    #dis1 li ,#dis2 li ,#dis3 li ,#dis4 li{
+        display: block;
+        padding: 15px;
+
+    }
+    #dis1 img,#dis2 img,#dis3 img,#dis4 img{
+        width:30%;
+        float: left;
+
+
+    }
+    #dis1 a,#dis2 a,#dis3 a,#dis4 a{
+        width:20%;
+        float: right;
+    }
+    #player_list{
+        float: left;
+    }
+    #player_list h3{
+        color: white;
+    }
+    #squad{
+        width: 100%;
+
+    }
+    #squad ul{
+        margin:0  auto;
+        width: 100%;
+
+    }
+    #squad ul hr{
+        margin-top: 0;
+    }
+    #myTab{
+        float: right;
+    }
+    #home-bs-example-navbar-collapse-1 li {
+        padding: 0;
+        font-size: 130%;
+        left:19%;
+        margin-left: 3%;
+    }
+    #home-bs-example-navbar-collapse-1 ul {
+        width: 100%;
+
+    }
     #bs-example-navbar-collapse-1 li {
         padding: 0;
         font-size: 130%;
