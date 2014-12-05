@@ -18,8 +18,9 @@
 
 var async = require('async');
 var MongoClient = require('mongodb').MongoClient;
-
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/GPL';
+var path = require('path');
+var match = require(path.join(__dirname, 'matchCollection'));
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
 
 var getPlayer = function (id, callback)
 {
@@ -61,7 +62,7 @@ exports.getTeam = function (doc, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
 
             var onFetch = function (err, document)
             {
@@ -97,7 +98,7 @@ exports.getSquad = function (doc, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onFinish = function (err, documents)
             {
                 var onGetCoach = function (err, doc)

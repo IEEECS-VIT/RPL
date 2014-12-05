@@ -190,17 +190,17 @@ function ch(r)
     {
         var asd = 'ct' + String(r);
         var y = document.getElementById(asd);
-        if (cb == 0 && y.value.localeCompare('bat') == 0)
+        if (cb == 0 && y.value.localeCompare('midfielders') == 0)
         {
             alert("Maximum number of Batsmen reached");
             return -1;
         }
-        if (cbo == 0 && y.value.localeCompare('bowl') == 0)
+        if (cbo == 0 && y.value.localeCompare('defenders') == 0)
         {
             alert("Maximum number of Bowlers reached");
             return -1;
         }
-        if (ca == 0 && y.value.localeCompare('all') == 0)
+        if (ca == 0 && y.value.localeCompare('strikers') == 0)
         {
             alert("Maximum number of All Rounders reached");
             return -1;
@@ -219,15 +219,15 @@ function ch(r)
 
         t = 'ct' + String(team[a]);
         z = document.getElementById(t);
-        if (z.value.localeCompare('bat') == 0)
+        if (z.value.localeCompare('midfielders') == 0)
         {
             b++;
         }
-        else if (z.value.localeCompare('bowl') == 0)
+        else if (z.value.localeCompare('defenders') == 0)
         {
             bo++;
         }
-        else if (z.value.localeCompare('all') == 0)
+        else if (z.value.localeCompare('strikers') == 0)
         {
             al++;
         }

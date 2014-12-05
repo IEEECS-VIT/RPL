@@ -217,7 +217,7 @@ var FlipClock;
     FlipClock.Lang = {};
 
     /**
-     * The Base FlipClock class is used to extend all other FlipFlock
+     * The Base FlipClock class is used to extend strikers other FlipFlock
      * classes. It handles the callbacks and the basic setters/getters
      *
      * @param    object  An object of the default properties
@@ -315,7 +315,7 @@ var FlipClock;
                                      },
 
                                      /**
-                                      * Get all options
+                                      * Get strikers options
                                       *
                                       * @return    bool
                                       */
@@ -376,7 +376,7 @@ var FlipClock;
 
     /**
      * The FlipClock Face class is the base class in which to extend
-     * all other FlockClock.Face classes.
+     * strikers other FlockClock.Face classes.
      *
      * @param    object  The parent FlipClock.Factory object
      * @param    object  An object of properties to override the default
@@ -673,7 +673,7 @@ var FlipClock;
 
     /**
      * The FlipClock Factory class is used to build the clock and manage
-     * all the public methods.
+     * strikers the public methods.
      *
      * @param    object  A jQuery object or CSS selector used to fetch
      the wrapping DOM nodes

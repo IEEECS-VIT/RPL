@@ -51,7 +51,7 @@ if (newrelic)
 var loggerLevel = process.env.LOGGER_LEVEL || 'dev';
 app.use(logger(loggerLevel));
 
-app.set('title', 'GPL');
+app.set('title', 'RPL');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 

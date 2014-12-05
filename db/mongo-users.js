@@ -17,8 +17,9 @@
  */
 
 var MongoClient = require('mongodb').MongoClient;
-
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/GPL';
+var path = require('path');
+var match = require(path.join(__dirname, 'matchCollection'));
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
 var log;
 if (process.env.LOGENTRIES_TOKEN)
 {
@@ -38,7 +39,7 @@ exports.getCount = function (callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onFetch = function (err, count)
             {
                 db.close();
@@ -68,7 +69,7 @@ exports.insert = function (doc, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onInsert = function (err, docs)
             {
                 db.close();
@@ -97,7 +98,7 @@ exports.fetch = function (doc, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onFetch = function (err, document)
             {
                 db.close();
@@ -141,7 +142,7 @@ exports.getleader = function (doc, callback)
         else
         {
             console.log("get Leader Function3");
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onFetch = function (err, documents)
             {
                 if (err)
@@ -196,7 +197,7 @@ exports.forgotPassword = function (doc, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onFetch = function (err, document)
             {
                 db.close();
@@ -236,7 +237,7 @@ exports.updateUserTeam = function (doc, arr, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onUpdate = function (err, document)
             {
                 if (err)
@@ -265,7 +266,7 @@ exports.updateUserSquad = function (doc, arr, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onUpdate = function (err, document)
             {
                 if (err)
@@ -295,7 +296,7 @@ exports.fetchUser = function (doc, callback)
         }
         else
         {
-            var collection = db.collection('round3');
+            var collection = db.collection(match);
             var onFetch = function (err, document)
             {
                 db.close();
@@ -325,7 +326,7 @@ exports.update = function (query, update, callback)
         }
         else
         {
-            var collection = db.collection("round3");
+            var collection = db.collection(match);
             var onUpdate = function (err, doc)
             {
                 db.close();
