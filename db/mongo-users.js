@@ -18,7 +18,7 @@
 
 var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
-var match = require(path.join(__dirname, '../matchCollection'));
+var match = require(path.join(__dirname, '..','matchCollection'));
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
 var log;
 if (process.env.LOGENTRIES_TOKEN)
