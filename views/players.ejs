@@ -36,7 +36,8 @@
 
     <script src="/javascript/rpl_players.js"></script>
     <script type="text/javascript" rel="script">
-
+    var x = document.getElementById('dashboard_header');
+    document.onresize(function () {alert(" ");});
     </script>
 
 
@@ -49,7 +50,7 @@
     <!--logo-->
     <div class="row">
 
-        <div class="col-md-1 col-md-offset-2" align="center">
+        <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
             <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
         </div>
         <div class="col-md-1"></div>
@@ -71,7 +72,7 @@
 <!--Register-->
 
 <!--test-->
-<nav class="navbar navbar-default" role="navigation"
+<nav class="navbar navbar-default " role="navigation"
      style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -94,7 +95,7 @@
                 <li><a href="#">Leaderboard</a></li>
                 <li><a href="/rule">Rules</a></li>
                 <li><a href="/prizes">Prizes</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/logout">Logout</a></li>
 
 
             </ul>
@@ -111,181 +112,267 @@
 
 <!--Content-->
 <div class="content_wrap row">
-    <div id="dashboard_head" class="col-md-12">
+<div id="affix-top">
 
-        <div class="col-md-3" id="player_list">
-            <h3 >
-                Squad
-                <hr />
-                <small style="font-size: 60%">
-                    BUDGET:1000000
-                </small>
-            </h3>
-
-            <nav class="navbar navbar-default" role="navigation" id="list">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#squad">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#" id="brand">Squad <small style="font-size: 60%">Budget:1000000</small></a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="squad" >
-
-                        <ul class="nav navbar-nav">
-                            <li><a href="#"><h4>Forwards</h4></a>
-                            <hr />
-                                <ul id="dis1">
-                                    <li><img src="#" /><a href="#">X</a><p>Player 1</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 2</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 3</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 4</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 5</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 6</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 7</p><br/> <p>Cost</p></li>
-                                </ul>
-                            </li>
-                            <li><a href="#"><h4>Midfielders</h4></a></li>
-                            <hr />
-                                <ul id="dis2">
-                                    <li><img src="#" /><a href="#">X</a><p>Player 1</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 2</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 3</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 4</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 5</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 6</p><br/> <p>Cost</p></li>
-                                    <li><img src="#" /><a href="#">X</a><p>Player 7</p><br/> <p>Cost</p></li>
-                                </ul>
-                            <li><a href="#"><h4>Defenders</h4></a></li>
-                            <hr />
-                            <ul id="dis3">
-                                <li><img src="#" /><a href="#">X</a><p>Player 1</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 2</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 3</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 4</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 5</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 6</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 7</p><br/> <p>Cost</p></li>
-                            </ul>
-                            <li><a href="#"><h4>Goalkeepers</h4></a></li>
-                            <hr />
-                            <ul id="dis4">
-                                <li><img src="#" /><a href="#">X</a><p>Player 1</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 2</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 3</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 4</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 5</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 6</p><br/> <p>Cost</p></li>
-                                <li><img src="#" /><a href="#">X</a><p>Player 7</p><br/> <p>Cost</p></li>
-                            </ul>
-
-                        </ul>
+<div class="col-md-3 col-xs-3 col-sm-3" id="player_list">
+    <h3>
+        Squad
+        <hr/>
+        <small style="font-size: 60%;" id="budget">
+            BUDGET:100000000
+            <br />
+            Selected : 0
+        </small>
+    </h3>
+    <h4><small>You need to choose atleast 1 player of each type. </small></h4>
 
 
+    <ul id="list">
+        <li><a href="#"><h4 id="for">Forwards : 0</h4></a>
+            <hr/>
+            <ul id="dis1">
+            </ul>
+        </li>
+        <li><a href="#"><h4  id="mid">Midfielders : 0</h4></a></li>
+        <hr/>
+        <ul id="dis2">
 
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
+        </ul>
+        <li><a href="#"><h4 id="def">Defenders : 0</h4></a></li>
+        <hr/>
+        <ul id="dis3">
 
+        </ul>
+        <li><a href="#"><h4 id="goal">Goalkeepers : 0</h4></a></li>
+        <hr/>
+        <ul id="dis4">
 
-            <form style="display: none" id="form">
-                <input style="display: none;" id="t1" name="p1" value=""/>
-                <input style="display: none;" id="t2" name="p2" value=""/>
-                <input style="display: none;" id="t3" name="p3" value=""/>
-                <input style="display: none;" id="t4" name="p4" value=""/>
-                <input style="display: none;" id="t5" name="p5" value=""/>
-                <input style="display: none;" id="t6" name="p6" value=""/>
-                <input style="display: none;" id="t7" name="p7" value=""/>
-                <input style="display: none;" id="t8" name="p8" value=""/>
-                <input style="display: none;" id="t9" name="p9" value=""/>
-                <input style="display: none;" id="t10" name="p10" value=""/>
-                <input style="display: none;" id="t11" name="p11" value=""/>
-                <input style="display: none;" id="t12" name="p12" value=""/>
-                <input style="display: none;" id="t13" name="p13" value=""/>
-                <input style="display: none;" id="t14" name="p14" value=""/>
-                <input style="display: none;" id="t15" name="p15" value=""/>
-                <input style="display: none" id="t16" name="p16" value=""/>
-                <input onclick="subm();" type="submit"
-                       style="background: rgba(60,60,60,1);border-radius: 5px;margin:1%" id="sub" class="button"/>
+        </ul>
 
-            </form>
-        </div>
-        <div class="col-md-9" style="margin: 0;padding: 0">
-            <nav class="navbar navbar-default" role="navigation" id="tab">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#myTab">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#" id="brand">Player Type</a>
-                    </div>
+    </ul>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="myTab">
-                        <ul class="nav navbar-nav">
-                            <li role="presentation" class="active"><a href="#for" aria-controls="for" role="tab"
-                                                                      data-toggle="tab">Forwards</a></li>
-                            <li role="presentation"><a href="#mid" aria-controls="mid" role="tab" data-toggle="tab">Midfielders</a>
-                            </li>
-                            <li role="presentation"><a href="#def" aria-controls="def" role="tab" data-toggle="tab">Defenders</a>
-                            </li>
-                            <li role="presentation"><a href="#goal" aria-controls="goal" role="tab" data-toggle="tab">Goalkeepers</a>
-                            </li>
+    <form id="form">
+        <input style="display: none;" id="t1" name="p1" value=""/>
+        <input style="display: none;" id="t2" name="p2" value=""/>
+        <input style="display: none;" id="t3" name="p3" value=""/>
+        <input style="display: none;" id="t4" name="p4" value=""/>
+        <input style="display: none;" id="t5" name="p5" value=""/>
+        <input style="display: none;" id="t6" name="p6" value=""/>
+        <input style="display: none;" id="t7" name="p7" value=""/>
+        <input style="display: none;" id="t8" name="p8" value=""/>
+        <input style="display: none;" id="t9" name="p9" value=""/>
+        <input style="display: none;" id="t10" name="p10" value=""/>
+        <input style="display: none;" id="t11" name="p11" value=""/>
+        <input style="display: none;" id="t12" name="p12" value=""/>
+        <input style="display: none;" id="t13" name="p13" value=""/>
+        <input style="display: none;" id="t14" name="p14" value=""/>
+        <input style="display: none;" id="t15" name="p15" value=""/>
+        <input style="display: none" id="t16" name="p16" value=""/>
+        <input onclick="subm();" type="submit"
+               id="sub" class="button" style="border-radius: 0"/>
 
-
-                        </ul>
-
-
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-        </div>
-
-        <!--<div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10" >
-                <ul class="nav nav-tabs" role="tablist" id="myTab">
-                    <li role="presentation" class="active"><a href="#for" aria-controls="for" role="tab" data-toggle="tab">Forwards</a></li>
-                    <li role="presentation"><a href="#mid" aria-controls="mid" role="tab" data-toggle="tab">Midfielders</a></li>
-                    <li role="presentation"><a href="#def" aria-controls="def" role="tab" data-toggle="tab">Defenders</a></li>
-                    <li role="presentation"><a href="#goal" aria-controls="goal" role="tab" data-toggle="tab">Goalkeepers</a></li>
-                </ul>
-            </div>
-        </div>-->
-        <div class="tab-content" style="background: rgba(216,216,216,1)">
-            <div role="tabpanel" class="tab-pane fade in active" id="for">...</div>
-            <div role="tabpanel" class="tab-pane fade" id="mid">...</div>
-            <div role="tabpanel" class="tab-pane fade" id="def">...</div>
-            <div role="tabpanel" class="tab-pane fade" id="goal">...</div>
-        </div>
-
-        <script>
-            $(function () {
-                $('#myTab a:first').tab('show')
-            })
-        </script>
-    </div>
-
-
-    <% var team = []; var k = 0;var r;var j = 0; %>
+    </form>
 
 </div>
+
+
+    <div class="col-md-9  col-xs-9 col-sm-9" style="margin: 0;padding: 0; float: right;background: rgba(0,0,0,0.9);">
+
+        <div class="collapse navbar-collapse" id="myTab">
+            <ul class="nav navbar-nav">
+                <li role="presentation" class="active"><a href="#fort" aria-controls="fort" role="tab"
+                                                      data-toggle="tab">Forwards</a></li>
+                <li role="presentation"><a href="#midt" aria-controls="midt" role="tab" data-toggle="tab">Midfielders</a>
+                </li>
+                <li role="presentation"><a href="#deft" aria-controls="deft" role="tab" data-toggle="tab">Defenders</a>
+                </li>
+                <li role="presentation"><a href="#goalt" aria-controls="goalt" role="tab" data-toggle="tab">Goalkeepers</a>
+                </li>
+
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div class="tab-content" style="background: rgba(216,216,216,1)">
+    <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="fort">
+
+            <ul>
+
+                <%var i; for(i = 0;i < Players.length;i++) { %>
+
+
+                <% if(Players[i]._id<= 126){ %>
+                <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                    <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                    <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                    <p><%= Players[i].Name %><br/><br />
+                        <%= Players[i].Price %> M<br />
+                        <br />
+                        <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                            Select
+                        </button>
+                    </p>
+                    </div>
+                    </div>
+                    <form name="h" style="display: none">
+                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                    </form>
+
+                </li>
+
+
+                    <% }  } %>
+
+
+            </ul>
+
+    </div>
+    <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="midt">
+        <ul>
+
+            <% for(i = 0;i < Players.length;i++) { %>
+
+
+            <% if(Players[i]._id> 126&&Players[i]._id<253){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= Players[i].Name %><br/><br />
+                            <%= Players[i].Price %> M<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <form name="h" style="display: none">
+                    <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                    <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                    <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                </form>
+
+            </li>
+
+
+            <% }  } %>
+
+
+        </ul>
+    </div>
+    <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="deft">
+        <ul>
+
+            <% for(i = 0;i < Players.length;i++) { %>
+
+
+            <% if(Players[i]._id< 369&&Players[i]._id>252){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= Players[i].Name %><br/><br />
+                            <%= Players[i].Price %> M<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <form name="h" style="display: none">
+                    <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                    <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                    <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                </form>
+
+            </li>
+
+
+            <% }  } %>
+
+
+        </ul>
+    </div>
+    <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="goalt">
+        <ul>
+
+            <% for(i = 0;i < Players.length;i++) { %>
+
+
+            <% if(Players[i]._id> 368){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= Players[i].Name %><br/><br />
+                            <%= Players[i].Price %> M<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <form name="h" style="display: none">
+                    <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                    <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                    <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                </form>
+
+            </li>
+
+
+            <% }  } %>
+
+
+        </ul>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#myTab a:first').tab('show')
+    })
+</script>
+
+</div>
+<!-- /.navbar-collapse -->
+
+<!-- /.container-fluid -->
+
+
+<!--<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" >
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li role="presentation" class="active"><a href="#for" aria-controls="for" role="tab" data-toggle="tab">Forwards</a></li>
+            <li role="presentation"><a href="#mid" aria-controls="mid" role="tab" data-toggle="tab">Midfielders</a></li>
+            <li role="presentation"><a href="#def" aria-controls="def" role="tab" data-toggle="tab">Defenders</a></li>
+            <li role="presentation"><a href="#goal" aria-controls="goal" role="tab" data-toggle="tab">Goalkeepers</a></li>
+        </ul>
+    </div>
+</div>-->
+
+</div>
+
+<% var team = []; var k = 0;var r;var j = 0; %>
+
+
 <!--Footer -->
 <div class="col-md-12"
      style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
@@ -325,94 +412,15 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-</div>
-</body>
-<!--
+
+
 <div class="tabs-content">
-<div class="large-3 small-12 left"
-     style="height:auto;background-color: rgba(10,10,10,0.5);margin-right: 1%;margin-left: 2%;border-radius: 5px;">
-    <h4 style="color: white;background-color: rgba(80,80,80,1);margin-top: 0;border-radius: 5px;padding: 2%;text-align: center;"
-        id="budget">
-        Selected Players <b style='font-size: 60%'>Budget:10000000
-            <script type="text/javascript">document.write("<br />" + "Batsmen : " + cb + "<br />" + "Bowlers : " + cbo + "<br />" + "All Rounders : " + ca + "<br />" + "Coach : " + cc + "<br />")</script>
-        </b>
-    </h4>
-
-    <div style="max-height:29em;overflow-y:scroll" id="squad">
-
-    </div>
 
 
-    <form style="text-align: center" id="form">
-        <input style="display: none;" id="t1" name="p1" value=""/>
-        <input style="display: none;" id="t2" name="p2" value=""/>
-        <input style="display: none;" id="t3" name="p3" value=""/>
-        <input style="display: none;" id="t4" name="p4" value=""/>
-        <input style="display: none;" id="t5" name="p5" value=""/>
-        <input style="display: none;" id="t6" name="p6" value=""/>
-        <input style="display: none;" id="t7" name="p7" value=""/>
-        <input style="display: none;" id="t8" name="p8" value=""/>
-        <input style="display: none;" id="t9" name="p9" value=""/>
-        <input style="display: none;" id="t10" name="p10" value=""/>
-        <input style="display: none;" id="t11" name="p11" value=""/>
-        <input style="display: none;" id="t12" name="p12" value=""/>
-        <input style="display: none;" id="t13" name="p13" value=""/>
-        <input style="display: none;" id="t14" name="p14" value=""/>
-        <input style="display: none;" id="t15" name="p15" value=""/>
-        <input style="display: none" id="t16" name="p16" value=""/>
-        <input onclick="subm();" type="submit"
-               style="background: rgba(60,60,60,1);border-radius: 5px;margin:1%" id="sub" class="button"/>
-
-    </form>
-</div>-->
-<!--
 <div class="content active" id="panel1">
     <div class="large-8 small-12 columns">
 
-        <div style="height: 42em;overflow-y: scroll;background-color: rgba(60,60,60,0.2);padding:2%;margin-right: 2%;border-radius: 5px;"
-             class="large-12 small-12 right">
-            <table cellspacing="10px"
-                   style="background-color: rgba(60,60,60,0.8); border: none;border-radius: 5px;width:100%;">
 
-                <% k = 4; var z = 1;i = 0;for(i = 0;i < Players.length;i++) { %>
-                <% if(k < 3){ %>
-
-                <% if(Players[i]._id <= 113){ %>
-                <td style="color: #ffffff;font-weight: bold;text-align: center;border:dashed white 1px;margin:2%;border-radius: 5px;width: 34%;"
-                    id="box<%= Players[i]._id %>" onclick="">
-
-
-                    <img src="/images/bat/<%= Players[i]._id %>.jpg" style="width: 40%;margin: 0;float: left;"/>
-
-
-                    <p style="text-align: center;"><%= Players[i].Name %><br/>
-                        <%= Players[i].Price %></p>
-
-                    <form name="h" style="display: none">
-                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Type %>" id="ct<%= Players[i]._id %>"/>
-                    </form>
-                    <button class='button [tiny small large]' onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                            style="height: auto;width: auto;margin-left:75%;padding:1.5%;margin-bottom:1%;text-align: center;font-weight: bolder;border: 2px solid green;background-color:rgba(255,255,255,0.1);color: green;border-radius: 5px;">
-                        Select
-
-                    </button>
-                </td>
-                <% k++; } else {
-    continue;
-} %>
-                <% } else { if(z == 1) { %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% z = 0;k = 0;i--;} else { %>
-                </tr>
-                <% k = 0;i--; %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% } } } %>
-                </tr>
-            </table>
-        </div>
     </div>
 </div>
 <div class="content" id="panel2">
@@ -557,8 +565,11 @@
         </div>
     </div>
 </div>
-</div>
-</div>
--->
+
+
+
 <!--Rules-->
+</div>
+</body>
+
 </html>
