@@ -31,12 +31,14 @@
     <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css" />
+
     <script src="/javascript/rpl.js"></script>
 
     <script src="/javascript/rpl_players.js"></script>
     <script src="/javascript/modernizr-2.6.2.min.js"></script>
-
+    <script src="/javascript/pace.min.js"></script>
     <style>
     #loader-wrapper {
         position: fixed;
@@ -46,81 +48,45 @@
         height: 100%;
         z-index: 1000;
     }
-    #loader {
-        display: block;
-        position: relative;
-        left: 50%;
-        top: 50%;
-        width: 150px;
-        height: 150px;
-        margin: -75px 0 0 -75px;
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-top-color: #3498db;
 
-        -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-        animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
-
-        z-index: 1001;
-    }
 
     #loader:before {
-        content: "";
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        right: 5px;
-        bottom: 5px;
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-top-color: #e74c3c;
 
-        -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-        animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
 
     #loader:after {
-        content: "";
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        right: 15px;
-        bottom: 15px;
-        border-radius: 50%;
-        border: 3px solid transparent;
-        border-top-color: #f9c922;
 
-        -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-        animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
 
     @-webkit-keyframes spin {
-        0%   {
+       0%   {
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: rotate(0deg);  /* IE 9 */
             transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
         100% {
             -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(360deg);  /* IE 9 */
-            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            -ms-transform: rotate(360deg);  /* IE 9  */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera  */
         }
     }
-    @keyframes spin {
+     @keyframes spin {
         0%   {
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(0deg);  /* IE 9 */
+            -ms-transform: rotate(0deg);  /* IE 9  */
             transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
         100% {
-            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(360deg);  /* IE 9 */
-            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+  */
+            -ms-transform: rotate(360deg);  /* IE 9  */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera  */
+
         }
     }
 
     #loader-wrapper .loader-section {
         position: fixed;
+
         top: 0;
         width: 51%;
         height: 100%;
@@ -388,29 +354,50 @@
         Ok so you have made it this far, that means you are very keen to on my code.
         Anyway I don't really mind it. This is a great way to learn so you actually doing the right thing:)
         Follow me @ihatetomatoes
-    */
-    </style>
-<script>
 
+        */
+    #preload_button{
+        margin: 42% 0 0 90%;
+        background: none;
+        right:-10%;
+        color: rgba(255,255,255,0.7);
+    }
+    #preload_button:hover{
+        box-shadow: none;
+        color: rgba(255,255,255,1);
+    }
+
+        </style>
+<script>
     $(document).ready(function() {
 
-        setTimeout(function(){
-            $('body').addClass('loaded');
-            $('h1').css('color','#222222');
-        }, 3000);
+
+
+           // $('h1').css('color','#222222');
+           setTimeout(function(){ $('#preload_button').fadeIn('slow',function(){}).click(function(){
+                $('#preload_button').fadeOut('fast',function(){});
+                $('body').addClass('loaded');} );},1700);
+
+
+
 
     });
 </script>
 
 
+
 </head>
 <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
-<div id="loader-wrapper">
-    <div id="loader"></div>
+<div id="loader-wrapper" style="overflow: visible;">
 
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
+    <div id="loader" style="overflow: visible;"></div>
+
+    <div class="loader-section section-left" style="overflow: visible;">
+        <button id="preload_button" style="display:none;">Start</button>
+    </div>
+    <div class="loader-section section-right" style="z-index: -1;"></div>
+
 
 </div>
 
