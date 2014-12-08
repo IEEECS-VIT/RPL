@@ -41,20 +41,21 @@
     <script src="/javascript/pace.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    function load() {
+
                                     setTimeout(function(){
 
                                         $('#preload').fadeIn('slow',function(){}).click(function(){
                                                     $('#preload').fadeOut('fast',function(){});
-                                                    $('body').addClass('loaded');} );},1700);
-            });
+                                                    $('body').addClass('loaded');} );},700);
+            }
 
 </script>
 
 
 
 </head>
-<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<body onload="load()" style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
 <div id="loader-wrapper">
 
