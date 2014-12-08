@@ -31,19 +31,376 @@
     <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css" />
+
     <script src="/javascript/rpl.js"></script>
 
     <script src="/javascript/rpl_players.js"></script>
-    <script type="text/javascript" rel="script">
-    var x = document.getElementById('dashboard_header');
-    document.onresize(function () {alert(" ");});
-    </script>
+    <script src="/javascript/modernizr-2.6.2.min.js"></script>
+    <script src="/javascript/pace.min.js"></script>
+    <style>
+    #loader-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+    }
+
+
+    #loader:before {
+
+    }
+
+    #loader:after {
+
+    }
+
+    @-webkit-keyframes spin {
+       0%   {
+            -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(0deg);  /* IE 9 */
+            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+        }
+        100% {
+            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(360deg);  /* IE 9  */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera  */
+        }
+    }
+     @keyframes spin {
+        0%   {
+            -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(0deg);  /* IE 9  */
+            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+        }
+        100% {
+            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+  */
+            -ms-transform: rotate(360deg);  /* IE 9  */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera  */
+
+        }
+    }
+
+    #loader-wrapper .loader-section {
+        position: fixed;
+
+        top: 0;
+        width: 51%;
+        height: 100%;
+        background: #222222;
+        z-index: 1000;
+        -webkit-transform: translateX(0);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateX(0);  /* IE 9 */
+        transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
+    }
+
+    #loader-wrapper .loader-section.section-left {
+        left: 0;
+    }
+
+    #loader-wrapper .loader-section.section-right {
+        right: 0;
+    }
+
+    /* Loaded */
+    .loaded #loader-wrapper .loader-section.section-left {
+        -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateX(-100%);  /* IE 9 */
+        transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .loaded #loader-wrapper .loader-section.section-right {
+        -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateX(100%);  /* IE 9 */
+        transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+
+        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .loaded #loader {
+        opacity: 0;
+        -webkit-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+    }
+    .loaded #loader-wrapper {
+        visibility: hidden;
+
+        -webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateY(-100%);  /* IE 9 */
+        transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+        -webkit-transition: all 0.3s 1s ease-out;
+        transition: all 0.3s 1s ease-out;
+    }
+
+    /* JavaScript Turned Off */
+    .no-js #loader-wrapper {
+        display: none;
+    }
+    .no-js h1 {
+        color: #222222;
+    }
+
+    #content {
+        margin: 0 auto;
+        padding-bottom: 50px;
+        width: 80%;
+        max-width: 978px;
+    }
+
+
+
+
+
+
+    /* ==========================================================================
+       Helper classes
+       ========================================================================== */
+
+    /*
+     * Image replacement
+     */
+
+    .ir {
+        background-color: transparent;
+        border: 0;
+        overflow: hidden;
+        /* IE 6/7 fallback */
+        *text-indent: -9999px;
+    }
+
+    .ir:before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 150%;
+    }
+
+    /*
+     * Hide from both screenreaders and browsers: h5bp.com/u
+     */
+
+    .hidden {
+        display: none !important;
+        visibility: hidden;
+    }
+
+    /*
+     * Hide only visually, but have it available for screenreaders: h5bp.com/v
+     */
+
+    .visuallyhidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    /*
+     * Extends the .visuallyhidden class to allow the element to be focusable
+     * when navigated to via the keyboard: h5bp.com/p
+     */
+
+    .visuallyhidden.focusable:active,
+    .visuallyhidden.focusable:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+    }
+
+    /*
+     * Hide visually and from screenreaders, but maintain layout
+     */
+
+    .invisible {
+        visibility: hidden;
+    }
+
+    /*
+     * Clearfix: contain floats
+     *
+     * For modern browsers
+     * 1. The space content is one way to avoid an Opera bug when the
+     *    `contenteditable` attribute is included anywhere else in the document.
+     *    Otherwise it causes space to appear at the top and bottom of elements
+     *    that receive the `clearfix` class.
+     * 2. The use of `table` rather than `block` is only necessary if using
+     *    `:before` to contain the top-margins of child elements.
+     */
+
+    .clearfix:before,
+    .clearfix:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+    /*
+     * For IE 6/7 only
+     * Include this rule to trigger hasLayout and contain floats.
+     */
+
+    .clearfix {
+        *zoom: 1;
+    }
+
+    /* ==========================================================================
+       EXAMPLE Media Queries for Responsive Design.
+       These examples override the primary ('mobile first') styles.
+       Modify as content requires.
+       ========================================================================== */
+
+    @media only screen and (min-width: 35em) {
+        /* Style adjustments for viewports that meet the condition */
+    }
+
+    @media print,
+    (-o-min-device-pixel-ratio: 5/4),
+    (-webkit-min-device-pixel-ratio: 1.25),
+    (min-resolution: 120dpi) {
+        /* Style adjustments for high resolution devices */
+    }
+
+    /* ==========================================================================
+       Print styles.
+       Inlined to avoid required HTTP connection: h5bp.com/r
+       ========================================================================== */
+
+    @media print {
+        * {
+            background: transparent !important;
+            color: #000 !important; /* Black prints faster: h5bp.com/s */
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        a,
+        a:visited {
+            text-decoration: underline;
+        }
+
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        /*
+         * Don't show links for images, or javascript/internal links
+         */
+
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+            content: "";
+        }
+
+        pre,
+        blockquote {
+            border: 1px solid #999;
+            page-break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group; /* h5bp.com/t */
+        }
+
+        tr,
+        img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+        }
+
+        @page {
+            margin: 0.5cm;
+        }
+
+        p,
+        h2,
+        h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2,
+        h3 {
+            page-break-after: avoid;
+        }
+    }
+
+    /*
+        Ok so you have made it this far, that means you are very keen to on my code.
+        Anyway I don't really mind it. This is a great way to learn so you actually doing the right thing:)
+        Follow me @ihatetomatoes
+
+        */
+    #preload_button{
+        margin: 42% 0 0 90%;
+        background: none;
+        right:-10%;
+        color: rgba(255,255,255,0.7);
+    }
+    #preload_button:hover{
+        box-shadow: none;
+        color: rgba(255,255,255,1);
+    }
+
+        </style>
+<script>
+    $(document).ready(function() {
+
+
+
+           // $('h1').css('color','#222222');
+           setTimeout(function(){ $('#preload_button').fadeIn('slow',function(){}).click(function(){
+                $('#preload_button').fadeOut('fast',function(){});
+                $('body').addClass('loaded');} );},1700);
+
+
+
+
+    });
+</script>
+
 
 
 </head>
 <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
+<div id="loader-wrapper" style="overflow: visible;">
+
+    <div id="loader" style="overflow: visible;"></div>
+
+    <div class="loader-section section-left" style="overflow: visible;">
+        <button id="preload_button" style="display:none;">Start</button>
+    </div>
+    <div class="loader-section section-right" style="z-index: -1;"></div>
+
+
+</div>
+
 <div style="padding: 0;margin: 0;overflow: hidden">
 <!-- Header -->
 <div class="col-md-12" style="background: white;z-index: 3" id="header">
@@ -351,26 +708,8 @@
 </script>
 
 </div>
-<!-- /.navbar-collapse -->
-
-<!-- /.container-fluid -->
-
-
-<!--<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10" >
-        <ul class="nav nav-tabs" role="tablist" id="myTab">
-            <li role="presentation" class="active"><a href="#for" aria-controls="for" role="tab" data-toggle="tab">Forwards</a></li>
-            <li role="presentation"><a href="#mid" aria-controls="mid" role="tab" data-toggle="tab">Midfielders</a></li>
-            <li role="presentation"><a href="#def" aria-controls="def" role="tab" data-toggle="tab">Defenders</a></li>
-            <li role="presentation"><a href="#goal" aria-controls="goal" role="tab" data-toggle="tab">Goalkeepers</a></li>
-        </ul>
-    </div>
-</div>-->
 
 </div>
-
-<% var team = []; var k = 0;var r;var j = 0; %>
 
 
 <!--Footer -->
@@ -399,177 +738,13 @@
 
     </div>
 </div>
-<div id="fb-root"></div>
-<div id="login_small" class="col-md-4">
-    <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count" data-action="like"
-         data-show-faces="true" data-share="true" style="margin:10%"></div>
-</div>
-<script>(function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
 
 
-<div class="tabs-content">
-
-
-<div class="content active" id="panel1">
-    <div class="large-8 small-12 columns">
-
-
-    </div>
-</div>
-<div class="content" id="panel2">
-    <div class="large-8 small-12 columns">
-
-        <div style="height: 42em;overflow-y: scroll;background-color: rgba(60,60,60,0.2);padding:2%;margin-right: 2%;border-radius: 5px;"
-             class="large-12 small-12 right">
-            <table cellspacing="10px"
-                   style="background-color: rgba(60,60,60,0.8); border: none;border-radius: 5px;width:100%;">
-
-                <% k = 4;i = 0; var z = 1;for(i = 0;i < Players.length;i++) { %>
-                <% if(k < 3){ %>
-
-                <% if(Players[i]._id <= 242 && Players[i]._id > 113){ %>
-                <td style="color: #ffffff;font-weight: bold;text-align: center;border:dashed white 1px;margin:2%;border-radius: 5px;width: 34%;"
-                    id="box<%= Players[i]._id %>" onclick="">
-
-                    <img src="/images/bowl/<%= Players[i]._id %>.jpg" style="width: 40%;margin: 0;float: left;"/>
-
-                    <p style="text-align: center;"><%= Players[i].Name %><br/>
-                        <%= Players[i].Price %></p>
-
-                    <form name="h" style="display: none">
-                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Type %>" id="ct<%= Players[i]._id %>"/>
-                    </form>
-                    <button class='button [tiny small large]' onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                            style="height: auto;width: auto;margin-left:75%;padding:1.5%;margin-bottom:1%;text-align: center;font-weight: bolder;border: 2px solid green;background-color:rgba(255,255,255,0.1);color: green;border-radius: 5px;">
-                        Select
-
-                    </button>
-                </td>
-                <% k++; } else {
-    continue;
-} %>
-                <% } else { if(z == 1) { %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% z = 0;k = 0;i--;} else { %>
-                </tr>
-                <% k = 0;i--; %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% } } } %>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="content" id="panel3">
-    <div class="large-8 small-12 columns">
-
-        <div style="height: 42em;overflow-y: scroll;background-color: rgba(60,60,60,0.2);padding:2%;margin-right: 2%;border-radius: 5px;"
-             class="large-12 small-12 right">
-            <table cellspacing="10px"
-                   style="background-color: rgba(60,60,60,0.8); border: none;border-radius: 5px;width:100%;">
-
-                <% k = 4;i = 0; var z = 1;for(i = 0;i < Players.length;i++) { %>
-                <% if(k < 3){ %>
-
-                <% if(Players[i]._id <= 303 && Players[i]._id >= 243){ %>
-                <td style="color: #ffffff;font-weight: bold;text-align: center;border:dashed white 1px;margin:2%;border-radius: 5px;width: 34%;"
-                    id="box<%= Players[i]._id %>" onclick="">
-
-                    <img src="/images/all/<%= Players[i]._id %>.jpg" style="width: 40%;margin: 0;float: left;"/>
-
-                    <p style="text-align: center;"><%= Players[i].Name %><br/>
-                        <%= Players[i].Price %></p>
-
-                    <form name="h" style="display: none">
-                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Type %>" id="ct<%= Players[i]._id %>"/>
-                    </form>
-                    <button class='button [tiny small large]' onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                            style="height: auto;width: auto;margin-left:75%;padding:1.5%;margin-bottom:1%;text-align: center;font-weight: bolder;border: 2px solid green;background-color:rgba(255,255,255,0.1);color: green;border-radius: 5px;">
-                        Select
-
-                    </button>
-                </td>
-                <% k++; } else {
-    continue;
-} %>
-                <% } else { if(z == 1) { %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% z = 0;k = 0;i--;} else { %>
-                </tr>
-                <% k = 0;i--; %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% } } } %>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="content" id="panel4">
-    <div class="large-8 small-12 columns">
-
-        <div style="height: 42em;overflow-y: scroll;background-color: rgba(60,60,60,0.2);padding:2%;margin-right: 2%;border-radius: 5px;"
-             class="large-12 small-12 right">
-            <table cellspacing="10px"
-                   style="background-color: rgba(60,60,60,0.8); border: none;border-radius: 5px;width:100%;">
-
-                <% k = 4;i = 0; var z = 1;for(i = 0;i < Players.length;i++) { %>
-                <% if(k < 3){ %>
-
-                <% if(Players[i]._id <= 323 && Players[i]._id > 303){ %>
-                <td style="color: #ffffff;font-weight: bold;text-align: center;border:dashed white 1px;margin:2%;border-radius: 5px;width: 34%;"
-                    id="box<%= Players[i]._id %>" onclick="">
-
-                    <img src="/images/coaches/<%= Players[i]._id %>.jpg"
-                         style="width: 40%;margin: 0;float: left;"/>
-
-                    <p style="text-align: center;"><%= Players[i].Name %><br/>
-                        <%= Players[i].Price %></p>
-
-                    <form name="h" style="display: none">
-                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        <input value="<%= Players[i].Type %>" id="ct<%= Players[i]._id %>"/>
-                    </form>
-                    <button class='button [tiny small large]' onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                            style="height: auto;width: auto;margin-left:75%;padding:1.5%;margin-bottom:1%;text-align: center;font-weight: bolder;border: 2px solid green;background-color:rgba(255,255,255,0.1);color: green;border-radius: 5px;">
-                        Select
-
-                    </button>
-                </td>
-                <% k++; } else {
-    continue;
-} %>
-                <% } else { if(z == 1) { %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% z = 0;k = 0;i--;} else { %>
-                </tr>
-                <% k = 0;i--; %>
-                <tr style="background-color: rgba(60,60,60,0.8);border: none;padding:2%;border-radius: 5px;">
-                    <% } } } %>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
 
 
 
 <!--Rules-->
-</div>
+
 </body>
 
 </html>
