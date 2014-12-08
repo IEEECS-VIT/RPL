@@ -793,7 +793,7 @@ button:hover {
 #preload_button{
     /* margin: 42% 0 0 90%;*/
     background: none;
-    right:-10%;
+
     color: rgba(255,255,255,0.7);
 }
 #preload_button:hover{
