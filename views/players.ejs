@@ -34,336 +34,386 @@
     <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
     <script src="/javascript/rpl.js"></script>
 
-    <!--<script src="/javascript/rpl_players.js"></script>-->
-    <script type="text/javascript" rel="script">
-    /* player selection */
-    var team = [];
-    var forward = [];
-    var mid = [];
-    var def = [];
-    var goal = [];
-    var k = 0;
-    var cost = 100000000;
+    <script src="/javascript/rpl_players.js"></script>
+    <script src="/javascript/modernizr-2.6.2.min.js"></script>
 
-    var cf = 0, cm = 0, cd = 0, cg = 0;
-    function subm() {
-
-        if (k < 16) {
-
-            alert("Team not full");
-
-
-        }
-        else if (ch() === -1) {
-            alert("You need to choose atleast 1 player of each type.");
-        }
-        else {
-            var id;
-            for (var j = 1; j < 17; j++) {
-                id = 't' + j;
-                document.getElementById(id).value = team[j - 1];
-
-            }
-
-            document.getElementById('form').action = "/home/getTeam";
-            document.getElementById('form').method = "post";
-
-            document.getElementById('form').submit();
-
-        }
-
+    <style>
+    #loader-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
     }
-    function sel(id) {
-        if (k == 16) {
+    #loader {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #3498db;
 
-            alert("Team limit Reached");
-            return -1;
-        }
+        -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+        animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 
-
-        if (k < 17) {
-
-
-            var c = 'cc' + String(id);
-            var y = document.getElementById(c);
-            if (cost - y.value < 0) {
-                alert("Low Budget");
-                return -1;
-            }
-            cost -= y.value;
-            add(id);
-            k++;
-            app();
-            document.getElementById("box" + id).style.visibility = 'hidden';
-            count();
-            disp();
-        }
-
-
+        z-index: 1001;
     }
 
-    function disp() {
+    #loader:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #e74c3c;
 
+        -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+        animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+    }
 
-        if (k == 0) {
-            document.getElementById("dis1").innerHTML = "";
-            document.getElementById("dis2").innerHTML = "";
-            document.getElementById("dis3").innerHTML = "";
-            document.getElementById("dis4").innerHTML = "";
-            count();
+    #loader:after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #f9c922;
+
+        -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+        animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+    }
+
+    @-webkit-keyframes spin {
+        0%   {
+            -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(0deg);  /* IE 9 */
+            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
-        else {
-            disp_for();
-            disp_mid();
-            disp_def();
-            disp_goal();
-
+        100% {
+            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(360deg);  /* IE 9 */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
         }
     }
-    function disp_for() {
-        var i;
-        var di = [];
-        for (i = 0; i < cf; i++) {
-
-            var id = forward[i];
-            var n = 'cn' + String(id);
-            var p = 'cp' + String(id);
-            var w = document.getElementById(n);
-            var x = document.getElementById(p);
-
-
-            di[i] = "<li><img src='/images/forwards/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
-
+    @keyframes spin {
+        0%   {
+            -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(0deg);  /* IE 9 */
+            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
-
-        document.getElementById("dis1").innerHTML = di.join(" ");
-    }
-    function disp_mid() {
-        var i;
-        var di = [];
-        for (i = 0; i < cm; i++) {
-
-            var id = mid[i];
-            var n = 'cn' + String(id);
-            var p = 'cp' + String(id);
-            var w = document.getElementById(n);
-            var x = document.getElementById(p);
-
-
-            di[i] = "<li><img src='/images/mid/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
-
+        100% {
+            -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+            -ms-transform: rotate(360deg);  /* IE 9 */
+            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
         }
-
-        document.getElementById("dis2").innerHTML = di.join(" ");
-
     }
-    function disp_def() {
-        var i;
-        var di = [];
-        for (i = 0; i < cd; i++) {
 
-            var id = def[i];
-            var n = 'cn' + String(id);
-            var p = 'cp' + String(id);
-            var w = document.getElementById(n);
-            var x = document.getElementById(p);
-
-
-            di[i] = "<li><img src='/images/def/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
-
-        }
-
-        document.getElementById("dis3").innerHTML = di.join(" ");
-
+    #loader-wrapper .loader-section {
+        position: fixed;
+        top: 0;
+        width: 51%;
+        height: 100%;
+        background: #222222;
+        z-index: 1000;
+        -webkit-transform: translateX(0);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateX(0);  /* IE 9 */
+        transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
     }
-    function disp_goal() {
-        var i;
-        var di = [];
-        for (i = 0; i < cg; i++) {
 
-            var id = goal[i];
-            var n = 'cn' + String(id);
-            var p = 'cp' + String(id);
-            var w = document.getElementById(n);
-            var x = document.getElementById(p);
-
-
-            di[i] = "<li><img src='/images/goal/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
-
-        }
-
-        document.getElementById("dis4").innerHTML = di.join(" ");
-
+    #loader-wrapper .loader-section.section-left {
+        left: 0;
     }
-    function rem(co) {
-        document.getElementById("box" + co).style.visibility = 'visible';
-        var i;
-        var j;
-        if (t_ch(co) == 1) {
-            for (i = 0; i < cf; i++) {
-                if (co == forward[i]) {
-                    for (j = i; j < cf - 1; j++) {
 
-                        forward[j] = forward[j + 1];
-                    }
-                    break;
-                }
-
-
-            }
-            cf--;
-            k--;
-        } else if (t_ch(co) == 2) {
-            for (i = 0; i < cm; i++) {
-                if (co == mid[i]) {
-                    for (j = i; j < cm - 1; j++) {
-
-                        mid[j] = mid[j + 1];
-                    }
-                    break;
-                }
-
-            }
-            cm--;
-            k--;
-        } else if (t_ch(co) == 3) {
-            for (i = 0; i < cd; i++) {
-                if (co == def[i]) {
-                    for (j = i; j < cd - 1; j++) {
-
-                        def[j] = def[j + 1];
-                    }
-                    break;
-                }
-
-            }
-            cd--;
-            k--;
-        } else if (t_ch(co) == 4) {
-            for (i = 0; i < cg; i++) {
-                if (co == goal[i]) {
-                    for (j = i; j < cg - 1; j++) {
-
-                        goal[j] = goal[j + 1];
-                    }
-                    break;
-                }
-
-            }
-            cg--;
-            k--;
-        }
-        app();
-        count();
-        disp();
-
+    #loader-wrapper .loader-section.section-right {
+        right: 0;
     }
-    function ch() {
-        if (cf === 0 || cm === 0 || cd === 0 || cg === 0)
-            return -1;
-        else
-            return 0;
+
+    /* Loaded */
+    .loaded #loader-wrapper .loader-section.section-left {
+        -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateX(-100%);  /* IE 9 */
+        transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .loaded #loader-wrapper .loader-section.section-right {
+        -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateX(100%);  /* IE 9 */
+        transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+
+        -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .loaded #loader {
+        opacity: 0;
+        -webkit-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+    }
+    .loaded #loader-wrapper {
+        visibility: hidden;
+
+        -webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: translateY(-100%);  /* IE 9 */
+        transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+        -webkit-transition: all 0.3s 1s ease-out;
+        transition: all 0.3s 1s ease-out;
+    }
+
+    /* JavaScript Turned Off */
+    .no-js #loader-wrapper {
+        display: none;
+    }
+    .no-js h1 {
+        color: #222222;
+    }
+
+    #content {
+        margin: 0 auto;
+        padding-bottom: 50px;
+        width: 80%;
+        max-width: 978px;
     }
 
 
-    function app() {
-        var i = 0;
-        var j;
-        while (i != k) {
 
-            for (j = 0; j < cf; j++) {
-                team[i] = forward[j];
-                i++;
-            }
-            for (j = 0; j < cm; j++) {
-                team[i] = mid[j];
-                i++;
-            }
-            for (j = 0; j < cd; j++) {
-                team[i] = def[j];
-                i++;
-            }
-            for (j = 0; j < cg; j++) {
-                team[i] = goal[j];
-                i++;
-            }
+
+
+
+    /* ==========================================================================
+       Helper classes
+       ========================================================================== */
+
+    /*
+     * Image replacement
+     */
+
+    .ir {
+        background-color: transparent;
+        border: 0;
+        overflow: hidden;
+        /* IE 6/7 fallback */
+        *text-indent: -9999px;
+    }
+
+    .ir:before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 150%;
+    }
+
+    /*
+     * Hide from both screenreaders and browsers: h5bp.com/u
+     */
+
+    .hidden {
+        display: none !important;
+        visibility: hidden;
+    }
+
+    /*
+     * Hide only visually, but have it available for screenreaders: h5bp.com/v
+     */
+
+    .visuallyhidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    /*
+     * Extends the .visuallyhidden class to allow the element to be focusable
+     * when navigated to via the keyboard: h5bp.com/p
+     */
+
+    .visuallyhidden.focusable:active,
+    .visuallyhidden.focusable:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+    }
+
+    /*
+     * Hide visually and from screenreaders, but maintain layout
+     */
+
+    .invisible {
+        visibility: hidden;
+    }
+
+    /*
+     * Clearfix: contain floats
+     *
+     * For modern browsers
+     * 1. The space content is one way to avoid an Opera bug when the
+     *    `contenteditable` attribute is included anywhere else in the document.
+     *    Otherwise it causes space to appear at the top and bottom of elements
+     *    that receive the `clearfix` class.
+     * 2. The use of `table` rather than `block` is only necessary if using
+     *    `:before` to contain the top-margins of child elements.
+     */
+
+    .clearfix:before,
+    .clearfix:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+    /*
+     * For IE 6/7 only
+     * Include this rule to trigger hasLayout and contain floats.
+     */
+
+    .clearfix {
+        *zoom: 1;
+    }
+
+    /* ==========================================================================
+       EXAMPLE Media Queries for Responsive Design.
+       These examples override the primary ('mobile first') styles.
+       Modify as content requires.
+       ========================================================================== */
+
+    @media only screen and (min-width: 35em) {
+        /* Style adjustments for viewports that meet the condition */
+    }
+
+    @media print,
+    (-o-min-device-pixel-ratio: 5/4),
+    (-webkit-min-device-pixel-ratio: 1.25),
+    (min-resolution: 120dpi) {
+        /* Style adjustments for high resolution devices */
+    }
+
+    /* ==========================================================================
+       Print styles.
+       Inlined to avoid required HTTP connection: h5bp.com/r
+       ========================================================================== */
+
+    @media print {
+        * {
+            background: transparent !important;
+            color: #000 !important; /* Black prints faster: h5bp.com/s */
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        a,
+        a:visited {
+            text-decoration: underline;
+        }
+
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        /*
+         * Don't show links for images, or javascript/internal links
+         */
+
+        .ir a:after,
+        a[href^="javascript:"]:after,
+        a[href^="#"]:after {
+            content: "";
+        }
+
+        pre,
+        blockquote {
+            border: 1px solid #999;
+            page-break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group; /* h5bp.com/t */
+        }
+
+        tr,
+        img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+        }
+
+        @page {
+            margin: 0.5cm;
+        }
+
+        p,
+        h2,
+        h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2,
+        h3 {
+            page-break-after: avoid;
         }
     }
-    function t_ch(id) {
-        if (id < 127) {
-            return 1;
-        } else if (id < 253) {
-            return 2;
-        } else if (id < 369) {
-            return 3;
-        } else {
-            return 4;
-        }
 
-    }
-    function add(id) {
-        if (t_ch(id) == 1) {
-            forward[cf] = id;
-            cf++;
-        } else if (t_ch(id) == 2) {
-            mid[cm] = id;
-            cm++;
-        } else if (t_ch(id) == 3) {
-            def[cd] = id;
-            cd++;
-        } else if (t_ch(id) == 4) {
-            goal[cg] = id;
-            cg++;
-        }
-    }
-    function count() {
-        ch_cost();
-        block();
-        var tot = cf + cm +cd + cg;
-        document.getElementById('for').innerHTML = "Forwards : " + cf;
-        document.getElementById('mid').innerHTML = "Midfielders : " + cm;
-        document.getElementById('def').innerHTML = "Defenders : " + cd;
-        document.getElementById('goal').innerHTML = "Goalkeepers : " + cg;
-        document.getElementById('budget').innerHTML = "BUDGET : " + cost + "<br /> Selected : " + tot;
+    /*
+        Ok so you have made it this far, that means you are very keen to on my code.
+        Anyway I don't really mind it. This is a great way to learn so you actually doing the right thing:)
+        Follow me @ihatetomatoes
+    */
+    </style>
+<script>
 
+    $(document).ready(function() {
 
-    }
-    function ch_cost() {
-        var b;
-        cost = 100000000;
-        for (b = 0; b < k; b++) {
-            var c = 'cc' + String(team[b]);
-            var y = document.getElementById(c);
+        setTimeout(function(){
+            $('body').addClass('loaded');
+            $('h1').css('color','#222222');
+        }, 3000);
 
-            cost -= y.value;
-
-
-        }
-
-    }
-    function block() {
-        var i;
-        var j;
-        for (i = 1; i < 479; i++) {
-            var c = 'cc' + String(i);
-            var y = document.getElementById(c);
-            console.log(y.value);
-            if (cost - y.value < 0) {
-                j = 'b' + i;
-                document.getElementById(j).style.background = "rgba(250,50,50,1)";
-            } else {
-                j = 'b' + i;
-                document.getElementById(j).style.background = "rgba(10,150,50,0.9)";
-
-            }
-        }
-    }
-    </script>
+    });
+</script>
 
 
 </head>
 <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
+
 <div style="padding: 0;margin: 0;overflow: hidden">
 <!-- Header -->
 <div class="col-md-12" style="background: white;z-index: 3" id="header">
