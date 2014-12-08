@@ -47,7 +47,9 @@
 
                                         $('#preload').fadeIn('slow',function(){}).click(function(){
                                                     $('#preload').fadeOut('fast',function(){});
-                                                    $('body').addClass('loaded');} );},700);
+                                                    $('body').addClass('loaded');
+                                            setTimeout(function(){$('#loader-wrapper').css('display','none');},1000);} );},700);
+
             }
 
 </script>
