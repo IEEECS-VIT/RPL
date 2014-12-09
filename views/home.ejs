@@ -1,0 +1,331 @@
+<!--
+  Riviera Premier League
+  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+
+    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css" />
+
+    <script src="/javascript/rpl.js"></script>
+
+    <script src="/javascript/rpl_players.js"></script>
+    <script src="/javascript/modernizr-2.6.2.min.js"></script>
+    <script src="/javascript/pace.min.js"></script>
+
+    <script>
+        function load() {
+
+            setTimeout(function(){
+
+                $('#preload').fadeIn('slow',function(){}).click(function(){
+                    $('#preload').fadeOut('fast',function(){});
+                    $('body').addClass('loaded');
+                    setTimeout(function(){$('#loader-wrapper').css('display','none');},1000);} );},700);
+
+        }
+
+    </script>
+
+
+
+    <title>Home | RPL</title>
+</head>
+<body onload="load()" style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<!-- Container -->
+<div id="loader-wrapper">
+
+    <div id="loader" style="overflow: visible;"></div>
+
+    <div class="loader-section section-left" style="overflow: visible;">
+
+    </div>
+    <div class="col-md-6 col-md-offset-3" style="display:none;z-index: 1001; margin-top: 8%" id="preload">
+
+        <h1 id="ini" style="color: rgba(255,255,255,0.9);font-weight: lighter;font-size: 350%">Riviera Premier League</h1>
+        <br />
+        <br />
+        <br />
+        <button id="preload_button" >Enter</button>
+    </div>
+    <div class="loader-section section-right" style="z-index: -1;"></div>
+
+
+</div>
+
+<div class="row" style="padding: 0;margin: 0;overflow: hidden">
+<!-- Header -->
+<div class="col-md-12" style="background: white;z-index: 3" id="header">
+    <!--logo-->
+    <div class="row">
+
+        <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
+            <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+        </div>
+        <div class="col-md-1"></div>
+        <!--Riviera Premier League -->
+        <div class="col-md-6" align="center" style="margin-left: -5%">
+
+            <h1 style="margin-top:7%">
+                <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League</small>
+            </h1>
+
+        </div>
+
+
+    </div>
+    <!--Menu -->
+
+
+</div>
+<!--Register-->
+
+<!--test-->
+<nav class="navbar navbar-default col-xs-12 " role="navigation"
+     style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#home-bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/home/matches">Matches</a></li>
+                <li><a href="/home/leaderboard">Leaderboard</a></li>
+                <li><a href="/home/rules">Rules</a></li>
+                <li><a href="/home/prize">Prizes</a></li>
+                <li><a href="/logout">Logout</a></li>
+
+
+            </ul>
+
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<!--test-->
+
+
+<!--Content-->
+<div >
+
+
+
+
+    <div class="col-md-12  col-xs-12 col-sm-12" style="margin: 0;padding: 0; float: right;background: none;font-size: 70%">
+
+        <div class="col-xs-3 stats" style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 200">
+            <ul style="padding: 0;margin: 0">
+                <li> <p> <small>Team </small><br /> <%=results.user._id%></p></li>
+                <li><p><small>Wins</small> <br /> <%=results.user.win%></p></li>
+                <li><p><small>Loss</small> <br /> <%=results.user.played - results.user.win%></p></li>
+                <li><p><small>Points</small> <br /> <%=results.user.points%></p></li>
+                <li><p><small>GD</small> <br /> <%=results.user.gd%></p></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div class="row" style="background: rgba(216,216,216,1)">
+    <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="fort">
+
+        <ul>
+
+            <% var i; for(i = 0;i < results.team.length;i++) { %>
+
+
+            <% if(results.team[i]._id<= 126){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= results.team[i].Name %><br/><br />
+                            Forward<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+
+            </li>
+
+
+            <% }  %>
+
+
+
+
+            <% if(results.team[i]._id> 126&&results.team[i]._id<253){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= results.team[i].Name %><br/><br />
+                            Midfielder<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <form name="h" style="display: none">
+                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+                    <input value="<%= results.team[i].Price %>" id="cp<%= results.team[i]._id %>"/>
+                    <input value="<%= results.team[i].Cost %>" id="cc<%= results.team[i]._id %>"/>
+                </form>
+
+            </li>
+
+
+            <% }   %>
+
+
+
+
+
+
+            <% if(results.team[i]._id< 369&&results.team[i]._id>252){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= results.team[i].Name %><br/><br />
+                            Defender<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <form name="h" style="display: none">
+                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+                    <input value="<%= results.team[i].Price %>" id="cp<%= results.team[i]._id %>"/>
+                    <input value="<%= results.team[i].Cost %>" id="cc<%= results.team[i]._id %>"/>
+                </form>
+
+            </li>
+
+
+            <% }
+
+
+
+    if(results.team[i]._id> 368){ %>
+            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
+                <div class="row" style="padding:1%">
+                    <div class="col-xs-6" >
+                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
+                    </div>
+                    <div class="col-xs-6" style="padding: 0">
+                        <p><%= results.team[i].Name %><br/><br />
+                            Goalkeeper<br />
+                            <br />
+                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
+                                Select
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <form name="h" style="display: none">
+                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+                    <input value="<%= results.team[i].Price %>" id="cp<%= results.team[i]._id %>"/>
+                    <input value="<%= results.team[i].Cost %>" id="cc<%= results.team[i]._id %>"/>
+                </form>
+
+            </li>
+
+
+            <% } }%>
+            </ul>
+
+</div>
+
+</div>
+
+
+<!--Footer -->
+<div class="row col-md-12"
+     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;">
+    <hr/>
+    <div class="row">
+        <div class="col-md-12" align="center" style="text-align: center">
+            <a href="/home/developers">
+                <h4>
+                    Developers
+                </h4>
+            </a>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" align="center"><a href="http://www.vitriviera.com/"><img src="/images/riviera.png"
+                                                                                       style="width: 100%;margin:5%"/></a>
+        </div>
+        <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
+                        src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="http://www.vit.ac.in/"><img src="/images/vit_logo_white.png"
+                                                                                  style="width: 70%;margin:5%"/></a>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!--Rules-->
+</div>
+</body>
+
+</html>
