@@ -424,17 +424,29 @@ router.get('/rules', function (req, res)
     };
     mongoUsers.fetch(credentials,onFetch);
 });
-router.get('/rules', function (req, res)
-{
-    res.render('rules', { });
-});
+
 router.get('/sponsors', function (req, res) // sponsors page
 {
     res.render('sponsors', { });
 });
 router.get('/prize', function (req, res) // page to view prizes
 {
-    res.render('prize', { });
+    var results = [];
+    var credentials = {
+        '_id': req.signedCookies.name
+    };
+    var onFetch = function(err,doc){
+        if(err)
+        {
+            console.log(err.message);
+        }
+        else{
+            results.user = doc;
+            console.log(doc);
+            res.render('prize',{results : results})
+        }
+    };
+    mongoUsers.fetch(credentials,onFetch);
 });
 router.get('/trailer', function (req, res) // trailer page
 {
@@ -618,6 +630,21 @@ router.get('/formation', function (req, res)
 router.get('/developers', function (req, res) // developers page
 {
 
-    res.render('developers', {});
+    var results = [];
+    var credentials = {
+        '_id': req.signedCookies.name
+    };
+    var onFetch = function(err,doc){
+        if(err)
+        {
+            console.log(err.message);
+        }
+        else{
+            results.user = doc;
+            console.log(doc);
+            res.render('developers',{results : results})
+        }
+    };
+    mongoUsers.fetch(credentials,onFetch);
 });
 module.exports = router;
