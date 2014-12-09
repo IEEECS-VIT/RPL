@@ -92,7 +92,7 @@ a {
     border-color:white;
 }
 */
-#bs-example-navbar-collapse-1 li.active a {
+#bs-example-navbar-collapse-1 li.active a,#home-bs-example-navbar-collapse-1 li.active a {
     color: rgba(0, 0, 0, 0.8);
     background: rgba(255, 255, 255, 0.8);
 }
@@ -124,6 +124,9 @@ a {
 
     color: rgba(0,0,0,0.8);
 
+}
+#error div div{
+    background: rgba(0, 0, 0, 0.7);border-radius: 0;
 }
 
 
@@ -321,7 +324,7 @@ button:hover {
         display: none;
     }
 
-    #register {
+    #register,#error {
         min-height: 100%;
         background: rgba(0, 0, 0, 0.5);
         z-index: 2;

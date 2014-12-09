@@ -17,163 +17,232 @@
 -->
 
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en">
+<![endif]-->
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>Rules | RPL</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/foundation/css/foundation.css"/>
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
+    <title>Riviera Premier League</title>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+
+    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+    <script src="/javascript/rpl.js"></script>
 </head>
-<body style="background-color:#646464;font-family: 'PT Sans', sans-serif;height:100%;">
-<div style="min-height: 100%">
-    <!--TOP BAR-->
-    <div class="large-12 top-bar" style="overflow: visible;">
-        <section class="top-bar-section small-only-text-center">
-            <ul class="left">
-                <li><a href="/"><img src="/images/small.png" style="height:42px;padding-bottom:3px;"/></a></li>
-                <li><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs.png" style="height:40px;"
-                                                                      align="center"/></a></li>
+<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<!-- Container -->
+<div style="padding: 0;margin: 0;overflow: hidden">
+<!-- Header -->
+<div class="col-md-12" style="background: white;z-index: 3" id="header">
+    <!--logo-->
+    <div class="row">
+
+        <div class="col-md-1 col-md-offset-2" align="center">
+            <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+        </div>
+        <div class="col-md-1"></div>
+        <!--Riviera Premier League -->
+        <div class="col-md-6" align="center" style="margin-left: -5%">
+
+            <h1 style="margin-top:7%">
+                <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League</small>
+            </h1>
+
+        </div>
+
+
+    </div>
+    <!--Menu -->
+
+
+</div>
+<!--Register-->
+
+<!--test-->
+
+<nav class="navbar navbar-default col-xs-12 " role="navigation"
+     style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#home-bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/home/matches">Matches</a></li>
+                <li><a href="/home/leaderboard">Leaderboard</a></li>
+                <li class="active"><a href="/home/rules">Rules</a></li>
+                <li><a href="/home/prize">Prizes</a></li>
+                <li><a href="/logout">Logout</a></li>
+
 
             </ul>
-            <ul class="right">
-                <li><a href="/logout">Log Out</a></li>
-            </ul>
-        </section>
-    </div>
-    <!-- top bar -->
-    <div class="row" align="center">
-        <ul class="breadcrumbs"
-            style="background:rgba(30,30,30,0.9); border: none; box-shadow: inset 0 0 5px 3px rgba(255,255,255,0.2);margin-top: 5%;">
-            <li><a href="/home" style="color: #ffffff">Home</a></li>
-            <li><a href="/home/matches" style="color:#ffffff;">Match</a></li>
-            <li><a href="/home/leaderboard" style="color:#ffffff;">Leaderboard</a></li>
-            <li class="current"><a href="#" style="color: lightsteelblue;">Rules</a></li>
-            <li><a href="/home/sponsors" style="color:#ffffff;">Sponsors</a></li>
-            <li><a href="/home/prize" style="color:#ffffff;">Prizes</a></li>
-            <li><a href="/home/trailer" style="color:#ffffff;">Trailer</a></li>
-        </ul>
-    </div>
-    <div class="row" align="left">
 
-        <div class="small-12 medium-12 large-12 columns"
-             style="background:rgba(0,123,184,0.5); border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 25px 5px rgba(0,0,0,0.5);box-shadow-top:0 0 0 0 rgba(0,0,0,0);margin-top:3%; ">
-            <h3 style="color: lightgray;text-align: center;">Rules</h3>
 
-            <p style="color: lightgray; opacity: 0.95;text-align: left;">
-                <b>Rules and Regulations, Riviera premier league 1.0, Riviera 2015</b><br/>
-            <ol style="line-height: 95%; color: lightgray;opacity: 0.95;text-align: left;">
-                <li>All of the rules mentioned below are subject to change (wherever applicable) without prior notice.
-                    By signing up for Riviera premier league 1.0, you agree to follow all undermentioned regulations.
-                </li>
-                <br/>
-                <li> In the event of any disputes, the event coordinator’s decision shall hold.</li>
-                <br/>
-                <li>At the beginning of the event, each participant will have to create a squad of exactly 16
-                    football players with the following specifications: exactly 7 batsmen, 6 bowlers, two all-rounders,
-                    and one team coach. The player categories will be explicitly mentioned during squad formation. The
-                    appropriate amount will be deducted from the participant’s / team’s Riviera premier league auction
-                    purse.
-                    The surplus amount, if any will have no bearing whatsoever on future transactions, wherever
-                    applicable.
-                    <br/>
-                    Note: The purchase limit is virtual USD 10 million. All the individual player prices are scaled
-                    accordingly.
-                </li>
-                <br/>
-                <li>
-                    Before each match starts, participants / teams can customize their teams to form the final playing
-                    eleven. Participants must also assign team formation in order to facilitate squad rotation.
-                </li>
-                <br/>
-                <li>
-                    Participants shall be notified of their next match well in advance. At specified times, the game
-                    engine will simulate the match, following which the participants will be able to see minute by minute
-                    commentary and advanced statistical analytics.
-                </li>
-                <br/>
-                <li>
-                    Initially, each participant’s squad will play 7 matches with random opponent squads such that no two
-                    teams play each other more than once. After this league stage has concluded, the top 50 % teams will
-                    be shortlisted for the next round, where a similar process will be repeated. In the end, the 8
-                    remaining finalists will participate in an actual player auction.
-                </li>
-                <br/>
-                <li>
-                    As an extension to clause 6, should there be any clash in terms of rankings between multiple teams
-                    due to points, then the priority of ascension will be decided by the goal difference, which is
-                    calculated as follows: (total goals scored by the team)-(total goals conceded by the team)
-                </li>
-                <br/>
-                <li>
-                    Scoring:
-                    <ul>
-                        <li>
-                            Each victory earns the winning team 3 points (if both opponents have valid teams set)
-                        </li>
-                        <li>
-                            Each loss earns the losing team ZERO points.
-                        </li>
-                        <li>
-                            A match shall be declared a tie, if all of the following conditions hold simultaneously:
-                            <ol style="line-height: 95%;color: lightgray;opacity:0.95;">
-                                <li style="list-style-type: lower-roman">
-                                    The number of goals scored by both teams is exactly the same.
-                                </li>
-                                <li style="list-style-type: lower-roman">
-                                    The number of scoring shots attempted by both teams is the same. If this does not hold,
-                                    then the team with a fewer number of attempted shots shall be declared victorious.
-                                </li>
-                                <li style="list-style-type: lower-roman">
-                                    The number of penalty shootouts scored by both teams is exactly the same. In the highly
-                                    unlikely event of this number being equal, the match shall be declared a TIE, and both
-                                    teams shall be awarded one point apiece.
-                                    <ul>
-                                        <li style="list-style-type: lower-roman">
-                                            Penalty shootout: This is the only method used to determine the winner of a match in
-                                            a situation that results from both teams having scored an equal number of goals within
-                                            the stipulated time limit. Each team takes alternated attempts to score a penalty.
-                                            The team that scores a greater number of penalties, wins. In such a case, the total
-                                            number of goals scored plus the penalties will be considered for the statistics.
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ol>
-                        </li>
-                    </ul>
-                </li>
-                <br/>
-                <li>
-                    If a participant has failed to produce his / her playing eleven before the start of the first match
-                    of the first round, then that match shall be lost to the opposition. In such a case, the winning team
-                    gets 2 points.
-                </li>
-            </ol>
-            </p>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<!--test-->
+
+
+<!--Content-->
+<!--Register-->
+
+
+<!--Rules-->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div align="center" class="col-md-8 box"
+         style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+
+
+        <div class="row" style="text-align: left;margin: 2%">
+            <h1>
+                <small>Riviera Premier League is a Football Fantasy Premier League where you can create and manage your own football team!</small>
+            </h1>
+
+            <h2 id="ini" style="font-weight: bold; text-decoration: underline"><small>Management</small></h2>
+            <h4 ><small>
+                    After you sign up you will be taken to the player selection page where you will decide your team.
+                    <br/><br/>
+                    You will be give 100 million Euro in virtual money which you have to use to buy your team.
+                    <br/><br/>
+                    The players are segregated into four categories: Forward, Midfielder, Defender and Goalkeeper. You need to choose atleast 1 of each type.
+                    <br/><br/>
+                    The total number of players in your squad has to be 16.
+                    <br/><br/>
+                    Now you will be taken to the formation selection page where you will have to select a playing formation for your team and decide who to put where.
+                    <br/><br/>
+                    Note that if this is not done before the start of the matches then your team will automatically lose the match.
+                    <br/><br/>
+                    After the initial prep is completed, you can login whenever you wish and change your formation!
+                </small> </h4>
+            <h2 id="lay" style="font-weight: bold; text-decoration: underline"><small>Layout</small></h2>
+            <h4><small>
+                    Once the league begins, your team will be pit against random opponents for 7 matches which will happen once each day.
+                    <br/><br/>
+                    After the first round of matches has been completed, the top 512 will be selected for the second round.
+                    <br/><br/>
+                    The second round will proceed in exactly the same manner as the first, only this time 8 people will be allowed through to the final round.
+                    <br/><br/>
+                    The final round is a LIVE AUCTION!
+                    <br/><br/>
+                    For the final round the shortlisted participants will have to come to VIT University during Riviera on 8th of February.
+                    <br/><br/>
+                    Once here the finalists will participate in live auctions with 100 million dollars in virtual money. and select their team again.
+                    <br/><br/>
+                    These teams will now play 7 matches and the top 3 out of these will be awarded the prizes!!
+                </small></h4>
+            <h2 id="mat" style="font-weight: bold; text-decoration: underline"><small>Matches</small></h2>
+            <h4><small>
+                    The matches will be simulated using a complex algorithm which we are not disclosing to maintain the integrity of the game.
+                    <br/><br/>
+                    Each win will fetch the team 3 points, lose will fetch 0 points and draw will fetch 1 point.
+                    <br/><br/>
+                    While selecting Teams for subsequent rounds, teams with same number of points will be considered on the basis of their Goal Difference and if GD is the same then the Goal Scored by the teams will be taken into consideration.
+                </small></h4>
+            <h2 id="liv" style="font-weight: bold; text-decoration: underline"><small>Live Auction</small></h2>
+            <h4><small>
+                    The buy-out limit for each participant is virtual Euro 100 million only.
+                    <br/><br/>
+                    There are four categories of purchases namely, Forwards, Midfielders, Defenders and Goalkeeper. Each squad
+                    must conform to the following structure total: 16 members only
+                    In extension, each playing eleven must confine to the following structure:
+                    Minimum Criteria: 1 Forward, 1 Goalkeeper, 1 Defenders, 1 Midfielders.
+                    <br/><br/>
+                    Bidding for football players starts at 10% of the base value stated within the informatory presentation(s), a
+                    copy of which shall be distributed to each participant prior to the commencement of the actual auction itself.
+                    <br/><br/>
+                    In order for a particular footballer to be eligible for bidding, the motion to bid must be ratified by at least
+                    one-half of the participants, via a show of hands.
+                    <br/><br/>
+                    If only one participant has exhibited interest for a particular player, then he / she is given the choice of buying
+                    that player at the indicated base price.
+                    <br/><br/>
+                    The minimum difference between two successive bids must be a minimum of virtual Euro 200,000/ -
+                    <br/><br/>
+                    In the event that a participant is unable to complete the 16 man squad within the prescribed structure, she /
+                    he shall be ejected from the auction immediately, all her / his bought players shall be returned to the auction
+                    pool and shall be subjected to the process of re-bidding.
+                    <br/><br/>
+                    Each participant shall be provided with an assistant, for the purposes of convenience. This assistant may not
+                    guide the participant on / with regard to any purchasing tactics whatsoever.
+                    <br/><br/>
+                    Periodic updates with regard to the remaining funds in the participant’s auction purse may be
+                    obtained on request from the auditor via that participant’s assistant only.
+                    <br/><br/>
+                    Disputes, if any, shall be resolved at the auctioneer’s discretion. Under no circumstances may participants
+                    engage in cross-talk.
+                    <br/><br/>
+                    Failure to comply with any of the aforementioned instructions shall result in immediate disqualification.
+                </small></h4>
+            <h5 style="font-weight: bold; text-decoration: underline"><small>Disclamer</small></h5>
+            <h6><small>
+                    All of the rules mentioned above are subject to change without any prior notice whatsoever. By appearing for the aforementioned auction, you agree to abide by the rules contained herein.
+                    <br/><br/>
+                    Disputes, if any, shall be resolved at the Event Coordinator’s discretion.
+                </small></h6>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+<!--Footer -->
+<div class="col-md-12"
+     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
+    <hr/>
+    <div class="row">
+        <div class="col-md-12" align="center" style="text-align: center">
+            <a href="/home/developers">
+                <h4>
+                    Developers
+                </h4>
+            </a>
+
         </div>
     </div>
-
-    <!-- content -->
-</div>
-<footer class="large-12" style="bottom:0; position:relative;">
-    <div class="top-bar" style="position:relative;margin:2% 0 0 0; overflow: hidden;">
-        <section class="top-bar-section">
-            <ul class="left">
-                <li style="display:block;"><a href="http://vitriviera.com/"><img src="/images/riviera.png"
-                                                                                  style="height:45px;"/></a></li>
-                <li><a href="http://vit.ac.in/"><img src="/images/vit_logo_white.png"
-                                                     style="height:40px;padding-top: 5px" align="center"/></a></li>
-            </ul>
-            <ul class="right">
-                <li><a href="/home/developers"><img src="/images/symbol.png" style="height:35px;" align="center"/><span
-                                style="color:white;text-shadow: 1px 1px rgba(68,59,50,1);">Developers</span></a></li>
-
-            </ul>
-
-        </section>
-        <p style="margin-left: 46%; font-size:60%;color:white;bottom:0; margin-top:2%">&copy;IEEE-CS VIT Chapter</p>
+    <div class="row">
+        <div class="col-md-4" align="center"><a href="http://www.vitriviera.com/"><img src="/images/riviera.png" style="width: 100%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+        <div class="col-md-4" align="center"><a href="http://www.vit.ac.in/"><img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/></a></div>
 
     </div>
-</footer>
-<!-- footer -->
+    <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+</div>
+
+</div>
 </body>
 </html>
