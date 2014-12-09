@@ -352,7 +352,7 @@ router.post('/getTeam', function (req, res)
             for (var i = parseInt(0); i < documents.length; i++)
             {
                 cost = (cost - 0) + (documents[i].Cost - 0);
-                if (cost > 10000000)
+                if (cost > 100000000)
                 {
                     res.redirect('/home/players', {err: "Cost Exceeded"});
                 }
