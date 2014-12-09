@@ -392,7 +392,7 @@ router.post('/getTeam', function (req, res)
                     res.redirect('/home/players', {err: "Cost Exceeded"});
                 }
             }
-            res.redirect('/home/team');
+            res.redirect('/home/formation');
         }
     };
     async.map(players, getCost, onFinish);
