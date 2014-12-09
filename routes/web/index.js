@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 var express = require('express');
 var path = require('path');
 var router = express.Router();
@@ -177,12 +177,16 @@ router.post('/register', function (req, res)
                     squad: [],
                     team: [],
                     win: 0,
+                    loss : 0,
+                    tied : 0,
                     played: 0,
                     points: 0,
                     goals_for: 0,
                     goals_against: 0,
-                    gd : 0,
-                    form : 0
+                    goal_diff : 0,
+                    form : 0.0,
+                    mean_goals_for: 0.0,
+                    mean_goals_against: 0.0
                 };
                 var onInsert = function (err, docs)
                 {
