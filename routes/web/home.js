@@ -58,7 +58,7 @@ router.get('/', function (req, res)
                     res.redirect("/home/players")
                 }else if(doc.squad.length==0)
                 {
-                   //res.redirect("/home/formation");
+                    res.redirect("/home/formation");
                     console.log(doc);
                 }
 
@@ -138,11 +138,11 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
                 console.log(doc);
                 if(doc.team.length==0)
                 {
-                    res.redirect("/home/players") // forcing team selection
+                    res.redirect("/home/players"); // forcing team selection
                 }
                 else if (doc.squad.length == 0)
                 {
-                    res.redirect("/home/team") // forcing squad selection
+                    res.redirect("/home/formation"); // forcing squad selection
                 }
 
             }
@@ -200,7 +200,7 @@ router.get('/matches', function (req, res)
                 }
                 else if (doc.squad.length == 0)
                 {
-                    res.redirect("/home/team")
+                    res.redirect("/home/formation")
                 }
                 var credentials1 = {
                     'Team_1': doc.team_no
@@ -425,10 +425,7 @@ router.get('/rules', function (req, res)
     mongoUsers.fetch(credentials,onFetch);
 });
 
-router.get('/sponsors', function (req, res) // sponsors page
-{
-    res.render('sponsors', { });
-});
+
 router.get('/prize', function (req, res) // page to view prizes
 {
     var results = [];
@@ -447,6 +444,10 @@ router.get('/prize', function (req, res) // page to view prizes
         }
     };
     mongoUsers.fetch(credentials,onFetch);
+});
+router.get('/sponsors', function (req, res) // sponsors page
+{
+    res.render('sponsors', { });
 });
 router.get('/trailer', function (req, res) // trailer page
 {
