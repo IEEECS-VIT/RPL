@@ -1,25 +1,27 @@
 /* player selection */
 var team = [];
+var forward = [];
+var mid = [];
+var def = [];
+var goal = [];
 var k = 0;
-var r;
-var cost = 10000000;
-var che;
-var cb = 7, cbo = 6, ca = 2, cc = 1;
-function subm()
-{
+var cost = 100000000;
 
-    if (k < 15)
-    {
+var cf = 0, cm = 0, cd = 0, cg = 0;
+function subm() {
+
+    if (k < 16) {
 
         alert("Team not full");
 
 
     }
-    else
-    {
+    else if (ch() === -1) {
+        alert("You need to choose atleast 1 player of each type.");
+    }
+    else {
         var id;
-        for (var j = 1; j < 17; j++)
-        {
+        for (var j = 1; j < 17; j++) {
             id = 't' + j;
             document.getElementById(id).value = team[j - 1];
 
@@ -33,108 +35,265 @@ function subm()
     }
 
 }
-function sel(r)
-{
-    if (k == 16)
-    {
+function sel(id) {
+    if (k == 16) {
 
         alert("Team limit Reached");
         return -1;
     }
 
-    che = ch(r);
 
-    if (che != -1)
-    {
-        if (k < 17)
-        {
+    if (k < 17) {
 
 
-            var c = 'cc' + String(r);
-            var y = document.getElementById(c);
-            if (cost - y.value < 0)
-            {
-                alert("Low Budget");
-                return -1;
-            }
-            cost -= y.value;
-
-            team[k] = r;
-            k++;
-            document.getElementById("box" + r).style.visibility = 'hidden';
-            ch(0);
-            disp();
-
-
+        var c = 'cc' + String(id);
+        var y = document.getElementById(c);
+        if (cost - y.value < 0) {
+            alert("Low Budget");
+            return -1;
         }
+        cost -= y.value;
+        add(id);
+        k++;
+        app();
+        document.getElementById("box" + id).style.visibility = 'hidden';
+        count();
+        disp();
+    }
 
 
-        ch(0);
+}
+
+function disp() {
+
+
+    if (k == 0) {
+        document.getElementById("dis1").innerHTML = "";
+        document.getElementById("dis2").innerHTML = "";
+        document.getElementById("dis3").innerHTML = "";
+        document.getElementById("dis4").innerHTML = "";
+        count();
+    }
+    else {
+        disp_for();
+        disp_mid();
+        disp_def();
+        disp_goal();
+
     }
 }
-var count;
-var di = [];
-function disp()
-{
+function disp_for() {
+    var i;
+    var di = [];
+    for (i = 0; i < cf; i++) {
+
+        var id = forward[i];
+        var n = 'cn' + String(id);
+        var p = 'cp' + String(id);
+        var w = document.getElementById(n);
+        var x = document.getElementById(p);
 
 
-    if (k == 0)
-    {
-        document.getElementById("squad").innerHTML = "";
-        cost = 10000000;
-        document.getElementById('budget').innerHTML = "Selected Players <b style='font-size: 60%'>Budget:" + cost + "<br />" + "Batsmen : " + cb + "<br />" + "Bowlers : " + cbo + "<br />" + "All Rounders : " + ca + "<br />" + "Coach : " + cc + "<br />" + "</b>";
+        di[i] = "<li><img src='/images/forwards/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+
     }
-    else
-    {
-        for (count = 0; count < k; count++)
-        {
 
-            var cut = team[count];
-            var n = 'cn' + String(cut);
-            var p = 'cp' + String(cut);
-
-            var t = 'ct' + String(cut);
-
-            var w = document.getElementById(n);
-            var x = document.getElementById(p);
-
-            var z = document.getElementById(t);
-            document.getElementById('budget').innerHTML = "Selected Players <b style='font-size: 60%'>Budget:" + cost + "<br />" + "Batsmen : " + cb + "<br />" + "Bowlers : " + cbo + "<br />" + "All Rounders : " + ca + "<br />" + "Coach : " + cc + "<br />" + "</b>";
-            di[count] = "<div style='border-radius: 5px;background-color: rgba(0,0,0,0.2);margin-top: 1%;'>" + "<p align='center' style='color: white;padding: 1%;' >" + w.value + "<br />" + x.value + "<br />" + z.value + "</p>" + "<button class='button [tiny small large]' style='height: auto;width:auto;margin-left:75%;padding:1%;margin-bottom:1%;text-align: center;font-weight: bolder;border: 2px solid red;background-color:rgba(255,255,255,0.1);color: red;border-radius: 5px;' onclick='rem(" + cut + ")'>" + " Remove</div></button>" + "</div>";
-
-        }
-
-        document.getElementById("squad").innerHTML = di.join(" ");
-    }
+    document.getElementById("dis1").innerHTML = di.join(" ");
 }
-function rem(co)
-{
+function disp_mid() {
+    var i;
+    var di = [];
+    for (i = 0; i < cm; i++) {
+
+        var id = mid[i];
+        var n = 'cn' + String(id);
+        var p = 'cp' + String(id);
+        var w = document.getElementById(n);
+        var x = document.getElementById(p);
+
+
+        di[i] = "<li><img src='/images/mid/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+
+    }
+
+    document.getElementById("dis2").innerHTML = di.join(" ");
+
+}
+function disp_def() {
+    var i;
+    var di = [];
+    for (i = 0; i < cd; i++) {
+
+        var id = def[i];
+        var n = 'cn' + String(id);
+        var p = 'cp' + String(id);
+        var w = document.getElementById(n);
+        var x = document.getElementById(p);
+
+
+        di[i] = "<li><img src='/images/def/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+
+    }
+
+    document.getElementById("dis3").innerHTML = di.join(" ");
+
+}
+function disp_goal() {
+    var i;
+    var di = [];
+    for (i = 0; i < cg; i++) {
+
+        var id = goal[i];
+        var n = 'cn' + String(id);
+        var p = 'cp' + String(id);
+        var w = document.getElementById(n);
+        var x = document.getElementById(p);
+
+
+        di[i] = "<li><img src='/images/goal/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+
+    }
+
+    document.getElementById("dis4").innerHTML = di.join(" ");
+
+}
+function rem(co) {
     document.getElementById("box" + co).style.visibility = 'visible';
+    var i;
+    var j;
+    if (t_ch(co) == 1) {
+        for (i = 0; i < cf; i++) {
+            if (co == forward[i]) {
+                for (j = i; j < cf - 1; j++) {
 
-    for (var b = 0; b < k; b++)
-    {
-        if (team[b] == co)
-        {
-            var a = b;
-            while (a < k)
-            {
-
-                team[a] = team[a + 1];
-
-                a++;
-
+                    forward[j] = forward[j + 1];
+                }
+                break;
             }
 
-            k -= 1;
-            di[k] = "";
-
-            break;
 
         }
+        cf--;
+        k--;
+    } else if (t_ch(co) == 2) {
+        for (i = 0; i < cm; i++) {
+            if (co == mid[i]) {
+                for (j = i; j < cm - 1; j++) {
+
+                    mid[j] = mid[j + 1];
+                }
+                break;
+            }
+
+        }
+        cm--;
+        k--;
+    } else if (t_ch(co) == 3) {
+        for (i = 0; i < cd; i++) {
+            if (co == def[i]) {
+                for (j = i; j < cd - 1; j++) {
+
+                    def[j] = def[j + 1];
+                }
+                break;
+            }
+
+        }
+        cd--;
+        k--;
+    } else if (t_ch(co) == 4) {
+        for (i = 0; i < cg; i++) {
+            if (co == goal[i]) {
+                for (j = i; j < cg - 1; j++) {
+
+                    goal[j] = goal[j + 1];
+                }
+                break;
+            }
+
+        }
+        cg--;
+        k--;
     }
-    cost = 10000000;
-    for (b = 0; b < k; b++)
-    {
+    app();
+    count();
+    disp();
+
+}
+function ch() {
+    if (cf === 0 || cm === 0 || cd === 0 || cg === 0)
+        return -1;
+    else
+        return 0;
+}
+
+
+function app() {
+    var i = 0;
+    var j;
+    while (i != k) {
+
+        for (j = 0; j < cf; j++) {
+            team[i] = forward[j];
+            i++;
+        }
+        for (j = 0; j < cm; j++) {
+            team[i] = mid[j];
+            i++;
+        }
+        for (j = 0; j < cd; j++) {
+            team[i] = def[j];
+            i++;
+        }
+        for (j = 0; j < cg; j++) {
+            team[i] = goal[j];
+            i++;
+        }
+    }
+}
+function t_ch(id) {
+    if (id < 127) {
+        return 1;
+    } else if (id < 253) {
+        return 2;
+    } else if (id < 369) {
+        return 3;
+    } else {
+        return 4;
+    }
+
+}
+function add(id) {
+    if (t_ch(id) == 1) {
+        forward[cf] = id;
+        cf++;
+    } else if (t_ch(id) == 2) {
+        mid[cm] = id;
+        cm++;
+    } else if (t_ch(id) == 3) {
+        def[cd] = id;
+        cd++;
+    } else if (t_ch(id) == 4) {
+        goal[cg] = id;
+        cg++;
+    }
+}
+function count() {
+    ch_cost();
+    block();
+    var tot = cf + cm +cd + cg;
+    document.getElementById('for').innerHTML = "Forwards : " + cf;
+    document.getElementById('mid').innerHTML = "Midfielders : " + cm;
+    document.getElementById('def').innerHTML = "Defenders : " + cd;
+    document.getElementById('goal').innerHTML = "Goalkeepers : " + cg;
+    document.getElementById('budget').innerHTML = "BUDGET : " + cost + "<br /> Selected : " + tot;
+
+
+}
+function ch_cost() {
+    var b;
+    cost = 100000000;
+    for (b = 0; b < k; b++) {
         var c = 'cc' + String(team[b]);
         var y = document.getElementById(c);
 
@@ -142,80 +301,22 @@ function rem(co)
 
 
     }
-    ch(0);
-    disp();
 
 }
-function ch(r)
-{
-
-    var t, z;
-
-    var b = 0;
-    var bo = 0;
-    var al = 0;
-    var c = 0;
-
-
-    if (r != 0)
-    {
-        var asd = 'ct' + String(r);
-        var y = document.getElementById(asd);
-        if (cb == 0 && y.value.localeCompare('midfielders') == 0)
-        {
-            alert("Maximum number of Batsmen reached");
-            return -1;
-        }
-        if (cbo == 0 && y.value.localeCompare('defenders') == 0)
-        {
-            alert("Maximum number of Bowlers reached");
-            return -1;
-        }
-        if (ca == 0 && y.value.localeCompare('strikers') == 0)
-        {
-            alert("Maximum number of All Rounders reached");
-            return -1;
-
-        }
-        if (cc == 0 && y.value.localeCompare('coach') == 0)
-        {
-            alert("Maximum number of Coaches reached");
-            return -1;
+function block() {
+    var i;
+    var j;
+    for (i = 1; i < 479; i++) {
+        var c = 'cc' + String(i);
+        var y = document.getElementById(c);
+        console.log(y.value);
+        if (cost - y.value < 0) {
+            j = 'b' + i;
+            document.getElementById(j).style.background = "rgba(250,50,50,1)";
+        } else {
+            j = 'b' + i;
+            document.getElementById(j).style.background = "rgba(10,150,50,0.9)";
 
         }
     }
-    for (var a = 0; a < k; a++)
-    {
-
-
-        t = 'ct' + String(team[a]);
-        z = document.getElementById(t);
-        if (z.value.localeCompare('midfielders') == 0)
-        {
-            b++;
-        }
-        else if (z.value.localeCompare('defenders') == 0)
-        {
-            bo++;
-        }
-        else if (z.value.localeCompare('strikers') == 0)
-        {
-            al++;
-        }
-        else if (z.value.localeCompare('coach') == 0)
-        {
-            c++;
-        }
-
-    }
-
-
-    cb = 7 - b;
-    cbo = 6 - bo;
-    ca = 2 - al;
-    cc = 1 - c;
-
-
 }
-
-

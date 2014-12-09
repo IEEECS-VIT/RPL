@@ -44,10 +44,29 @@
 
     </script>
 </head>
-<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<body onload="" style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <div id="fb-root"></div>
 
+<%if(response.length!=0){%>
 
+
+<div class="modal fade bs-example" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"  id="error"  style="z-index: 1001">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                               style="color: #ffffff">×</span><span
+                            class="sr-only">Close</span></button>
+                <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Error</h2>
+
+            </div>
+            <h3 class="modal-title" id="myLargeModalLabel" style="color: #ffffff;padding: 5%"><%=response%></h3>
+        </div>
+    </div>
+</div>
+<script>
+    $('#error').modal('show');
+</script><%}else{}%>
 <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -192,9 +211,9 @@
             <div class="modal-body">
                 <form action="/login" method="post">
 
-                    <input name="t_name" type="text" placeholder="Team Name"/>
+                    <input name="team_name" type="text" placeholder="Team Name"/>
                     <br/>
-                    <input name="pass" type="password" placeholder="Password"/>
+                    <input name="password" type="password" placeholder="Password"/>
                     <br/>
                     <a href="#" style="">forgot password?</a>
                     <br/>
@@ -222,9 +241,9 @@
         <div class="col-md-8" id="login_box" style="display: none">
             <form action="/login" method="post">
 
-                <input name="t_name" type="text" placeholder="Team Name"/>
+                <input name="team_name" type="text" placeholder="Team Name"/>
                 <br/>
-                <input name="pass" type="password" placeholder="Password"/>
+                <input name="password" type="password" placeholder="Password"/>
                 <br/>
                 <a href="/forgot" style="">forgot password?</a>
                 <br/>

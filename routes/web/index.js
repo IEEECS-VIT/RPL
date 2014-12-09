@@ -131,7 +131,7 @@ router.post('/forgot', function (req, res)
     mongoUsers.forgotPassword(credentials, onFetch);
 });
 
-router.get('/register', function (req, res)
+/*router.get('/register', function (req, res)
 {
     if (req.signedCookies.name)
     {
@@ -141,7 +141,7 @@ router.get('/register', function (req, res)
     {
         res.render('register', { response: "" });
     }
-});
+});*/
 
 router.post('/register', function (req, res)
 {
@@ -154,12 +154,12 @@ router.post('/register', function (req, res)
         else
         {
             var team_no = parseInt(number) + 1;
-            var teamName = req.body.team_name;
-            var password = req.body.password;
-            var confirmPassword = req.body.confirm_password;
-            var managerName = req.body.manager_name;
+            var teamName = req.body.t_name;
+            var password = req.body.rpass;
+            var confirmPassword = req.body.rcpass;
+            var managerName = req.body.m_name;
             var email = req.body.email;
-            var phone = req.body.phone;
+            var phone = req.body.pno;
             console.log("Reached");
 
             if (password === confirmPassword)
@@ -194,7 +194,7 @@ router.post('/register', function (req, res)
                     {
                         console.log(err.message);
                         // Make it more user friendly, output the error to the view
-                        res.render('register', {response: "Team Name Already Exists"});
+                        res.render('index', {response: "Team Name Already Exists"});
                     }
                     else
                     {
@@ -266,6 +266,11 @@ router.get('/developer', function (req, res) // developers page
     if (req.signedCookies.name)
     {
         session = 1;
+        if (log)
+        {
+            log.log(req.signedCookies.name + "logged in");
+        }
+        res.redirect('/home/developers');
     }
     else
     {
@@ -293,6 +298,11 @@ router.get('/prizes', function (req, res) // page to view prizes
     if (req.signedCookies.name)
     {
         session = true;
+        if (log)
+        {
+            log.log(req.signedCookies.name + "logged in");
+        }
+        res.redirect('/home/prize');
     }
     else
     {
@@ -384,64 +394,28 @@ router.get('/schedule', function (req, res) // schedule page
 
 router.get('/players', function (req, res) // page for all players, only available if no squad has been chosen
 {
-    var players = {};
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = 1;
-    }
-    else
-    {
-        session = 0;
-    }
 
-    /*if (req.signedCookies.name)
-    {
-        var doc = {
-            "_id": req.signedCookies.name
-        };
-        var onFetchUser = function (err, document)
-        {
-            if (err)
-            {
-                //do something with the error
-                console.log(err.message);
 
-            }
-            else
-            {
-                if (document.team.length != 0)
+                var onFetch = function (err, documents)
                 {
-                    res.redirect("/home");
-                }
-                else
-                {*/
-                    var onFetch = function (err, documents)
+                    if (err)
                     {
-                        if (err)
-                        {
-                            res.redirect('/home');
-                        }
-                        else
-                        {
-                            res.render('players', {
-                                Players: documents
-                            });
-                        }
+                        res.render('players', {
+                            Players: documents
+                        });
+                    }
+                    else
+                    {
+                        res.render('players', {
+                            Players: documents
+                        });
+                    }
 
-                    };
-                    mongoPlayers.fetchPlayers(onFetch);
-
-
+                };
+                mongoPlayers.fetchPlayers(onFetch);
 
 
 
-   /* }
-    else
-    {
-        res.redirect("/");
-    }*/
-    res.render('players', {Players: players});
 });
 
 module.exports = router;

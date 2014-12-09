@@ -17,6 +17,50 @@
 a {
     color: white;
 }
+.playertab ul{
+    list-style: none
+}
+.playertab ul li{
+    height:12em;
+    display:inline-block;
+    margin:2%;
+    background: white;
+    padding: 1%;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);
+}
+.playertab ul li div div img{
+    width:100%;
+}
+.playertab ul li div div p{
+    text-align: center;
+    margin-right: 10%;
+}
+.playertab ul li div div p button{
+    padding: 7% 15%;
+    background: rgba(10,150,50,0.9);
+}
+
+
+@media (min-width: 0px) {
+    #myTab{
+        float: right;
+        display: inline-block;
+        visibility: visible;
+
+    }
+    #myTab li.active a {
+        color: rgba(0, 0, 0, 0.8);
+        background: rgba(255, 255, 255, 0.929);
+    }
+    #myTab ul li a:hover{
+        color: rgba(0, 0, 0, 0.8);
+    }
+    #myTab li{
+
+        display: inline-block;
+
+    }
+}
 /*#myTab{
     padding: 0;
     margin: 0;
@@ -48,7 +92,7 @@ a {
     border-color:white;
 }
 */
-#bs-example-navbar-collapse-1 li.active a {
+#bs-example-navbar-collapse-1 li.active a,#home-bs-example-navbar-collapse-1 li.active a {
     color: rgba(0, 0, 0, 0.8);
     background: rgba(255, 255, 255, 0.8);
 }
@@ -80,6 +124,9 @@ a {
 
     color: rgba(0,0,0,0.8);
 
+}
+#error div div{
+    background: rgba(0, 0, 0, 0.7);border-radius: 0;
 }
 
 
@@ -161,15 +208,18 @@ button:hover {
     border-radius: 0;
 }
 #list {
-    margin:0;
+    margin: 0;
     z-index: 2;
     background: none;
     position: relative;
     padding: 0;
     border: none;
     border-radius: 0;
+    list-style: none;
 }
-
+#list li{
+    margin:10% 0 0 0;
+}
 #squad{
     border: none;
     background: none;
@@ -183,31 +233,80 @@ button:hover {
     float: none;
 
 }
+#dis1,#dis2,#dis3,#dis4{
+    list-style: none;
+    width: 100%;
+    color: white;
 
+    margin: 0 0 20% 0 ;
+    text-align: center;
+    padding: 0;
+}
+#dis1 p ,#dis2 p ,#dis3 p ,#dis4 p{
+    margin:0;
+    padding:0;
+
+    width: 80%;
+
+}
+
+#dis1 li ,#dis2 li ,#dis3 li ,#dis4 li{
+    display: block;
+    padding: 15px;
+
+}
+#dis1 img,#dis2 img,#dis3 img,#dis4 img{
+    width:30%;
+    float: left;
+
+
+}
+#dis1 button,#dis2 button,#dis3 button,#dis4 button{
+    width:20%;
+    float: right;
+    color:rgba(255,255,255,0.7);
+    background:none;height:auto;padding:0;font-size:100%;z-index:0;
+}
+#dis1 button:hover,#dis2 button:hover,#dis3 button:hover,#dis4 button:hover{
+    box-shadow: none;
+    color:rgba(255,255,255,1);
+}
+
+#player_list{
+    float: left;
+}
+#player_list h3{
+    color: white;
+}
+#squad{
+    width: 100%;
+
+}
+#squad ul{
+    margin:0  auto;
+    width: 100%;
+
+}
+#squad ul hr{
+    margin-top: 0;
+}
 
 @media (max-width: 992px) {
 
 
-    #squad h3,#squad hr{
-        display:none;
-    }
+
     #header {
         display: none;
     }
     #dashboard_head{
         background: rgba(0,0,0,0.9);
     }
-    #player_list{
-        background: none;
-        padding:0;
-    }
+
 
     #tab{
         background: none;
     }
-    #player_list h3{
-        display: none;
-    }
+
     #brand {
         display: block;
         color: rgba(255, 255, 255, 0.7);
@@ -225,7 +324,7 @@ button:hover {
         display: none;
     }
 
-    #register {
+    #register,#error {
         min-height: 100%;
         background: rgba(0, 0, 0, 0.5);
         z-index: 2;
@@ -264,71 +363,13 @@ button:hover {
         color: white;
         padding: 2%;
     }
-    #squad li{
-        float: left;
-    }
-    #squad ul{
-        margin:0;
-    }
-    #dis1,#dis2,#dis3,#dis4{
-        display: none;
-    }
+
+
 }
 
 @media (min-width: 992px) {
-    #dis1,#dis2,#dis3,#dis4{
-        list-style: none;
-        width: 100%;
-        color: white;
-
-        margin: 0;
-        text-align: center;
-        padding: 0;
-    }
-    #dis1 p ,#dis2 p ,#dis3 p ,#dis4 p{
-        margin:0;
-        padding:0;
-
-        width: 80%;
-
-    }
-
-    #dis1 li ,#dis2 li ,#dis3 li ,#dis4 li{
-        display: block;
-        padding: 15px;
-
-    }
-    #dis1 img,#dis2 img,#dis3 img,#dis4 img{
-        width:30%;
-        float: left;
 
 
-    }
-    #dis1 a,#dis2 a,#dis3 a,#dis4 a{
-        width:20%;
-        float: right;
-    }
-    #player_list{
-        float: left;
-    }
-    #player_list h3{
-        color: white;
-    }
-    #squad{
-        width: 100%;
-
-    }
-    #squad ul{
-        margin:0  auto;
-        width: 100%;
-
-    }
-    #squad ul hr{
-        margin-top: 0;
-    }
-    #myTab{
-        float: right;
-    }
     #home-bs-example-navbar-collapse-1 li {
         padding: 0;
         font-size: 130%;
@@ -434,3 +475,332 @@ button:hover {
     }
 
 }
+
+/*--------------------------Preloader------------------ */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+
+#loader:before {
+
+}
+
+#loader:after {
+
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9  */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera  */
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9  */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+  */
+        -ms-transform: rotate(360deg);  /* IE 9  */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera  */
+
+    }
+}
+
+#loader-wrapper .loader-section {
+    position: fixed;
+
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: #222222;
+    z-index: 1000;
+    -webkit-transform: translateX(0);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(0);  /* IE 9 */
+    transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
+}
+
+#loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+
+#loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+
+/* Loaded */
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(-100%);  /* IE 9 */
+    transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded #loader-wrapper .loader-section.section-right {
+    -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(100%);  /* IE 9 */
+    transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded #loader {
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.loaded #loader-wrapper {
+    visibility: hidden;
+
+    -webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateY(-100%);  /* IE 9 */
+    transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+    -webkit-transition: all 0.3s 1s ease-out;
+    transition: all 0.3s 1s ease-out;
+}
+
+/* JavaScript Turned Off */
+.no-js #loader-wrapper {
+    display: none;
+}
+.no-js h1 {
+    color: #222222;
+}
+
+#content {
+    margin: 0 auto;
+    padding-bottom: 50px;
+    width: 80%;
+    max-width: 978px;
+}
+
+
+
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+(-o-min-device-pixel-ratio: 5/4),
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+/*
+    Ok so you have made it this far, that means you are very keen to on my code.
+    Anyway I don't really mind it. This is a great way to learn so you actually doing the right thing:)
+    Follow me @ihatetomatoes
+
+    */
+#preload_button{
+    /* margin: 42% 0 0 90%;*/
+    background: none;
+
+    color: rgba(255,255,255,0.7);
+}
+#preload_button:hover{
+    box-shadow: none;
+    color: rgba(255,255,255,1);
+}
+
