@@ -39,6 +39,22 @@ a {
     padding: 7% 15%;
     background: rgba(10,150,50,0.9);
 }
+.stats{
+    float: right;
+    display: inline-block;
+    visibility: visible;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 0;
+    z-index: 1001;
+}
+.stats ul{
+    list-style: none;
+}
+.stats ul li{
+    display:inline-block;
+    margin: 0 2%;
+}
 
 
 @media (min-width: 0px) {

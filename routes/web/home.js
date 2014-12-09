@@ -56,6 +56,10 @@ router.get('/', function (req, res)
                 if (doc.team.length == 0)
                 {
                     res.redirect("/home/players")
+                }else if(doc.squad.length==0)
+                {
+                   //res.redirect("/home/formation");
+                    console.log(doc);
                 }
 
                 var getDetails = function (id, callback)
@@ -122,7 +126,7 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
         {
             "_id": teamname
         };
-        var onFetch = function (err, documents)
+        var onFetch = function (err, doc)
         {
             if (err)
             {
@@ -131,12 +135,35 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
             }
             else
             {
-                console.log(documents);
-                res.render("leaderboard", { leaderboard: documents});
+                console.log(doc);
+                if(doc.team.length==0)
+                {
+                    res.redirect("/home/players") // forcing team selection
+                }
+                else if (doc.squad.length == 0)
+                {
+                    res.redirect("/home/team") // forcing squad selection
+                }
+
             }
+            var onFinish = function (err, documents)
+            {
+                if (err)
+                {
+                    //do something with the error
+                    console.log(err.message);
+                }
+                else
+                {
+                    console.log(documents);
+                    res.render("leaderboard", { leaderboard: documents});
+                }
+            };
+            mongoUsers.getleader(doc, onFinish);
         };
         console.log("get Leader Function");
-        mongoUsers.getleader(doc, onFetch);
+        mongoUsers.fetch(doc,onFetch);
+
 
     }
     else
@@ -167,6 +194,14 @@ router.get('/matches', function (req, res)
             }
             else
             {
+                if(doc.team.length==0)
+                {
+                    res.redirect("/home/players")
+                }
+                else if (doc.squad.length == 0)
+                {
+                    res.redirect("/home/team")
+                }
                 var credentials1 = {
                     'Team_1': doc.team_no
                 };
@@ -321,7 +356,7 @@ router.post('/getTeam', function (req, res)
         else
         {
             console.log(documents);
-            res.redirect('/home');
+            res.redirect('/home/formation');
         }
 
     };
@@ -372,7 +407,22 @@ router.post('/getTeam', function (req, res)
 
 router.get('/rules', function (req, res)
 {
-    res.render('rules', { });
+    var results = [];
+    var credentials = {
+        '_id': req.signedCookies.name
+    };
+    var onFetch = function(err,doc){
+        if(err)
+        {
+            console.log(err.message);
+        }
+        else{
+            results.user = doc;
+            console.log(doc);
+            res.render('rules',{results : results})
+        }
+    };
+    mongoUsers.fetch(credentials,onFetch);
 });
 router.get('/rules', function (req, res)
 {
@@ -447,11 +497,24 @@ router.get('/team', function (req, res) // view the assigned playing 11 with opt
 {
     if (req.signedCookies.name)                           // if cookies exists then access the database
     {
+        var results =[];
         var teamName = req.signedCookies.name;
         var credentials =
         {
             '_id': teamName
         };
+        var onFetch = function(err,doc){
+            if(err)
+            {
+                console.log(err.message);
+            }
+            else{
+                results.user = doc;
+                console.log(doc);
+
+            }
+        };
+        mongoUsers.fetch(credentials,onFetch);
 
         var getTeam = function (err, documents)
         {
@@ -468,6 +531,86 @@ router.get('/team', function (req, res) // view the assigned playing 11 with opt
         mongoTeam.getTeam(credentials, getTeam);
     }
     else                                                        // if cookies does not exists , go to login page
+    {
+        res.redirect('/');
+    }
+});
+router.get('/formation', function (req, res)
+{
+    var results = {};
+    if (req.signedCookies.name)
+    {
+        var credentials = {
+            '_id': req.signedCookies.name
+        };
+        var onFetch = function (err, doc)
+        {
+            if (err)
+            {
+                console.log(err);
+            }
+            else if (doc)
+            {
+                results.user = doc;
+                if (doc.team.length == 0)
+                {
+                    res.redirect("/home/players")
+                }else if(doc.squad.length==0)
+                {
+                    //res.redirect("/home/formation");
+                    console.log(doc);
+                }
+
+                var getDetails = function (id, callback)
+                {
+                    var player = {
+                        '_id': id
+                    };
+                    var fields =
+                    {
+                        _id: 1,
+                        Name: 1,
+                        Cost: 1,
+                        Country: 1,
+                        Type: 1
+                    };
+                    mongoPlayers.getPlayer(player, fields, callback)
+                };
+                var onFinish = function (err, documents)
+                {
+                    if (err)
+                    {
+                        //do something with the error
+                    }
+                    else
+                    {
+                        results.team = documents;
+                        res.render('formation', {results: results});
+                    }
+                };
+
+                if (err)
+                {
+                    res.redirect('/');
+                }
+                else
+                {
+                    var document = [];
+                    document = doc.team;
+                    async.map(document, getDetails, onFinish);
+                }
+
+            }
+            else
+            {
+                res.clearCookie('name', { });
+                res.redirect('/');
+            }
+
+        };
+        mongoUsers.fetch(credentials, onFetch);
+    }
+    else
     {
         res.redirect('/');
     }
