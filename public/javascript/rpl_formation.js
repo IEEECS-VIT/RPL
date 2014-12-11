@@ -36,15 +36,15 @@ function disp(id){
     var a,b;
     var radio = document.getElementById(act_id);
     var style = radio.style;
-    var div = document.createElement('li');
+    var li = document.createElement('li');
 
     var name = document.getElementById("cn"+id).value;
 
-    div.style.cssText = radio.style.cssText;
+    li.style.cssText = radio.style.cssText;
 
-    div.style.width = "16%";
-    if(div.style.marginTop.length==0) {
-        a = div.style.marginLeft;
+    li.style.width = "16%";
+    if(li.style.marginTop.length==0) {
+        a = li.style.marginLeft;
 
         if (a.length > 2)
             b = parseInt(a[0] + a[1]);
@@ -55,10 +55,10 @@ function disp(id){
             a = b + '%';
 
 
-        div.style.marginLeft = a;
+        li.style.marginLeft = a;
     }
     else{
-        a = div.style.marginTop;
+        a =li.style.marginTop;
 
 
             b = parseInt(a[0] + a[1]);
@@ -69,17 +69,17 @@ function disp(id){
 
             a = b + '%';
 
-        div.style.marginTop =a;
+        li.style.marginTop =a;
     }
-    div.innerHTML ="<a href='javascript:ret("+id+","+act_id+");' id='set"+act_id[1]+"' style='float: right;color:rgba(0,0,0,0.7);z-index:1001;font-size:70%;width:100%;text-align:right;'>X</a>"+ "<p>"+name+"</p>" ;
-    div.id = act_id;
-    radio.parentNode.replaceChild(div,radio);
+    li.innerHTML ="<a href='javascript:ret("+id+","+act_id+");' id='set"+act_id[1]+"' style='float: right;color:rgba(0,0,0,0.7);z-index:1001;font-size:70%;width:100%;text-align:right;'>X</a>"+ "<p>"+name+"</p>" ;
+    li.id = act_id;
+    radio.parentNode.replaceChild(li,radio);
 
     sel =0;
 }
-function ret(id,div){
+function ret(id,li){
  //   alert(div.id[1]);
-    rem_team(div.id[1]);
+    rem_team(li.id[1]);
     k--;
     document.getElementById("box" + id).style.display = 'block';
     var a,b;
@@ -88,7 +88,7 @@ function ret(id,div){
 
     var radio = document.createElement('input');
 
-    radio.style.cssText = div.style.cssText;
+    radio.style.cssText = li.style.cssText;
 
     radio.style.width = "auto";
     if(radio.style.marginTop.length==0) {
@@ -121,9 +121,9 @@ function ret(id,div){
 
     radio.name = "f";
     radio.type = 'radio';
-    radio.id = div.id;
+    radio.id = li.id;
     radio.setAttribute('onClick', 'active(this.id)');
-    div.parentNode.replaceChild(radio,div);
+    li.parentNode.replaceChild(radio,li);
 
 }
 function active(act){
