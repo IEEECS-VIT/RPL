@@ -18,7 +18,7 @@
 
 var MongoClient = require('mongodb').MongoClient;
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://burnualive:dracielv29951!@ds061200.mongolab.com:61200/rpl';
 
 
 exports.fetchPlayers = function (callback)
