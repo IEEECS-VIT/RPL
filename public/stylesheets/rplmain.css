@@ -9,7 +9,42 @@
 #home-bs-example-navbar-collapse-1 a {
     color: rgba(255, 255, 255, 0.8);
 }
+/* scroll bar */
+body::-webkit-scrollbar {
+    width: 0.5em;
+    z-index: 999;
+}
 
+body::-webkit-scrollbar-track {
+
+    background: rgba(0,0,0,0.8);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+   border:1px rgba(255,255,255,0.1) solid ;
+    outline: 1px slategrey;
+    border-radius: 360px;
+
+}
+div::-webkit-scrollbar {
+    width: 0.5em;
+    z-index: 999;
+}
+
+div:hover::-webkit-scrollbar-track {
+
+    background: rgba(0,0,0,0);
+}
+
+div:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border:1px rgba(255,255,255,0.1) solid ;
+    outline: 1px slategrey;
+    border-radius: 360px;
+
+
+}
 #home-bs-example-navbar-collapse-1 a:hover {
     color: white;
 }
@@ -268,7 +303,9 @@ button:hover {
 
 #dis1 li ,#dis2 li ,#dis3 li ,#dis4 li{
     display: block;
-    padding: 15px;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    margin:1%;
 
 }
 #dis1 img,#dis2 img,#dis3 img,#dis4 img{

@@ -94,7 +94,7 @@ function disp_for() {
         var x = document.getElementById(p);
 
 
-        di[i] = "<li><img src='/images/forwards/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+        di[i] = "<li><button data-toggle='tooltip'  data-placement='bottom' title='Click to remove player' onclick='rem(" + id + ")'>X</button><p>" + w.value + "</p><p>"+ " &euro; " + x.value + " Mil</p></li>";
 
     }
 
@@ -112,7 +112,7 @@ function disp_mid() {
         var x = document.getElementById(p);
 
 
-        di[i] = "<li><img src='/images/mid/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+        di[i] = "<li><button data-toggle='tooltip'  data-placement='bottom' title='Click to remove player' onclick='rem(" + id + ")'>X</button><p>" + w.value + "</p><p>"+ " &euro; " + x.value + " Mil</p></li>";
 
     }
 
@@ -131,7 +131,7 @@ function disp_def() {
         var x = document.getElementById(p);
 
 
-        di[i] = "<li><img src='/images/def/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+        di[i] = "<li><button data-toggle='tooltip'  data-placement='bottom' title='Click to remove player' onclick='rem(" + id + ")'>X</button><p>" + w.value + "</p><p>"+ " &euro; " + x.value + " Mil</p></li>";
 
     }
 
@@ -150,7 +150,7 @@ function disp_goal() {
         var x = document.getElementById(p);
 
 
-        di[i] = "<li><img src='/images/goal/" + id + ".jpg' /><button onclick='rem(" + id + ")'>X</button><p>" + w.value + "<br /><p>" + x.value + " M</p></li>";
+        di[i] = "<li><button data-toggle='tooltip'  data-placement='bottom' title='Click to remove player' onclick='rem(" + id + ")'>X</button><p>" + w.value + "</p><p>" + " &euro; " + x.value + " Mil</p></li>";
 
     }
 
@@ -286,7 +286,7 @@ function count() {
     document.getElementById('mid').innerHTML = "Midfielders : " + cm;
     document.getElementById('def').innerHTML = "Defenders : " + cd;
     document.getElementById('goal').innerHTML = "Goalkeepers : " + cg;
-    document.getElementById('budget').innerHTML = "BUDGET : " + cost + "<br /> Selected : " + tot;
+    document.getElementById('budget').innerHTML = "BUDGET : " + ch_cost() + "<br /> Selected : " + tot;
 
 
 }
@@ -301,6 +301,12 @@ function ch_cost() {
 
 
     }
+    var word_cost;
+    var float_cost;
+    float_cost = parseFloat(cost) / 1000000.000;
+
+    word_cost = " &euro; "+float_cost + " Mil";
+    return word_cost;
 
 }
 function block() {
