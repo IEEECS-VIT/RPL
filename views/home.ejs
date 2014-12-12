@@ -152,9 +152,9 @@
 
 
 
-    <div class="col-md-12  col-xs-12 col-sm-12" style="margin: 0;padding: 0; float: right;background: none;font-size: 70%">
+    <div class="col-md-9  col-xs-9 col-sm-9" style="z-index: 999;margin: 0;padding: 0; float: right;background: none;font-size: 70%">
 
-        <div class="col-xs-3 stats" style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 200">
+        <div class="col-xs-4 stats" style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 999">
             <ul style="padding: 0;margin: 0">
                 <li> <p> <small>Team </small><br /> <%=results.user._id%></p></li>
                 <li><p><small>Wins</small> <br /> <%=results.user.win%></p></li>
@@ -169,7 +169,7 @@
 
 
 
-<div class=" col-md-3 col-xs-3 col-sm-3" id="player_list" style="float:right;z-index: 201;background: rgba(0,0,0,0.8)">
+<div class=" col-md-3 col-xs-3 col-sm-3" id="player_list" style="float:left;z-index: 999;background: rgba(0,0,0,0.8);padding-bottom: 3%">
     <h3>
         Substitutes
         <hr/>
@@ -439,12 +439,12 @@ if(results.user.squad[11]==1){%>
         </li>
     </ul>
 </div><%}%>
-<form id="form" class="col-xs-4" style="margin-left:23%;margin-bottom: 2%">
 
 
-    <button>Change Formation</button>
 
-</form>
+    <button class="col-xs-4" style="margin-left:23%;margin-bottom: 2%" onclick="window.location.href='/home/formation'">Change Formation</button>
+
+
 </div>
 </div>
 <!--Footer -->

@@ -37,8 +37,8 @@ div:hover::-webkit-scrollbar-track {
     background: rgba(0,0,0,0);
 }
 
-div:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.2);
+div::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
     border:1px rgba(255,255,255,0.1) solid ;
     outline: 1px slategrey;
     border-radius: 360px;
@@ -303,9 +303,8 @@ button:hover {
 
 #dis1 li ,#dis2 li ,#dis3 li ,#dis4 li{
     display: block;
-    padding: 10px;
-    background: rgba(255,255,255,0.1);
-    margin:1%;
+    padding: 15px;
+
 
 }
 #dis1 img,#dis2 img,#dis3 img,#dis4 img{

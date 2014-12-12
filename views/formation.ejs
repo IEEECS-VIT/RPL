@@ -39,10 +39,28 @@
 
 
     <style>
-        #dis1 li, #dis2 li, #dis3 li, #dis4 li {
-            margin: 15% 0;
+        #dis1, #dis2, #dis3 , #dis4  {
+            margin: 10% 0;
         }
+
+         .affix{
+             top:0;
+         }
+        #dis1 li ,#dis2 li ,#dis3 li ,#dis4 li{
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            margin:1%;
+        }
+        #dis1 img,#dis2 img,#dis3 img,#dis4 img{
+            width:15%;
+            float: left;
+            margin:-4% 0 0 0;
+            padding: 0;;
+
+        }
+
     </style>
+
 
 
 </head>
@@ -117,114 +135,9 @@
 <!--Content-->
 <div class="content_wrap row">
     <div>
+        <div class="col-md-9  col-xs-9 col-sm-9  affix" style="margin: 0;padding: 0; float: left;left:0;background: rgba(0,0,0,0.9);top:0;z-index: 999" data-spy="affix" data-value="0" data-offset-top="126" data-offset-bottom="630">
 
-        <div class=" col-md-3 col-xs-3 col-sm-3" id="player_list">
-            <h3>
-                Squad
-                <hr/>
-
-            </h3>
-            <h4>
-                <small>Formation</small>
-            </h4>
-
-
-            <ul id="list">
-                <li><a href="#"><h4 id="for">Goalkeepers</h4></a>
-                    <hr/>
-                    <ul id="dis1">
-                        <% var i;  for(i = 0;i < results.team.length;i++) { %>
-
-                        <% if(results.team[i]._id > 368){ %>
-                        <li id="box<%=results.team[i]._id%>">
-                            <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
-                            <button onclick='rem(<%= results.team[i]._id %>)'>>></button>
-                            <p><%= results.team[i].Name %></p>
-
-                            <form name="h" style="display: none">
-                                <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-
-
-                            </form>
-                        </li>
-
-                        <% }  } %>
-
-                    </ul>
-                </li>
-                <li><a href="#"><h4 id="mid">Defenders</h4></a></li>
-                <hr/>
-                <ul id="dis2">
-                    <% for(i = 0;i < results.team.length;i++) { %>
-
-                    <% if(results.team[i]._id < 369 && results.team[i]._id > 252){ %>
-                    <li id="box<%=results.team[i]._id%>">
-                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
-                        <button onclick='rem(<%= results.team[i]._id %>)'>>></button>
-                        <p><%= results.team[i].Name %></p>
-
-                        <form name="h" style="display: none">
-                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-
-
-                        </form>
-                    </li>
-
-                    <% }  } %>
-
-                </ul>
-                <li><a href="#"><h4 id="def">Midfielders</h4></a></li>
-                <hr/>
-                <ul id="dis3">
-                    <% for(i = 0;i < results.team.length;i++) { %>
-
-                    <% if(results.team[i]._id > 126 && results.team[i]._id < 253){ %>
-                    <li id="box<%=results.team[i]._id%>">
-                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
-                        <button onclick='rem(<%= results.team[i]._id %>)'> >></button>
-                        <p><%= results.team[i].Name %></p>
-
-                        <form name="h" style="display: none">
-                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-
-
-                        </form>
-                    </li>
-
-                    <% }  } %>
-                </ul>
-                <li><a href="#"><h4 id="goal">Forwards</h4></a></li>
-                <hr/>
-                <ul id="dis4">
-                    <% for(i = 0;i < results.team.length;i++) { %>
-
-                    <% if(results.team[i]._id <= 126){ %>
-                    <li id="box<%=results.team[i]._id%>">
-                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
-                        <button onclick='rem(<%= results.team[i]._id %>)'>>></button>
-                        <p><%= results.team[i].Name %></p>
-
-                        <form name="h" style="display: none">
-                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-
-
-                        </form>
-                    </li>
-
-                    <% }  } %>
-                </ul>
-
-            </ul>
-
-
-
-        </div>
-
-
-        <div class="col-md-9  col-xs-9 col-sm-9"
-             style="margin: 0;padding: 0; float: right;background: rgba(0,0,0,0.9);">
-
-            <div class="collapse navbar-collapse" id="myTab">
+            <div class="collapse navbar-collapse" id="myTab" style="float:left">
                 <ul class="nav navbar-nav">
                     <li role="presentation" class="active"><a href="#for1" aria-controls="for1" role="tab" data-toggle="tab" onclick="clear_all()">Formation 1</a>
                     </li>
@@ -246,6 +159,110 @@
             </div>
 
         </div>
+        <div class=" col-md-3 col-xs-3 col-sm-3 affix" id="player_list" style="height:630px;overflow-y: scroll;right:0;margin-top: 0;top:0;float: right" data-spy="affix" data-offset-top="126" data-offset-bottom="100">
+            <h3>
+                Squad
+                <hr/>
+
+            </h3>
+            <h4>
+                <small>Formation</small>
+            </h4>
+
+
+            <ul id="list">
+                <li><a href="#"><h4 id="for">Goalkeepers</h4></a>
+                    <hr/>
+                    <ul id="dis1">
+                        <% var i;  for(i = 0;i < results.team.length;i++) { %>
+
+                        <% if(results.team[i]._id > 368){ %>
+                        <li id="box<%=results.team[i]._id%>">
+                            <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                            <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
+                            <p><%= results.team[i].Name %></p>
+
+                            <form name="h" style="display: none">
+                                <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+
+
+                            </form>
+                        </li>
+
+                        <% }  } %>
+
+                    </ul>
+                </li>
+                <li><a href="#"><h4 id="mid">Defenders</h4></a></li>
+                <hr/>
+                <ul id="dis2">
+                    <% for(i = 0;i < results.team.length;i++) { %>
+
+                    <% if(results.team[i]._id < 369 && results.team[i]._id > 252){ %>
+                    <li id="box<%=results.team[i]._id%>">
+                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                        <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
+                        <p><%= results.team[i].Name %></p>
+
+                        <form name="h" style="display: none">
+                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+
+
+                        </form>
+                    </li>
+
+                    <% }  } %>
+
+                </ul>
+                <li><a href="#"><h4 id="def">Midfielders</h4></a></li>
+                <hr/>
+                <ul id="dis3">
+                    <% for(i = 0;i < results.team.length;i++) { %>
+
+                    <% if(results.team[i]._id > 126 && results.team[i]._id < 253){ %>
+                    <li id="box<%=results.team[i]._id%>">
+                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                        <button onclick='rem(<%= results.team[i]._id %>)'> <<</button>
+                        <p><%= results.team[i].Name %></p>
+
+                        <form name="h" style="display: none">
+                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+
+
+                        </form>
+                    </li>
+
+                    <% }  } %>
+                </ul>
+                <li><a href="#"><h4 id="goal">Forwards</h4></a></li>
+                <hr/>
+                <ul id="dis4">
+                    <% for(i = 0;i < results.team.length;i++) { %>
+
+                    <% if(results.team[i]._id <= 126){ %>
+                    <li id="box<%=results.team[i]._id%>">
+                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                        <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
+                        <p><%= results.team[i].Name %></p>
+
+                        <form name="h" style="display: none">
+                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+
+
+                        </form>
+                    </li>
+
+                    <% }  } %>
+                </ul>
+
+            </ul>
+
+
+
+        </div>
+
+
+
     </div>
     <div class="tab-content" style="background: rgba(216,216,216,1)">
         <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for1">
@@ -478,7 +495,7 @@
 
 <!--Footer -->
 <div class="col-md-12 row"
-     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;z-index: 200">
+     style="width:100%;margin:0;box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;z-index: 200">
     <hr/>
     <div class="row">
         <div class="col-md-12" align="center" style="text-align: center">
