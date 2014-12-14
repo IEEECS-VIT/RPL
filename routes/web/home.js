@@ -17,7 +17,7 @@
  */
 
 var express = require('express');
-var brcypt = require('bcyrpt');
+var bcrypt = require('bcrypt');
 var path = require('path');
 var async = require('async');
 var router = express.Router();
@@ -655,7 +655,7 @@ router.get('/reset',function(req,res)
     res.render('reset',{});
 });
 
-router.post('/reset', function(req,res)
+/*router.post('/reset', function(req,res)
 {
     var team_name = req.signedCookies.name;
    // var old_password = req.body.oldpass;
@@ -663,7 +663,7 @@ router.post('/reset', function(req,res)
     var confirm_password = req.body.cpass;
     if (password == confirm_password)
     {
-        var salt = brcypt.genSaltSync(10);
+        var salt = bcrypt.genSaltSync(10);
         var hashedPassword = bcrypt.hashSync(password, salt);
         var credentials = {
             _id : team_name,
@@ -697,7 +697,7 @@ router.post('/reset', function(req,res)
                         }
                         else
                         {
-                            console.log(doc);
+                             console.log(doc);
                              res.redirect("/home");
                         }
                     };
@@ -723,4 +723,4 @@ router.post('/reset', function(req,res)
         res.render("reset", {err : "Passwords do not match"});
     }
 
-});
+});*/
