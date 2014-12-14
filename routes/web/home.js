@@ -17,6 +17,7 @@
  */
 
 var express = require('express');
+var brcypt = require('bcyrpt');
 var path = require('path');
 var async = require('async');
 var router = express.Router();
@@ -649,3 +650,77 @@ router.get('/developers', function (req, res) // developers page
     mongoUsers.fetch(credentials,onFetch);
 });
 module.exports = router;
+router.get('/reset',function(req,res)
+{
+    res.render('reset',{});
+});
+
+router.post('/reset', function(req,res)
+{
+    var team_name = req.signedCookies.name;
+   // var old_password = req.body.oldpass;
+    var password = req.body.pass;
+    var confirm_password = req.body.cpass;
+    if (password == confirm_password)
+    {
+        var salt = brcypt.genSaltSync(10);
+        var hashedPassword = bcrypt.hashSync(password, salt);
+        var credentials = {
+            _id : team_name,
+            password : hashedPassword
+        };
+        var fetch_user = {
+            _id : team_name
+        };
+        var onFetch = function(err,doc)
+        {
+            if(err)
+            {
+                if(log)
+                {
+                    log.log('debug', {Error: err, Message: err.message});
+                }
+            }
+            else if(doc)
+            {
+                //if (bcrypt.compareSync(old_password, doc['password_hash']))
+                //{
+                    console.log("Password Change Initiated for" + team_name);
+                    var onUpdate = function(err,doc)
+                    {
+                        if(err)
+                        {
+                            if(log)
+                            {
+                                log.log('debug', {Error: err, Message: err.message});
+                            }
+                        }
+                        else
+                        {
+                            console.log(doc);
+                             res.redirect("/home");
+                        }
+                    };
+                    mongoUsers.update(fetch_user,credentials,onUpdate);
+
+                    res.redirect('/home');
+                //}
+                //else
+                //{
+                   // console.log('Password Change Rejected for ' + team_name + ' due to incorrect password.');
+                    //res.render('reset', {response: "Incorrect Password"});
+                //}
+            }
+        };
+
+
+
+        mongoUsers.fetch(fetch_user, onFetch);
+
+    }
+    else
+    {
+        res.render("reset", {err : "Passwords do not match"});
+    }
+
+});
