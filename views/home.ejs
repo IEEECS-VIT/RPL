@@ -23,8 +23,6 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
-    <title>Riviera Premier League</title>
     <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
@@ -57,21 +55,7 @@
 
 
 
-=======
     <title>Home | RPL</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/foundation/css/foundation.css"/>
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-57505316-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
->>>>>>> 4b9f899e45687084dd761131b5b018547e46d3ce
 </head>
 <body onload="load()" style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <!-- Container -->
@@ -97,6 +81,7 @@
 
 <div class="row" style="padding: 0;margin: 0;overflow: hidden">
 <!-- Header -->
+<div class="row" style="margin:0;padding: 0;">
 <div class="col-md-12" style="background: white;z-index: 3" id="header">
     <!--logo-->
     <div class="row">
@@ -167,9 +152,9 @@
 
 
 
-    <div class="col-md-12  col-xs-12 col-sm-12" style="margin: 0;padding: 0; float: right;background: none;font-size: 70%">
+    <div class="col-md-9  col-xs-9 col-sm-9" style="z-index: 999;margin: 0;padding: 0; float: right;background: none;font-size: 70%">
 
-        <div class="col-xs-3 stats" style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 200">
+        <div class="col-xs-4 stats" style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 999">
             <ul style="padding: 0;margin: 0">
                 <li> <p> <small>Team </small><br /> <%=results.user._id%></p></li>
                 <li><p><small>Wins</small> <br /> <%=results.user.win%></p></li>
@@ -181,141 +166,294 @@
 
     </div>
 </div>
-<div class="row" style="background: rgba(216,216,216,1)">
-    <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="fort">
-
-        <ul>
-
-            <% var i; for(i = 0;i < results.team.length;i++) { %>
-
-
-            <% if(results.team[i]._id<= 126){ %>
-            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
-                <div class="row" style="padding:1%">
-                    <div class="col-xs-6" >
-                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
-                    </div>
-                    <div class="col-xs-6" style="padding: 0">
-                        <p><%= results.team[i].Name %><br/><br />
-                            Forward<br />
-                            <br />
-                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
-                                Select
-                            </button>
-                        </p>
-                    </div>
-                </div>
-
-
-            </li>
-
-
-            <% }  %>
 
 
 
+<div class=" col-md-3 col-xs-3 col-sm-3" id="player_list" style="float:left;z-index: 999;background: rgba(0,0,0,0.8);padding-bottom: 3%">
+    <h3>
+        Substitutes
+        <hr/>
 
-            <% if(results.team[i]._id> 126&&results.team[i]._id<253){ %>
-            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
-                <div class="row" style="padding:1%">
-                    <div class="col-xs-6" >
-                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
-                    </div>
-                    <div class="col-xs-6" style="padding: 0">
-                        <p><%= results.team[i].Name %><br/><br />
-                            Midfielder<br />
-                            <br />
-                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
-                                Select
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <form name="h" style="display: none">
-                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-                    <input value="<%= results.team[i].Price %>" id="cp<%= results.team[i]._id %>"/>
-                    <input value="<%= results.team[i].Cost %>" id="cc<%= results.team[i]._id %>"/>
-                </form>
-
-            </li>
+    </h3>
+    <h4>
+        <a href="/home/formation"> <small>Change Formation</small></a>
+    </h4>
 
 
-            <% }   %>
+    <ul id="list">
+        <li>
+            <ul id="dis1">
+                <% var i;var j;var err;  for(i = 0;i < results.team.length;i++) { err =1;%>
+
+                <% for(j=0;j<11;j++){
+                    if(results.team[i]._id == results.user.squad[j])
+                {
+                    err = 0;
+                    break;
+                }}
+                if(err!=0){
+                %>
+                <li id="box<%=results.team[i]._id%>" style="margin: 15% auto">
+                    <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+
+                    <p><%= results.team[i].Name %></p>
+
+                    <form name="h" style="display: none">
+                        <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
 
 
+                    </form>
+                </li>
 
+                <% }  } %>
 
-
-
-            <% if(results.team[i]._id< 369&&results.team[i]._id>252){ %>
-            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
-                <div class="row" style="padding:1%">
-                    <div class="col-xs-6" >
-                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
-                    </div>
-                    <div class="col-xs-6" style="padding: 0">
-                        <p><%= results.team[i].Name %><br/><br />
-                            Defender<br />
-                            <br />
-                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
-                                Select
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <form name="h" style="display: none">
-                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-                    <input value="<%= results.team[i].Price %>" id="cp<%= results.team[i]._id %>"/>
-                    <input value="<%= results.team[i].Cost %>" id="cc<%= results.team[i]._id %>"/>
-                </form>
-
-            </li>
-
-
-            <% }
-
-
-
-    if(results.team[i]._id> 368){ %>
-            <li class="col-md-3 col-xs-5 " id="box<%= results.team[i]._id %>" onclick="">
-                <div class="row" style="padding:1%">
-                    <div class="col-xs-6" >
-                        <img src="/images/bat/<%= results.team[i]._id %>.jpg"/>
-                    </div>
-                    <div class="col-xs-6" style="padding: 0">
-                        <p><%= results.team[i].Name %><br/><br />
-                            Goalkeeper<br />
-                            <br />
-                            <button onclick="<%- 'sel(' + results.team[i]._id + ')' %>" id="b<%= results.team[i]._id %>">
-                                Select
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <form name="h" style="display: none">
-                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
-                    <input value="<%= results.team[i].Price %>" id="cp<%= results.team[i]._id %>"/>
-                    <input value="<%= results.team[i].Cost %>" id="cc<%= results.team[i]._id %>"/>
-                </form>
-
-            </li>
-
-
-            <% } }%>
             </ul>
+        </li>
+
+
+    </ul>
+
+
 
 </div>
+<div class="tab-content row col-xs-9" style="background: rgba(216,216,216,1);z-index:201;float: left">
+<%
+function getsquad(num,form){
+    var i;
+    if(results.user.squad[11]==form)
+    for(i=0;i<results.team.length;i++){
+        if(results.team[i]._id==results.user.squad[num]){
+            return results.team[i].Name;
+        }
+    }
+}
+function t_ch(id) {
+    if (id < 127) {
+        return "Str";
+    } else if (id < 253) {
+        return "Mid";
+    } else if (id < 369) {
+        return "Def";
+    } else {
+        return "GK";
+    }
+
+}
+if(results.user.squad[11]==1){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for1">
+
+    <ul>
+
+        <li style="height: auto;">
+            Formation 1: 4 - 4 - 2
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');background-size: 100% 100%;background-repeat:no-repeat;height: 600px;width: 489px;">
+                <form id="formation1">
+                    <ul style="margin:0;padding: 0">
+
+                        <li   id="a0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,1)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                        <li   id="a1"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 13%;" ><%=getsquad(1,1)%><br /><%=t_ch(results.user.squad[1])%></li>
+                        <li   id="a2"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(2,1)%><br /><%=t_ch(results.user.squad[2])%></li>
+                        <li   id="a3"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(3,1)%><br /><%=t_ch(results.user.squad[3])%></li>
+                        <li   id="a4"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(4,1)%><br /><%=t_ch(results.user.squad[4])%></li><br>
+                        <li   id="a5"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(5,1)%><br /><%=t_ch(results.user.squad[5])%></li>
+                        <li   id="a6"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(6,1)%><br /><%=t_ch(results.user.squad[6])%></li>
+                        <li   id="a7"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(7,1)%><br /><%=t_ch(results.user.squad[7])%></li>
+                        <li   id="a8"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(8,1)%><br /><%=t_ch(results.user.squad[8])%></li><br>
+                        <li   id="a9"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(9,1)%><br /><%=t_ch(results.user.squad[9])%></li>
+                        <li   id="a10"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(10,1)%><br /><%=t_ch(results.user.squad[10])%></li>
+                    </ul>
+                </form>
+            </div>
+        </li>
+
+    </ul>
+
+</div><%}else if(results.user.squad[11]==2){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab  " id="for2">
+    <ul>
+        <li style="height: auto;">
+            Formation 2: 4 - 3 - 3
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                <form id="formation2">
+                    <ul style="margin:0;padding: 0">
+                    <li   id="b0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,2)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                    <li   id="b1"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 13%;" ><%=getsquad(1,1)%><br /><%=t_ch(results.user.squad[1])%></li>
+                    <li   id="b2"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(2,2)%><br /><%=t_ch(results.user.squad[2])%></li>
+                    <li   id="b3"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(3,2)%><br /><%=t_ch(results.user.squad[3])%></li>
+                    <li   id="b4"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(4,2)%><br /><%=t_ch(results.user.squad[4])%></li><br>
+                    <li   id="b5"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(5,2)%><br /><%=t_ch(results.user.squad[5])%></li>
+                    <li   id="b6"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(6,2)%><br /><%=t_ch(results.user.squad[6])%></li>
+                    <li   id="b7"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(7,2)%><br /><%=t_ch(results.user.squad[7])%></li><br>
+                    <li   id="b8"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 16%;" ><%=getsquad(8,2)%><br /><%=t_ch(results.user.squad[8])%></li>
+                    <li   id="b9"    style="border: 0;height:auto;width:15%;margin-left: 8%;" ><%=getsquad(9,2)%><br /><%=t_ch(results.user.squad[9])%></li>
+                    <li   id="b10"    style="border: 0;height:auto;width:15%;margin-left: 8%;"><%=getsquad(10,2)%><br /><%=t_ch(results.user.squad[10])%></li>
+                        </ul>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div><%}else if(results.user.squad[11]==3){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for3">
+    <ul>
+
+        <li style="height: auto;width: auto;">
+            Formation 3: 3 - 5 - 2
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                <form id="formation3">
+                    <ul style="margin:0;padding: 0">
+                    <li   id="c0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,3)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                    <li   id="c1"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 13%;" ><%=getsquad(1,3)%><br /><%=t_ch(results.user.squad[1])%></li>
+                    <li   id="c2"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(2,3)%><br /><%=t_ch(results.user.squad[2])%></li>
+                    <li   id="c3"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(3,3)%><br /><%=t_ch(results.user.squad[3])%></li><br>
+                    <li   id="c4"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(4,3)%><br /><%=t_ch(results.user.squad[4])%></li>
+                    <li   id="c5"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(5,3)%><br /><%=t_ch(results.user.squad[5])%></li>
+                    <li   id="c6"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(6,3)%><br /><%=t_ch(results.user.squad[6])%></li>
+                    <li   id="c7"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(7,3)%><br /><%=t_ch(results.user.squad[7])%></li>
+                    <li   id="c8"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(8,3)%><br /><%=t_ch(results.user.squad[8])%></li><br>
+                    <li   id="c9"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(9,3)%><br /><%=t_ch(results.user.squad[9])%></li>
+                    <li   id="c10"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(10,3)%><br /><%=t_ch(results.user.squad[10])%></li>
+                        </ul>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div><%}else if(results.user.squad[11]==4){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for4">
+    <ul>
+
+        <li style="width: auto;height: auto;">
+            Formation 4: 4 - 5 - 1
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                <form id="formation4">
+                    <ul style="margin:0;padding: 0">
+                    <li   id="d0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,4)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                    <li   id="d1"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 13%;" ><%=getsquad(1,4)%><br /><%=t_ch(results.user.squad[1])%></li>
+                    <li   id="d2"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(2,4)%><br /><%=t_ch(results.user.squad[2])%></li>
+                    <li   id="d3"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(3,4)%><br /><%=t_ch(results.user.squad[3])%></li>
+                    <li   id="d4"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(4,4)%><br /><%=t_ch(results.user.squad[4])%></li><br>
+                    <li   id="d5"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(5,4)%><br /><%=t_ch(results.user.squad[5])%></li>
+                    <li   id="d6"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(6,4)%><br /><%=t_ch(results.user.squad[6])%></li>
+                    <li   id="d7"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(7,4)%><br /><%=t_ch(results.user.squad[7])%></li>
+                    <li   id="d8"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(8,4)%><br /><%=t_ch(results.user.squad[8])%></li>
+                    <li   id="d9"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(9,4)%><br /><%=t_ch(results.user.squad[9])%></li><br>
+                    <li   id="d10"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(10,4)%><br /><%=t_ch(results.user.squad[10])%></li>
+                    </ul>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div><%}else if(results.user.squad[11]==5){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for5">
+    <ul>
+
+        <li style="height: auto;width: auto;">
+            Formation 5: 3 - 4 - 3
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                <form id="formation5">
+                    <ul style="margin:0;padding: 0">
+                    <li   id="e0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,5)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                    <li   id="e1"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 13%;" ><%=getsquad(1,5)%><br /><%=t_ch(results.user.squad[1])%></li>
+                    <li   id="e2"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(2,5)%><br /><%=t_ch(results.user.squad[2])%></li>
+                    <li   id="e3"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(3,5)%><br /><%=t_ch(results.user.squad[3])%></li><br>
+                    <li   id="e4"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(4,5)%><br /><%=t_ch(results.user.squad[4])%></li>
+                    <li   id="e5"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(5,5)%><br /><%=t_ch(results.user.squad[5])%></li>
+                    <li   id="e6"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(6,5)%><br /><%=t_ch(results.user.squad[6])%></li>
+                    <li   id="e7"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(7,5)%><br /><%=t_ch(results.user.squad[7])%></li><br>
+                    <li   id="e8"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 16%;" ><%=getsquad(8,5)%><br /><%=t_ch(results.user.squad[8])%></li>
+                    <li   id="e9"    style="border: 0;height:auto;width:15%;margin-left: 8%;" ><%=getsquad(9,5)%><br /><%=t_ch(results.user.squad[9])%></li>
+                    <li   id="e10"    style="border: 0;height:auto;width:15%;margin-left: 8%;" ><%=getsquad(10,5)%><br /><%=t_ch(results.user.squad[10])%></li>
+                        </ul>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div><%}else if(results.user.squad[11]==6){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for6">
+    <ul>
+
+        <li style="width: auto;height: auto;">
+            Formation 6: 5 - 3 - 2
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                <form id="formation6">
+                    <ul style="margin:0;padding: 0">
+                    <li   id="f0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,6)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                    <li   id="f1"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 13%;" ><%=getsquad(1,6)%><br /><%=t_ch(results.user.squad[1])%></li>
+                    <li   id="f2"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(2,6)%><br /><%=t_ch(results.user.squad[2])%></li>
+                    <li   id="f3"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(3,6)%><br /><%=t_ch(results.user.squad[3])%></li>
+                    <li   id="f4"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(4,6)%><br /><%=t_ch(results.user.squad[4])%></li>
+                    <li   id="f5"    style="border: 0;height:auto;width:15%;margin-left: 0;" ><%=getsquad(5,6)%><br /><%=t_ch(results.user.squad[5])%></li><br>
+                    <li   id="f6"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 16%;" ><%=getsquad(6,6)%><br /><%=t_ch(results.user.squad[6])%></li>
+                    <li   id="f7"    style="border: 0;height:auto;width:15%;margin-left: 8%;" ><%=getsquad(7,6)%><br /><%=t_ch(results.user.squad[7])%></li>
+                    <li   id="f8"    style="border: 0;height:auto;width:15%;margin-left: 8%;" ><%=getsquad(8,6)%><br /><%=t_ch(results.user.squad[8])%></li><br>
+                    <li   id="f9"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(9,6)%><br /><%=t_ch(results.user.squad[9])%></li>
+                    <li   id="f10"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(10,6)%><br /><%=t_ch(results.user.squad[10])%></li>
+                        </ul>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div><%}else if(results.user.squad[11]==7){%>
+<div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for7">
+    <ul>
+
+        <li style="width: auto;height: auto;">
+            Formation 7: 3 - 3 - 4
+        </li>
+        <br>
+        <li style="height: auto;width: auto;">
+            <div class="col-xs-9" style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                <form id="formation7">
+                    <ul style="margin:0;padding: 0">
+                    <li   id="g0"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 10%;" ><%=getsquad(0,7)%><br /><%=t_ch(results.user.squad[0])%></li><br>
+                    <li   id="g1"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 13%;" ><%=getsquad(1,7)%><br /><%=t_ch(results.user.squad[1])%></li>
+                    <li   id="g2"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(2,7)%><br /><%=t_ch(results.user.squad[2])%></li>
+                    <li   id="g3"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(3,7)%><br /><%=t_ch(results.user.squad[3])%></li><br>
+                    <li   id="g4"    style="border: 0;height:auto;width:15%;margin-left: 1%;margin-top: 16%;" ><%=getsquad(4,7)%><br /><%=t_ch(results.user.squad[4])%></li>
+                    <li   id="g5"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(5,7)%><br /><%=t_ch(results.user.squad[5])%></li>
+                    <li   id="g6"    style="border: 0;height:auto;width:15%;margin-left: 9%;" ><%=getsquad(6,7)%><br /><%=t_ch(results.user.squad[6])%></li><br>
+                    <li   id="g7"    style="border: 0;height:auto;width:15%;margin-left: 2%;margin-top: 16%;" ><%=getsquad(7,7)%><br /><%=t_ch(results.user.squad[7])%></li>
+                    <li   id="g8"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(8,7)%><br /><%=t_ch(results.user.squad[8])%></li>
+                    <li   id="g9"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(9,7)%><br /><%=t_ch(results.user.squad[9])%></li>
+                    <li   id="g10"    style="border: 0;height:auto;width:15%;margin-left: 5%;" ><%=getsquad(10,7)%><br /><%=t_ch(results.user.squad[10])%></li>
+                        </ul>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div><%}%>
+
+
+
+    <button class="col-xs-4" style="margin-left:23%;margin-bottom: 2%" onclick="window.location.href='/home/formation'">Change Formation</button>
+
 
 </div>
-
-
+</div>
 <!--Footer -->
-<div class="row col-md-12"
-     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;">
+<div class="col-md-12 row"
+     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;z-index: 200">
     <hr/>
     <div class="row">
         <div class="col-md-12" align="center" style="text-align: center">
-            <a href="/home/developers">
+            <a href="/developer">
                 <h4>
                     Developers
                 </h4>

@@ -277,7 +277,8 @@ router.post('/getsquad', function (req, res)
         var squad9 = parseInt(req.body.p9);
         var squad10 = parseInt(req.body.p10);
         var squad11 = parseInt(req.body.p11);
-        console.log(squad11);
+        var squad12 = parseInt(req.body.p12);
+        console.log(squad12);
         squad.push(squad1);
         squad.push(squad2);
         squad.push(squad3);
@@ -289,6 +290,7 @@ router.post('/getsquad', function (req, res)
         squad.push(squad9);
         squad.push(squad10);
         squad.push(squad11);
+        squad.push(squad12);
         console.log(squad);
         var onFetch = function (err, document)
         {
@@ -393,7 +395,7 @@ router.post('/getTeam', function (req, res)
                     res.redirect('/home/players', {err: "Cost Exceeded"});
                 }
             }
-            res.redirect('/home/team');
+            res.redirect('/home/formation');
         }
     };
     async.map(players, getCost, onFinish);
@@ -569,12 +571,7 @@ router.get('/formation', function (req, res)
                 if (doc.team.length == 0)
                 {
                     res.redirect("/home/players")
-                }else if(doc.squad.length==0)
-                {
-                    //res.redirect("/home/formation");
-                    console.log(doc);
                 }
-
                 var getDetails = function (id, callback)
                 {
                     var player = {
