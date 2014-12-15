@@ -647,10 +647,10 @@ router.get('/developers', function (req, res) // developers page
     mongoUsers.fetch(credentials,onFetch);
 });
 module.exports = router;
-router.get('/reset',function(req,res)
+/*router.get('/reset',function(req,res)
 {
     res.render('reset',{});
-});
+});*/
 router.get('/settings',function(req,res){
    res.render('settings',{});
 });
