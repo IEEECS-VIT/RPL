@@ -122,6 +122,7 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
 {
     if (req.signedCookies.name)                           // if cookies exists then access the database
     {
+        var results = {};
         var teamname = req.signedCookies.name;
         var doc =
         {
@@ -147,6 +148,15 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
                 }
 
             }
+            var getuser = function(err,user){
+                if(err)
+                    console.log(err.message);
+                else
+                {
+                        results.user = user;
+                }
+            };
+            mongoUsers.fetch(doc,getuser);
             var onFinish = function (err, documents)
             {
                 if (err)
@@ -157,7 +167,7 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
                 else
                 {
                     console.log(documents);
-                    res.render("leaderboard", { leaderboard: documents});
+                    res.render("leaderboard", { leaderboard: documents,results: results});
                 }
             };
             mongoUsers.getleader(doc, onFinish);
