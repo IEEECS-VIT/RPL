@@ -263,7 +263,7 @@ router.get('/matches', function (req, res)
 
                 }
                 else{
-                    res.render('matches',{e : e,results : results,response : null});
+                    res.render('matches',{results : results,response : null});
                 }
             }
         };
