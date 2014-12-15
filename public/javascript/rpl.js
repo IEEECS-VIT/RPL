@@ -63,6 +63,28 @@ function valid_reset(){
         document.reset.submit();
     }
 }
+function valid_change(){
+    var x = document.getElementById('pass').value;
+    var y = document.getElementById('cpass').value;
+    var z = document.getElementById('o_pass').value;
+    if(x.length==0){
+        alert('Please enter password.');
+        return false;
+    }else if(y.length==0){
+        alert('Please confirm password.');
+        return false;
+    }
+    else if(z.length ==0){
+        alert('Please enter your old password.')
+    }
+    else if(x.localeCompare(y)!=0){
+        alert('Password and Confirm password do not match!');
+        return false;
+    }
+    else{
+        document.reset.submit();
+    }
+}
 
 function reg_valid()
 {

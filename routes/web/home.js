@@ -651,6 +651,9 @@ router.get('/reset',function(req,res)
 {
     res.render('reset',{});
 });
+router.get('/settings',function(req,res){
+   res.render('settings',{});
+});
 
 /*router.post('/reset', function(req,res)
 {
