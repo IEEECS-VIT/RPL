@@ -187,6 +187,8 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
 
 router.get('/matches', function (req, res)
 {
+    var e =0;
+    var results =[];
     if (req.signedCookies.name)
     {
         var teamName = req.signedCookies.name;
@@ -205,6 +207,7 @@ router.get('/matches', function (req, res)
             }
             else
             {
+
                 if(doc.team.length==0)
                 {
                     res.redirect("/home/players")
@@ -213,49 +216,55 @@ router.get('/matches', function (req, res)
                 {
                     res.redirect("/home/formation")
                 }
-                var credentials1 = {
-                    'Team_1': doc.team_no
-                };
-                var credentials2 = {
-                    'Team_2': doc.team_no
-                };
-                var parallel_tasks = {};
-                var response = {};
-                response.test = "False";
-                var onFinish = function (err, results)
-                {
-                    if (err)
+                results.user = doc;
+                if(e!=0){
+                    var credentials1 = {
+                        'Team_1': doc.team_no
+                    };
+                    var credentials2 = {
+                        'Team_2': doc.team_no
+                    };
+                    var parallel_tasks = {};
+                    var response = {};
+                    response.test = "False";
+                    var onFinish = function (err, results)
                     {
-                        if (log) log.log('debug', {Error: err, Message: err.message});
-                    }
-                    else
-                    {
-                        response["previousMatch"] = results.previousMatch;
-                        response["nextMatch"] = results.nextMatch;
-
-                        if (response["previousMatch"] != null || response["nextMatch"] != null)
+                        if (err)
                         {
-                            response.test = "True";
+                            if (log) log.log('debug', {Error: err, Message: err.message});
                         }
-                        //console.log(response.previousMatch);
-                        console.log(response.nextMatch);
-                        res.render('matches', {response: response});
-                    }
+                        else
+                        {
+                            response["previousMatch"] = results.previousMatch;
+                            response["nextMatch"] = results.nextMatch;
 
-                };
+                            if (response["previousMatch"] != null || response["nextMatch"] != null)
+                            {
+                                response.test = "True";
+                            }
+                            //console.log(response.previousMatch);
+                            console.log(response.nextMatch);
+                            res.render('matches', {response: response});
+                        }
 
-                parallel_tasks.previousMatch = function (asyncCallback)
-                {
-                    mongoMatches.fetchPreviousMatch(credentials1, credentials2, asyncCallback);
-                };
-                parallel_tasks.nextMatch = function (asyncCallback)
-                {
-                    mongoMatches.fetchNextMatch(credentials1, credentials2, asyncCallback);
+                    };
 
-                };
-                async.parallel(parallel_tasks, onFinish);
-                //res.render('matches', response);
+                    parallel_tasks.previousMatch = function (asyncCallback)
+                    {
+                        mongoMatches.fetchPreviousMatch(credentials1, credentials2, asyncCallback);
+                    };
+                    parallel_tasks.nextMatch = function (asyncCallback)
+                    {
+                        mongoMatches.fetchNextMatch(credentials1, credentials2, asyncCallback);
 
+                    };
+                    async.parallel(parallel_tasks, onFinish);
+                    //res.render('matches', response);
+
+                }
+                else{
+                    res.render('matches',{e : e,results : results,response : null});
+                }
             }
         };
         mongoUsers.fetch(credentials,onFetch);
