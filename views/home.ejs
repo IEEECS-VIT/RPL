@@ -183,16 +183,19 @@
 
     <ul id="list">
         <li>
-            <ul id="dis1">
+            <ul id="dis1" style="margin-top: -9%">
                 <% var i;var j;var err;  for(i = 0;i < results.team.length;i++) { err =1;%>
 
-                <% for(j=0;j<11;j++){
-                    if(results.team[i]._id == results.user.squad[j])
+                <% for(j=0;j<11;j++)
                 {
-                    err = 0;
-                    break;
-                }}
-                if(err!=0){
+                    if(results.team[i]._id == results.user.squad[j])
+                    {
+                        err = 0;
+                        break;
+                    }
+                }
+                if(err!=0)
+                {
                 %>
                 <li id="box<%=results.team[i]._id%>" style="margin: 15% auto">
                     <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
