@@ -35,6 +35,12 @@
         <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
 
         <script src="/javascript/rpl.js"></script>
+        <style>
+            .panel-title a:hover
+            {
+                color:rgba(0,0,0,0.8);
+            }
+        </style>
     </head>
     <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
         <!-- Container -->
@@ -124,44 +130,71 @@
 
                     <div class="row" style="text-align: center;margin-bottom: 1%">
                         <h2>
-                            Change Password
+                            Settings
                         </h2>
                         <hr/>
-                        <form action="/home/reset" method="post" name="reset">
-                            <div class="row" style="padding: 1%">
-                                <div class="col-md-5" style="text-align: left">
-                                    <h2>
-                                        <small>Enter old password:</small>
-                                    </h2>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default" style="border-radius:0;">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a href="/home/formation">
+                                            Change Formation
+                                        </a>
+                                    </h4>
                                 </div>
-                                <div class="col-md-7" style="text-align: left"><input type="password" id="o_pass"
-                                                                                      name="o_pass"
-                                                                                      placeholder="Old Password"/></div>
+
                             </div>
-                            <div class="row" style="padding: 1%">
-                                <div class="col-md-5" style="text-align: left">
-                                    <h2>
-                                        <small>Enter new password:</small>
-                                    </h2>
+                            <div class="panel panel-default" style="border-radius:0;">
+                                <div class="panel-heading" role="tab" id="headingTwo" style="border-radius:0;">
+                                    <h4 class="panel-title" style="border-radius:0;">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="border-radius:0;">
+                                            Change password
+                                        </a>
+                                    </h4>
                                 </div>
-                                <div class="col-md-7" style="text-align: left"><input type="password" id="pass"
-                                                                                      name="pass"
-                                                                                      placeholder="Password"/></div>
-                            </div>
-                            <div class="row" style="padding: 1%">
-                                <div class="col-md-5" style="text-align: left">
-                                    <h2>
-                                        <small>Enter confirm new password:</small>
-                                    </h2>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" style="border-radius:0;">
+                                    <div class="panel-body" style="border-radius:0;">
+                                        <form action="/home/reset" method="post" name="reset" style="border-radius:0;">
+                                            <div class="row" style="padding: 1%">
+                                                <div class="col-md-5" style="text-align: left">
+                                                    <h2>
+                                                        <small>Enter old password:</small>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: left"><input type="password" id="o_pass"
+                                                                                                      name="o_pass"
+                                                                                                      placeholder="Old Password"/></div>
+                                            </div>
+                                            <div class="row" style="padding: 1%">
+                                                <div class="col-md-5" style="text-align: left">
+                                                    <h2>
+                                                        <small>Enter new password:</small>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: left"><input type="password" id="pass"
+                                                                                                      name="pass"
+                                                                                                      placeholder="Password"/></div>
+                                            </div>
+                                            <div class="row" style="padding: 1%">
+                                                <div class="col-md-5" style="text-align: left">
+                                                    <h2>
+                                                        <small>Enter confirm new password:</small>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: left"><input type="password" id="cpass"
+                                                                                                      name="cpass"
+                                                                                                      placeholder="Confirm Password"/>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin: 2%"><a href="#" class="button" onclick="valid_change()">Submit</a>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="col-md-7" style="text-align: left"><input type="password" id="cpass"
-                                                                                      name="cpass"
-                                                                                      placeholder="Confirm Password"/>
-                                </div>
                             </div>
-                            <div class="row" style="margin: 2%"><a href="#" class="button" onclick="valid_change()">Submit</a>
-                            </div>
-                        </form>
+
+                        </div>
+
                     </div>
 
                 </div>

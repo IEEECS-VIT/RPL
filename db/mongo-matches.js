@@ -22,7 +22,7 @@ var path = require('path');
 
 var mongoTeam = require(path.join(__dirname, 'mongo-team'));
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://burnualive:dracielv29951!@ds061200.mongolab.com:61200/rpl';
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
 var today = new Date();
 
 exports.fetchPreviousMatch = function (doc1, doc2, callback)
