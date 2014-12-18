@@ -508,7 +508,8 @@ router.get('/players', function (req, res) // page for all players, only availab
                         else
                         {
                             res.render('players', {
-                                Players: documents
+                                Players: documents,
+                                err : null
                             });
                         }
 
