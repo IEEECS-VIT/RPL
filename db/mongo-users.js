@@ -175,7 +175,7 @@ exports.getleader = function (doc, callback)
                     "limit": 10,
                     "sort": [
                         ['points', 'desc'],
-                        ['net_run_rate', 'desc']
+                        ['goal_diff', 'desc']
                     ]
                 };
 

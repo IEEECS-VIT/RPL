@@ -81,14 +81,6 @@ exports.initSimulation = function (day, masterCallback)
                 }
                 else
                 {
-                    var addCoach = function (elt, i, arr)
-                    {
-                        if (elt >= 304)
-                        {
-                            userDoc.squad.push(elt);
-                        }
-                    };
-                    userDoc.team.forEach(addCoach);
                     async.map(userDoc.squad, getEachRating, onGetRating);
                 }
             };
