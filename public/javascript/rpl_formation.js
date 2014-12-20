@@ -3,193 +3,242 @@
  */
 var sel = 0;
 var act_id;
-var  k = 0;
-var team=[];
-function t_ch(id) {
-    if (id < 127) {
+var k = 0;
+var team = [];
+function t_ch(id)
+{
+    if(id < 127)
+    {
         return 1;
-    } else if (id < 253) {
+    }
+    else if(id < 253)
+    {
         return 2;
-    } else if (id < 369) {
+    }
+    else if(id < 369)
+    {
         return 3;
-    } else {
+    }
+    else
+    {
         return 4;
     }
 
 }
-function rem(id) {
-   if(sel===1) {
-       document.getElementById("box" + id).style.display = 'none';
-    if(act_id.length>2)
-        set_team(act_id[1]+act_id[2],id);
-       else
-        set_team(act_id[1],id);
-     console.log(team);
-       k++;
+function rem(id)
+{
+    if(sel === 1)
+    {
+        document.getElementById("box" + id).style.display = 'none';
+        if(act_id.length > 2)
+        {
+            set_team(act_id[1] + act_id[2], id);
+        }
+        else
+        {
+            set_team(act_id[1], id);
+        }
+        console.log(team);
+        k++;
         disp(id);
-   }else{
-       alert("Please select a position first.")
-   }
+    }
+    else
+    {
+        alert("Please select a position first.")
+    }
 
 }
-function disp(id){
-    var a,b;
+function disp(id)
+{
+    var a, b;
     var radio = document.getElementById(act_id);
     var style = radio.style;
     var li = document.createElement('li');
 
-    var name = document.getElementById("cn"+id).value;
+    var name = document.getElementById("cn" + id).value;
 
     li.style.cssText = radio.style.cssText;
 
     li.style.width = "16%";
-    if(li.style.marginTop.length==0) {
+    if(li.style.marginTop.length == 0)
+    {
         a = li.style.marginLeft;
 
-        if (a.length > 2)
+        if(a.length > 2)
+        {
             b = parseInt(a[0] + a[1]);
+        }
         else
+        {
             b = parseInt(a[0]);
+        }
 
-            b = b - 15;
-            a = b + '%';
-
+        b = b - 15;
+        a = b + '%';
 
         li.style.marginLeft = a;
     }
-    else{
-        a =li.style.marginTop;
+    else
+    {
+        a = li.style.marginTop;
 
-
-            b = parseInt(a[0] + a[1]);
-        if(b>10)
+        b = parseInt(a[0] + a[1]);
+        if(b > 10)
+        {
             b = b - 10;
+        }
 
+        a = b + '%';
 
-
-            a = b + '%';
-
-        li.style.marginTop =a;
+        li.style.marginTop = a;
     }
-    li.innerHTML ="<a href='javascript:ret("+id+","+act_id+");' id='set"+act_id[1]+"' style='float: right;color:rgba(0,0,0,0.7);z-index:1001;font-size:70%;width:100%;text-align:right;'>X</a>"+ "<p>"+name+"</p>" ;
+    li.innerHTML = "<a href='javascript:ret(" + id + "," + act_id + ");' id='set" + act_id[1] + "' style='float: right;color:rgba(0,0,0,0.7);z-index:1001;font-size:70%;width:100%;text-align:right;'>X</a>" + "<p>" + name + "</p>";
     li.id = act_id;
-    radio.parentNode.replaceChild(li,radio);
+    radio.parentNode.replaceChild(li, radio);
 
-    sel =0;
+    sel = 0;
 }
-function ret(id,li){
- //   alert(div.id[1]);
+function ret(id, li)
+{
+    //   alert(div.id[1]);
     rem_team(li.id[1]);
     k--;
     document.getElementById("box" + id).style.display = 'block';
-    var a,b;
-
-
+    var a, b;
 
     var radio = document.createElement('input');
 
     radio.style.cssText = li.style.cssText;
 
     radio.style.width = "auto";
-    if(radio.style.marginTop.length==0) {
+    if(radio.style.marginTop.length == 0)
+    {
         a = radio.style.marginLeft;
 
-        if (a.length > 2)
+        if(a.length > 2)
+        {
             b = parseInt(a[0] + a[1]);
+        }
         else
+        {
             b = parseInt(a[0]);
+        }
 
-            b = b + 15;
-            a = b + '%';
+        b = b + 15;
+        a = b + '%';
 
         radio.style.marginLeft = a;
     }
-    else{
+    else
+    {
         a = radio.style.marginTop;
 
-
         b = parseInt(a[0] + a[1]);
-        if(b!=10)
+        if(b != 10)
+        {
             b = b + 10;
-
-
+        }
 
         a = b + '%';
 
-        radio.style.marginTop =a;
+        radio.style.marginTop = a;
     }
 
     radio.name = "f";
     radio.type = 'radio';
     radio.id = li.id;
     radio.setAttribute('onClick', 'active(this.id)');
-    li.parentNode.replaceChild(radio,li);
+    li.parentNode.replaceChild(radio, li);
 
 }
-function active(act){
+function active(act)
+{
     sel = 1;
 
-   act_id = act;
+    act_id = act;
 
 }
-function form_check(){
-    if(act_id[0] ==='a')
+function form_check()
+{
+    if(act_id[0] === 'a')
+    {
         return 1;
-    else if(act_id[0] ==='b')
+    }
+    else if(act_id[0] === 'b')
+    {
         return 2;
-    else if(act_id[0] ==='c')
+    }
+    else if(act_id[0] === 'c')
+    {
         return 3;
-    else if(act_id[0] ==='d')
+    }
+    else if(act_id[0] === 'd')
+    {
         return 4;
-    else if(act_id[0] ==='e')
+    }
+    else if(act_id[0] === 'e')
+    {
         return 5;
-    else if(act_id[0] ==='f')
+    }
+    else if(act_id[0] === 'f')
+    {
         return 6;
-    else if(act_id[0] ==='g')
+    }
+    else if(act_id[0] === 'g')
+    {
         return 7;
+    }
 }
-function subm() {
+function subm()
+{
 
-    if (k < 11) {
+    if(k < 11)
+    {
 
         alert("Team not full");
 
-
     }
-    else {
+    else
+    {
         var id;
-        for (var j = 1; j < 12; j++) {
+        for(var j = 1; j < 12; j++)
+        {
             id = 't' + j;
             document.getElementById(id).value = team[j - 1];
 
         }
         var num = form_check();
         id = 't' + 12;
-        document.getElementById(id).value =num;
+        document.getElementById(id).value = num;
 
         document.getElementById('form').action = "/home/getsquad";
         document.getElementById('form').method = "post";
-        alert();
+
         //document.getElementById('form').submit();
 
     }
 
 }
-function clear_all(){
+function clear_all()
+{
     var id = "set";
-    for(var i=0;i<11;i++){
-        id = "set"+i;
+    for(var i = 0; i < 11; i++)
+    {
+        id = "set" + i;
         if(document.getElementById(id))
+        {
             document.getElementById(id).click();
+        }
     }
-    k=0;
-   // document.getElementsByClassName('set').fireEvent('onClick');
-
+    k = 0;
+    // document.getElementsByClassName('set').fireEvent('onClick');
 
 }
-function set_team(pos,id){
-    team[pos]=id;
+function set_team(pos, id)
+{
+    team[pos] = id;
 }
-function rem_team(pos){
+function rem_team(pos)
+{
     team[pos] = 0;
 }

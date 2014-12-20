@@ -17,6 +17,7 @@
  */
 
 var express = require('express');
+var bcrypt = require('bcrypt');
 var path = require('path');
 var async = require('async');
 var router = express.Router();
@@ -120,6 +121,7 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
 {
     if (req.signedCookies.name)                           // if cookies exists then access the database
     {
+        var results = {};
         var teamname = req.signedCookies.name;
         var doc =
         {
@@ -145,6 +147,15 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
                 }
 
             }
+            var getuser = function(err,user){
+                if(err)
+                    console.log(err.message);
+                else
+                {
+                        results.user = user;
+                }
+            };
+            mongoUsers.fetch(doc,getuser);
             var onFinish = function (err, documents)
             {
                 if (err)
@@ -155,7 +166,7 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
                 else
                 {
                     console.log(documents);
-                    res.render("leaderboard", { leaderboard: documents});
+                    res.render("leaderboard", { leaderboard: documents,results: results});
                 }
             };
             mongoUsers.getleader(doc, onFinish);
@@ -175,6 +186,8 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
 
 router.get('/matches', function (req, res)
 {
+    var e =0;
+    var results =[];
     if (req.signedCookies.name)
     {
         var teamName = req.signedCookies.name;
@@ -193,6 +206,7 @@ router.get('/matches', function (req, res)
             }
             else
             {
+
                 if(doc.team.length==0)
                 {
                     res.redirect("/home/players")
@@ -201,49 +215,55 @@ router.get('/matches', function (req, res)
                 {
                     res.redirect("/home/formation")
                 }
-                var credentials1 = {
-                    'Team_1': doc.team_no
-                };
-                var credentials2 = {
-                    'Team_2': doc.team_no
-                };
-                var parallel_tasks = {};
-                var response = {};
-                response.test = "False";
-                var onFinish = function (err, results)
-                {
-                    if (err)
+                results.user = doc;
+                if(e!=0){
+                    var credentials1 = {
+                        'Team_1': doc.team_no
+                    };
+                    var credentials2 = {
+                        'Team_2': doc.team_no
+                    };
+                    var parallel_tasks = {};
+                    var response = {};
+                    response.test = "False";
+                    var onFinish = function (err, results)
                     {
-                        if (log) log.log('debug', {Error: err, Message: err.message});
-                    }
-                    else
-                    {
-                        response["previousMatch"] = results.previousMatch;
-                        response["nextMatch"] = results.nextMatch;
-
-                        if (response["previousMatch"] != null || response["nextMatch"] != null)
+                        if (err)
                         {
-                            response.test = "True";
+                            if (log) log.log('debug', {Error: err, Message: err.message});
                         }
-                        //console.log(response.previousMatch);
-                        console.log(response.nextMatch);
-                        res.render('matches', {response: response});
-                    }
+                        else
+                        {
+                            response["previousMatch"] = results.previousMatch;
+                            response["nextMatch"] = results.nextMatch;
 
-                };
+                            if (response["previousMatch"] != null || response["nextMatch"] != null)
+                            {
+                                response.test = "True";
+                            }
+                            //console.log(response.previousMatch);
+                            console.log(response.nextMatch);
+                            res.render('matches', {response: response});
+                        }
 
-                parallel_tasks.previousMatch = function (asyncCallback)
-                {
-                    mongoMatches.fetchPreviousMatch(credentials1, credentials2, asyncCallback);
-                };
-                parallel_tasks.nextMatch = function (asyncCallback)
-                {
-                    mongoMatches.fetchNextMatch(credentials1, credentials2, asyncCallback);
+                    };
 
-                };
-                async.parallel(parallel_tasks, onFinish);
-                //res.render('matches', response);
+                    parallel_tasks.previousMatch = function (asyncCallback)
+                    {
+                        mongoMatches.fetchPreviousMatch(credentials1, credentials2, asyncCallback);
+                    };
+                    parallel_tasks.nextMatch = function (asyncCallback)
+                    {
+                        mongoMatches.fetchNextMatch(credentials1, credentials2, asyncCallback);
 
+                    };
+                    async.parallel(parallel_tasks, onFinish);
+                    //res.render('matches', response);
+
+                }
+                else{
+                    res.render('matches',{results : results,response : null});
+                }
             }
         };
         mongoUsers.fetch(credentials,onFetch);
@@ -486,7 +506,8 @@ router.get('/players', function (req, res) // page for all players, only availab
                         else
                         {
                             res.render('players', {
-                                Players: documents
+                                Players: documents,
+                                err : null
                             });
                         }
 
@@ -643,3 +664,80 @@ router.get('/developers', function (req, res) // developers page
     mongoUsers.fetch(credentials,onFetch);
 });
 module.exports = router;
+/*router.get('/reset',function(req,res)
+{
+    res.render('reset',{});
+});*/
+router.get('/settings',function(req,res){
+   res.render('settings',{});
+});
+
+/*router.post('/reset', function(req,res)
+{
+    var team_name = req.signedCookies.name;
+   // var old_password = req.body.oldpass;
+    var password = req.body.pass;
+    var confirm_password = req.body.cpass;
+    if (password == confirm_password)
+    {
+        var salt = bcrypt.genSaltSync(10);
+        var hashedPassword = bcrypt.hashSync(password, salt);
+        var credentials = {
+            _id : team_name,
+            password : hashedPassword
+        };
+        var fetch_user = {
+            _id : team_name
+        };
+        var onFetch = function(err,doc)
+        {
+            if(err)
+            {
+                if(log)
+                {
+                    log.log('debug', {Error: err, Message: err.message});
+                }
+            }
+            else if(doc)
+            {
+                //if (bcrypt.compareSync(old_password, doc['password_hash']))
+                //{
+                    console.log("Password Change Initiated for" + team_name);
+                    var onUpdate = function(err,doc)
+                    {
+                        if(err)
+                        {
+                            if(log)
+                            {
+                                log.log('debug', {Error: err, Message: err.message});
+                            }
+                        }
+                        else
+                        {
+                             console.log(doc);
+                             res.redirect("/home");
+                        }
+                    };
+                    mongoUsers.update(fetch_user,credentials,onUpdate);
+
+                    res.redirect('/home');
+                //}
+                //else
+                //{
+                   // console.log('Password Change Rejected for ' + team_name + ' due to incorrect password.');
+                    //res.render('reset', {response: "Incorrect Password"});
+                //}
+            }
+        };
+
+
+
+        mongoUsers.fetch(fetch_user, onFetch);
+
+    }
+    else
+    {
+        res.render("reset", {err : "Passwords do not match"});
+    }
+
+});*/

@@ -340,7 +340,7 @@ exports.update = function (query, update, callback)
                     callback(null, doc);
                 }
             };
-            collection.findAndModify(query, {}, update, {"upsert": true}, onUpdate);
+            collection.findAndModify(query, {}, { "$set" : update }, {"upsert": true}, onUpdate);
 
         }
     };

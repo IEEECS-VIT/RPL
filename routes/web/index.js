@@ -74,6 +74,7 @@ router.post('/login', function (req, res)
         }
         else if (doc)
         {
+            console.log(password);
             if (bcrypt.compareSync(password, doc['password_hash']))
             {
                 console.log("Login Successful" + teamName);
