@@ -549,9 +549,11 @@ exports.simulate = function (data, callback)
         temp[k] = [x, y];
       }
 
-      goal = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
-      goal -= (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+      x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
+      y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+      goal = x - y;
       temp = +(goal < 0);
+      pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
       goal = Math.abs(goal);
       if(!goal)
       {
@@ -776,9 +778,11 @@ exports.simulate = function (data, callback)
         temp[k] = [x, y];
       }
 
-      goal = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
-      goal -= (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+      x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
+      y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+      goal = x - y;
       temp = +(goal < 0);
+      pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
       goal = Math.abs(goal);
       if(!goal)
       {
