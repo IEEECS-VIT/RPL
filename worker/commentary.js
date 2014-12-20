@@ -66,5 +66,29 @@ module.exports =
     misc:
     [
 
+    ],
+    tie:
+    [
+
+    ],
+    shootout:
+    [
+
+    ],
+    penalty:
+    [
+
+    ],
+    hopeless:
+    [
+
+    ],
+    general:
+    [
+
+    ],
+    miss:
+    [
+
     ]
 };

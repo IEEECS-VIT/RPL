@@ -137,14 +137,7 @@ exports.getSquad = function (doc, callback)
                     else if(document.team.length != 0)
                     {
 
-                        for (var i = 0; i < 16; i++)
-                        {
-                            if (parseInt(document.team[i]) >= parseInt(304))
-                            {
-                                coach = parseInt(document.team[i]);
-                            }
-                        }
-                        async.map(document.squad, getPlayer, onFinish);
+                       async.map(document.squad, getPlayer, onFinish);
                     }
                     else
                     {

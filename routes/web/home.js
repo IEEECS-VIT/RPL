@@ -73,7 +73,6 @@ router.get('/', function (req, res)
                         _id: 1,
                         Name: 1,
                         Cost: 1,
-                        Country: 1,
                         Type: 1
                     };
                     mongoPlayers.getPlayer(player, fields, callback)
@@ -389,7 +388,6 @@ router.post('/getTeam', function (req, res)
             _id: 1,
             Name: 1,
             Cost: 1,
-            Country: 1,
             Type: 1
         };
         var player = {
@@ -602,7 +600,6 @@ router.get('/formation', function (req, res)
                         _id: 1,
                         Name: 1,
                         Cost: 1,
-                        Country: 1,
                         Type: 1
                     };
                     mongoPlayers.getPlayer(player, fields, callback)
