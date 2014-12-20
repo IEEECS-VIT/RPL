@@ -444,7 +444,7 @@ exports.simulate = function (data, callback)
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
         data.match.commentary.push(data.team[0]._id + ': ' + temp +' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
-        data.match.commentary.push(' Form: ');
+        data.match.commentary.push('Form: ');
         data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary[data.match.commentary.length - 1] += data.team[kick]._id + ' shall kickoff.';
         // ------------------------<last resort> ---------------------------
@@ -549,9 +549,11 @@ exports.simulate = function (data, callback)
                temp[k] = [x, y];
            }
 
-           goal = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
-           goal -= (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+           x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
+           y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+           goal = x - y;
            temp = +(goal < 0);
+           pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
            goal = Math.abs(goal);
            if(!goal)
            {
@@ -564,7 +566,7 @@ exports.simulate = function (data, callback)
            else if(goal > 1 && goal <= 2) // pass
            {
                hold = true;
-               ++passes[kick];
+               ++passes[+kick];
                data.match.commentary.push(com.pass[rand(com.pass.length)]);
            }
            else if(goal > 2 && goal <= 3 ) // intercept
@@ -581,7 +583,7 @@ exports.simulate = function (data, callback)
            else if(goal > 4 && goal <= 5 ) // foul
            {
                hold = false;
-               ++fouls[kick];
+               ++fouls[+!kick];
                data.match.commentary.push(com.foul[rand(com.foul.length)]);
            }
            else if(goal > 5 && goal <= 6 ) // offside
@@ -776,9 +778,11 @@ exports.simulate = function (data, callback)
                 temp[k] = [x, y];
             }
 
-            goal = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
-            goal -= (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+            x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
+            y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+            goal = x - y;
             temp = +(goal < 0);
+            pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
             goal = Math.abs(goal);
             if(!goal)
             {
