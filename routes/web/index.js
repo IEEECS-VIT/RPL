@@ -182,6 +182,7 @@ router.post('/register', function (req, res)
                     tied : 0,
                     played : 0,
                     points: 0,
+                    accuracy: 0.0,
                     shots : 0,
                     fouls : 0,
                     ratio : 0.0,
