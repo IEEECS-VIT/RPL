@@ -177,12 +177,23 @@ router.post('/register', function (req, res)
                     squad: [],
                     team: [],
                     win: 0,
+                    loss: 0 ,
+                    tied: 0,
                     played: 0,
                     points: 0,
                     goals_for: 0,
                     goals_against: 0,
-                    gd : 0,
-                    form : 0
+                    goal_diff : 0,
+                    accuracy: 0.0,
+                    shots : 0,
+                    fouls : 0,
+                    ratio : 0.0,
+                    form : 0.0,
+                    morale : 0.0,
+                    dominance : 0.0,
+                    possession : 0.0,
+                    mean_goals_for : 0.0,
+                    mean_goals_against : 0.0
                 };
                 var onInsert = function (err, docs)
                 {
