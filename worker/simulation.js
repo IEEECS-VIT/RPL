@@ -443,7 +443,7 @@ exports.simulate = function (data, callback)
         var against = [];
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
-        data.match.commentary.push(data.team[0]._id + temp +' % | % ' + (100 - temp) + data.team[1]._id);
+        data.match.commentary.push(data.team[0]._id + ': ' + temp +' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
         data.match.commentary.push(' Form: ');
         data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary[data.match.commentary.length - 1] += data.team[kick]._id + ' shall kickoff.';
