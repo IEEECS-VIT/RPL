@@ -210,10 +210,10 @@ exports.simulate = function (data, callback)
     function Make(team, arg)
     {
       average_strike_rating = average_mid_rating = average_keep_rating = average_def_rating = keep_count = def_count = strike_count = mid_count = 0;
-      for (i = 0; i < 11; ++i)
+      for (i = 0; i <= 11; ++i)
       {
-        x = 129 * arg + Math.pow(-1, arg) * formation[team[11]][team[i].index].x;
-        y = 69 * arg + Math.pow(-1, arg) * formation[team[11]][team[i].index].y;
+        x = 129 * arg + Math.pow(-1, arg) * formation[team[11]][i].x;
+        y = 69 * arg + Math.pow(-1, arg) * formation[team[11]][i].y;
         team[i].stamina = 50;
         team[i].position =
         {
@@ -247,7 +247,7 @@ exports.simulate = function (data, callback)
       average_mid_rating /= mid_count;
       average_strike_rating /= strike_count;
       average_keep_rating /= keep_count;
-      for (i = 0; i < 11; ++i)
+      for (i = 0; i <= 11; ++i)
       {
         switch(team.Type[i])
         {
@@ -339,7 +339,7 @@ exports.simulate = function (data, callback)
           }
         }
       }
-      data.match.push(com.penalty[rand(com.penalty.length)]);
+      data.match.commentary.push(com.penalty[rand(com.penalty.length)]);
       for(k = 0; k < 2; ++k)
       {
         temp = [0 , 0, 0, 0];
@@ -903,7 +903,7 @@ exports.simulate = function (data, callback)
       data.match.commentary.push(com.shootout[rand(com.shootout.length)]);
       winner = penalty_shootout();
     }
-    data.match.push(com.end[rand(com.end.length)]);
+    data.match.commentary.push(com.end[rand(com.end.length)]);
     data.match.commentary.push('Final score: ' + data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
     //  </main stream>
     if (parseInt(winner) != -1)
