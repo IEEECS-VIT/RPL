@@ -19,11 +19,8 @@
 var async = require('async');
 var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
-var match = require(path.join(__dirname, '..','matchCollection.js'));
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://burnualive:dracielv29951!@ds061200.mongolab.com:61200/rpl';
-var match = require(path.join(__dirname, '..','matchCollection'));
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
-
+var match = require(path.join(__dirname, '..','matchCollection'));
 var getPlayer = function (id, callback)
 {
     var onConnect = function (err, db)
