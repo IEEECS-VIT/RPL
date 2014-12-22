@@ -21,10 +21,10 @@
 
 var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
-var match = require(path.join(__dirname, '..','matchCollection.js'));
+var match = require(path.join(__dirname, '..','matchCollection'));
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
 
-var SchedulePush = require("./SchedulePush.js");
+var SchedulePush = require("./SchedulePush");
 
 var callback=function(err,arg)
 {

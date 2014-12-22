@@ -19,7 +19,7 @@
 
 var path = require('path');
 
-var com = require(path.join(__dirname, 'commentary.js'));
+var com = require(path.join(__dirname, 'commentary'));
 
 exports.simulate = function (data, callback)
 {
@@ -210,10 +210,10 @@ exports.simulate = function (data, callback)
         function Make(team, arg)
         {
             average_strike_rating = average_mid_rating = average_keep_rating = average_def_rating = keep_count = def_count = strike_count = mid_count = 0;
-            for (i = 0; i < 11; ++i)
+            for (i = 0; i <= 11; ++i)
             {
-                x = 129 * arg + Math.pow(-1, arg) * formation[team[11]][team[i].index].x;
-                y = 69 * arg + Math.pow(-1, arg) * formation[team[11]][team[i].index].y;
+                x = 129 * arg + Math.pow(-1, arg) * formation[data.team[arg].squad[11]][i].x;
+                y = 69 * arg + Math.pow(-1, arg) * formation[data.team[arg].squad[11]][i].y;
                 team[i].stamina = 50;
                 team[i].position =
                 {
@@ -247,9 +247,9 @@ exports.simulate = function (data, callback)
             average_mid_rating /= mid_count;
             average_strike_rating /= strike_count;
             average_keep_rating /= keep_count;
-            for (i = 0; i < 11; ++i)
+            for (i = 0; i <= 11; ++i)
             {
-                switch(team.Type[i])
+                switch(team[i].Type)
                 {
                     case 'strike':
                         team[i].Overall += parseFloat(team[i].Overall) / (strike_count - 1) - parseFloat(average_strike_rating)/ (strike_count * (strike_count - 1));
@@ -277,7 +277,7 @@ exports.simulate = function (data, callback)
         data.match.commentary = [];
         data.match.commentary.push(data.team[0]._id + ' VS ' + data.team[1]._id);
         data.match.commentary.push('Formations: ');
-        data.match.commentary.push(data.team[0]._id + ': ' + formation[0][11] + ' | ' + formation[0][11] + ' :' + data.team[1]._id);
+        data.match.commentary.push(data.team[0]._id + ': ' + formation[data.team[0].squad[11]][11] + ' | ' + formation[data.team[1].squad[11]][11] + ' :' + data.team[1]._id);
         if(data.team[0].played && data.team[1].played)
         {
             data.match.commentary.push('Form:');
@@ -339,7 +339,7 @@ exports.simulate = function (data, callback)
                     }
                 }
             }
-            data.match.push(com.penalty[rand(com.penalty.length)]);
+            data.match.commentary.push(com.penalty[rand(com.penalty.length)]);
             for(k = 0; k < 2; ++k)
             {
                 temp = [0 , 0, 0, 0];
@@ -410,7 +410,7 @@ exports.simulate = function (data, callback)
                     }
                     else
                     {
-                        data.match.commentary.push(com.missed[rand(com.missed.length)]);
+                        data.match.commentary.push(com.miss[rand(com.miss.length)]);
                         flag = 0;
                     }
                     for (j = i + 1; j < 6; ++j)
@@ -443,8 +443,8 @@ exports.simulate = function (data, callback)
         var against = [];
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
-        data.match.commentary.push(data.team[0]._id + temp +' % | % ' + (100 - temp) + data.team[1]._id);
-        data.match.commentary.push(' Form: ');
+        data.match.commentary.push(data.team[0]._id + ': ' + temp +' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
+        data.match.commentary.push('Form: ');
         data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary[data.match.commentary.length - 1] += data.team[kick]._id + ' shall kickoff.';
         // ------------------------<last resort> ---------------------------
@@ -549,9 +549,11 @@ exports.simulate = function (data, callback)
                temp[k] = [x, y];
            }
 
-           goal = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
-           goal -= (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+           x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
+           y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+           goal = x - y;
            temp = +(goal < 0);
+           pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
            goal = Math.abs(goal);
            if(!goal)
            {
@@ -564,7 +566,7 @@ exports.simulate = function (data, callback)
            else if(goal > 1 && goal <= 2) // pass
            {
                hold = true;
-               ++passes[kick];
+               ++passes[+kick];
                data.match.commentary.push(com.pass[rand(com.pass.length)]);
            }
            else if(goal > 2 && goal <= 3 ) // intercept
@@ -581,7 +583,7 @@ exports.simulate = function (data, callback)
            else if(goal > 4 && goal <= 5 ) // foul
            {
                hold = false;
-               ++fouls[kick];
+               ++fouls[+!kick];
                data.match.commentary.push(com.foul[rand(com.foul.length)]);
            }
            else if(goal > 5 && goal <= 6 ) // offside
@@ -776,9 +778,11 @@ exports.simulate = function (data, callback)
                 temp[k] = [x, y];
             }
 
-            goal = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
-            goal -= (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+            x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
+            y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
+            goal = x - y;
             temp = +(goal < 0);
+            pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
             goal = Math.abs(goal);
             if(!goal)
             {
@@ -903,7 +907,7 @@ exports.simulate = function (data, callback)
             data.match.commentary.push(com.shootout[rand(com.shootout.length)]);
             winner = penalty_shootout();
         }
-        data.match.push(com.end[rand(com.end.length)]);
+        data.match.commentary.push(com.end[rand(com.end.length)]);
         data.match.commentary.push('Final score: ' + data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
     //  </main stream>
         if (parseInt(winner) != -1)
