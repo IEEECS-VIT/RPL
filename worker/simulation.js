@@ -822,8 +822,9 @@ exports.simulate = function (data, callback)
             }
             x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * temp[0][0] + temp[0][1];
             y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
-            goal = (x - y) / 100;
+            goal = (x - y) / 10;
             temp = +(goal < 0);
+            console.log(goal);
             pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
             goal = Math.abs(goal);
             if(!goal)
