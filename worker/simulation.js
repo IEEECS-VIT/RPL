@@ -948,7 +948,6 @@ exports.simulate = function (data, callback)
             data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
         }
         winner = +(Goals[1] > Goals[0]);
-        console.log(Goals,winner);
         if(Goals[0] == Goals[1])
         {
             data.match.commentary.push(com.shootout[rand(com.shootout.length)]);
@@ -979,28 +978,29 @@ exports.simulate = function (data, callback)
     {
         Goals[1] = 1;
     }
+    console.log();
     ++data.team[0].played;
     ++data.team[1].played;
     data.team[0].shots += shots[0];
     data.team[1].shots += shots[1];
     data.team[0].fouls += fouls[0];
     data.team[1].fouls += fouls[1];
-    data.team[0].ratio = data.team[0].win / (data.team[0].loss) ? (data.team[0].loss) : (1);
-    data.team[1].ratio = data.team[1].win / (data.team[1].loss) ? (data.team[1].loss) : (1);
-    data.team[0].accuracy = data.team[0].goals_for * 100 / data.team[0].shots;
-    data.team[1].accuracy = data.team[1].goals_for * 100 / data.team[1].shots;
-    data.team[0].mean_goals_for = data.team[0].goals_for / data.team[0].played;
-    data.team[1].mean_goals_for = data.team[1].goals_for / data.team[1].played;
-    data.team[0].mean_goals_against = data.team[0].goals_against / data.team[0].played;
-    data.team[1].mean_goals_against = data.team[1].goals_against / data.team[1].played;
+    data.team[0].ratio = (data.team[0].win / (data.team[0].loss) ? (data.team[0].loss) : (1)).toFixed(2);
+    data.team[1].ratio = (data.team[1].win / (data.team[1].loss) ? (data.team[1].loss) : (1)).toFixed(2);
+    data.team[0].accuracy = (data.team[0].goals_for * 100 / data.team[0].shots).toFixed(2);
+    data.team[1].accuracy = (data.team[1].goals_for * 100 / data.team[1].shots).toFixed(2);
+    data.team[0].mean_goals_for = (data.team[0].goals_for / data.team[0].played).toFixed(2);
+    data.team[1].mean_goals_for = (data.team[1].goals_for / data.team[1].played).toFixed(2);
+    data.team[0].mean_goals_against = (data.team[0].goals_against / data.team[0].played).toFixed(2);
+    data.team[1].mean_goals_against = (data.team[1].goals_against / data.team[1].played).toFixed(2);
     data.team[0].form += (possession[0] * mean_rating[1] / Goals[1] - possession[1] * mean_rating[0] / Goals[0]) / 1000;
     data.team[1].form += (possession[1] * mean_rating[0] / Goals[0] - possession[0] * mean_rating[1] / Goals[1] ) / 1000;
     data.team[0].morale += (Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100;
     data.team[1].morale -= (Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100;
-    data.team[0].possession = (data.team[0].played - 1) * data.team[0].possession + possession[0] / data.team[0].played;
-    data.team[1].possession = (data.team[1].played - 1) * data.team[1].possession + possession[1] / data.team[1].played;
-    data.team[0].dominance += (data.team[0].dominance * (data.team[0].played - 1) + dom / 90) / data.team[0].played;
-    data.team[1].dominance += (data.team[1].dominance * (data.team[1].played - 1) + (1 - dom / 90)) / data.team[1].played;
+    data.team[0].possession = (((data.team[0].played - 1) * data.team[0].possession + possession[0]) / data.team[0].played).toFixed(2);
+    data.team[1].possession = (((data.team[1].played - 1) * data.team[1].possession + possession[1]) / data.team[1].played).toFixed(2);
+    data.team[0].dominance += ((data.team[0].dominance * (data.team[0].played - 1) + dom / 90) / data.team[0].played).toFixed(2);
+    data.team[1].dominance += ((data.team[1].dominance * (data.team[1].played - 1) + (1 - dom / 90)) / data.team[1].played).toFixed(2);
     delete data.team[0].ratings;
     delete data.team[1].ratings;
     var newData = 
