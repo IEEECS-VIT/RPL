@@ -255,10 +255,6 @@ exports.simulate = function (data, callback)
                         team[i].Overall += parseFloat(team[i].Overall) / (strike_count - 1) - parseFloat(average_strike_rating)/ (strike_count * (strike_count - 1));
                         team[i].Overall = (team[i].Overall < 0) ? 0 : (team[i].Overall);
                         break;
-                    case 'keep':
-                        team[i].Overall += parseFloat(team[i].Overall) / (keep_count - 1) - parseFloat(average_keep_rating)/ (keep_count * (keep_count - 1));
-                        team[i].Overall = (team[i].Overall < 0) ? 0 :(team[i].Overall);
-                        break;
                     case 'def':
                         team[i].Overall += parseFloat(team[i].Overall) / (def_count - 1) - parseFloat(average_def_rating)/ (def_count * (def_count - 1));
                         team[i].Overall = (team[i].Overall < 0) ? 0 :(team[i].Overall);
@@ -417,6 +413,8 @@ exports.simulate = function (data, callback)
                         confidence[+k][j] -= Math.pow(-1, flag) * keeper[+!k].Overall / data.team[+k].ratings.Overall;
                         confidence[+!k][j] += Math.pow(-1, flag) * keeper[+!k].Overall / data.team[+k].ratings.Overall;
                     }
+                    --data.team[+k].ratings[i].stamina;
+                    --keeper[+!k].stamina;
                     k = +!k;
                 }
                 if((Goals[1] + 4 - i < Goals[0]) || (Goals[0] + 4 - i < Goals[1]))
@@ -643,8 +641,9 @@ exports.simulate = function (data, callback)
                    }
                }
                strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
-               keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1/3)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 3);
-               if(strike_performance_index > keeper_performance_index)
+               keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1/2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
+               //console.log(strike_performance_index, keeper_performance_index);
+               if(strike_performance_index > 2 * keeper_performance_index)
                {
                    data.match.commentary.push(com.goal[rand(com.goal.length)]);
                    ++Goals[+kick];
@@ -660,7 +659,9 @@ exports.simulate = function (data, callback)
                    x : 64.5,
                    y : 34.5
                };
-            }
+               data.team[+kick].ratings[strike].stamina -= 2;
+               data.team[+!kick].ratings[0].stamina -= 2;
+           }
             data.match.commentary.push('Possession: ');
             data.match.commentary.push(data.team[0]._id + ': ' + pos * 100 + ' % | % ' + (1 - pos) * 100 + ' :' + data.team[1]._id);
             last_five_pos.unshift(pos);
@@ -701,6 +702,7 @@ exports.simulate = function (data, callback)
             }
         }
         kick = !kick;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         for(i = 46;i < 91; ++i)
         {
             if (ball.x < 0)
@@ -824,7 +826,6 @@ exports.simulate = function (data, callback)
             y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * temp[1][0] + temp[1][1];
             goal = (x - y) / 10;
             temp = +(goal < 0);
-            console.log(goal);
             pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
             goal = Math.abs(goal);
             if(!goal)
@@ -895,8 +896,8 @@ exports.simulate = function (data, callback)
                     }
                 }
                 strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
-                keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1/3)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 3);
-                if(strike_performance_index > keeper_performance_index)
+                keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[0].Reflexes) * data.team[+!kick].ratings[0].Positioning * data.team[+!kick].ratings[0].Speed), 1/3)) + (data.team[+!kick].ratings[0].Positioning + data.team[+!kick].ratings[0].Reflexes + data.team[+!kick].ratings[0].Speed) / 3);
+                if(strike_performance_index > 2 * keeper_performance_index)
                 {
                     data.match.commentary.push(com.goal[rand(com.goal.length)]);
                     ++Goals[+kick];
@@ -912,6 +913,8 @@ exports.simulate = function (data, callback)
                     x : 64.5,
                     y : 34.5
                 };
+                data.team[+kick].ratings[strike].stamina -= 2;
+                data.team[+!kick].ratings[0].stamina -= 2;
             }
             data.match.commentary.push('Possession: ');
             data.match.commentary.push(data.team[0]._id + ': ' + pos * 100 + ' % | % ' + (1 - pos) * 100 + ' :' + data.team[1]._id);
@@ -944,6 +947,8 @@ exports.simulate = function (data, callback)
             temp = (dom * 100 / i).toFixed(2);
             data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
         }
+        winner = +(Goals[1] > Goals[0]);
+        console.log(Goals,winner);
         if(Goals[0] == Goals[1])
         {
             data.match.commentary.push(com.shootout[rand(com.shootout.length)]);
