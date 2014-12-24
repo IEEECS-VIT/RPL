@@ -73,16 +73,21 @@ exports.initSimulation = function (day, masterCallback)
                     userDoc.ratings = results;
                     asyncCallback(err, userDoc);
                 };
-
-                if (userDoc.squad.length < 11)
+                if(userDoc)
                 {
-                    userDoc.ratings = [];
-                    asyncCallback(err, userDoc);
+                    console.log(" user doc" + userDoc._id);
+                    if(userDoc.squad.length < 11)
+                    {
+                        userDoc.ratings = [];
+                        asyncCallback(err, userDoc);
+                    }
+                    else
+                    {
+                        async.map(userDoc.squad, getEachRating, onGetRating);
+                    }
                 }
                 else
-                {
-                    async.map(userDoc.squad, getEachRating, onGetRating);
-                }
+                    console.log(userDoc);
             };
             database.collection(match).findOne(query, getRating);
         };
