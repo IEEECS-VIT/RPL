@@ -194,7 +194,8 @@ router.post('/register', function (req, res)
                     dominance : 0.0,
                     possession : 0.0,
                     mean_goals_for : 0.0,
-                    mean_goals_against : 0.0
+                    mean_goals_against : 0.0,
+                    passes : 0
                 };
                 var onInsert = function (err, docs)
                 {

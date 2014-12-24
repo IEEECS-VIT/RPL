@@ -983,13 +983,14 @@ exports.simulate = function (data, callback)
     {
         Goals[1] = 1;
     }
-    console.log();
     ++data.team[0].played;
     ++data.team[1].played;
     data.team[0].shots += shots[0];
     data.team[1].shots += shots[1];
     data.team[0].fouls += fouls[0];
     data.team[1].fouls += fouls[1];
+    data.team[0].passes += passes[0];
+    data.team[1].passes += passes[1];
     data.team[0].ratio = (data.team[0].win / (data.team[0].loss) ? (data.team[0].loss) : (1)).toFixed(2);
     data.team[1].ratio = (data.team[1].win / (data.team[1].loss) ? (data.team[1].loss) : (1)).toFixed(2);
     data.team[0].accuracy = (data.team[0].goals_for * 100 / data.team[0].shots).toFixed(2);
