@@ -1,0 +1,35 @@
+<script src="/javascript/rpl_players.js"></script>
+<ul>
+
+    <% var i; for(i = 0;i < Players.length;i++) { %>
+
+    <% if(Players[i]._id <= 126&&Players[i].Cost < 10000000&&Players[i].Cost>9000000){ %>
+    <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+        <div class="row" style="padding:1%">
+            <div class="col-xs-6">
+                <img src="/images/forward/<%= Players[i]._id %>.jpg"/>
+            </div>
+            <div class="col-xs-6" style="padding: 0">
+                <p><%= Players[i].Name %><br/><br/>
+                    <%= Players[i].Price %> M<br/>
+                    <br/>
+                    <button data-toggle="tooltip" data-placement="bottom"
+                            title="Click to add player"
+                            onclick="<%- 'sel(' + Players[i]._id + ')' %>"
+                            id="b<%= Players[i]._id %>">
+                        Select
+                    </button>
+                </p>
+            </div>
+        </div>
+        <form name="h" style="display: none">
+            <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+            <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+            <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+        </form>
+
+    </li>
+
+    <% }  } %>
+
+</ul>

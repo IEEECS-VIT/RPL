@@ -741,3 +741,26 @@ router.get('/settings',function(req,res){
     }
 
 });*/
+/*router.get('/sort',function(req,res){
+    var upper = req.body.upper;
+    var lower = req.body.lower;
+     var onFetch = function (err, documents)
+                    {
+                        if (err)
+                        {
+                            res.redirect('/home');
+                        }
+                        else
+                        {
+                            res.render('sort', {
+                                Players: documents,
+                                err : null,
+                                Upper : upper,
+                                Lower : lower
+                             });
+                        }
+
+                    };
+                    mongoPlayers.fetchPlayers(onFetch);
+
+});*/

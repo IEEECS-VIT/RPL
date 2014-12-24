@@ -28,18 +28,40 @@
         <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
         <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
         <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
-
+       <!-- <script src="/ejs/ejs.js"></script>-->
         <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="/bower_components/jquery/dist/jquery.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
         <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css"/>
-
+        <script src="/javascript/ejs_production.js"></script>
         <script src="/javascript/rpl.js"></script>
 
         <script src="/javascript/rpl_players.js"></script>
         <script src="/javascript/modernizr-2.6.2.min.js"></script>
         <script src="/javascript/pace.min.js"></script>
+        <script>
+
+             /*  function getData() {
+                   // Grab the template
+                   $.get('/home/sort', function (template) {
+                       // Compile the EJS template.
+                       var func = ejs.compile(template);
+
+                       // Grab the data
+                       $.get('/home/players', function (data) {
+                           // Generate the html from the given data.
+                           var html = func(data);
+
+                           $('#fort').html(html);
+                       });
+                   });
+               }
+               $('#sort').submit(function () {
+                   getData();
+                  // this.preventDefault();
+               });*/
+        </script>
         <style>
             .affix
             {
@@ -239,7 +261,21 @@
                                    value="Done"/>
 
                         </form>
+                   <!-- <div style="float: left;" class="col-md-12">
 
+                            <form id="sort" action="javascript:getData()" >
+                                <select style="float: left;width: 50%;margin-top: 1%;border-radius: 0">
+                                    <option value="10-9">10-9 Mil</option>
+                                    <option value="9-8">9-8 Mil</option>
+                                    <option value="8-7">8-7 Mil</option>
+                                    <option value="7-6">7-6 Mil</option>
+                                    <option value="6-5">6-5 Mil</option>
+                                    <option value="5-0">5-4 Mil</option>
+                                </select>
+                            <button onclick="" style="float: left;padding: 1%;margin-left:2%">Find in Range</button>
+
+                        </form>
+                    </div>-->
                     </div>
 
                     <div class=" col-md-3 col-xs-3 col-sm-3 affix" id="player_list"
@@ -297,7 +333,7 @@
 
                 </div>
                 <div class="tab-content" style="background: rgba(216,216,216,1);" data-spy="" data-offset-top="200"
-                     data-offset-bottom="200">
+                     data-offset-bottom="200" id="pl">
 
                     <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="fort">
 
@@ -346,7 +382,7 @@
                             <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
                                 <div class="row" style="padding:1%">
                                     <div class="col-xs-6">
-                                        <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                                        <img src="/images/mid/<%= Players[i]._id %>.jpg"/>
                                     </div>
                                     <div class="col-xs-6" style="padding: 0">
                                         <p><%= Players[i].Name %><br/><br/>
@@ -380,7 +416,7 @@
                             <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
                                 <div class="row" style="padding:1%">
                                     <div class="col-xs-6">
-                                        <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                                        <img src="/images/def/<%= Players[i]._id %>.jpg"/>
                                     </div>
                                     <div class="col-xs-6" style="padding: 0">
                                         <p><%= Players[i].Name %><br/><br/>
@@ -414,7 +450,7 @@
                             <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
                                 <div class="row" style="padding:1%">
                                     <div class="col-xs-6">
-                                        <img src="/images/bat/<%= Players[i]._id %>.jpg"/>
+                                        <img src="/images/goal/<%= Players[i]._id %>.jpg"/>
                                     </div>
                                     <div class="col-xs-6" style="padding: 0">
                                         <p><%= Players[i].Name %><br/><br/>
