@@ -588,6 +588,19 @@ exports.simulate = function (data, callback)
                     {
                         hold = true;
                         ++passes[+kick];
+                        temp = Math.pow((data.team[+kick].ratings[friendly[0]].position.x - ball.x), 2) + Math.pow((data.team[+kick].ratings[friendly[0]].position.y - ball.y), 2);
+                        y = friendly[0];
+                        for(j in friendly)
+                        {
+                            k = Math.pow((data.team[+kick].ratings[friendly[0]].position.x - ball.x), 2) + Math.pow((data.team[+kick].ratings[friendly[0]].position.y - ball.y), 2);
+                            if(k < temp)
+                            {
+                                temp = k;
+                                y = friendly[j];
+                            }
+                        }
+                        ball.x = data.team[+kick].ratings[k].position.x;
+                        ball.y = data.team[+kick].ratings[k].position.y;
                         data.match.commentary.push(com.pass[rand(com.pass.length)]);
                     }
                     else if(goal > 2 && goal <= 3 ) // intercept
