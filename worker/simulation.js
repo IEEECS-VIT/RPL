@@ -622,7 +622,8 @@ exports.simulate = function (data, callback)
                     }
                     else if(goal > 5 && goal <= 6 ) // offside
                     {
-                        hold = false;
+                        ball.x = 5.5 + 118 * (+!kick);
+                        ball.y = 34.5;
                         data.match.commentary.push(com.offside[rand(com.offside.length)]);
                     }
                     else // goal opportunity
