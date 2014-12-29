@@ -21,78 +21,78 @@ module.exports =
 {
     intro :
     [
-
+        ""
     ],
     end :
     [
-
+        ""
     ],
     offside :
     [
-
+        ""
     ],
     tackle :
     [
-
+        ""
     ],
     intercept :
     [
-
+        ""
     ],
     half :
     [
-
+         ""
     ],
     pass :
     [
-
+          ""
     ],
     goal :
     [
-
+         ""
     ],
     foul :
     [
-
+          ""
     ],
     red :
     [
-
+           ""
     ],
     yellow :
     [
-
+            ""
     ],
     misc:
     [
-
+            ""
     ],
     tie:
     [
-
+           ""
     ],
     shootout:
     [
-
+        ""
     ],
     penalty:
     [
-
+        ""
     ],
     hopeless:
     [
-
+        ""
     ],
     general:
     [
-
+        ""
     ],
     miss:
     [
-
+        ""
     ],
     block:
     [
-
+        ""
     ]
 };

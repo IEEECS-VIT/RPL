@@ -47,7 +47,8 @@ exports.simulate = function (data, callback)
     {
         console.log(data.team[0]._id + ' vs ' + data.team[1]._id + ' is now being simulated');
         function rand(arg)
-        {   if(!arg)
+        {
+            if(!arg)
             {
                 return Math.random();
             }
@@ -483,7 +484,7 @@ exports.simulate = function (data, callback)
                             ball.y = 70;
                         }
                     }
-                    data.match.commentary.push(i + ': ');
+                    data.match.commentary.push(i + loop * 45 + ': ');
                     if(!hold)
                     {
                         temp =(Math.pow(data.team[0].ratings[1].position.x - ball.x, 2) + Math.pow(data.team[+kick].ratings[1].position.y - ball.x, 2)) * (rand(50 - data.team[+kick].ratings[1].stamina) + 1);
@@ -576,6 +577,7 @@ exports.simulate = function (data, callback)
                     temp = +(goal > 0);
                     pos = Math.abs((temp) ? (1 - 1 / goal) : (1 / goal));
                     goal = Math.abs(goal);
+                    // limits to be rearranged based on test results
                     if(!goal)
                     {
                         data.match.commentary.push(com.general[rand(com.general.length)]);
@@ -661,7 +663,7 @@ exports.simulate = function (data, callback)
                             }
                             strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
                             keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
-                            if (strike_performance_index > 2.75 * keeper_performance_index)
+                            if (strike_performance_index > keeper_performance_index)
                             {
                                 data.match.commentary.push(com.goal[rand(com.goal.length)]);
                                 ++Goals[+kick];
