@@ -484,7 +484,7 @@ exports.simulate = function (data, callback)
                             ball.y = 70;
                         }
                     }
-                    data.match.commentary.push(i + loop * 45 + ': ');
+                    data.match.commentary.push((i + loop * 45) + ': ');
                     if(!hold)
                     {
                         temp =(Math.pow(data.team[0].ratings[1].position.x - ball.x, 2) + Math.pow(data.team[+kick].ratings[1].position.y - ball.x, 2)) * (rand(50 - data.team[+kick].ratings[1].stamina) + 1);
@@ -684,18 +684,18 @@ exports.simulate = function (data, callback)
                         }
                     }
                     data.match.commentary.push('Possession: ');
-                    data.match.commentary.push(data.team[0]._id + ': ' + pos * 100 + ' % | % ' + (1 - pos) * 100 + ' :' + data.team[1]._id);
+                    data.match.commentary.push(data.team[0]._id + ': ' + (pos * 100).toFixed(2) + ' % | % ' + ((1 - pos) * 100).toFixed(2) + ' :' + data.team[1]._id);
                     last_five_pos.unshift(pos);
                     if(i > 3)
                     {
                         temp = last_five_pos[0] + last_five_pos[1] + last_five_pos[2] + last_five_pos[3] + last_five_pos[4];
-                        data.match.commentary.push(' Possession during the last 5 minutes: ' + data.team[0]._id + ': ' + temp * 100 + '% - %' + (5 - temp) + ' :' + data.team[1]._id);
+                        data.match.commentary.push(' Possession during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 100).toFixed(2) + ' % | % ' + ((5 - temp) * 100).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_pos.pop();
                     }
                     possession[0] = (possession[0] * (i - 1) + pos) / i;
                     possession[1] = (possession[1] * (i - 1) + (1 - pos)) / i;
                     data.match.commentary.push('Overall possession: ');
-                    data.match.commentary.push(data.team[0]._id + ': ' + possession[0] + '% | % ' + possession[1] + ' :' + data.team[1]._id);
+                    data.match.commentary.push(data.team[0]._id + ': ' + possession[0].toFixed(2) + ' % | % ' + possession[1].toFixed(2) + ' :' + data.team[1]._id);
                     if(possession[0] != possession[1])
                     {
                         dom += +(possession[0] > possession[1]);
@@ -707,12 +707,12 @@ exports.simulate = function (data, callback)
                     if(i > 3)
                     {
                         temp = last_five_dom[0] + last_five_dom[1] + last_five_dom[2] + last_five_dom[3] + last_five_dom[4];
-                        data.match.commentary.push(' Dominance during the last 5 minutes: ' + data.team[0]._id + ': ' + temp * 20 + '% - %' + (5 - temp) * 20 + ' :' + data.team[1]._id);
+                        data.match.commentary.push(' Dominance during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_dom.pop();
                     }
                     data.match.commentary.push('Dominance: ');
                     temp = (dom * 100 / i).toFixed(2);
-                    data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
+                    data.match.commentary.push(data.team[0]._id + ': ' + temp.toFixed(2) + ' % | % ' + (100 - temp).toFixed(2) + ' :' + data.team[1]._id);
             }
             data.match.commentary.push(com.half[rand(com.half.length)]);
             for(i = 0; i < 2; ++i)
