@@ -17,10 +17,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var path = require('path');
-
-var com = require(path.join(__dirname, 'commentary'));
-
 exports.simulate = function (data, callback)
 {
     if (data.team[0].ratings.length < 12 && data.team[1].ratings.length < 12)
@@ -45,8 +41,10 @@ exports.simulate = function (data, callback)
     }
     else
     {
+        var path = require('path');
+        var com = require(path.join(__dirname, 'commentary'));
         console.log(data.team[0]._id + ' vs ' + data.team[1]._id + ' is now being simulated');
-        function rand(arg)
+        var rand = function(arg)
         {
             if(!arg)
             {
