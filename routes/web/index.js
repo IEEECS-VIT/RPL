@@ -189,7 +189,7 @@ router.post('/register', function (req, res)
                     goals_for : 0,
                     goals_against: 0,
                     goal_diff : 0,
-                    form : 0.0,
+                    form : 1,
                     streak : 0,
                     morale : 0.0,
                     dominance : 0.0,

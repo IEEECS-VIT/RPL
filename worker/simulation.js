@@ -173,6 +173,7 @@ exports.simulate = function (data, callback)
             ];
         var i;
         var j;
+        var flag;
         var mean_rating = [];
         var Goals = [0,0];
         var pos;
@@ -581,13 +582,13 @@ exports.simulate = function (data, callback)
                         y /= 13;
                         temp[k] = [x, y];
                     }
-                    console.log(temp);
                     x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * rand(temp[0][0]) + temp[0][1];
                     y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * rand(temp[1][0]) + temp[1][1];
                     goal = (x - y) / 10;
                     temp = +(goal > 0);
                     goal = Math.abs(goal);
                     pos = Math.abs((temp) ? (1 - 1 / goal) : (1 / goal));
+                    pos = (pos > 1) ? 1 : pos;
                     // limits to be rearranged based on test results
                     if(!goal)
                     {
@@ -637,6 +638,7 @@ exports.simulate = function (data, callback)
                     {
                         ball.x = 5.5 + 118 * (+!kick);
                         ball.y = 34.5;
+                        hold = true;
                         data.match.commentary.push(com.offside[rand(com.offside.length)]);
                     }
                     else // goal opportunity
@@ -650,7 +652,12 @@ exports.simulate = function (data, callback)
                             {
                                 if (friendly.indexOf(j) > -1)
                                 {
-                                    if (flag)
+                                    if (!flag)
+                                    {
+                                        strike = j;
+                                        flag = true;
+                                    }
+                                    else
                                     {
                                         temp =
                                             [
@@ -664,11 +671,6 @@ exports.simulate = function (data, callback)
                                             temp = [0, 0, 0, 0];
                                             strike = j;
                                         }
-                                    }
-                                    else
-                                    {
-                                        strike = j;
-                                        flag = true;
                                     }
                                 }
                             }
@@ -697,6 +699,7 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push('Possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (pos * 100).toFixed(2) + ' % | % ' + ((1 - pos) * 100).toFixed(2) + ' :' + data.team[1]._id);
                     last_five_pos.unshift(pos);
+                    console.log(pos);
                     if(i > 3)
                     {
                         temp = last_five_pos[0] + last_five_pos[1] + last_five_pos[2] + last_five_pos[3] + last_five_pos[4];
@@ -748,12 +751,12 @@ exports.simulate = function (data, callback)
             data.team[+!winner].goals_for += Goals[+!winner];
             data.team[+winner].goals_against += Goals[+!winner];
             data.team[+!winner].goals_against += Goals[+winner];
-            data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss ? data.team[+winner].loss : 1)).toFixed(2);
-            data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss ? data.team[+!winner].loss : 1)).toFixed(2);
             data.team[+winner].goal_diff = data.team[+winner].goals_for  - data.team[+winner].goals_against;
             data.team[+!winner].goal_diff = data.team[+!winner].goals_for  - data.team[+!winner].goals_against;
             data.team[+winner].streak = (data.team[+winner].streak < 0) ? (1) : (data.team[+winner].streak + 1);
             data.team[+!winner].streak = (data.team[+!winner].streak > 0) ? (0) : (data.team[+!winner].streak - 1);
+            data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss ? data.team[+winner].loss : 1)).toFixed(2);
+            data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss ? data.team[+!winner].loss : 1)).toFixed(2);
         }
     }
     if(!Goals[0])
@@ -766,6 +769,8 @@ exports.simulate = function (data, callback)
     }
     ++data.team[0].played;
     ++data.team[1].played;
+    delete data.team[0].ratings;
+    delete data.team[1].ratings;
     data.team[0].shots += shots[0];
     data.team[1].shots += shots[1];
     data.team[0].fouls += fouls[0];
@@ -778,17 +783,15 @@ exports.simulate = function (data, callback)
     data.team[1].mean_goals_for = (data.team[1].goals_for / data.team[1].played).toFixed(2);
     data.team[0].mean_goals_against = (data.team[0].goals_against / data.team[0].played).toFixed(2);
     data.team[1].mean_goals_against = (data.team[1].goals_against / data.team[1].played).toFixed(2);
-    data.team[0].form += parseFloat(((possession[0] * mean_rating[1] / Goals[1] - possession[1] * mean_rating[0] / Goals[0]) / 1000).toFixed(2));
-    data.team[1].form += parseFloat(((possession[1] * mean_rating[0] / Goals[0] - possession[0] * mean_rating[1] / Goals[1] ) / 1000).toFixed(2));
-    data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
-    data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
     data.team[0].possession = (((data.team[0].played - 1) * data.team[0].possession + possession[0]) / data.team[0].played).toFixed(2);
     data.team[1].possession = (((data.team[1].played - 1) * data.team[1].possession + possession[1]) / data.team[1].played).toFixed(2);
     data.team[0].dominance = parseFloat(((data.team[0].dominance * (data.team[0].played - 1) + dom / 90) / data.team[0].played).toFixed(2));
     data.team[1].dominance = parseFloat(((data.team[1].dominance * (data.team[1].played - 1) + (1 - dom / 90)) / data.team[1].played).toFixed(2));
-    delete data.team[0].ratings;
-    delete data.team[1].ratings;
-    var newData = 
+    data.team[0].form += parseFloat(((possession[0] * mean_rating[1] / Goals[1] - possession[1] * mean_rating[0] / Goals[0]) / 1000).toFixed(2));
+    data.team[1].form += parseFloat(((possession[1] * mean_rating[0] / Goals[0] - possession[0] * mean_rating[1] / Goals[1] ) / 1000).toFixed(2));
+    data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
+    data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
+    var newData =
     {
         team1: data.team[0],
         team2: data.team[1],
