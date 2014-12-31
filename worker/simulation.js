@@ -748,8 +748,12 @@ exports.simulate = function (data, callback)
             data.team[+!winner].goals_for += Goals[+!winner];
             data.team[+winner].goals_against += Goals[+!winner];
             data.team[+!winner].goals_against += Goals[+winner];
+            data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss ? data.team[+winner].loss : 1)).toFixed(2);
+            data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss ? data.team[+!winner].loss : 1)).toFixed(2);
             data.team[+winner].goal_diff = data.team[+winner].goals_for  - data.team[+winner].goals_against;
             data.team[+!winner].goal_diff = data.team[+!winner].goals_for  - data.team[+!winner].goals_against;
+            data.team[+winner].streak = (data.team[+winner].streak < 0) ? (1) : (data.team[+winner].streak + 1);
+            data.team[+!winner].streak = (data.team[+!winner].streak > 0) ? (0) : (data.team[+!winner].streak - 1);
         }
     }
     if(!Goals[0])
@@ -768,8 +772,6 @@ exports.simulate = function (data, callback)
     data.team[1].fouls += fouls[1];
     data.team[0].passes += passes[0];
     data.team[1].passes += passes[1];
-    data.team[0].ratio = (data.team[0].win / (data.team[0].loss) ? (data.team[0].loss) : (1)).toFixed(2);
-    data.team[1].ratio = (data.team[1].win / (data.team[1].loss) ? (data.team[1].loss) : (1)).toFixed(2);
     data.team[0].accuracy = (data.team[0].goals_for * 100 / data.team[0].shots).toFixed(2);
     data.team[1].accuracy = (data.team[1].goals_for * 100 / data.team[1].shots).toFixed(2);
     data.team[0].mean_goals_for = (data.team[0].goals_for / data.team[0].played).toFixed(2);
