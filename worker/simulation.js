@@ -568,7 +568,6 @@ exports.simulate = function (data, callback)
                             temp[1][k] = against.length / temp[1][k++];
                         }
                     }
-                    console.log(temp);
                     for(k = 0;k < 2; ++k)
                     {
                         x = 1;
@@ -582,6 +581,7 @@ exports.simulate = function (data, callback)
                         y /= 13;
                         temp[k] = [x, y];
                     }
+                    console.log(temp);
                     x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * rand(temp[0][0]) + temp[0][1];
                     y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * rand(temp[1][0]) + temp[1][1];
                     goal = (x - y) / 10;
