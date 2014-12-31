@@ -75,7 +75,7 @@ exports.initSimulation = function (day, masterCallback)
                 };
                 if(userDoc)
                 {
-                    console.log(" user doc" + userDoc._id);
+                    //console.log(" user doc" + userDoc._id);
                     if(userDoc.squad.length < 11)
                     {
                         userDoc.ratings = [];
