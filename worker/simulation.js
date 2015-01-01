@@ -42,7 +42,19 @@ exports.simulate = function (data, callback)
     else
     {
         var path = require('path');
-        var com = require(path.join(__dirname, 'commentary'));
+        var intro = require(path.join(__dirname, 'commentary' , 'intro'));
+        var end = require(path.join(__dirname, 'commentary' , 'end'));
+        var offside = require(path.join(__dirname, 'commentary' , 'offside'));
+        var tackle = require(path.join(__dirname, 'commentary' , 'tackle'));
+        var intercept = require(path.join(__dirname, 'commentary' , 'intercept'));
+        var half = require(path.join(__dirname, 'commentary' , 'half'));
+        var pass = require(path.join(__dirname, 'commentary' , 'pass'));
+        var score = require(path.join(__dirname, 'commentary' , 'score'));
+        var penalty = require(path.join(__dirname, 'commentary' , 'penalty'));
+        var block = require(path.join(__dirname, 'commentary' , 'block'));
+        var miss = require(path.join(__dirname, 'commentary' , 'miss'));
+        var tie = require(path.join(__dirname, 'commentary' , 'tie'));
+        var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
         console.log(data.team[0]._id + ' vs ' + data.team[1]._id + ' is now being simulated');
         var rand = function(arg)
         {
@@ -341,7 +353,7 @@ exports.simulate = function (data, callback)
                     }
                 }
             }
-            data.match.commentary.push(com.penalty[rand(com.penalty.length)]);
+            data.match.commentary.push(penalty[rand(penalty.length)]);
             for(k = 0; k < 2; ++k)
             {
                 temp = [0 , 0, 0, 0];
@@ -400,19 +412,19 @@ exports.simulate = function (data, callback)
                     {
                         if(((reaction_time - time) * (keeper[+!k].Overall + data.team[+k].ratings[i].Overall) / 2 <= (keeper[+!k].Overall - data.team[+k].ratings[i].Overall) / data.team[+k].ratings[i].Overall) || (Math.abs(x - dive.x) <= 1 || Math.abs(y - dive.y) <= 1))
                         {
-                            data.match.commentary.push(com.block[rand(com.block.length)]);
+                            data.match.commentary.push(block[rand(block.length)]);
                             flag = 0;
                         }
                         else
                         {
-                            data.match.commentary.push(com.penalty[rand(com.penalty.length)]);
+                            data.match.commentary.push(penalty[rand(penalty.length)]);
                             ++Goals[+k];
                             flag = 1;
                         }
                     }
                     else
                     {
-                        data.match.commentary.push(com.miss[rand(com.miss.length)]);
+                        data.match.commentary.push(miss[rand(miss.length)]);
                         flag = 0;
                     }
                     for (j = i + 1; j < 6; ++j)
@@ -426,13 +438,13 @@ exports.simulate = function (data, callback)
                 }
                 if((Goals[1] + 4 - i < Goals[0]) || (Goals[0] + 4 - i < Goals[1]))
                 {
-                    data.match.commentary.push(com.hopeless[rand(com.hopeless.length)]);
+                    data.match.commentary.push(hopeless[rand(hopeless.length)]);
                 }
             }
             data.match.commentary.push('Penalties: ' + data.team[0]._id + ': ' + (Goals[0] - aggregate) + ' | ' + (Goals[1] - aggregate) + ' :' + data.team[1]._id);
             if(Goals[0] == Goals[1])
             {
-                data.match.commentary.push(com.tie[rand(com.tie.length)]);
+                data.match.commentary.push(tie[rand(tie.length)]);
                 data.team[0].goals_for += Goals[0];
                 data.team[1].goals_for += Goals[0];
                 data.team[0].goals_against += Goals[0];
@@ -592,11 +604,11 @@ exports.simulate = function (data, callback)
                     // limits to be rearranged based on test results
                     if(!goal)
                     {
-                        data.match.commentary.push(com.general[rand(com.general.length)]);
+                        data.match.commentary.push(general[rand(general.length)]);
                     }
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
-                        data.match.commentary.push(com.miss[rand(com.miss.length)]);
+                        data.match.commentary.push(miss[rand(miss.length)]);
                     }
                     else if(goal > 1 && goal <= 2) // pass
                     {
@@ -615,31 +627,31 @@ exports.simulate = function (data, callback)
                         }
                         ball.x = data.team[+kick].ratings[y].position.x;
                         ball.y = data.team[+kick].ratings[y].position.y;
-                        data.match.commentary.push(com.pass[rand(com.pass.length)]);
+                        data.match.commentary.push(pass[rand(pass.length)]);
                     }
                     else if(goal > 2 && goal <= 3 ) // intercept
                     {
                         hold = true;
-                        data.match.commentary.push(com.intercept[rand(com.intercept.length)]);
+                        data.match.commentary.push(intercept[rand(intercept.length)]);
                         kick = !kick;
                     }
                     else if(goal > 3 && goal <= 4 ) // tackle
                     {
                         //kick = !kick;
-                        data.match.commentary.push(com.tackle[rand(com.tackle.length)]);
+                        data.match.commentary.push(tackle[rand(tackle.length)]);
                     }
                     else if(goal > 4 && goal <= 5 ) // foul
                     {
                         hold = false;
                         ++fouls[+!kick];
-                        data.match.commentary.push(com.foul[rand(com.foul.length)]);
+                        data.match.commentary.push(foul[rand(foul.length)]);
                     }
                     else if(goal > 5 && goal <= 6 ) // offside
                     {
                         ball.x = 5.5 + 118 * (+!kick);
                         ball.y = 34.5;
                         hold = true;
-                        data.match.commentary.push(com.offside[rand(com.offside.length)]);
+                        data.match.commentary.push(offside[rand(offside.length)]);
                     }
                     else // goal opportunity
                     {
@@ -678,13 +690,13 @@ exports.simulate = function (data, callback)
                             keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
                             if (strike_performance_index > keeper_performance_index)
                             {
-                                data.match.commentary.push(com.goal[rand(com.goal.length)]);
+                                data.match.commentary.push(score[rand(score.length)]);
                                 ++Goals[+kick];
                                 kick = !kick;
                             }
                             else
                             {
-                                data.match.commentary.push(com.miss[rand(com.miss.length)]);
+                                data.match.commentary.push(miss[rand(miss.length)]);
                             }
                             hold = false;
                             ball =
@@ -721,7 +733,7 @@ exports.simulate = function (data, callback)
                     temp = (dom * 100 / (i + 45 * +loop) ).toFixed(2);
                     data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
             }
-            data.match.commentary.push(com.half[rand(com.half.length)]);
+            data.match.commentary.push(half[rand(half.length)]);
             for(i = 0; i < 2; ++i)
             {
                 for(j = 0; j < 12; ++j)
@@ -730,15 +742,15 @@ exports.simulate = function (data, callback)
                 }
             }
             kick = !kick;
-            data.match.commentary.push(com.half[rand(com.half.length)]);
+            data.match.commentary.push(half[rand(half.length)]);
         }
         winner = +(Goals[1] > Goals[0]);
         if(Goals[0] == Goals[1])
         {
-            data.match.commentary.push(com.shootout[rand(com.shootout.length)]);
+            data.match.commentary.push(shootout[rand(shootout.length)]);
             winner = penalty_shootout();
         }
-        data.match.commentary.push(com.end[rand(com.end.length)]);
+        data.match.commentary.push(end[rand(end.length)]);
         data.match.commentary.push('Final score: ' + data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
     //  </main stream>
         if (parseInt(+winner) != -1)
