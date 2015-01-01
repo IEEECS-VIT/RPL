@@ -699,17 +699,16 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push('Possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (pos * 100).toFixed(2) + ' % | % ' + ((1 - pos) * 100).toFixed(2) + ' :' + data.team[1]._id);
                     last_five_pos.unshift(pos);
-                    console.log(pos);
                     if(i > 3)
                     {
                         temp = last_five_pos[0] + last_five_pos[1] + last_five_pos[2] + last_five_pos[3] + last_five_pos[4];
                         data.match.commentary.push(' Possession during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_pos.pop();
                     }
-                    possession[0] = (possession[0] * (i - 1) + pos) / i;
-                    possession[1] = (possession[1] * (i - 1) + (1 - pos)) / i;
+                    possession[0] = (possession[0] * (i + 45 * +loop - 1) + pos) / (i + 45 * +loop);
+                    possession[1] = (possession[1] * (i + 45 * +loop - 1) + (1 - pos)) / (i + 45 * +loop);
                     data.match.commentary.push('Overall possession: ');
-                    data.match.commentary.push(data.team[0]._id + ': ' + possession[0].toFixed(2) + ' % | % ' + possession[1].toFixed(2) + ' :' + data.team[1]._id);
+                    data.match.commentary.push(data.team[0]._id + ': ' + (possession[0] * 100).toFixed(2) + ' % | % ' + (possession[1] * 100).toFixed(2) + ' :' + data.team[1]._id);
                     dom += +(possession[0] > possession[1]);
                     last_five_dom.unshift(+(possession[0] > possession[1]));
                     if(i > 3)
@@ -719,7 +718,7 @@ exports.simulate = function (data, callback)
                         last_five_dom.pop();
                     }
                     data.match.commentary.push('Dominance: ');
-                    temp = (dom * 100 / i).toFixed(2);
+                    temp = (dom * 100 / (i + 45 * +loop) ).toFixed(2);
                     data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
             }
             data.match.commentary.push(com.half[rand(com.half.length)]);
@@ -731,6 +730,7 @@ exports.simulate = function (data, callback)
                 }
             }
             kick = !kick;
+            data.match.commentary.push(com.half[rand(com.half.length)]);
         }
         winner = +(Goals[1] > Goals[0]);
         if(Goals[0] == Goals[1])

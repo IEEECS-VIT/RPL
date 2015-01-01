@@ -171,6 +171,7 @@ router.post('/register', function (req, res)
 
                     _id: teamName,
                     team_no : team_no,
+                    dob : new Date(),
                     password_hash : hashedPassword,
                     name : managerName,
                     email : email,
