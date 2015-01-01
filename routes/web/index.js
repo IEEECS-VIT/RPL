@@ -132,7 +132,7 @@ router.post('/forgot', function (req, res)
     mongoUsers.forgotPassword(credentials, onFetch);
 });
 
-/*router.get('/register', function (req, res)
+router.get('/register', function (req, res)
 {
     if (req.signedCookies.name)
     {
@@ -142,7 +142,7 @@ router.post('/forgot', function (req, res)
     {
         res.render('register', { response: "" });
     }
-});*/
+});
 
 router.post('/register', function (req, res)
 {
