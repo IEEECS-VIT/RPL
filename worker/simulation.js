@@ -41,20 +41,6 @@ exports.simulate = function (data, callback)
     }
     else
     {
-        var path = require('path');
-        var intro = require(path.join(__dirname, 'commentary' , 'intro'));
-        var end = require(path.join(__dirname, 'commentary' , 'end'));
-        var offside = require(path.join(__dirname, 'commentary' , 'offside'));
-        var tackle = require(path.join(__dirname, 'commentary' , 'tackle'));
-        var intercept = require(path.join(__dirname, 'commentary' , 'intercept'));
-        var half = require(path.join(__dirname, 'commentary' , 'half'));
-        var pass = require(path.join(__dirname, 'commentary' , 'pass'));
-        var score = require(path.join(__dirname, 'commentary' , 'score'));
-        var penalty = require(path.join(__dirname, 'commentary' , 'penalty'));
-        var block = require(path.join(__dirname, 'commentary' , 'block'));
-        var miss = require(path.join(__dirname, 'commentary' , 'miss'));
-        var tie = require(path.join(__dirname, 'commentary' , 'tie'));
-        var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
         console.log(data.team[0]._id + ' vs ' + data.team[1]._id + ' is now being simulated');
         var rand = function(arg)
         {
@@ -66,160 +52,7 @@ exports.simulate = function (data, callback)
             {
                 return parseInt(Math.random() * 1000000000000000) % arg;
             }
-        }
-        var form = ['poor', 'average', 'good', 'excellent'];
-        var formation =   // To be used as a constant reference.
-            [
-                /*
-                 The playing field size is 130 X 70 yards. In the following entities, the standard computer graphical
-                 representation standards are followed to the letter. Hence, x represents the downward distance of the
-                 player's position from the top side of the playing field. Similarly, y represents the rightward
-                 distance of the player's position from the left side of the playing field. Both distances are in
-                 yards only.
-                 */
-                // formation[0] ==> 4 - 4 - 2
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 3 },      // 1
-                    { x: 36, y: 24 },     // 2
-                    { x: 36, y: 45 },     // 3
-                    { x: 36, y: 66 },     // 4
-                    { x: 70, y: 3 },      // 5
-                    { x: 70, y: 24 },     // 6
-                    { x: 70, y: 45 },     // 7
-                    { x: 70, y: 66 },     // 8
-                    { x: 111, y: 24 },    // 9
-                    { x: 111, y: 45 },     // 10
-                    '4 - 4 - 2'
-                ],
-                    // formation[1] ==> 4 - 3 - 3
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 3 },      // 1
-                    { x: 36, y: 24 },     // 2
-                    { x: 36, y: 45 },     // 3
-                    { x: 36, y: 66 },     // 4
-                    { x: 74.5, y: 12.5 }, // 5
-                    { x: 74.5, y: 34.5 }, // 6
-                    { x: 74.5, y: 56.5 }, // 7
-                    { x: 107.5, y: 12.5 },// 8
-                    { x: 107.5, y: 56.5 },// 9
-                    { x: 109.5, y: 34.5 }, // 10
-                    '4 - 3 - 3'
-                ],
-                    // formation[2] ==> 3 - 5 - 2
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 12 },     // 1
-                    { x: 36, y: 34.5 },   // 2
-                    { x: 36, y: 57 },     // 3
-                    { x: 74.5, y: 6 },    // 4
-                    { x: 74.5, y: 20 },   // 5
-                    { x: 74.5, y: 34.5 }, // 6
-                    { x: 74.5, y: 49 },   // 7
-                    { x: 74.5, y: 63 },   // 8
-                    { x: 111, y: 24 },    // 9
-                    { x: 111, y: 45 },     // 10
-                    '3 - 5 - 2'
-                ],
-                    // formation[3] ==> 4 - 5 - 1
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 3 },      // 1
-                    { x: 36, y: 24 },     // 2
-                    { x: 36, y: 45 },     // 3
-                    { x: 36, y: 66 },     // 4
-                    { x: 74.5, y: 6 },    // 5
-                    { x: 74.5, y: 20 },   // 6
-                    { x: 74.5, y: 34.5 }, // 7
-                    { x: 74.5, y: 49 },   // 8
-                    { x: 74.5, y: 63 },   // 9
-                    { x: 107.5, y: 34.5 }, // 10
-                    '4 - 5 - 1'
-                ],
-                // formation[4] ==> 3 - 4 - 3
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 12 },     // 1
-                    { x: 36, y: 34.5 },   // 2
-                    { x: 36, y: 57 },     // 3
-                    { x: 70, y: 3 },      // 4
-                    { x: 70, y: 24 },     // 5
-                    { x: 70, y: 45 },     // 6
-                    { x: 70, y: 66 },     // 7
-                    { x: 107.5, y: 12.5 },// 8
-                    { x: 107.5, y: 56.5 },// 9
-                    { x: 109.5, y: 34.5 }, // 10
-                    '3 - 4 - 3'
-                ],
-                    // formation[5] ==> 5 - 3 - 2
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 6 },      // 1
-                    { x: 36, y: 20 },     // 2
-                    { x: 36, y: 34.5 },   // 3
-                    { x: 36, y: 49 },     // 4
-                    { x: 36, y: 63 },     // 5
-                    { x: 74.5, y: 12.5 }, // 6
-                    { x: 74.5, y: 34.5 }, // 7
-                    { x: 74.5, y: 56.5 }, // 8
-                    { x: 111, y: 24 },    // 9
-                    { x: 111, y: 45},     // 10
-                    '5 - 3 - 2'
-                ],
-                    // formation[6] ==> 3 - 3 - 4
-                [
-                    { x: 5.5, y: 34.5 },  // 0
-                    { x: 36, y: 12 },     // 1
-                    { x: 36, y: 34.5 },   // 2
-                    { x: 36, y: 57 },     // 3
-                    { x: 74.5, y: 12.5 }, // 4
-                    { x: 74.5, y: 34.5 }, // 5
-                    { x: 74.5, y: 56.5 }, // 6
-                    { x: 111, y: 12 },    // 7
-                    { x: 111, y: 24 },    // 8
-                    { x: 111, y: 47 },    // 9
-                    { x: 111, y: 57},     // 10
-                    '3 - 3 - 4'
-                ]
-            ];
-        var i;
-        var j;
-        var flag;
-        var mean_rating = [];
-        var Goals = [0,0];
-        var pos;
-        var dom = 0;
-        var passes = [0, 0];
-        var fouls = [0, 0];
-        var winner = -1;
-        var possession = [0,0];
-        var last_five_pos = [];
-        var last_five_dom = [];
-        var goal;
-        var kick;
-        var strike;
-        var x;
-        var y;
-        var k;
-        var hold;
-        var loop;
-        var keeper_performance_index;
-        var strike_performance_index;
-        var ball =
-        {
-            x : 64.5,
-            y : 34.5
         };
-        var shots = [0, 0];
-        var def_count;
-        var keep_count;
-        var strike_count;
-        var mid_count;
-        var average_strike_rating;
-        var average_mid_rating;
-        var average_keep_rating;
-        var average_def_rating;
         function Make(team, arg)
         {
             average_strike_rating = average_mid_rating = average_keep_rating = average_def_rating = keep_count = def_count = strike_count = mid_count = 0;
@@ -280,23 +113,6 @@ exports.simulate = function (data, callback)
                         break;
                 }
             }
-        }
-        Make(data.team[0].ratings, 0);
-        Make(data.team[1].ratings, 1);
-        data.match.commentary = [];
-        data.match.commentary.push(data.team[0]._id + ' VS ' + data.team[1]._id);
-        data.match.commentary.push('Formations: ');
-        data.match.commentary.push(data.team[0]._id + ': ' + formation[data.team[0].squad[11]][11] + ' | ' + formation[data.team[1].squad[11]][11] + ' :' + data.team[1]._id);
-        if(data.team[0].played && data.team[1].played)
-        {
-            data.match.commentary.push('Form:');
-            data.match.commentary.push(data.team[0]._id + ': ' + form[Math.floor(data.team[0].form * 100 / mean_rating[0])] + ' | ' + form[Math.floor(data.team[1].form * 100 / mean_rating[1])] + ' :' + data.team[1]._id);
-        }
-        data.match.commentary.push('Playing XI\'s:');
-        data.match.commentary.push(data.team[0]._id + ' | ' + data.team[1]._id);
-        for(i = 0; i < 11; ++i)
-        {
-            data.match.commentary.push(data.team[0].ratings[i].Name + '(' + data.team[0].ratings[i].Type + ') | (' + data.team[1].ratings[i].Name + (data.team[1].ratings[i].Type) + ')');
         }
         var penalty_shootout = function()
         {
@@ -365,12 +181,12 @@ exports.simulate = function (data, callback)
                         if(flag)
                         {
                             temp =
-                            [
-                                +(data.team[k].ratings[i].Overall > keeper[k].Overall),
-                                +(data.team[k].ratings[i].Reflexes > keeper[k].Reflexes),
-                                +(data.team[k].ratings[i].Speed > keeper[k].Speed),
-                                +(data.team[k].ratings[i].Diving > keeper[k].Diving)
-                            ];
+                                [
+                                    +(data.team[k].ratings[i].Overall > keeper[k].Overall),
+                                    +(data.team[k].ratings[i].Reflexes > keeper[k].Reflexes),
+                                    +(data.team[k].ratings[i].Speed > keeper[k].Speed),
+                                    +(data.team[k].ratings[i].Diving > keeper[k].Diving)
+                                ];
                             if(temp[0] + temp[1] + temp[2] + temp[3] > 2)
                             {
                                 temp = [0, 0, 0, 0];
@@ -453,13 +269,198 @@ exports.simulate = function (data, callback)
             }
             return +(Goals[1] > Goals[0]);
         };
-        kick = rand(2);
+        var path = require('path');
+        var intro = require(path.join(__dirname, 'commentary' , 'intro'));
+        var end = require(path.join(__dirname, 'commentary' , 'end'));
+        var offside = require(path.join(__dirname, 'commentary' , 'offside'));
+        var tackle = require(path.join(__dirname, 'commentary' , 'tackle'));
+        var intercept = require(path.join(__dirname, 'commentary' , 'intercept'));
+        var foul = require(path.join(__dirname, 'commentary' , 'foul'));
+        var half = require(path.join(__dirname, 'commentary' , 'half'));
+        var pass = require(path.join(__dirname, 'commentary' , 'pass'));
+        var score = require(path.join(__dirname, 'commentary' , 'score'));
+        var penalty = require(path.join(__dirname, 'commentary' , 'penalty'));
+        var block = require(path.join(__dirname, 'commentary' , 'block'));
+        var miss = require(path.join(__dirname, 'commentary' , 'miss'));
+        var tie = require(path.join(__dirname, 'commentary' , 'tie'));
+        var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
+        var general = require(path.join(__dirname, 'commentary' , 'general'));
+        var ball =
+        {
+            x : 64.5,
+            y : 34.5
+        };
+        var against = [];
+        var friendly = [];
+        var Goals = [0,0];
+        var shots = [0, 0];
+        var passes = [0, 0];
+        var fouls = [0, 0];
+        var mean_rating = [];
+        var possession = [0,0];
+        var last_five_pos = [];
+        var last_five_dom = [];
+        var form = ['poor', 'average', 'good', 'excellent'];
+        var formation =   // To be used as a constant reference.
+        [
+            /*
+            The playing field size is 130 X 70 yards. In the following entities, the standard computer graphical
+            representation standards are followed to the letter. Hence, x represents the downward distance of the
+            player's position from the top side of the playing field. Similarly, y represents the rightward
+            distance of the player's position from the left side of the playing field. Both distances are in
+            yards only.
+            */
+            // formation[0] ==> 4 - 4 - 2
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 3 },      // 1
+                { x : 36, y : 24 },     // 2
+                { x : 36, y : 45 },     // 3
+                { x : 36, y : 66 },     // 4
+                { x : 70, y : 3 },      // 5
+                { x : 70, y : 24 },     // 6
+                { x : 70, y : 45 },     // 7
+                { x : 70, y : 66 },     // 8
+                { x : 111, y : 24 },    // 9
+                { x : 111, y : 45 },     // 10
+                '4 - 4 - 2'
+            ],
+            // formation[1] ==> 4 - 3 - 3
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 3 },      // 1
+                { x : 36, y : 24 },     // 2
+                { x : 36, y : 45 },     // 3
+                { x : 36, y : 66 },     // 4
+                { x : 74.5, y : 12.5 }, // 5
+                { x : 74.5, y : 34.5 }, // 6
+                { x : 74.5, y : 56.5 }, // 7
+                { x : 107.5, y : 12.5 },// 8
+                { x : 107.5, y : 56.5 },// 9
+                { x : 109.5, y : 34.5 }, // 10
+                '4 - 3 - 3'
+            ],
+            // formation[2] ==> 3 - 5 - 2
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 12 },     // 1
+                { x : 36, y : 34.5 },   // 2
+                { x : 36, y : 57 },     // 3
+                { x : 74.5, y : 6 },    // 4
+                { x : 74.5, y : 20 },   // 5
+                { x : 74.5, y : 34.5 }, // 6
+                { x : 74.5, y : 49 },   // 7
+                { x : 74.5, y : 63 },   // 8
+                { x : 111, y : 24 },    // 9
+                { x : 111, y : 45 },     // 10
+                '3 - 5 - 2'
+            ],
+            // formation[3] ==> 4 - 5 - 1
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 3 },      // 1
+                { x : 36, y : 24 },     // 2
+                { x : 36, y : 45 },     // 3
+                { x : 36, y : 66 },     // 4
+                { x : 74.5, y : 6 },    // 5
+                { x : 74.5, y : 20 },   // 6
+                { x : 74.5, y : 34.5 }, // 7
+                { x : 74.5, y : 49 },   // 8
+                { x : 74.5, y : 63 },   // 9
+                { x : 107.5, y : 34.5 }, // 10
+                '4 - 5 - 1'
+            ],
+            // formation[4] ==> 3 - 4 - 3
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 12 },     // 1
+                {x : 36, y : 34.5 },   // 2
+                { x : 36, y : 57 },     // 3
+                { x : 70, y : 3 },      // 4
+                { x : 70, y : 24 },     // 5
+                { x : 70, y : 45 },     // 6
+                { x : 70, y : 66 },     // 7
+                { x : 107.5, y : 12.5 },// 8
+                { x : 107.5, y : 56.5 },// 9
+                { x : 109.5, y : 34.5 }, // 10
+                '3 - 4 - 3'
+            ],
+            // formation[5] ==> 5 - 3 - 2
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 6 },      // 1
+                { x : 36, y : 20 },     // 2
+                { x : 36, y : 34.5 },   // 3
+                { x : 36, y : 49 },     // 4
+                { x : 36, y : 63 },     // 5
+                { x : 74.5, y : 12.5 }, // 6
+                { x : 74.5, y : 34.5 }, // 7
+                { x : 74.5, y : 56.5 }, // 8
+                { x : 111, y : 24 },    // 9
+                { x : 111, y : 45},     // 10
+                '5 - 3 - 2'
+            ],
+            // formation[6] ==> 3 - 3 - 4
+            [
+                { x : 5.5, y : 34.5 },  // 0
+                { x : 36, y : 12 },     // 1
+                { x : 36, y : 34.5 },   // 2
+                { x : 36, y : 57 },     // 3
+                { x : 74.5, y : 12.5 }, // 4
+                { x : 74.5, y : 34.5 }, // 5
+                { x : 74.5, y : 56.5 }, // 6
+                { x : 111, y : 12 },    // 7
+                { x : 111, y : 24 },    // 8
+                { x : 111, y : 47 },    // 9
+                { x : 111, y : 57},     // 10
+                '3 - 3 - 4'
+            ]
+        ];
+        var i;
+        var j;
+        var x;
+        var y;
+        var k;
+        var pos;
+        var flag;
+        var goal;
+        var kick = rand(2);
+        var hold = false;
+        var loop;
+        var strike;
+        var dom = 0;
+        var mid_count;
+        var def_count;
+        var keep_count;
+        var winner;
+        var strike_count;
+        var average_mid_rating;
+        var average_def_rating;
+        var average_keep_rating;
+        var average_strike_rating;
+        var keeper_performance_index;
+        var strike_performance_index;
         var temp = (data.team[0].form - data.team[1].form) / 2;
-        var friendly;
-        var against;
+        data.match.commentary = [];
+        Make(data.team[0].ratings, 0);
+        Make(data.team[1].ratings, 1);
+        data.match.commentary.push(data.team[0]._id + ' VS ' + data.team[1]._id);
+        data.match.commentary.push('Formations: ');
+        data.match.commentary.push(data.team[0]._id + ': ' + formation[data.team[0].squad[11]][11] + ' | ' + formation[data.team[1].squad[11]][11] + ' :' + data.team[1]._id);
+        if(data.team[0].played && data.team[1].played)
+        {
+            data.match.commentary.push('Form:');
+            data.match.commentary.push(data.team[0]._id + ': ' + form[Math.floor(data.team[0].form * 100 / mean_rating[0])] + ' | ' + form[Math.floor(data.team[1].form * 100 / mean_rating[1])] + ' :' + data.team[1]._id);
+        }
+        data.match.commentary.push('Playing XI\'s:');
+        data.match.commentary.push(data.team[0]._id + ' | ' + data.team[1]._id);
+        for(i = 0; i < 11; ++i)
+        {
+            data.match.commentary.push(data.team[0].ratings[i].Name + '(' + data.team[0].ratings[i].Type + ') | (' + data.team[1].ratings[i].Name + (data.team[1].ratings[i].Type) + ')');
+        }
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
-        data.match.commentary.push(data.team[0]._id + ': ' + temp +' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
+        data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
         data.match.commentary.push('Form: ');
         data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary.push(data.team[+kick]._id + ' shall kickoff.');
@@ -467,7 +468,6 @@ exports.simulate = function (data, callback)
         //data.match.commentary.push('Final Score: ' + data.team[0]._id + ' ' + team_object[0].average_strike_rating * (team_object[1].def_count + team_object[1].mid_count + team_object[1].keep_count)  + ' - ' + team_object[1].average_strike_rating + ' ' + data.team[1]._id);
         // ------------------------</last resort> ---------------------------
         // <main stream>
-        hold = false;
         for(loop = 0; loop < 2; ++loop)
         {
             for(i = 1; i < 46; ++i)
