@@ -691,19 +691,17 @@ exports.simulate = function (data, callback)
                             if (strike_performance_index > keeper_performance_index)
                             {
                                 data.match.commentary.push(score[rand(score.length)]);
+                                data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
                                 ++Goals[+kick];
                                 kick = !kick;
+                                ball.x = 64.5;
                             }
                             else
                             {
                                 data.match.commentary.push(miss[rand(miss.length)]);
+                                ball.x = 5.5 + 118 * +!kick;
                             }
-                            hold = false;
-                            ball =
-                            {
-                                x: 64.5,
-                                y: 34.5
-                            };
+                            ball.y = 34.5;
                             data.team[+kick].ratings[strike].stamina -= 2;
                             data.team[+!kick].ratings[0].stamina -= 2;
                         }
@@ -734,6 +732,8 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
             }
             data.match.commentary.push(half[rand(half.length)]);
+            data.match.commentary.push('Half time: ');
+            data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
             for(i = 0; i < 2; ++i)
             {
                 for(j = 0; j < 12; ++j)
