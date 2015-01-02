@@ -58,8 +58,8 @@ exports.simulate = function (data, callback)
             average_strike_rating = average_mid_rating = average_keep_rating = average_def_rating = keep_count = def_count = strike_count = mid_count = 0;
             for (i = 0; i <= 11; ++i)
             {
-                x = 129 * arg + Math.pow(-1, arg) * formation[data.team[arg].squad[11]][i].x;
-                y = 69 * arg + Math.pow(-1, arg) * formation[data.team[arg].squad[11]][i].y;
+                x = formation[data.team[arg].squad[11]][i].x - 2 * arg * Math.abs(formation[data.team[arg].squad[11]][i].x - 64.5);
+                y = formation[data.team[arg].squad[11]][i].y;
                 team[i].stamina = 50;
                 team[i].position =
                 {
