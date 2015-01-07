@@ -58,7 +58,7 @@ exports.simulate = function (data, callback)
             average_strike_rating = average_mid_rating = average_keep_rating = average_def_rating = keep_count = def_count = strike_count = mid_count = 0;
             for (i = 0; i <= 11; ++i)
             {
-                x = formation[data.team[arg].squad[11]][i].x - 2 * arg * Math.abs(formation[data.team[arg].squad[11]][i].x - 64.5);
+                x = formation[data.team[arg].squad[11]][i].x + 2 * arg * Math.pow(-1, +(formation[data.team[arg].squad[11]][i].x > 64.5)) * Math.abs(formation[data.team[arg].squad[11]][i].x - 64.5);
                 y = formation[data.team[arg].squad[11]][i].y;
                 team[i].stamina = 50;
                 team[i].position =
@@ -285,6 +285,7 @@ exports.simulate = function (data, callback)
         var tie = require(path.join(__dirname, 'commentary' , 'tie'));
         var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
         var general = require(path.join(__dirname, 'commentary' , 'general'));
+        var hopeless = require(path.join(__dirname, 'commentary' , 'hopeless'));
         var ball =
         {
             x : 64.5,
@@ -505,13 +506,13 @@ exports.simulate = function (data, callback)
                     if(!hold)
                     {
                         temp =(Math.pow(data.team[0].ratings[1].position.x - ball.x, 2) + Math.pow(data.team[+kick].ratings[1].position.y - ball.x, 2)) * (rand(50 - data.team[+kick].ratings[1].stamina) + 1);
-                        temp  /= (400 - data.team[+kick].ratings[1].Pace - data.team[+kick].ratings[1].Overall - data.team[+kick].ratings[1].Positioning - data.team[+kick].ratings[1].Physical);
+                        temp /= (400 - data.team[+kick].ratings[1].Pace - data.team[+kick].ratings[1].Overall - data.team[+kick].ratings[1].Positioning - data.team[+kick].ratings[1].Physical);
                         for(y = 0; y < 2; ++y)
                         {
                             for(j = 1; j < 11; ++j)
                             {
                                 k = (Math.pow(data.team[y].ratings[j].position.x - ball.x, 2) + Math.pow(data.team[y].ratings[1].position.y - ball.x, 2)) * (rand(50 - data.team[y].ratings[1].stamina) + 1);
-                                k  /= (400 - data.team[y].ratings[j].Pace - data.team[y].ratings[1].Overall - data.team[y].ratings[1].Positioning - data.team[y].ratings[1].Physical);
+                                k /= (400 - data.team[y].ratings[j].Pace - data.team[y].ratings[1].Overall - data.team[y].ratings[1].Positioning - data.team[y].ratings[1].Physical);
                                 if(k < temp)
                                 {
                                     temp = k;
@@ -581,7 +582,7 @@ exports.simulate = function (data, callback)
                             temp[1][k] = against.length / temp[1][k++];
                         }
                     }
-                    for(k = 0;k < 2; ++k)
+                    for(k = 0; k < 2; ++k)
                     {
                         x = 1;
                         y = 0;
