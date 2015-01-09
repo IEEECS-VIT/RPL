@@ -228,19 +228,28 @@ exports.simulate = function (data, callback)
                     {
                         if(((reaction_time - time) * (keeper[+!k].Overall + data.team[+k].ratings[i].Overall) / 2 <= (keeper[+!k].Overall - data.team[+k].ratings[i].Overall) / data.team[+k].ratings[i].Overall) || (Math.abs(x - dive.x) <= 1 || Math.abs(y - dive.y) <= 1))
                         {
-                            data.match.commentary.push(block[rand(block.length)]);
+                            temp = block[rand(block.length)];
+                            temp = temp.replace('/k', keeper[+!k].Name);
+                            temp = temp.replace('/s', data.team[+k].ratings[i].Name);
+                            data.match.commentary.push(temp);
                             flag = 0;
                         }
                         else
                         {
-                            data.match.commentary.push(penalty[rand(penalty.length)]);
+                            temp = penalty[rand(penalty.length)];
+                            temp = temp.replace('/k', keeper[+!k].Name);
+                            temp = temp.replace('/s', data.team[+k].ratings[i].Name);
+                            data.match.commentary.push(temp);
                             ++Goals[+k];
                             flag = 1;
                         }
                     }
                     else
                     {
-                        data.match.commentary.push(miss[rand(miss.length)]);
+                        temp = miss[rand(miss.length)];
+                        temp = temp.replace('/k', keeper[+!k].Name);
+                        temp = temp.replace('/s', data.team[+k].ratings[i].Name);
+                        data.match.commentary.push(temp);
                         flag = 0;
                     }
                     for (j = i + 1; j < 6; ++j)
@@ -270,22 +279,22 @@ exports.simulate = function (data, callback)
             return +(Goals[1] > Goals[0]);
         };
         var path = require('path');
-        var intro = require(path.join(__dirname, 'commentary' , 'intro'));
+        var tie = require(path.join(__dirname, 'commentary' , 'tie'));
         var end = require(path.join(__dirname, 'commentary' , 'end'));
-        var offside = require(path.join(__dirname, 'commentary' , 'offside'));
-        var tackle = require(path.join(__dirname, 'commentary' , 'tackle'));
-        var intercept = require(path.join(__dirname, 'commentary' , 'intercept'));
         var foul = require(path.join(__dirname, 'commentary' , 'foul'));
         var half = require(path.join(__dirname, 'commentary' , 'half'));
         var pass = require(path.join(__dirname, 'commentary' , 'pass'));
-        var score = require(path.join(__dirname, 'commentary' , 'score'));
-        var penalty = require(path.join(__dirname, 'commentary' , 'penalty'));
-        var block = require(path.join(__dirname, 'commentary' , 'block'));
         var miss = require(path.join(__dirname, 'commentary' , 'miss'));
-        var tie = require(path.join(__dirname, 'commentary' , 'tie'));
-        var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
+        var intro = require(path.join(__dirname, 'commentary' , 'intro'));
+        var score = require(path.join(__dirname, 'commentary' , 'score'));
+        var block = require(path.join(__dirname, 'commentary' , 'block'));
+        var tackle = require(path.join(__dirname, 'commentary' , 'tackle'));
+        var offside = require(path.join(__dirname, 'commentary' , 'offside'));
+        var penalty = require(path.join(__dirname, 'commentary' , 'penalty'));
         var general = require(path.join(__dirname, 'commentary' , 'general'));
+        var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
         var hopeless = require(path.join(__dirname, 'commentary' , 'hopeless'));
+        var intercept = require(path.join(__dirname, 'commentary' , 'intercept'));
         var ball =
         {
             x : 64.5,
@@ -425,16 +434,16 @@ exports.simulate = function (data, callback)
         var pos;
         var flag;
         var goal;
-        var kick = rand(2);
-        var hold = false;
         var loop;
         var strike;
+        var winner;
         var dom = 0;
         var mid_count;
         var def_count;
         var keep_count;
-        var winner;
+        var hold = false;
         var strike_count;
+        var kick = rand(2);
         var average_mid_rating;
         var average_def_rating;
         var average_keep_rating;
@@ -605,11 +614,17 @@ exports.simulate = function (data, callback)
                     // limits to be rearranged based on test results
                     if(!goal)
                     {
-                        data.match.commentary.push(general[rand(general.length)]);
+                        temp = general[rand(general.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        data.match.commentary.push(temp);
                     }
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
-                        data.match.commentary.push(miss[rand(miss.length)]);
+                        temp = miss[rand(miss.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        data.match.commentary.push(temp);
                     }
                     else if(goal > 1 && goal <= 2) // pass
                     {
@@ -626,33 +641,48 @@ exports.simulate = function (data, callback)
                                 y = friendly[j];
                             }
                         }
+                        temp = pass[rand(pass.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
                         ball.x = data.team[+kick].ratings[y].position.x;
                         ball.y = data.team[+kick].ratings[y].position.y;
-                        data.match.commentary.push(pass[rand(pass.length)]);
+                        data.match.commentary.push(temp);
                     }
                     else if(goal > 2 && goal <= 3 ) // intercept
                     {
                         hold = true;
-                        data.match.commentary.push(intercept[rand(intercept.length)]);
+                        temp = intercept[rand(intercept.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        data.match.commentary.push(temp);
                         kick = !kick;
                     }
                     else if(goal > 3 && goal <= 4 ) // tackle
                     {
                         //kick = !kick;
-                        data.match.commentary.push(tackle[rand(tackle.length)]);
+                        temp = tackle[rand(tackle.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        data.match.commentary.push(temp);
                     }
                     else if(goal > 4 && goal <= 5 ) // foul
                     {
                         hold = false;
                         ++fouls[+!kick];
-                        data.match.commentary.push(foul[rand(foul.length)]);
+                        temp = foul[rand(foul.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        data.match.commentary.push(temp);
                     }
                     else if(goal > 5 && goal <= 6 ) // offside
                     {
                         ball.x = 5.5 + 118 * (+!kick);
                         ball.y = 34.5;
                         hold = true;
-                        data.match.commentary.push(offside[rand(offside.length)]);
+                        temp = offside[rand(offside.length)];
+                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        data.match.commentary.push(temp);
                     }
                     else // goal opportunity
                     {
@@ -691,7 +721,10 @@ exports.simulate = function (data, callback)
                             keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
                             if (strike_performance_index > keeper_performance_index)
                             {
-                                data.match.commentary.push(score[rand(score.length)]);
+                                temp = score[rand(score.length)];
+                                temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                                temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                                data.match.commentary.push(temp);
                                 data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
                                 ++Goals[+kick];
                                 kick = !kick;
@@ -699,7 +732,10 @@ exports.simulate = function (data, callback)
                             }
                             else
                             {
-                                data.match.commentary.push(miss[rand(miss.length)]);
+                                temp = miss[rand(miss.length)];
+                                temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                                temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                                data.match.commentary.push(temp);
                                 ball.x = 5.5 + 118 * +!kick;
                             }
                             ball.y = 34.5;
