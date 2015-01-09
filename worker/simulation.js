@@ -138,6 +138,7 @@ exports.simulate = function (data, callback)
                 y : 0
             };
             var keeper = [];
+            var striker = [];
             var error;
             var distance;
             var dive =
@@ -151,86 +152,43 @@ exports.simulate = function (data, callback)
             var reaction_time = 0;
             for(k = 0; k < 2; ++k)
             {
-                for (i = 0; i < 5; ++i)
-                {
-                    b = i;
-                    for (j = i + 1; j < 11; ++j)
-                    {
-                        if(data.team[k].ratings[j]['strike'] > data.team[k].ratings[b]['strike'])
-                        {
-                            b = j;
-                        }
-                    }
-                    if(b != i)
-                    {
-                        temp[k] = data.team[k].ratings[i];
-                        data.team[k].ratings[i] = data.team[k].ratings[b];
-                        data.team[k].ratings[b] = temp[k];
-                    }
-                }
+                striker[k] = data.team[k].ratings.sort( function(a, b) {
+                    return ((b.Type == 'strike') || (b.Overall >= a.Overall) && (b.Shot >= a.Shot));
+                }).slice(0, 5);
             }
             data.match.commentary.push(penalty[rand(penalty.length)]);
-            for(k = 0; k < 2; ++k)
-            {
-                temp = [0 , 0, 0, 0];
-                flag = false;
-                for(i = 0 ; i < 11 ; ++i)
-                {
-                    if(data.team[k].ratings[i].Type == 'keep')
-                    {
-                        if(flag)
-                        {
-                            temp =
-                                [
-                                    +(data.team[k].ratings[i].Overall > keeper[k].Overall),
-                                    +(data.team[k].ratings[i].Reflexes > keeper[k].Reflexes),
-                                    +(data.team[k].ratings[i].Speed > keeper[k].Speed),
-                                    +(data.team[k].ratings[i].Diving > keeper[k].Diving)
-                                ];
-                            if(temp[0] + temp[1] + temp[2] + temp[3] > 2)
-                            {
-                                temp = [0, 0, 0, 0];
-                                keeper[k] = data.team[k].ratings[i];
-                            }
-                        }
-                        else
-                        {
-                            keeper[k] = data.team[k].ratings[i];
-                            flag = true;
-                        }
-                    }
-                }
-            }
+            keeper = [data.team[0].ratings[0], data.team[1].ratings[0]];
             for( i = 0 ; i < 5 ; ++i )
             {
                 k = 0;
                 for (b = 0; b < 2; ++b)
                 {
+                    data.match.commentary.push(striker[+k][i].Name);
                     flag = 0;
                     direction.x = Math.pow(-1, rand(2)) * rand(10);
                     direction.y = rand(4);
-                    error = (Math.abs(direction.x * direction.y)) * rand() * Math.pow(-1, rand(2)) * rand(101 - data.team[k].ratings[i].Overall - confidence[k][i]) / 20;
-                    spin.y = (rand(data.team[k].ratings[i].Overall + confidence[k][i] - Math.abs(3 - direction.y) + 1) * Math.pow(-1, rand(2))) / 5;
-                    spin.x = (rand(data.team[k].ratings[i].Overall + confidence[k][i] - Math.abs(direction.x) + 1) * Math.pow(-1, rand(2))) / 5;
-                    force.x = rand(data.team[k].ratings[i].Physical * (1 - (data.team[k].ratings[i].Overall + confidence[k][i]) / 100) + 1) + data.team[k].ratings[i].Physical * (data.team[k].ratings[i].Overall + confidence[k][i]) / 100 - Math.abs(spin.x) + error;
-                    force.y = rand(data.team[k].ratings[i].Physical * (1 - (data.team[k].ratings[i].Overall + confidence[k][i]) / 100) + 1) + data.team[k].ratings[i].Physical * (data.team[k].ratings[i].Overall + confidence[k][i]) / 100 - Math.abs(spin.y) + error;
+                    error = (Math.abs(direction.x * direction.y)) * rand() * Math.pow(-1, rand(2)) * rand(101 - striker[+k][i].Overall - confidence[+k][i]) / 20;
+                    spin.y = (rand(striker[+k][i].Overall + confidence[+k][i] - direction.y) + 1) * Math.pow(-1, rand(2)) / (error ? error : 1);
+                    spin.x = (rand(striker[+k][i].Overall + confidence[+k][i] - Math.abs(direction.x) + 1) * Math.pow(-1, rand(2))) / (error ? error : 1);
+                    force.x = rand(striker[+k][i].Shot * (1 - (striker[+k][i].Overall + confidence[+k][i]) / 100) + 1) + striker[+k][i].Shot * (striker[+k][i].Overall + confidence[+k][i]) / 100 - Math.abs(spin.x) + error;
+                    force.y = rand(striker[+k][i].Shot * (1 - (striker[+k][i].Overall + confidence[+k][i]) / 100) + 1) + striker[+k][i].Shot * (striker[+k][i].Overall + confidence[+k][i]) / 100 - Math.abs(spin.y) + error;
                     force.z = Math.pow(Math.pow(force.x, 2) + Math.pow(force.y, 2), 0.5);
                     distance = Math.pow((Math.pow(direction.x, 2) + Math.pow(direction.y, 2) + 36), 0.5);
                     time = distance / force.z;
-                    reaction_time = (1 / keeper[+!k].Overall) * (1 / keeper[+!k].Reflexes) * (rand((force.z * (1 - data.team[k].ratings[i].Overall / 100) + 1) + Math.pow((Math.pow(force.x, 2) + Math.pow(force.y, 2)), 0.5) * confidence[+!k][5]));
-                    x = 0.5 * force.x * time * time * Math.pow(-1, +(direction.x < 0));
-                    y = 0.5 * force.y * time * time;
-                    dive.dist = Math.pow((Math.pow(y, 2) + Math.pow(x, 2)), 0.5);
-                    dive.speed = (rand(dive.dist * (1 - keeper[+!k].Overall / 100) + 1) + dive.dist * keeper[+!k].Diving / 100)/ reaction_time;
-                    dive.x = dive.speed * time * direction.x / Math.pow(Math.pow(direction.y, 2) + Math.pow(direction.x, 2), 0.5);
-                    dive.y = dive.speed * time * direction.y / Math.pow(Math.pow(direction.y, 2) + Math.pow(direction.x, 2), 0.5);
+                    reaction_time = (1 / keeper[+!k].Overall) * (1 / keeper[+!k].Reflexes) * (rand((force.z * (1 - striker[+k][i].Overall / 100) + 1) + Math.pow((Math.pow(force.x, 2) + Math.pow(force.y, 2)), 0.5) * confidence[+!k][5]));
+                    x = 5 * force.x * time * time * Math.pow(-1, +(direction.x < 0));
+                    y = 5 * force.y * time * time;
+                    dive.dist = Math.pow((Math.pow(y, 2) + Math.pow(x, 2)), 0.5) * 10;
+                    dive.speed = (rand(dive.dist * (1 - keeper[+!k].Overall / 100) + 1) + dive.dist * keeper[+!k].Diving / 100) / reaction_time;
+                    dive.x = dive.speed * time * direction.x / (Math.pow(Math.pow(direction.y, 2) + Math.pow(direction.x, 2), 0.5));
+                    dive.y = dive.speed * time * direction.y / (Math.pow(Math.pow(direction.y, 2) + Math.pow(direction.x, 2), 0.5));
                     if ((y < 5) && (Math.abs(x) < 10))
                     {
-                        if(((reaction_time - time) * (keeper[+!k].Overall + data.team[+k].ratings[i].Overall) / 2 <= (keeper[+!k].Overall - data.team[+k].ratings[i].Overall) / data.team[+k].ratings[i].Overall) || (Math.abs(x - dive.x) <= 1 || Math.abs(y - dive.y) <= 1))
+                        if(((reaction_time - time) * (keeper[+!k].Overall + striker[+k][i].Overall) / 2 <= (keeper[+!k].Overall - striker[+k][i].Overall)) || (Math.abs(x - dive.x) <= 1 || Math.abs(y - dive.y) <= 1))
                         {
                             temp = block[rand(block.length)];
                             temp = temp.replace('/k', keeper[+!k].Name);
-                            temp = temp.replace('/s', data.team[+k].ratings[i].Name);
+                            temp = temp.replace('/s', striker[+k][i].Name);
                             data.match.commentary.push(temp);
                             flag = 0;
                         }
@@ -238,7 +196,7 @@ exports.simulate = function (data, callback)
                         {
                             temp = penalty[rand(penalty.length)];
                             temp = temp.replace('/k', keeper[+!k].Name);
-                            temp = temp.replace('/s', data.team[+k].ratings[i].Name);
+                            temp = temp.replace('/s', striker[+k][i].Name);
                             data.match.commentary.push(temp);
                             ++Goals[+k];
                             flag = 1;
@@ -248,19 +206,21 @@ exports.simulate = function (data, callback)
                     {
                         temp = miss[rand(miss.length)];
                         temp = temp.replace('/k', keeper[+!k].Name);
-                        temp = temp.replace('/s', data.team[+k].ratings[i].Name);
+                        temp = temp.replace('/s', striker[+k][i].Name);
                         data.match.commentary.push(temp);
                         flag = 0;
                     }
-                    for (j = i + 1; j < 6; ++j)
-                    {
-                        confidence[+k][j] -= Math.pow(-1, flag) * keeper[+!k].Overall / data.team[+k].ratings.Overall;
-                        confidence[+!k][j] += Math.pow(-1, flag) * keeper[+!k].Overall / data.team[+k].ratings.Overall;
-                    }
-                    --data.team[+k].ratings[i].stamina;
-                    --keeper[+!k].stamina;
+                    data.team[+k].ratings[strike].stamina -= 2;
+                    data.team[+!k].ratings[0].stamina -= 2;
                     k = +!k;
                 }
+                for (j = i + 1; j < 6; ++j)
+                {
+                    confidence[+k][j] -= Math.pow(-1, flag) * keeper[+!k].Overall / striker[+k][i].Overall;
+                    confidence[+!k][j] += Math.pow(-1, flag) * keeper[+!k].Overall / striker[+k][i].Overall;
+                }
+                --data.team[+k].ratings[i].stamina;
+                --keeper[+!k].stamina;
                 if((Goals[1] + 4 - i < Goals[0]) || (Goals[0] + 4 - i < Goals[1]))
                 {
                     data.match.commentary.push(hopeless[rand(hopeless.length)]);
@@ -474,10 +434,6 @@ exports.simulate = function (data, callback)
         data.match.commentary.push('Form: ');
         data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary.push(data.team[+kick]._id + ' shall kickoff.');
-        // ------------------------<last resort> ---------------------------
-        //data.match.commentary.push('Final Score: ' + data.team[0]._id + ' ' + team_object[0].average_strike_rating * (team_object[1].def_count + team_object[1].mid_count + team_object[1].keep_count)  + ' - ' + team_object[1].average_strike_rating + ' ' + data.team[1]._id);
-        // ------------------------</last resort> ---------------------------
-        // <main stream>
         for(loop = 0; loop < 2; ++loop)
         {
             for(i = 1; i < 46; ++i)
@@ -616,14 +572,14 @@ exports.simulate = function (data, callback)
                     {
                         temp = general[rand(general.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
                         temp = miss[rand(miss.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else if(goal > 1 && goal <= 2) // pass
@@ -643,7 +599,7 @@ exports.simulate = function (data, callback)
                         }
                         temp = pass[rand(pass.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         ball.x = data.team[+kick].ratings[y].position.x;
                         ball.y = data.team[+kick].ratings[y].position.y;
                         data.match.commentary.push(temp);
@@ -653,7 +609,7 @@ exports.simulate = function (data, callback)
                         hold = true;
                         temp = intercept[rand(intercept.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                         kick = !kick;
                     }
@@ -662,7 +618,7 @@ exports.simulate = function (data, callback)
                         //kick = !kick;
                         temp = tackle[rand(tackle.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else if(goal > 4 && goal <= 5 ) // foul
@@ -671,7 +627,7 @@ exports.simulate = function (data, callback)
                         ++fouls[+!kick];
                         temp = foul[rand(foul.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else if(goal > 5 && goal <= 6 ) // offside
@@ -681,7 +637,7 @@ exports.simulate = function (data, callback)
                         hold = true;
                         temp = offside[rand(offside.length)];
                         temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                        temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                        temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else // goal opportunity
@@ -723,7 +679,7 @@ exports.simulate = function (data, callback)
                             {
                                 temp = score[rand(score.length)];
                                 temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                                temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                                temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                                 data.match.commentary.push(temp);
                                 data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
                                 ++Goals[+kick];
@@ -734,7 +690,7 @@ exports.simulate = function (data, callback)
                             {
                                 temp = miss[rand(miss.length)];
                                 temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
-                                temp = temp.replace('/s', data.team[+kick].ratings[i].Name);
+                                temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                                 data.match.commentary.push(temp);
                                 ball.x = 5.5 + 118 * +!kick;
                             }
@@ -789,7 +745,6 @@ exports.simulate = function (data, callback)
         }
         data.match.commentary.push(end[rand(end.length)]);
         data.match.commentary.push('Final score: ' + data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
-    //  </main stream>
         if (parseInt(+winner) != -1)
         {
             data.match.commentary.push(data.team[+winner]._id + ' wins against ' + data.team[+!winner]._id);
