@@ -187,7 +187,7 @@ exports.simulate = function (data, callback)
                         if(((reaction_time - time) * (keeper[+!k].Overall + striker[+k][i].Overall) / 2 <= (keeper[+!k].Overall - striker[+k][i].Overall)) || (Math.abs(x - dive.x) <= 1 || Math.abs(y - dive.y) <= 1))
                         {
                             temp = block[rand(block.length)];
-                            temp = temp.replace('/k', keeper[+!k].Name);
+                            temp = temp.replace('/K', keeper[+!k].Name);
                             temp = temp.replace('/s', striker[+k][i].Name);
                             data.match.commentary.push(temp);
                             flag = 0;
@@ -195,7 +195,7 @@ exports.simulate = function (data, callback)
                         else
                         {
                             temp = penalty[rand(penalty.length)];
-                            temp = temp.replace('/k', keeper[+!k].Name);
+                            temp = temp.replace('/K', keeper[+!k].Name);
                             temp = temp.replace('/s', striker[+k][i].Name);
                             data.match.commentary.push(temp);
                             ++Goals[+k];
@@ -205,7 +205,7 @@ exports.simulate = function (data, callback)
                     else
                     {
                         temp = miss[rand(miss.length)];
-                        temp = temp.replace('/k', keeper[+!k].Name);
+                        temp = temp.replace('/K', keeper[+!k].Name);
                         temp = temp.replace('/s', striker[+k][i].Name);
                         data.match.commentary.push(temp);
                         flag = 0;
@@ -395,6 +395,7 @@ exports.simulate = function (data, callback)
         var flag;
         var goal;
         var loop;
+        var index;
         var strike;
         var winner;
         var dom = 0;
@@ -434,6 +435,7 @@ exports.simulate = function (data, callback)
         data.match.commentary.push('Form: ');
         data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary.push(data.team[+kick]._id + ' shall kickoff.');
+        index = kick;
         for(loop = 0; loop < 2; ++loop)
         {
             for(i = 1; i < 46; ++i)
@@ -563,22 +565,24 @@ exports.simulate = function (data, callback)
                     x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * rand(temp[0][0]) + temp[0][1];
                     y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * rand(temp[1][0]) + temp[1][1];
                     goal = (x - y) / 10;
-                    temp = +(goal > 0);
+                    temp = +(goal < 0);
                     goal = Math.abs(goal);
-                    pos = Math.abs((temp) ? (1 - 1 / goal) : (1 / goal));
+                    pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
                     pos = (pos > 1) ? 1 : pos;
                     // limits to be rearranged based on test results
                     if(!goal)
                     {
                         temp = general[rand(general.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
                         temp = miss[rand(miss.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
@@ -598,7 +602,8 @@ exports.simulate = function (data, callback)
                             }
                         }
                         temp = pass[rand(pass.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         ball.x = data.team[+kick].ratings[y].position.x;
                         ball.y = data.team[+kick].ratings[y].position.y;
@@ -608,7 +613,8 @@ exports.simulate = function (data, callback)
                     {
                         hold = true;
                         temp = intercept[rand(intercept.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                         kick = !kick;
@@ -617,7 +623,8 @@ exports.simulate = function (data, callback)
                     {
                         //kick = !kick;
                         temp = tackle[rand(tackle.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
@@ -626,7 +633,8 @@ exports.simulate = function (data, callback)
                         hold = false;
                         ++fouls[+!kick];
                         temp = foul[rand(foul.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
@@ -636,13 +644,14 @@ exports.simulate = function (data, callback)
                         ball.y = 34.5;
                         hold = true;
                         temp = offside[rand(offside.length)];
-                        temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                        temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                        temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                         data.match.commentary.push(temp);
                     }
                     else // goal opportunity
                     {
-                        if(temp)
+                        if(!temp)
                         {
                             flag = false;
                             ++shots[+kick];
@@ -678,7 +687,8 @@ exports.simulate = function (data, callback)
                             if (strike_performance_index > keeper_performance_index)
                             {
                                 temp = score[rand(score.length)];
-                                temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                                temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                                temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                                 temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                                 data.match.commentary.push(temp);
                                 data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
@@ -689,7 +699,8 @@ exports.simulate = function (data, callback)
                             else
                             {
                                 temp = miss[rand(miss.length)];
-                                temp = temp.replace('/k', data.team[+!kick].ratings[0].Name);
+                                temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                                temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                                 temp = temp.replace('/s', data.team[+kick].ratings[rand(2) + 9].Name);
                                 data.match.commentary.push(temp);
                                 ball.x = 5.5 + 118 * +!kick;
@@ -734,7 +745,9 @@ exports.simulate = function (data, callback)
                     data.team[i].ratings[j].stamina += (50 - data.team[i].ratings[j].stamina) / (5 - (data.team[i].ratings[j].stamina / (100 - data.team[i].ratings[j].Overall)));
                 }
             }
-            kick = !kick;
+            ball.x = 64.5;
+            ball.y = 34.5;
+            kick = !index;
             data.match.commentary.push(half[rand(half.length)]);
         }
         winner = +(Goals[1] > Goals[0]);
@@ -748,13 +761,13 @@ exports.simulate = function (data, callback)
         if (parseInt(+winner) != -1)
         {
             data.match.commentary.push(data.team[+winner]._id + ' wins against ' + data.team[+!winner]._id);
-            ++data.team[+!winner].loss;
             ++data.team[+winner].win;
+            ++data.team[+!winner].loss;
             data.team[+winner].points += 3;
             data.team[+winner].goals_for += Goals[+winner];
             data.team[+!winner].goals_for += Goals[+!winner];
-            data.team[+winner].goals_against += Goals[+!winner];
             data.team[+!winner].goals_against += Goals[+winner];
+            data.team[+winner].goals_against += Goals[+!winner];
             data.team[+winner].goal_diff = data.team[+winner].goals_for  - data.team[+winner].goals_against;
             data.team[+!winner].goal_diff = data.team[+!winner].goals_for  - data.team[+!winner].goals_against;
             data.team[+winner].streak = (data.team[+winner].streak < 0) ? (1) : (data.team[+winner].streak + 1);
