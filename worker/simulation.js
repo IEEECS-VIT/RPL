@@ -648,7 +648,32 @@ exports.simulate = function (data, callback)
                     }
                     else if(goal > 3 && goal <= 4) // tackle
                     {
-                        //kick = !kick;
+                        temp = [];
+                        temp[0] = Math.pow(ball.x - data.team[+kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+kick].ratings[1].position.y, 2);
+                        temp[1] = Math.pow(ball.x - data.team[+!kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+!kick].ratings[1].position.y, 2);
+                        x = 1;
+                        y = 1;
+                        for(j in data.team[0].ratings)
+                        {
+                            if(Math.pow(ball.x - data.team[+!kick].ratings[j].position.x, 2) + Math.pow(ball.y - data.team[+kick].ratings[j].position.y, 2) < temp[0])
+                            {
+                                temp[0] = Math.pow(ball.x - data.team[+kick].ratings[j].position.x, 2) + Math.pow(ball.y - data.team[+kick].ratings[j].position.y, 2);
+                                x = j;
+                            }
+                            if(Math.pow(ball.x - data.team[+!kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+!kick].ratings[1].position.y, 2) < temp[1])
+                            {
+                                temp[1] = Math.pow(ball.x - data.team[+!kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+!kick].ratings[1].position.y, 2);
+                                y = j;
+                            }
+                        }
+                        temp[0] = data.team[+kick].ratings[x]. Physical * (1 + 10 / (100 - data.team[+kick].ratings[x].Overall) - data.team[+kick].ratings[x].Overall / 100);
+                        temp[1] = data.team[+!kick].ratings[y]. Physical * (1 + 10 / (100 - data.team[+!kick].ratings[y].Overall) - data.team[+!kick].ratings[y].Overall / 100);
+                        temp[0] = rand(temp[0]) + data.team[+kick].ratings[x].Physical * data.team[+kick].ratings[x].Overall / 100;
+                        temp[1] = rand(temp[1]) + data.team[+!kick].ratings[y].Physical * data.team[+!kick].ratings[y].Overall / 100;
+                        if(temp[1] > temp[0])
+                        {
+                            kick = !kick;
+                        }
                         temp = tackle[rand(tackle.length)];
                         temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
                         temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
