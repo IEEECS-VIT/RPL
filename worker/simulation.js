@@ -657,13 +657,50 @@ exports.simulate = function (data, callback)
                     }
                     else if(goal > 4 && goal <= 5) // foul
                     {
+                        kick = !kick;
                         hold = false;
-                        ++fouls[+!kick];
+                        ++fouls[+kick];
                         temp = foul[rand(foul.length)];
                         temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
                         temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
                         temp = temp.replace('/s', striker[+kick][rand(striker[+kick].length)]);
                         data.match.commentary.push(temp);
+                        if(ball.x * Math.pow(-1, +kick) <= (23 + 83 * +kick) * Math.pow(-1, +kick))
+                        {
+                            strike = 10 - rand(striker[+kick].length);
+                            strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
+                            keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
+                            if (strike_performance_index > keeper_performance_index)
+                            {
+                                temp = score[rand(score.length)];
+                                temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                                temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
+                                temp = temp.replace('/s', striker[+kick][rand(striker[+kick].length)]);
+                                data.match.commentary.push(temp);
+                                data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
+                                ++Goals[+kick];
+                                kick = !kick;
+                                ball.x = 64.5;
+                            }
+                            else
+                            {
+                                temp = miss[rand(miss.length)];
+                                temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
+                                temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
+                                temp = temp.replace('/s', striker[+kick][rand(striker[+kick].length)]);
+                                data.match.commentary.push(temp);
+                                ball.x = 5.5 + 118 * +!kick;
+                            }
+                            ball.y = 34.5;
+                            data.team[+kick].ratings[strike].stamina -= 2;
+                            data.team[+!kick].ratings[0].stamina -= 2;
+                        }
+                        else
+                        {
+                            ball.x = rand(ball.x - (5.5 + 118 * +kick)) + Math.min(ball.x, (5.5 + 118 * +kick));
+                            ball.y = rand(ball.y - 34.5) + Math.min(ball.y, 34.5);
+                        }
+                        hold = true;
                     }
                     else if(goal > 5 && goal <= 6) // offside
                     {
