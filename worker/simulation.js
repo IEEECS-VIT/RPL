@@ -585,6 +585,10 @@ exports.simulate = function (data, callback)
                     }
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
+                        hold = false;
+                        j = rand(friendly.length);
+                        ball.x = rand(ball.x - data.team[+kick].ratings[j].position.x) + Math.min(ball.x, data.team[+kick].ratings[j].position.x);
+                        ball.y = rand(ball.y - data.team[+kick].ratings[j].position.y) + Math.min(ball.y, data.team[+kick].ratings[j].position.y);
                         temp = miss[rand(miss.length)];
                         temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
                         temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
