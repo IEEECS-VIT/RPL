@@ -83,19 +83,19 @@ exports.simulate = function (data, callback)
                 switch (team[i].Type)
                 {
                     case 'strike':
-                        average_strike_rating += parseInt(team[i].Overall);
+                        average_strike_rating += team[i].Overall;
                         ++strike_count;
                         break;
                     case 'keep':
                         ++keep_count;
-                        average_keep_rating += parseInt(team[i].Overall);
+                        average_keep_rating += team[i].Overall;
                         break;
                     case 'def':
-                        average_def_rating += parseInt(team[i].Overall);
+                        average_def_rating += team[i].Overall;
                         ++def_count;
                         break;
                     case 'mid':
-                        average_mid_rating += parseInt(team[i].Overall);
+                        average_mid_rating += team[i].Overall;
                         ++mid_count;
                         break;
                     default :
@@ -112,15 +112,15 @@ exports.simulate = function (data, callback)
                 switch(team[i].Type)
                 {
                     case 'strike':
-                        team[i].Overall += parseFloat(team[i].Overall) / (strike_count - 1) - parseFloat(average_strike_rating)/ (strike_count * (strike_count - 1));
+                        team[i].Overall += team[i].Overall / (strike_count - 1) - (average_strike_rating)/ (strike_count * (strike_count - 1));
                         team[i].Overall = (team[i].Overall < 0) ? 0 : (team[i].Overall);
                         break;
                     case 'def':
-                        team[i].Overall += parseFloat(team[i].Overall) / (def_count - 1) - parseFloat(average_def_rating)/ (def_count * (def_count - 1));
+                        team[i].Overall += team[i].Overall / (def_count - 1) - (average_def_rating)/ (def_count * (def_count - 1));
                         team[i].Overall = (team[i].Overall < 0) ? 0 :(team[i].Overall);
                         break;
                     case 'mid':
-                        team[i].Overall += parseFloat(team[i].Overall) / (mid_count - 1) - parseFloat(average_mid_rating)/ (mid_count * (mid_count - 1));
+                        team[i].Overall += team[i].Overall / (mid_count - 1) - (average_mid_rating)/ (mid_count * (mid_count - 1));
                         team[i].Overall = (team[i].Overall < 0) ? 0 :(team[i].Overall);
                         break;
                     default:
