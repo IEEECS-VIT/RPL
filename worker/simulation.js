@@ -69,15 +69,15 @@ exports.simulate = function (data, callback)
                 {
                     if(team[i].position.x == (36 + 57 * +!arg))
                     {
-                        defender[arg].push(team[arg][i].Name);
+                        defender[arg].push(team[i].Name);
                     }
                     else if(team[i].position.x * Math.pow(-1, arg) <= (22 + 85 * +!arg) * Math.pow(-1, arg))
                     {
-                        striker[arg].push(team[arg][i].Name);
+                        striker[arg].push(team[i].Name);
                     }
                     else
                     {
-                        midfielder[arg].push(team[arg][i].Name);
+                        midfielder[arg].push(team[i].Name);
                     }
                 }
                 switch (team[i].Type)
@@ -609,7 +609,7 @@ exports.simulate = function (data, callback)
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
                         hold = false;
-                        j = rand(friendly.length);
+                        j = parseInt(rand(friendly.length));
                         ball.x = rand(ball.x - data.team[+kick].ratings[j].position.x) + Math.min(ball.x, data.team[+kick].ratings[j].position.x);
                         ball.y = rand(ball.y - data.team[+kick].ratings[j].position.y) + Math.min(ball.y, data.team[+kick].ratings[j].position.y);
                         com(intercept);
@@ -636,8 +636,8 @@ exports.simulate = function (data, callback)
                     else if(goal > 2 && goal <= 3) // intercept
                     {
                         hold = false;
-                        x = rand(ball.x - data.team[+kick].ratings[j].position.x) + Math.min(ball.x, data.team[+kick].ratings[j].position.x);
-                        y = rand(ball.y - data.team[+kick].ratings[j].position.y) + Math.min(ball.y, data.team[+kick].ratings[j].position.y);
+                        x = rand(ball.x - data.team[+kick].ratings[1].position.x) + Math.min(ball.x, data.team[+kick].ratings[1].position.x);
+                        y = rand(ball.y - data.team[+kick].ratings[1].position.y) + Math.min(ball.y, data.team[+kick].ratings[1].position.y);
                         k = Math.pow(x - data.team[+kick].ratings[0].position.x , 2) + Math.pow(y - data.team[+kick].ratings[0].position.y, 2);
                         temp = 0;
                         for(j in friendly)
