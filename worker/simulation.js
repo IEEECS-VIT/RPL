@@ -242,11 +242,13 @@ exports.simulate = function (data, callback)
             data.match.commentary.push('Penalties: ' + data.team[0]._id + ': ' + (Goals[0] - aggregate) + ' | ' + (Goals[1] - aggregate) + ' :' + data.team[1]._id);
             if(Goals[0] == Goals[1])
             {
-                data.match.commentary.push(tie[rand(tie.length)]);
+                ++data.team[0].points;
+                ++data.team[1].points;
                 data.team[0].goals_for += Goals[0];
                 data.team[1].goals_for += Goals[0];
                 data.team[0].goals_against += Goals[0];
                 data.team[1].goals_agaisnt += Goals[0];
+                data.match.commentary.push(tie[rand(tie.length)]);
                 return -1;
             }
             return +(Goals[1] > Goals[0]);
@@ -804,19 +806,27 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
             }
             data.match.commentary.push(half[rand(half.length)]);
-            data.match.commentary.push('Half time: ');
-            data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
-            for(i = 0; i < 2; ++i)
+            if(loop)
             {
-                for(j = 0; j < 12; ++j)
+                data.match.commentary.push('Half time: ');
+                data.match.commentary.push(half[rand(half.length)]);
+                for(i = 0; i < 2; ++i)
                 {
-                    data.team[i].ratings[j].stamina += (50 - data.team[i].ratings[j].stamina) / (5 - (data.team[i].ratings[j].stamina / (100 - data.team[i].ratings[j].Overall)));
+                    for(j = 0; j < 12; ++j)
+                    {
+                        data.team[i].ratings[j].stamina += (50 - data.team[i].ratings[j].stamina) / (5 - (data.team[i].ratings[j].stamina / (100 - data.team[i].ratings[j].Overall)));
+                    }
                 }
+                ball.x = 64.5;
+                ball.y = 34.5;
+                kick = !index;
             }
-            ball.x = 64.5;
-            ball.y = 34.5;
-            kick = !index;
-            data.match.commentary.push(half[rand(half.length)]);
+            else
+            {
+                data.match.commentary.push('Final Score');
+                data.match.commentary.push(end[rand(end.length)]);
+            }
+            data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
         }
         winner = +(Goals[1] > Goals[0]);
         if(Goals[0] == Goals[1])
@@ -824,8 +834,6 @@ exports.simulate = function (data, callback)
             data.match.commentary.push(shootout[rand(shootout.length)]);
             winner = penalty_shootout();
         }
-        data.match.commentary.push(end[rand(end.length)]);
-        data.match.commentary.push('Final score: ' + data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
         if (parseInt(+winner) != -1)
         {
             data.match.commentary.push(data.team[+winner]._id + ' wins against ' + data.team[+!winner]._id);
@@ -844,14 +852,8 @@ exports.simulate = function (data, callback)
             data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss ? data.team[+!winner].loss : 1)).toFixed(2);
         }
     }
-    if(!Goals[0])
-    {
-        Goals[0] = 1;
-    }
-    if(!Goals[1])
-    {
-        Goals[1] = 1;
-    }
+    Goals[0] = Goals[0] ? Goals[0] : 1;
+    Goals[1] = Goals[1] ? Goals[1] : 1;
     ++data.team[0].played;
     ++data.team[1].played;
     delete data.team[0].ratings;
