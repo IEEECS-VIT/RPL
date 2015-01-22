@@ -201,7 +201,7 @@ exports.simulate = function (data, callback)
                         {
                             temp = block[rand(block.length)];
                             temp = temp.replace('/K', keeper[+!k].Name);
-                            temp = temp.replace('/s', striker[+k][i].Name);
+                            temp = temp.replace('/f', striker[+k][i].Name);
                             data.match.commentary.push(temp);
                             flag = 0;
                         }
@@ -209,7 +209,7 @@ exports.simulate = function (data, callback)
                         {
                             temp = penalty[rand(penalty.length)];
                             temp = temp.replace('/K', keeper[+!k].Name);
-                            temp = temp.replace('/s', striker[+k][i].Name);
+                            temp = temp.replace('/f', striker[+k][i].Name);
                             data.match.commentary.push(temp);
                             ++Goals[+k];
                             flag = 1;
@@ -219,7 +219,7 @@ exports.simulate = function (data, callback)
                     {
                         temp = miss[rand(miss.length)];
                         temp = temp.replace('/K', keeper[+!k].Name);
-                        temp = temp.replace('/s', striker[+k][i].Name);
+                        temp = temp.replace('/f', striker[+k][i].Name);
                         data.match.commentary.push(temp);
                         flag = 0;
                     }
@@ -256,10 +256,12 @@ exports.simulate = function (data, callback)
         var com = function(arg)
         {
             temp = arg[rand(arg.length)];
+            temp = temp.replace('/t', data.team[+kick]._id);
+            temp = temp.replace('/T', data.team[+!kick]._id);
             temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
             temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
-            temp = temp.replace('/s', striker[+kick][rand(striker[+kick].length)]);
-            temp = temp.replace('/S', striker[+!kick][rand(striker[+!kick].length)]);
+            temp = temp.replace('/f', striker[+kick][rand(striker[+kick].length)]);
+            temp = temp.replace('/F', striker[+!kick][rand(striker[+!kick].length)]);
             temp = temp.replace('/d', defender[+kick][rand(defender[+kick].length)]);
             temp = temp.replace('/D', defender[+!kick][rand(defender[+!kick].length)]);
             temp = temp.replace('/m', midfielder[+kick][rand(midfielder[+kick].length)]);
