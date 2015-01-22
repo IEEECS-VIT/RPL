@@ -18,5 +18,8 @@
  */
 module.exports =
 [
-    ""
+    "",
+    "The game has ended in a 0-0 draw. Both teams emerge with a 1 point each in spite of battling till the last for a late winner.",
+    "There's the final whistle. It's over and both teams are level at the end of 90 minutes. It was an interesting contest with a lot of goals. Both team had chances to move forward but couldn't capitalise on them.",
+    "The referee blows for the final time. The match ends in a draw with a couple goals to each team. Both teams get a point a piece."
 ];

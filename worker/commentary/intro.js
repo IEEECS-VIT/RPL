@@ -18,5 +18,9 @@
  */
 module.exports =
 [
-    ""
+    "",
+    "Hello and welcome to this Riviera Premier League clash between /t and /T. Both the teams will be looking to get all 3 points from this tie. The teams are warmed up and set to give us all a memorable match.",
+    "The teams are out and kick off is fast approaching. Hello and welcome to this clash of the titans. Both the teams will be looking to get those 3 points and try and come out on top of their group. It promises to be a tense affair.",
+    "The two teams have made their way into the tunnel and are about to make their way onto the pitch to start this much awaited encounter.",
+    "This is going to be a clash of the titans. Hello and welcome to the live coverage of this Riviera Premier League match. Both teams are making their way onto the pitch right now. Weather conditions are perfect for the game. Let's hope we have an exciting contest."
 ];

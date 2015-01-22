@@ -18,5 +18,12 @@
  */
 module.exports =
 [
-    ""
+    "",
+    "What a chance! /d dispossesses /F on the right hand side of his penalty area before running the full length of the pitch, darting through the middle of a sea of opponent team players. He then tries to play a deft through-ball into the path of /f, but the striker is slightly offside and is forced to halt his run.",
+    "Up goes the flag for offside.",
+    "And it's a goal. Oh no wait, the celebrations have stopped as the linesman has raised his flag for offside.",
+    "/m tries to play the ball through to /F but he's offside.",
+    "His run is a few seconds to late as he's been caught offside.",
+    "The defending team have been playing a high line and it has finally worked in their favour as the /M is caught offside.",
+    "/d tries to lift it over the defending line to /f but he's offside. That would've definitely been a scoring opportunity."
 ];

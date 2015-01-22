@@ -18,5 +18,11 @@
  */
 module.exports =
 [
-    ""
+    "",
+    "PENALTY! Completely against the run of play, /t have won themselves the perfect opportunity to go ahead! /m beats /M with ease before cutting into the penalty area and then tees up /f, who is brought down clumsily by the defender right in front of the referee.",
+    "The referee has pointed to the spot, it's a Penalty. Useless challenge by /D. there was no need to go in there so recklessly.",
+    "Harsh tackle from the defender. The referee points straight to the spot.",
+    "Reckless challenge from /d. Clear penalty.",
+    "The referee has given them a penalty. A little harsh but it was a late challenge.",
+    "He has just dived into the challenge. The referee has no choice but to give the penalty."
 ];

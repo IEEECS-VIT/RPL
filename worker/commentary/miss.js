@@ -18,5 +18,19 @@
  */
 module.exports =
 [
-    ""
+    "",
+    "/f shoots over after a beautiful pass from /m",
+    "/f forces a shot just wide of /G's left post after some lovely build-up.",
+    "The forward takes a shot but /G dives low to his right to deny /f.",
+    "/m shoots but it's straight at /G.",
+    "/f shoots but it's straight at /G.",
+    "/m shoots but it's straight at the goalkeeper.",
+    "/f shoots but it's straight at the goalkeeper.",
+    "Brilliant pass from /m. /f turns and takes it first time but just misses the target.",
+    "WHAT A CHANCE!! /f takes a brilliant run and dribbles past /D but the final shot is off target.",
+    "/m sends in a beautiful cross right to the head of /f but the forward misses the target.",
+    "/f is just wide. He thought he definitely scored this time. So close.",
+    "Oh my God!! He's hit the post.",
+    "You can see the frustration on his face to have come so close and missed.",
+    "Unbelievable miss from /f. He was clear of the goalkeeper and couldn't manager to shoot into an open goal."
 ];
