@@ -808,7 +808,7 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
             }
             data.match.commentary.push(half[rand(half.length)]);
-            if(loop)
+            if(!loop)
             {
                 data.match.commentary.push('Half time: ');
                 data.match.commentary.push(half[rand(half.length)]);
