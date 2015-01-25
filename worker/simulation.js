@@ -460,7 +460,7 @@ exports.simulate = function (data, callback)
         data.match.commentary.push(data.team[0]._id + ' | ' + data.team[1]._id);
         for(i = 0; i < 11; ++i)
         {
-            data.match.commentary.push(data.team[0].ratings[i].Name + '(' + data.team[0].ratings[i].Type + ') | (' + data.team[1].ratings[i].Name + (data.team[1].ratings[i].Type) + ')');
+            data.match.commentary.push(data.team[0].ratings[i].Name + '(' + data.team[0].ratings[i].Type + ') | ' + data.team[1].ratings[i].Name + '(' + data.team[1].ratings[i].Type + ')');
         }
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
