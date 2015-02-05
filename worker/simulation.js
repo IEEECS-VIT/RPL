@@ -853,33 +853,33 @@ exports.simulate = function (data, callback)
             data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss ? data.team[+winner].loss : 1)).toFixed(2);
             data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss ? data.team[+!winner].loss : 1)).toFixed(2);
         }
+        Goals[0] = Goals[0] ? Goals[0] : 1;
+        Goals[1] = Goals[1] ? Goals[1] : 1;
+        ++data.team[0].played;
+        ++data.team[1].played;
+        delete data.team[0].ratings;
+        delete data.team[1].ratings;
+        data.team[0].shots += shots[0];
+        data.team[1].shots += shots[1];
+        data.team[0].fouls += fouls[0];
+        data.team[1].fouls += fouls[1];
+        data.team[0].passes += passes[0];
+        data.team[1].passes += passes[1];
+        data.team[0].accuracy = (data.team[0].goals_for * 100 / data.team[0].shots).toFixed(2);
+        data.team[1].accuracy = (data.team[1].goals_for * 100 / data.team[1].shots).toFixed(2);
+        data.team[0].mean_goals_for = (data.team[0].goals_for / data.team[0].played).toFixed(2);
+        data.team[1].mean_goals_for = (data.team[1].goals_for / data.team[1].played).toFixed(2);
+        data.team[0].mean_goals_against = (data.team[0].goals_against / data.team[0].played).toFixed(2);
+        data.team[1].mean_goals_against = (data.team[1].goals_against / data.team[1].played).toFixed(2);
+        data.team[0].possession = (((data.team[0].played - 1) * data.team[0].possession + possession[0]) / data.team[0].played).toFixed(2);
+        data.team[1].possession = (((data.team[1].played - 1) * data.team[1].possession + possession[1]) / data.team[1].played).toFixed(2);
+        data.team[0].dominance = parseFloat(((data.team[0].dominance * (data.team[0].played - 1) + dom / 90) / data.team[0].played).toFixed(2));
+        data.team[1].dominance = parseFloat(((data.team[1].dominance * (data.team[1].played - 1) + (1 - dom / 90)) / data.team[1].played).toFixed(2));
+        data.team[0].form += parseFloat(((possession[0] * mean_rating[1] / Goals[1] - possession[1] * mean_rating[0] / Goals[0]) / 1000).toFixed(2));
+        data.team[1].form += parseFloat(((possession[1] * mean_rating[0] / Goals[0] - possession[0] * mean_rating[1] / Goals[1] ) / 1000).toFixed(2));
+        data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
+        data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
     }
-    Goals[0] = Goals[0] ? Goals[0] : 1;
-    Goals[1] = Goals[1] ? Goals[1] : 1;
-    ++data.team[0].played;
-    ++data.team[1].played;
-    delete data.team[0].ratings;
-    delete data.team[1].ratings;
-    data.team[0].shots += shots[0];
-    data.team[1].shots += shots[1];
-    data.team[0].fouls += fouls[0];
-    data.team[1].fouls += fouls[1];
-    data.team[0].passes += passes[0];
-    data.team[1].passes += passes[1];
-    data.team[0].accuracy = (data.team[0].goals_for * 100 / data.team[0].shots).toFixed(2);
-    data.team[1].accuracy = (data.team[1].goals_for * 100 / data.team[1].shots).toFixed(2);
-    data.team[0].mean_goals_for = (data.team[0].goals_for / data.team[0].played).toFixed(2);
-    data.team[1].mean_goals_for = (data.team[1].goals_for / data.team[1].played).toFixed(2);
-    data.team[0].mean_goals_against = (data.team[0].goals_against / data.team[0].played).toFixed(2);
-    data.team[1].mean_goals_against = (data.team[1].goals_against / data.team[1].played).toFixed(2);
-    data.team[0].possession = (((data.team[0].played - 1) * data.team[0].possession + possession[0]) / data.team[0].played).toFixed(2);
-    data.team[1].possession = (((data.team[1].played - 1) * data.team[1].possession + possession[1]) / data.team[1].played).toFixed(2);
-    data.team[0].dominance = parseFloat(((data.team[0].dominance * (data.team[0].played - 1) + dom / 90) / data.team[0].played).toFixed(2));
-    data.team[1].dominance = parseFloat(((data.team[1].dominance * (data.team[1].played - 1) + (1 - dom / 90)) / data.team[1].played).toFixed(2));
-    data.team[0].form += parseFloat(((possession[0] * mean_rating[1] / Goals[1] - possession[1] * mean_rating[0] / Goals[0]) / 1000).toFixed(2));
-    data.team[1].form += parseFloat(((possession[1] * mean_rating[0] / Goals[0] - possession[0] * mean_rating[1] / Goals[1] ) / 1000).toFixed(2));
-    data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
-    data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
     var newData =
     {
         team1: data.team[0],

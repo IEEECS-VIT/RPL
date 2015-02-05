@@ -664,14 +664,14 @@ router.get('/developers', function (req, res) // developers page
     mongoUsers.fetch(credentials,onFetch);
 });
 module.exports = router;
-/*router.get('/reset',function(req,res)
-{
-    res.render('reset',{});
-});*/
+
 router.get('/settings',function(req,res){
    res.render('settings',{});
 });
-
+/*router.get('/reset',function(req,res)
+ {
+ res.render('reset',{});
+ });*/
 /*router.post('/reset', function(req,res)
 {
     var team_name = req.signedCookies.name;
