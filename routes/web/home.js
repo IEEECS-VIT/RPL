@@ -17,7 +17,6 @@
  */
 
 var express = require('express');
-var bcrypt = require('bcrypt');
 var path = require('path');
 var async = require('async');
 var router = express.Router();
@@ -96,9 +95,7 @@ router.get('/', function (req, res)
                 }
                 else
                 {
-                    var document = [];
-                    document = doc.team;
-                    async.map(document, getDetails, onFinish);
+                    async.map(doc.team, getDetails, onFinish);
                 }
 
             }
@@ -242,7 +239,7 @@ router.get('/matches', function (req, res)
                                 response.test = "True";
                             }
                             //console.log(response.previousMatch);
-                            console.log(response.nextMatch);
+                            console.log(response.previousMatch);
                             res.render('matches', {response: response});
                         }
 
@@ -623,9 +620,7 @@ router.get('/formation', function (req, res)
                 }
                 else
                 {
-                    var document = [];
-                    document = doc.team;
-                    async.map(document, getDetails, onFinish);
+                    async.map(doc.team, getDetails, onFinish);
                 }
 
             }
