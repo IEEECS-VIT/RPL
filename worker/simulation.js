@@ -857,8 +857,6 @@ exports.simulate = function (data, callback)
         Goals[1] = Goals[1] ? Goals[1] : 1;
         ++data.team[0].played;
         ++data.team[1].played;
-        delete data.team[0].ratings;
-        delete data.team[1].ratings;
         data.team[0].shots += shots[0];
         data.team[1].shots += shots[1];
         data.team[0].fouls += fouls[0];
@@ -880,6 +878,8 @@ exports.simulate = function (data, callback)
         data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
         data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
     }
+    delete data.team[0].ratings;
+    delete data.team[1].ratings;
     var newData =
     {
         team1: data.team[0],
