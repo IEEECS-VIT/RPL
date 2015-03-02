@@ -20,7 +20,7 @@ var express = require('express');
 var path = require('path');
 var async = require('async');
 var router = express.Router();
-
+var match = require(path.join(__dirname, '..', '..', 'matchCollection'));
 var log;
 if (process.env.LOGENTRIES_TOKEN)
 {
@@ -259,7 +259,7 @@ router.get('/matches', function (req, res)
 
                 }
                 else{
-                    res.render('matches',{results : results,response : null});
+                    res.render('matches',{results : results, response : null});
                 }
             }
         };
@@ -658,84 +658,43 @@ router.get('/developers', function (req, res) // developers page
     };
     mongoUsers.fetch(credentials,onFetch);
 });
-module.exports = router;
 
 router.get('/settings',function(req,res){
-   res.render('settings',{});
+    res.render('settings',{});
 });
-/*router.get('/reset',function(req,res)
- {
- res.render('reset',{});
- });*/
-/*router.post('/reset', function(req,res)
-{
-    var team_name = req.signedCookies.name;
-   // var old_password = req.body.oldpass;
-    var password = req.body.pass;
-    var confirm_password = req.body.cpass;
-    if (password == confirm_password)
-    {
-        var salt = bcrypt.genSaltSync(10);
-        var hashedPassword = bcrypt.hashSync(password, salt);
-        var credentials = {
-            _id : team_name,
-            password : hashedPassword
-        };
-        var fetch_user = {
-            _id : team_name
-        };
-        var onFetch = function(err,doc)
+router.get('/forgot', function(req, res){
+    res.render('forgot');
+});
+
+router.get('/reset/:token', function(req, res){
+    mongo.connect(uri, function(err, db) {
+        if(err)
         {
-            if(err)
-            {
-                if(log)
+            console.log(err.message);
+        }
+        else
+        {
+            db.collection(match).findOne({ token: req.params.token, expire: { $gt: Date.now() } }, function(err, doc) {
+                db.close();
+                if(err)
                 {
-                    log.log('debug', {Error: err, Message: err.message});
+                    console.log(err.message);
                 }
-            }
-            else if(doc)
-            {
-                //if (bcrypt.compareSync(old_password, doc['password_hash']))
-                //{
-                    console.log("Password Change Initiated for" + team_name);
-                    var onUpdate = function(err,doc)
-                    {
-                        if(err)
-                        {
-                            if(log)
-                            {
-                                log.log('debug', {Error: err, Message: err.message});
-                            }
-                        }
-                        else
-                        {
-                             console.log(doc);
-                             res.redirect("/home");
-                        }
-                    };
-                    mongoUsers.update(fetch_user,credentials,onUpdate);
-
-                    res.redirect('/home');
-                //}
-                //else
-                //{
-                   // console.log('Password Change Rejected for ' + team_name + ' due to incorrect password.');
-                    //res.render('reset', {response: "Incorrect Password"});
-                //}
-            }
-        };
+                else if (!doc)
+                {
+                    res.redirect('/forgot');
+                }
+                else
+                {
+                    res.render('reset');
+                }
+            });
+        }
+    });
+});
+module.exports = router;
 
 
-
-        mongoUsers.fetch(fetch_user, onFetch);
-
-    }
-    else
-    {
-        res.render("reset", {err : "Passwords do not match"});
-    }
-
-});*/
 /*router.get('/sort',function(req,res){
     var upper = req.body.upper;
     var lower = req.body.lower;

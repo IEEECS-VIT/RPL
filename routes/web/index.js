@@ -20,6 +20,15 @@ var bcrypt = require('bcrypt');
 var express = require('express');
 var path = require('path');
 var router = express.Router();
+var crypto = require('crypto');
+var email = require('nodemailer').createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'email@email.com',
+        pass: process.env.PASSWORD
+    }
+});
+var uri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/RPL';
 
 var log;
 if (process.env.LOGENTRIES_TOKEN)
@@ -321,32 +330,100 @@ router.get('/prizes', function (req, res) // page to view prizes
     }
     res.render('prizes', {Session: session });
 });
-router.get('/forgot', function (req, res) // page to change password
+router.post('/forgot', function (req, res)
 {
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = true;
-    }
-    else
-    {
-        session = false;
-    }
-    res.render('forgot', {Session: session });
+    mongo.connect(uri, function(err, db){
+        if(err)
+        {
+            console.log(err.message);
+        }
+        else
+        {
+            crypto.randomBytes(20, function(err, buf) {
+                var token = buf.toString('hex');
+                db.collection('users').findAndModify({_id : req.body.t_name}, [], {$set:{token : token, expire : Date.now() + 3600000}}, {new : false}, function(err, doc){
+                    db.close();
+                    if(err)
+                    {
+                        console.log(err.message);
+                    }
+                    else if(!doc)
+                    {
+                        console.log('Oh No !');
+                    }
+                    else
+                    {
+                        var options = {
+                            from: 'email@gmail.com',
+                            to : doc.email,
+                            subject: 'Time to get back in the game',
+                            text: 'Please click on http://' + req.headers.host + '/reset/' + token + ' in order to reset your password.\n '
+                            + 'In the event that this password reset was not requested by you,'
+                            + ' please ignore this message and your password shall remain intact.\n\nRegards, \nTeam R.P.L.'
+                        };
+                        email.sendMail(options, function(err) {
+                            if(err)
+                            {
+                                console.log(err.message);
+                            }
+                            else
+                            {
+                                res.redirect('/login');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
 });
-router.get('/reset', function (req, res) // page to change password
-{
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = true;
-    }
-    else
-    {
-        session = false;
-    }
-    res.render('reset', {Session: session });
+
+router.post('/reset/:token', function(req, res) {
+    mongo.connect(uri, function(err, db){
+        if(err)
+        {
+            console.log(err.message);
+        }
+        else
+        {
+            var query = {token : req.params.token, expire : {$gt: Date.now()}},
+                op = {$set : {hash : bcrypt.hashSync(req.body.pass, bcrypt.genSaltSync(10))}, $unset : {token : '', expire : ''}};
+            db.collection(match).findAndModify(query, [], op, {new : true}, function(err, doc) {
+                db.close();
+                if(err)
+                {
+                    console.log(err.message);
+                }
+                else if(!doc)
+                {
+                    console.log('No matches!');
+                    res.redirect('/forgot');
+                }
+                else
+                {
+                    var options = {
+                        to : doc.email,
+                        subject : 'Password chage successful !',
+                        text : 'Hey there, ' + doc.email.split('@')[0] + ' we\'re just writing in to let you know that the recent password change was successful.' +
+                        '\nRegards,\nTeam R.P.L'
+                    };
+                    email.sendMail(options, function(err, doc) {
+                        if(err)
+                        {
+                            console.log(err.message);
+                        }
+                        else
+                        {
+                            console.log('Updated successfully!');
+                            res.redirect('/login');
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
+
 
 router.get('/rule', function (req, res)
 {
