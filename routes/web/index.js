@@ -403,7 +403,7 @@ router.post('/reset/:token', function(req, res) {
                 {
                     var options = {
                         to : doc.email,
-                        subject : 'Password chage successful !',
+                        subject : 'Password change successful !',
                         text : 'Hey there, ' + doc.email.split('@')[0] + ' we\'re just writing in to let you know that the recent password change was successful.' +
                         '\nRegards,\nTeam R.P.L'
                     };

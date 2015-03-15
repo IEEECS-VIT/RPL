@@ -258,8 +258,8 @@ exports.simulate = function (data, callback)
             temp = arg[rand(arg.length)];
             temp = temp.replace('/t', data.team[+kick]._id);
             temp = temp.replace('/T', data.team[+!kick]._id);
-            temp = temp.replace('/k', data.team[+kick].ratings[0].Name);
-            temp = temp.replace('/K', data.team[+!kick].ratings[0].Name);
+            temp = temp.replace('/g', data.team[+kick].ratings[0].Name);
+            temp = temp.replace('/G', data.team[+!kick].ratings[0].Name);
             temp = temp.replace('/f', striker[+kick][rand(striker[+kick].length)]);
             temp = temp.replace('/F', striker[+!kick][rand(striker[+!kick].length)]);
             temp = temp.replace('/d', defender[+kick][rand(defender[+kick].length)]);
@@ -767,6 +767,7 @@ exports.simulate = function (data, callback)
                          if (strike_performance_index > keeper_performance_index)
                          {
                             com(score);
+                            console.log(strike_performance_index, keeper_performance_index);
                             data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
                             ++Goals[+kick];
                             kick = !kick;

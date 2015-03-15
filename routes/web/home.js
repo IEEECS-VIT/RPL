@@ -238,11 +238,9 @@ router.get('/matches', function (req, res)
                             {
                                 response.test = "True";
                             }
-                            //console.log(response.previousMatch);
-                            console.log(response.previousMatch);
+                            console.log(response);
                             res.render('matches', {response: response});
                         }
-
                     };
 
                     parallel_tasks.previousMatch = function (asyncCallback)
