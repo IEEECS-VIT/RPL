@@ -82,7 +82,7 @@ exports.insert = function (doc, callback)
                     callback(null, docs);
                 }
             };
-            collection.insert(doc, {w: 1}, onInsert);
+            collection.insertOne(doc, {w: 1}, onInsert);
         }
     };
     MongoClient.connect(mongoUri, onConnect);
@@ -164,8 +164,6 @@ exports.getleader = function (doc, callback)
                             documents.push(document);
                             callback(null, documents);
                         }
-                        //console.log("get Leader Function5");
-
                     };
                     collection.findOne(doc, onFetchOne);
                 }
@@ -178,9 +176,7 @@ exports.getleader = function (doc, callback)
                         ['goal_diff', 'desc']
                     ]
                 };
-
             collection.find({}, options).toArray(onFetch);
-            //collection.find({},onFetch);
         }
     };
     MongoClient.connect(mongoUri, onConnect);
@@ -250,7 +246,7 @@ exports.updateUserTeam = function (doc, arr, callback)
                     callback(true, document);
                 }
             };
-            collection.findAndModify(doc, [], {$set: {'team': arr}}, {}, onUpdate)
+            collection.findOneAndUpdate(doc, [], {$set: {'team': arr}}, {}, onUpdate)
         }
     };
     MongoClient.connect(mongoUri, onConnect);
@@ -280,7 +276,7 @@ exports.updateUserSquad = function (doc, arr, callback)
                     callback(null, document);
                 }
             };
-            collection.findAndModify(doc, [], {$set: {'squad': arr}}, {}, onUpdate);
+            collection.findOneAndUpdate(doc, [], {$set: {'squad': arr}}, {}, onUpdate);
         }
     };
     MongoClient.connect(mongoUri, onConnect);
@@ -340,7 +336,7 @@ exports.update = function (query, update, callback)
                     callback(null, doc);
                 }
             };
-            collection.findAndModify(query, {}, { "$set" : update }, {"upsert": true}, onUpdate);
+            collection.findOneAndUpdate(query, {}, { "$set" : update }, {"upsert": true}, onUpdate);
 
         }
     };
