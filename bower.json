@@ -35,6 +35,6 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.0",
-    "jquery-ui": "~1.11.2"
+    "jquery-ui": "~1.11.4"
   }
 }
