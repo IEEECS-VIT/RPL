@@ -19,10 +19,8 @@
 var async = require('async');
 var MongoClient = require('mongodb').MongoClient;
 var path = require('path');
-
 var mongoTeam = require(path.join(__dirname, 'mongo-team'));
-
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/RPL';
 var today = new Date();
 
 exports.fetchPreviousMatch = function (doc1, doc2, callback)
@@ -64,7 +62,6 @@ exports.fetchPreviousMatch = function (doc1, doc2, callback)
                 default :
                     collectionName = 'matchday1';
                     break;
-
             }
             collectionName='matchday1';   // Collection controller for match day information. To be changed before each match
             var collection = db.collection(collectionName);
@@ -82,7 +79,6 @@ exports.fetchPreviousMatch = function (doc1, doc2, callback)
                 {
                     callback(null, docs.team2);
                 }
-
             };
             parallelTasks.team1 = function (asyncCallback)
             {
@@ -93,14 +89,9 @@ exports.fetchPreviousMatch = function (doc1, doc2, callback)
                 collection.findOne(doc2, asyncCallback);
             };
             async.parallel(parallelTasks, onFetch);
-
-
         }
-
     };
     MongoClient.connect(mongoUri, onConnect);
-
-
 };
 
 exports.fetchNextMatch = function (doc1, doc2, callback)
@@ -167,12 +158,11 @@ exports.fetchNextMatch = function (doc1, doc2, callback)
                     credentials = {
                         'team_no': doc.team2.Team_1
                     };
-
                 }
                 console.log("Match" + credentials.team_no);
                 mongoTeam.getTeam(credentials, callback);
-
             };
+
             var collection = db.collection(collectionName);
             parallelTasks.team1 = function (asyncCallback)
             {
@@ -183,10 +173,7 @@ exports.fetchNextMatch = function (doc1, doc2, callback)
                 collection.findOne(doc2, asyncCallback);
             };
             async.parallel(parallelTasks, onFetch);
-
         }
-
     };
     MongoClient.connect(mongoUri, onConnect);
-
 };

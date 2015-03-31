@@ -123,31 +123,33 @@
                 <div class="col-xs-4 stats"
                      style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 999">
                     <ul style="padding: 0;margin: 0">
+                        <%if(results) {%>
                         <li>
                             <p>
                                 <small>Team</small>
-                                <br/> <%= results.user._id %></p>
+                                <br/> <%= results._id %></p>
                         </li>
                         <li>
                             <p>
                                 <small>Wins</small>
-                                <br/> <%= results.user.win %></p>
+                                <br/> <%= results.win %></p>
                         </li>
                         <li>
                             <p>
                                 <small>Loss</small>
-                                <br/> <%= results.user.played - results.user.win %></p>
+                                <br/> <%= results.played - results.win %></p>
                         </li>
                         <li>
                             <p>
                                 <small>Points</small>
-                                <br/> <%= results.user.points %></p>
+                                <br/> <%= results.points %></p>
                         </li>
                         <li>
                             <p>
                                 <small>GD</small>
-                                <br/> <%= results.user.goal_diff %></p>
+                                <br/> <%= results.goal_diff %></p>
                         </li>
+                        <% }%>
                         <li style="margin-left: 5%"><a href="/home/settings"
                                                        style="width: 100%; font-size: 200%"><span
                                         class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
