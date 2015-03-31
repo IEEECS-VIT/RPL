@@ -21,6 +21,8 @@ var path = require('path');
 var async = require('async');
 var router = express.Router();
 var match = require(path.join(__dirname, '..', '..', 'matchCollection'));
+var mongo = require('mongodb').MongoClient;
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/RPL';
 var log;
 if (process.env.LOGENTRIES_TOKEN)
 {
@@ -34,7 +36,6 @@ var mongoPlayers = require(path.join(__dirname, '..', '..', 'db', 'mongo-players
 var mongoUsers = require(path.join(__dirname, '..', '..', 'db', 'mongo-users'));
 var mongoTeam = require(path.join(__dirname, '..', '..', 'db', 'mongo-team'));
 var mongoMatches = require(path.join(__dirname, '..', '..', 'db', 'mongo-matches'));
-
 
 router.get('/', function (req, res)
 {
@@ -55,7 +56,7 @@ router.get('/', function (req, res)
                 results.user = doc;
                 if (doc.team.length == 0)
                 {
-                    res.redirect("/home/players")
+                    res.redirect("/home/players");
                 }else if(doc.squad.length==0)
                 {
                     res.redirect("/home/formation");
@@ -74,13 +75,13 @@ router.get('/', function (req, res)
                         Cost: 1,
                         Type: 1
                     };
-                    mongoPlayers.getPlayer(player, fields, callback)
+                    mongoPlayers.getPlayer(player, fields, callback);
                 };
                 var onFinish = function (err, documents)
                 {
                     if (err)
                     {
-                        //do something with the error
+                        console.log(err.message);
                     }
                     else
                     {
@@ -129,12 +130,11 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
             if (err)
             {
                 console.log(err.message);
-
             }
             else
             {
                 console.log(doc);
-                if(doc.team.length==0)
+                if(doc.team.length == 0)
                 {
                     res.redirect("/home/players"); // forcing team selection
                 }
@@ -146,10 +146,12 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
             }
             var getuser = function(err,user){
                 if(err)
+                {
                     console.log(err.message);
+                }
                 else
                 {
-                        results.user = user;
+                    results.user = user;
                 }
             };
             mongoUsers.fetch(doc,getuser);
@@ -157,7 +159,6 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
             {
                 if (err)
                 {
-                    //do something with the error
                     console.log(err.message);
                 }
                 else
@@ -170,8 +171,6 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
         };
         console.log("get Leader Function");
         mongoUsers.fetch(doc,onFetch);
-
-
     }
     else
     {
@@ -183,13 +182,13 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
 
 router.get('/matches', function (req, res)
 {
-    var e =0;
-    var results =[];
+    var e = 0;
+    var results = [];
     if (req.signedCookies.name)
     {
         var teamName = req.signedCookies.name;
-
-        var credentials = {
+        var credentials =
+        {
             '_id':teamName
         };
         var onFetch = function(err,doc)
@@ -198,19 +197,18 @@ router.get('/matches', function (req, res)
             {
                 if(log)
                 {
-                    if (log) log.log('debug', {Error: err, Message: err.message});
+                    log.log('debug', {Error: err, Message: err.message});
                 }
             }
             else
             {
-
-                if(doc.team.length==0)
+                if(doc.team.length == 0)
                 {
-                    res.redirect("/home/players")
+                    res.redirect("/home/players");
                 }
                 else if (doc.squad.length == 0)
                 {
-                    res.redirect("/home/formation")
+                    res.redirect("/home/formation");
                 }
                 results.user = doc;
                 if(e!=0){
@@ -250,18 +248,16 @@ router.get('/matches', function (req, res)
                     parallel_tasks.nextMatch = function (asyncCallback)
                     {
                         mongoMatches.fetchNextMatch(credentials1, credentials2, asyncCallback);
-
                     };
                     async.parallel(parallel_tasks, onFinish);
-                    //res.render('matches', response);
-
                 }
-                else{
-                    res.render('matches',{results : results, response : null});
+                else
+                {
+                    res.render('matches', {results : results, response : null});
                 }
             }
         };
-        mongoUsers.fetch(credentials,onFetch);
+        mongoUsers.fetch(credentials, onFetch);
     }
     else
     {
@@ -269,48 +265,34 @@ router.get('/matches', function (req, res)
     }
 });
 
-
 router.post('/getsquad', function (req, res)
 {
     if (req.signedCookies.name)
     {
         var teamname = req.signedCookies.name;
-        var credentials = {
+        var credentials =
+        {
             '_id': teamname
         };
         var squad = [];
-        var squad1 = parseInt(req.body.p1);
-        var squad2 = parseInt(req.body.p2);
-        var squad3 = parseInt(req.body.p3);
-        var squad4 = parseInt(req.body.p4);
-        var squad5 = parseInt(req.body.p5);
-        var squad6 = parseInt(req.body.p6);
-        var squad7 = parseInt(req.body.p7);
-        var squad8 = parseInt(req.body.p8);
-        var squad9 = parseInt(req.body.p9);
-        var squad10 = parseInt(req.body.p10);
-        var squad11 = parseInt(req.body.p11);
-        var squad12 = parseInt(req.body.p12);
         console.log(squad12);
-        squad.push(squad1);
-        squad.push(squad2);
-        squad.push(squad3);
-        squad.push(squad4);
-        squad.push(squad5);
-        squad.push(squad6);
-        squad.push(squad7);
-        squad.push(squad8);
-        squad.push(squad9);
-        squad.push(squad10);
-        squad.push(squad11);
-        squad.push(squad12);
+        squad.push(parseInt(req.body.p1));
+        squad.push(parseInt(req.body.p2));
+        squad.push(parseInt(req.body.p3));
+        squad.push(parseInt(req.body.p4));
+        squad.push(parseInt(req.body.p5));
+        squad.push(parseInt(req.body.p6));
+        squad.push(parseInt(req.body.p7));
+        squad.push(parseInt(req.body.p8));
+        squad.push(parseInt(req.body.p9));
+        squad.push(parseInt(req.body.p10));
+        squad.push(parseInt(req.body.p11));
+        squad.push(parseInt(req.body.p12));
         console.log(squad);
         var onFetch = function (err, document)
         {
             if (err)
             {
-                console.log(err.message);
-                //do something with the error
                 console.log(err.message);
             }
             else
@@ -325,56 +307,40 @@ router.post('/getsquad', function (req, res)
     {
         res.redirect('/');
     }
-
 });
+
 router.post('/getTeam', function (req, res)
 {
-    var players = [], cost = 0;
-    var player1 = parseInt(req.body.p1);
-    var player2 = parseInt(req.body.p2);
-    var player3 = parseInt(req.body.p3);
-    var player4 = parseInt(req.body.p4);
-    var player5 = parseInt(req.body.p5);
-    var player6 = parseInt(req.body.p6);
-    var player7 = parseInt(req.body.p7);
-    var player8 = parseInt(req.body.p8);
-    var player9 = parseInt(req.body.p9);
-    var player10 = parseInt(req.body.p10);
-    var player11 = parseInt(req.body.p11);
-    var player12 = parseInt(req.body.p12);
-    var player13 = parseInt(req.body.p13);
-    var player14 = parseInt(req.body.p14);
-    var player15 = parseInt(req.body.p15);
-    var player16 = parseInt(req.body.p16);
-    players.push(player1);
-    players.push(player2);
-    players.push(player3);
-    players.push(player4);
-    players.push(player5);
-    players.push(player6);
-    players.push(player7);
-    players.push(player8);
-    players.push(player9);
-    players.push(player10);
-    players.push(player11);
-    players.push(player12);
-    players.push(player13);
-    players.push(player14);
-    players.push(player15);
-    players.push(player16);
+    var players = [];
+    var cost = 0;
+    players.push(parseInt(req.body.p1));
+    players.push(parseInt(req.body.p2));
+    players.push(parseInt(req.body.p3));
+    players.push(parseInt(req.body.p4));
+    players.push(parseInt(req.body.p5));
+    players.push(parseInt(req.body.p6));
+    players.push(parseInt(req.body.p7));
+    players.push(parseInt(req.body.p8));
+    players.push(parseInt(req.body.p9));
+    players.push(parseInt(req.body.p10));
+    players.push(parseInt(req.body.p11));
+    players.push(parseInt(req.body.p12));
+    players.push(parseInt(req.body.p13));
+    players.push(parseInt(req.body.p14));
+    players.push(parseInt(req.body.p15));
+    players.push(parseInt(req.body.p16));
 
     var onUpdate = function (err, documents)
     {
         if (err)
         {
-            // do something with the error
+            console.log(err.message);
         }
         else
         {
             console.log(documents);
             res.redirect('/home/formation');
         }
-
     };
 
     var getCost = function (id, callback)
@@ -390,16 +356,17 @@ router.post('/getTeam', function (req, res)
         };
         mongoPlayers.getPlayer(player, fields, callback)
     };
+
     var onFinish = function (err, documents)
     {
         if (err)
         {
-            // do something with the error
+            console.log(err.message);
         }
         else
         {
             console.log(documents);
-            for (var i = parseInt(0); i < documents.length; i++)
+            for (var i = parseInt(0); i < documents.length; ++i)
             {
                 cost += documents[i].Cost;
                 if (cost > 100000000)
@@ -411,19 +378,15 @@ router.post('/getTeam', function (req, res)
         }
     };
     async.map(players, getCost, onFinish);
-
-    var teamName = req.signedCookies.name;
-    var credentials = {
-        _id: teamName
-    };
-    mongoUsers.updateUserTeam(credentials, players, onUpdate);
+    mongoUsers.updateUserTeam({_id: req.signedCookies.name}, players, onUpdate);
 });
 
 
 router.get('/rules', function (req, res)
 {
     var results = [];
-    var credentials = {
+    var credentials =
+    {
         '_id': req.signedCookies.name
     };
     var onFetch = function(err,doc){
@@ -444,7 +407,8 @@ router.get('/rules', function (req, res)
 router.get('/prize', function (req, res) // page to view prizes
 {
     var results = [];
-    var credentials = {
+    var credentials =
+    {
         '_id': req.signedCookies.name
     };
     var onFetch = function(err,doc){
@@ -452,7 +416,8 @@ router.get('/prize', function (req, res) // page to view prizes
         {
             console.log(err.message);
         }
-        else{
+        else
+        {
             results.user = doc;
             console.log(doc);
             res.render('prize',{results : results})
@@ -460,30 +425,31 @@ router.get('/prize', function (req, res) // page to view prizes
     };
     mongoUsers.fetch(credentials,onFetch);
 });
+
 router.get('/sponsors', function (req, res) // sponsors page
 {
-    res.render('sponsors', { });
+    res.render('sponsors', {});
 });
+
 router.get('/trailer', function (req, res) // trailer page
 {
-    res.render('trailer', { });
+    res.render('trailer', {});
 });
 
 router.get('/players', function (req, res) // page for all players, only available if no squad has been chosen
 {
     if (req.signedCookies.name)
     {
-        var doc = {
+        var doc =
+        {
             "_id": req.signedCookies.name
         };
         var onFetchUser = function (err, document)
         {
             if (err)
             {
-                //do something with the error
                 console.log(err.message);
-
-            }
+    }
             else
             {
                 if (document.team.length != 0)
@@ -505,28 +471,24 @@ router.get('/players', function (req, res) // page for all players, only availab
                                 err : null
                             });
                         }
-
                     };
                     mongoPlayers.fetchPlayers(onFetch);
                 }
             }
         };
         mongoUsers.fetch(doc, onFetchUser);
-
     }
     else
     {
         res.redirect("/");
     }
-
 });
-
 
 router.get('/team', function (req, res) // view the assigned playing 11 with options to change the playing 11
 {
     if (req.signedCookies.name)                           // if cookies exists then access the database
     {
-        var results =[];
+        var results = [];
         var teamName = req.signedCookies.name;
         var credentials =
         {
@@ -537,14 +499,13 @@ router.get('/team', function (req, res) // view the assigned playing 11 with opt
             {
                 console.log(err.message);
             }
-            else{
+            else
+            {
                 results.user = doc;
                 console.log(doc);
-
             }
         };
         mongoUsers.fetch(credentials,onFetch);
-
         var getTeam = function (err, documents)
         {
             if (err)
@@ -564,12 +525,14 @@ router.get('/team', function (req, res) // view the assigned playing 11 with opt
         res.redirect('/');
     }
 });
+
 router.get('/formation', function (req, res)
 {
     var results = {};
     if (req.signedCookies.name)
     {
-        var credentials = {
+        var credentials =
+        {
             '_id': req.signedCookies.name
         };
         var onFetch = function (err, doc)
@@ -603,7 +566,7 @@ router.get('/formation', function (req, res)
                 {
                     if (err)
                     {
-                        //do something with the error
+                        console.log(err.message);
                     }
                     else
                     {
@@ -611,7 +574,6 @@ router.get('/formation', function (req, res)
                         res.render('formation', {results: results});
                     }
                 };
-
                 if (err)
                 {
                     res.redirect('/');
@@ -620,14 +582,12 @@ router.get('/formation', function (req, res)
                 {
                     async.map(doc.team, getDetails, onFinish);
                 }
-
             }
             else
             {
                 res.clearCookie('name', { });
                 res.redirect('/');
             }
-
         };
         mongoUsers.fetch(credentials, onFetch);
     }
@@ -636,11 +596,12 @@ router.get('/formation', function (req, res)
         res.redirect('/');
     }
 });
+
 router.get('/developers', function (req, res) // developers page
 {
-
     var results = [];
-    var credentials = {
+    var credentials =
+    {
         '_id': req.signedCookies.name
     };
     var onFetch = function(err,doc){
@@ -660,19 +621,20 @@ router.get('/developers', function (req, res) // developers page
 router.get('/settings',function(req,res){
     res.render('settings',{});
 });
+
 router.get('/forgot', function(req, res){
     res.render('forgot');
 });
 
 router.get('/reset/:token', function(req, res){
-    mongo.connect(uri, function(err, db) {
+    mongo.connect(mongoUri, function(err, db) {
         if(err)
         {
             console.log(err.message);
         }
         else
         {
-            db.collection(match).findOne({ token: req.params.token, expire: { $gt: Date.now() } }, function(err, doc) {
+            db.collection(match).findOne({ token: req.params.token, expire: {$gt: Date.now()}}, function(err, doc) {
                 db.close();
                 if(err)
                 {
@@ -690,29 +652,28 @@ router.get('/reset/:token', function(req, res){
         }
     });
 });
-module.exports = router;
-
 
 /*router.get('/sort',function(req,res){
-    var upper = req.body.upper;
-    var lower = req.body.lower;
-     var onFetch = function (err, documents)
-                    {
-                        if (err)
-                        {
-                            res.redirect('/home');
-                        }
-                        else
-                        {
-                            res.render('sort', {
-                                Players: documents,
-                                err : null,
-                                Upper : upper,
-                                Lower : lower
-                             });
-                        }
+ var upper = req.body.upper;
+ var lower = req.body.lower;
+ var onFetch = function (err, documents)
+ {
+ if (err)
+ {
+ res.redirect('/home');
+ }
+ else
+ {
+ res.render('sort', {
+ Players: documents,
+ err : null,
+ Upper : upper,
+ Lower : lower
+ });
+ }
 
-                    };
-                    mongoPlayers.fetchPlayers(onFetch);
+ };
+ mongoPlayers.fetchPlayers(onFetch);
+ });*/
 
-});*/
+module.exports = router;
