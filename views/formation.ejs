@@ -25,14 +25,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Riviera Premier League</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css" />
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
 
     <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
     <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css"/>
 
     <script src="/javascript/rpl.js"></script>
@@ -42,25 +42,21 @@
 
 
     <style>
-        #dis1, #dis2, #dis3, #dis4
-        {
+        #dis1, #dis2, #dis3, #dis4 {
             margin: 10% 0;
         }
 
-        .affix
-        {
+        .affix {
             top: 0;
         }
 
-        #dis1 li, #dis2 li, #dis3 li, #dis4 li
-        {
+        #dis1 li, #dis2 li, #dis3 li, #dis4 li {
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             margin: 1%;
         }
 
-        #dis1 img, #dis2 img, #dis3 img, #dis4 img
-        {
+        #dis1 img, #dis2 img, #dis3 img, #dis4 img {
             width: 15%;
             float: left;
             margin: -4% 0 0 0;
@@ -70,22 +66,16 @@
 
     </style>
     <script>
-        function load()
-        {
+        function load() {
 
-            setTimeout(function()
-            {
+            setTimeout(function () {
 
-                $('#preload').fadeIn('slow', function()
-                {
-                }).click(function()
-                {
-                    $('#preload').fadeOut('fast', function()
-                    {
+                $('#preload').fadeIn('slow', function () {
+                }).click(function () {
+                    $('#preload').fadeOut('fast', function () {
                     });
                     $('body').addClass('loaded');
-                    setTimeout(function()
-                    {
+                    setTimeout(function () {
                         $('#loader-wrapper').css('display', 'none');
                     }, 1000);
                 });
@@ -97,7 +87,8 @@
     </script>
 
 </head>
-<body onload="load()" style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<body onload="load()"
+      style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
 <div id="loader-wrapper">
 
     <div id="loader" style="overflow: visible;"></div>
@@ -107,26 +98,27 @@
     </div>
     <div class="col-md-6 col-md-offset-3" style="display:none;z-index: 1001;" id="preload">
         <h2 id="ini" style="color: rgba(255,255,255,0.9)">Formation Selection</h2>
-        <hr />
+        <hr/>
         <h4>
             <small style="color: rgba(255,255,255,0.8)">
-                <br />
+                <br/>
                 This is the Formation selection page.
-                <br /><br />
-                <b>After a formation has been chosen it can be changed by visiting the change formation link from Home page or Settings.</b>
-                <br /><br />
+                <br/><br/>
+                <b>After a formation has been chosen it can be changed by visiting the change formation link from Home
+                    page or Settings.</b>
+                <br/><br/>
                 Your team is displayed on the right.
-                <br /><br />
+                <br/><br/>
                 There are 7 formations.
-                <br /><br />
+                <br/><br/>
                 4-4-2, 4-3-3, 3-5-2, 4-5-1, 3-4-3, 5-3-2, 3-3-4
-                <br /><br />
+                <br/><br/>
                 Clicking on a formation tab will reset the current formation that you have chosen.
-                <br /><br />
+                <br/><br/>
                 <b>Click on the position first and then select the player that you want to put in that position.</b>
-                <br /><br />
+                <br/><br/>
                 Any player is allowed to play at any position.
-                <br /><br />
+                <br/><br/>
 
             </small>
         </h4>
@@ -138,138 +130,162 @@
 </div>
 <!-- Container -->
 <div style="padding: 0;margin: 0;overflow: hidden">
-<!-- Header -->
-<div class="col-md-12" style="background: white;z-index: 3" id="header">
-    <!--logo-->
-    <div class="row">
+    <!-- Header -->
+    <div class="col-md-12" style="background: white;z-index: 3" id="header">
+        <!--logo-->
+        <div class="row">
 
-        <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
-            <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+            <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
+                <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+            </div>
+            <div class="col-md-1"></div>
+            <!--Riviera Premier League -->
+            <div class="col-md-6" align="center" style="margin-left: -5%">
+
+                <h1 style="margin-top:7%">
+                    <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League
+                    </small>
+                </h1>
+
+            </div>
+
+
         </div>
-        <div class="col-md-1"></div>
-        <!--Riviera Premier League -->
-        <div class="col-md-6" align="center" style="margin-left: -5%">
-
-            <h1 style="margin-top:7%">
-                <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League
-                </small>
-            </h1>
-
-        </div>
+        <!--Menu -->
 
 
     </div>
-    <!--Menu -->
+    <!--Register-->
 
+    <!--test-->
+    <nav class="navbar navbar-default col-xs-12 " role="navigation"
+         style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#home-bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+            </div>
 
-</div>
-<!--Register-->
-
-<!--test-->
-<nav class="navbar navbar-default col-xs-12 " role="navigation"
-     style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#home-bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/home">Home</a></li>
-                <li><a href="/home/matches">Matches</a></li>
-                <li><a href="/home/leaderboard">Leaderboard</a></li>
-                <li><a href="/home/rules">Rules</a></li>
-                <li><a href="/home/prize">Prizes</a></li>
-                <li><a href="/logout">Logout</a></li>
-
-
-            </ul>
-
-
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<!--test-->
-
-
-<!--Content-->
-<div class="content_wrap row">
-    <div>
-        <div class="col-md-9  col-xs-9 col-sm-9  "
-             style="margin: 0;padding: 0; float: left;left:0;background: rgba(0,0,0,0.9);top:0;z-index: 999">
-            <!--data-spy="affix" data-value="0" data-offset-top="126" data-offset-bottom="630">-->
-
-            <div class="collapse navbar-collapse" id="myTab" style="float:left">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li role="presentation" class="active"><a href="#for1" aria-controls="for1" role="tab"
-                                                              data-toggle="tab" onclick="clear_all()">Formation
-                            1</a>
-                    </li>
-                    <li role="presentation"><a href="#for2" aria-controls="for2" role="tab" data-toggle="tab"
-                                               onclick="clear_all()">Formation 2</a>
-                    </li>
-                    <li role="presentation"><a href="#for3" aria-controls="for3" role="tab" data-toggle="tab"
-                                               onclick="clear_all()">Formation 3</a>
-                    </li>
-                    <li role="presentation"><a href="#for4" aria-controls="for4" role="tab" data-toggle="tab"
-                                               onclick="clear_all()">Formation 4</a>
-                    </li>
-                    <li role="presentation"><a href="#for5" aria-controls="for5" role="tab" data-toggle="tab"
-                                               onclick="clear_all()">Formation 5</a>
-                    </li>
-                    <li role="presentation"><a href="#for6" aria-controls="for6" role="tab" data-toggle="tab"
-                                               onclick="clear_all()">Formation 6</a>
-                    </li>
-                    <li role="presentation"><a href="#for7" aria-controls="for6" role="tab" data-toggle="tab"
-                                               onclick="clear_all()">Formation 7</a>
-                    </li>
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/home/matches">Matches</a></li>
+                    <li><a href="/home/leaderboard">Leaderboard</a></li>
+                    <li><a href="/home/rules">Rules</a></li>
+                    <li><a href="/home/prize">Prizes</a></li>
+                    <li><a href="/logout">Logout</a></li>
 
 
                 </ul>
+
+
             </div>
-
+            <!-- /.navbar-collapse -->
         </div>
-        <div class=" col-md-3 col-xs-3 col-sm-3 " id="player_list"
-             style="height:870px;overflow-y: scroll;right:0;margin-top: 0;top:0;float: right">
-            <!-- data-spy="affix" data-offset-top="126" data-offset-bottom="100">-->
-            <h3>
-                Squad
-                <hr />
+        <!-- /.container-fluid -->
+    </nav>
 
-            </h3>
-            <h4>
-                <small>Formation</small>
-            </h4>
+    <!--test-->
 
 
-            <ul id="list">
-                <li><a href="#">
-                        <h4 id="for">Goalkeepers</h4>
-                    </a>
-                    <hr />
-                    <ul id="dis1">
-                        <% var i;  for(i = 0;i < results.team.length;i++) { %>
+    <!--Content-->
+    <div class="content_wrap row">
+        <div>
+            <div class="col-md-9  col-xs-9 col-sm-9  "
+                 style="margin: 0;padding: 0; float: left;left:0;background: rgba(0,0,0,0.9);top:0;z-index: 999">
+                <!--data-spy="affix" data-value="0" data-offset-top="126" data-offset-bottom="630">-->
 
-                        <% if(results.team[i]._id > 368){ %>
+                <div class="collapse navbar-collapse" id="myTab" style="float:left">
+                    <ul class="nav navbar-nav">
+                        <li role="presentation" class="active"><a href="#for1" aria-controls="for1" role="tab"
+                                                                  data-toggle="tab" onclick="clear_all()">Formation
+                                1</a>
+                        </li>
+                        <li role="presentation"><a href="#for2" aria-controls="for2" role="tab" data-toggle="tab"
+                                                   onclick="clear_all()">Formation 2</a>
+                        </li>
+                        <li role="presentation"><a href="#for3" aria-controls="for3" role="tab" data-toggle="tab"
+                                                   onclick="clear_all()">Formation 3</a>
+                        </li>
+                        <li role="presentation"><a href="#for4" aria-controls="for4" role="tab" data-toggle="tab"
+                                                   onclick="clear_all()">Formation 4</a>
+                        </li>
+                        <li role="presentation"><a href="#for5" aria-controls="for5" role="tab" data-toggle="tab"
+                                                   onclick="clear_all()">Formation 5</a>
+                        </li>
+                        <li role="presentation"><a href="#for6" aria-controls="for6" role="tab" data-toggle="tab"
+                                                   onclick="clear_all()">Formation 6</a>
+                        </li>
+                        <li role="presentation"><a href="#for7" aria-controls="for6" role="tab" data-toggle="tab"
+                                                   onclick="clear_all()">Formation 7</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class=" col-md-3 col-xs-3 col-sm-3 " id="player_list"
+                 style="height:870px;overflow-y: scroll;right:0;margin-top: 0;top:0;float: right">
+                <!-- data-spy="affix" data-offset-top="126" data-offset-bottom="100">-->
+                <h3>
+                    Squad
+                    <hr/>
+
+                </h3>
+                <h4>
+                    <small>Formation</small>
+                </h4>
+
+
+                <ul id="list">
+                    <li><a href="#">
+                            <h4 id="for">Goalkeepers</h4>
+                        </a>
+                        <hr/>
+                        <ul id="dis1">
+                            <% var i;  for(i = 0;i < results.team.length;i++) { %>
+
+                            <% if(results.team[i]._id > 368){ %>
+                            <li id="box<%= results.team[i]._id %>">
+                                <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                                <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
+                                <p><%= results.team[i].Name %></p>
+
+                                <form name="h" style="display: none">
+                                    <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+
+
+                                </form>
+                            </li>
+
+                            <% }  } %>
+
+                        </ul>
+                    </li>
+                    <li><a href="#">
+                            <h4 id="mid">Defenders</h4>
+                        </a></li>
+                    <hr/>
+                    <ul id="dis2">
+                        <% for(i = 0;i < results.team.length;i++) { %>
+
+                        <% if(results.team[i]._id < 369 && results.team[i]._id > 252){ %>
                         <li id="box<%= results.team[i]._id %>">
-                            <img src='/images/goal/<%= results.team[i]._id %>.jpg' />
+                            <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
                             <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
                             <p><%= results.team[i].Name %></p>
 
                             <form name="h" style="display: none">
-                                <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>" />
+                                <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
 
 
                             </form>
@@ -278,399 +294,374 @@
                         <% }  } %>
 
                     </ul>
-                </li>
-                <li><a href="#">
-                        <h4 id="mid">Defenders</h4>
-                    </a></li>
-                <hr />
-                <ul id="dis2">
-                    <% for(i = 0;i < results.team.length;i++) { %>
+                    <li><a href="#">
+                            <h4 id="def">Midfielders</h4>
+                        </a></li>
+                    <hr/>
+                    <ul id="dis3">
+                        <% for(i = 0;i < results.team.length;i++) { %>
 
-                    <% if(results.team[i]._id < 369 && results.team[i]._id > 252){ %>
-                    <li id="box<%= results.team[i]._id %>">
-                        <img src='/images/goal/<%= results.team[i]._id %>.jpg' />
-                        <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
-                        <p><%= results.team[i].Name %></p>
+                        <% if(results.team[i]._id > 126 && results.team[i]._id < 253){ %>
+                        <li id="box<%= results.team[i]._id %>">
+                            <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                            <button onclick='rem(<%= results.team[i]._id %>)'> <<</button>
+                            <p><%= results.team[i].Name %></p>
 
-                        <form name="h" style="display: none">
-                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>" />
+                            <form name="h" style="display: none">
+                                <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
 
 
-                        </form>
-                    </li>
+                            </form>
+                        </li>
 
-                    <% }  } %>
+                        <% }  } %>
+                    </ul>
+                    <li><a href="#">
+                            <h4 id="goal">Forwards</h4>
+                        </a></li>
+                    <hr/>
+                    <ul id="dis4">
+                        <% for(i = 0;i < results.team.length;i++) { %>
+
+                        <% if(results.team[i]._id <= 126){ %>
+                        <li id="box<%= results.team[i]._id %>">
+                            <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                            <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
+                            <p><%= results.team[i].Name %></p>
+
+                            <form name="h" style="display: none">
+                                <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>"/>
+
+
+                            </form>
+                        </li>
+
+                        <% }  } %>
+                    </ul>
 
                 </ul>
-                <li><a href="#">
-                        <h4 id="def">Midfielders</h4>
-                    </a></li>
-                <hr />
-                <ul id="dis3">
-                    <% for(i = 0;i < results.team.length;i++) { %>
-
-                    <% if(results.team[i]._id > 126 && results.team[i]._id < 253){ %>
-                    <li id="box<%= results.team[i]._id %>">
-                        <img src='/images/goal/<%= results.team[i]._id %>.jpg' />
-                        <button onclick='rem(<%= results.team[i]._id %>)'> <<</button>
-                        <p><%= results.team[i].Name %></p>
-
-                        <form name="h" style="display: none">
-                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>" />
 
 
-                        </form>
-                    </li>
-
-                    <% }  } %>
-                </ul>
-                <li><a href="#">
-                        <h4 id="goal">Forwards</h4>
-                    </a></li>
-                <hr />
-                <ul id="dis4">
-                    <% for(i = 0;i < results.team.length;i++) { %>
-
-                    <% if(results.team[i]._id <= 126){ %>
-                    <li id="box<%= results.team[i]._id %>">
-                        <img src='/images/goal/<%= results.team[i]._id %>.jpg' />
-                        <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
-                        <p><%= results.team[i].Name %></p>
-
-                        <form name="h" style="display: none">
-                            <input value="<%= results.team[i].Name %>" id="cn<%= results.team[i]._id %>" />
-
-
-                        </form>
-                    </li>
-
-                    <% }  } %>
-                </ul>
-
-            </ul>
+            </div>
 
 
         </div>
+        <div class="tab-content" style="background: rgba(216,216,216,1)">
+            <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for1">
 
+                <ul>
+
+                    <li style="height: auto;">
+                        Formation 1: 4 - 4 - 2
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');background-size: 100% 100%;background-repeat:no-repeat;height: 600px;width: 489px;">
+                            <form id="formation1">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="a0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="a1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="a2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="a3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="a4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/><br/>
+                                    <input type="radio" name="f" id="a5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="a6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="a7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="a8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/><br/>
+                                    <input type="radio" name="f" id="a9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="a10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for2">
+                <ul>
+                    <li style="height: auto;">
+                        Formation 2: 4 - 3 - 3
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                            <form id="formation2">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="b0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="b1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="b2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="b3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="b4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/><br/>
+                                    <input type="radio" name="f" id="b5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="b6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="b7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/><br/>
+                                    <input type="radio" name="f" id="b8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="b9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 23%;"/>
+                                    <input type="radio" name="f" id="b10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 23%;"/>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for3">
+                <ul>
+
+                    <li style="height: auto;width: auto;">
+                        Formation 3: 3 - 5 - 2
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                            <form id="formation3">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="c0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="c1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="c2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/>
+                                    <input type="radio" name="f" id="c3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/><br/>
+                                    <input type="radio" name="f" id="c4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="c5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="c6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="c7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="c8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/><br/>
+                                    <input type="radio" name="f" id="c9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="c10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for4">
+                <ul>
+
+                    <li style="width: auto;height: auto;">
+                        Formation 4: 4 - 5 - 1
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                            <form id="formation4">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="d0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="d1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="d2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="d3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="d4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/><br/>
+                                    <input type="radio" name="f" id="d5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="d6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="d7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="d8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="d9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/><br/>
+                                    <input type="radio" name="f" id="d10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for5">
+                <ul>
+
+                    <li style="height: auto;width: auto;">
+                        Formation 5: 3 - 4 - 3
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                            <form id="formation5">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="e0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="e1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="e2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/>
+                                    <input type="radio" name="f" id="e3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/><br/>
+                                    <input type="radio" name="f" id="e4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="e5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="e6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="e7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/><br/>
+                                    <input type="radio" name="f" id="e8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="e9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 23%;"/>
+                                    <input type="radio" name="f" id="e10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 23%;"/>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for6">
+                <ul>
+
+                    <li style="width: auto;height: auto;">
+                        Formation 6: 5 - 3 - 2
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                            <form id="formation6">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="f0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="f1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="f2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="f3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="f4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/>
+                                    <input type="radio" name="f" id="f5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 15%;"/><br/>
+                                    <input type="radio" name="f" id="f6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="f7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 23%;"/>
+                                    <input type="radio" name="f" id="f8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 23%;"/><br/>
+                                    <input type="radio" name="f" id="f9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="f10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/></ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for7">
+                <ul>
+
+                    <li style="width: auto;height: auto;">
+                        Formation 7: 3 - 3 - 4
+                    </li>
+                    <br/>
+
+                    <li style="height: auto;width: auto;">
+                        <div class="col-xs-9"
+                             style="background-image: url('/images/field.png');height: 600px;width: 489px;">
+                            <form id="formation7">
+                                <ul style="margin:0;padding: 0">
+                                    <input type="radio" name="f" id="g0" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;"/><br/>
+                                    <input type="radio" name="f" id="g1" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 23%;"/>
+                                    <input type="radio" name="f" id="g2" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/>
+                                    <input type="radio" name="f" id="g3" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/><br/>
+                                    <input type="radio" name="f" id="g4" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="g5" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/>
+                                    <input type="radio" name="f" id="g6" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 24%;"/><br/>
+                                    <input type="radio" name="f" id="g7" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;"/>
+                                    <input type="radio" name="f" id="g8" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="g9" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                    <input type="radio" name="f" id="g10" onclick="active(this.id);"
+                                           style="border: 0;height:auto;width:auto;margin-left: 20%;"/>
+                                </ul>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <form id="form" class="col-xs-3" style="margin-left:26.5%">
+                <input style="display: none;" id="t1" name="p1" value=""/>
+                <input style="display: none;" id="t2" name="p2" value=""/>
+                <input style="display: none;" id="t3" name="p3" value=""/>
+                <input style="display: none;" id="t4" name="p4" value=""/>
+                <input style="display: none;" id="t5" name="p5" value=""/>
+                <input style="display: none;" id="t6" name="p6" value=""/>
+                <input style="display: none;" id="t7" name="p7" value=""/>
+                <input style="display: none;" id="t8" name="p8" value=""/>
+                <input style="display: none;" id="t9" name="p9" value=""/>
+                <input style="display: none;" id="t10" name="p10" value=""/>
+                <input style="display: none;" id="t11" name="p11" value=""/>
+                <input style="display: none;" id="t12" name="p12" value=""/>
+
+                <input onclick="subm();" type="submit"
+                       id="sub" class="button" style="border-radius: 0" value="Done"/>
+
+            </form>
+        </div>
+
+        <script>
+            $(function () {
+                $('#myTab a:first').tab('show')
+            })
+        </script>
 
     </div>
-    <div class="tab-content" style="background: rgba(216,216,216,1)">
-        <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="for1">
-
-            <ul>
-
-                <li style="height: auto;">
-                    Formation 1: 4 - 4 - 2
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');background-size: 100% 100%;background-repeat:no-repeat;height: 600px;width: 489px;">
-                        <form id="formation1">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="a0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="a1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="a2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="a3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="a4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /><br />
-                                <input type="radio" name="f" id="a5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="a6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="a7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="a8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /><br />
-                                <input type="radio" name="f" id="a9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="a10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                            </ul>
-                        </form>
-                    </div>
-                </li>
-
-            </ul>
-
-        </div>
-        <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for2">
-            <ul>
-                <li style="height: auto;">
-                    Formation 2: 4 - 3 - 3
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');height: 600px;width: 489px;">
-                        <form id="formation2">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="b0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="b1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="b2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="b3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="b4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /><br />
-                                <input type="radio" name="f" id="b5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="b6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="b7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /><br />
-                                <input type="radio" name="f" id="b8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="b9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 23%;" />
-                                <input type="radio" name="f" id="b10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 23%;" />
-                            </ul>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for3">
-            <ul>
-
-                <li style="height: auto;width: auto;">
-                    Formation 3: 3 - 5 - 2
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');height: 600px;width: 489px;">
-                        <form id="formation3">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="c0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="c1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="c2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" />
-                                <input type="radio" name="f" id="c3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" /><br />
-                                <input type="radio" name="f" id="c4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="c5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="c6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="c7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="c8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" /><br />
-                                <input type="radio" name="f" id="c9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="c10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                            </ul>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for4">
-            <ul>
-
-                <li style="width: auto;height: auto;">
-                    Formation 4: 4 - 5 - 1
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');height: 600px;width: 489px;">
-                        <form id="formation4">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="d0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="d1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="d2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="d3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="d4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /><br />
-                                <input type="radio" name="f" id="d5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="d6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="d7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="d8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="d9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" /><br />
-                                <input type="radio" name="f" id="d10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                            </ul>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for5">
-            <ul>
-
-                <li style="height: auto;width: auto;">
-                    Formation 5: 3 - 4 - 3
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');height: 600px;width: 489px;">
-                        <form id="formation5">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="e0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="e1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="e2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" />
-                                <input type="radio" name="f" id="e3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" /><br />
-                                <input type="radio" name="f" id="e4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="e5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="e6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="e7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /><br />
-                                <input type="radio" name="f" id="e8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="e9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 23%;" />
-                                <input type="radio" name="f" id="e10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 23%;" />
-                            </ul>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for6">
-            <ul>
-
-                <li style="width: auto;height: auto;">
-                    Formation 6: 5 - 3 - 2
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');height: 600px;width: 489px;">
-                        <form id="formation6">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="f0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="f1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="f2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="f3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="f4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" />
-                                <input type="radio" name="f" id="f5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 15%;" /><br />
-                                <input type="radio" name="f" id="f6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="f7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 23%;" />
-                                <input type="radio" name="f" id="f8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 23%;" /><br />
-                                <input type="radio" name="f" id="f9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="f10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" /></ul>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="for7">
-            <ul>
-
-                <li style="width: auto;height: auto;">
-                    Formation 7: 3 - 3 - 4
-                </li>
-                <br />
-
-                <li style="height: auto;width: auto;">
-                    <div class="col-xs-9"
-                         style="background-image: url('/images/field.png');height: 600px;width: 489px;">
-                        <form id="formation7">
-                            <ul style="margin:0;padding: 0">
-                                <input type="radio" name="f" id="g0" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 10%;" /><br />
-                                <input type="radio" name="f" id="g1" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 23%;" />
-                                <input type="radio" name="f" id="g2" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" />
-                                <input type="radio" name="f" id="g3" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" /><br />
-                                <input type="radio" name="f" id="g4" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 1%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="g5" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" />
-                                <input type="radio" name="f" id="g6" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 24%;" /><br />
-                                <input type="radio" name="f" id="g7" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 2%;margin-top: 26%;" />
-                                <input type="radio" name="f" id="g8" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="g9" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                                <input type="radio" name="f" id="g10" onclick="active(this.id);"
-                                       style="border: 0;height:auto;width:auto;margin-left: 20%;" />
-                            </ul>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <form id="form" class="col-xs-3" style="margin-left:26.5%">
-            <input style="display: none;" id="t1" name="p1" value="" />
-            <input style="display: none;" id="t2" name="p2" value="" />
-            <input style="display: none;" id="t3" name="p3" value="" />
-            <input style="display: none;" id="t4" name="p4" value="" />
-            <input style="display: none;" id="t5" name="p5" value="" />
-            <input style="display: none;" id="t6" name="p6" value="" />
-            <input style="display: none;" id="t7" name="p7" value="" />
-            <input style="display: none;" id="t8" name="p8" value="" />
-            <input style="display: none;" id="t9" name="p9" value="" />
-            <input style="display: none;" id="t10" name="p10" value="" />
-            <input style="display: none;" id="t11" name="p11" value="" />
-            <input style="display: none;" id="t12" name="p12" value="" />
-
-            <input onclick="subm();" type="submit"
-                   id="sub" class="button" style="border-radius: 0" value="Done" />
-
-        </form>
-    </div>
-
-    <script>
-        $(function()
-        {
-            $('#myTab a:first').tab('show')
-        })
-    </script>
-
-</div>
 
 </div>
 
@@ -678,7 +669,7 @@
 <!--Footer -->
 <div class="col-md-12 row"
      style="width:100%;margin:0;box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;z-index: 200">
-    <hr />
+    <hr/>
     <div class="row">
         <div class="col-md-12" align="center" style="text-align: center">
             <a href="/developer">
@@ -690,13 +681,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4" align="center"><a href="http://www.vitriviera.com/"><img src="/images/riviera.png"
-                                                                                       style="width: 100%;margin:5%" /></a>
-        </div>
         <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
-                        src="/images/ieeecs logo.gif" style="width: 70%;margin:5%" /></a></div>
-        <div class="col-md-4" align="center"><a href="http://www.vit.ac.in/"><img src="/images/vit_logo_white.png"
-                                                                                  style="width: 70%;margin:5%" /></a>
+                        src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+        <div class="col-md-offset-4 col-md-4" align="center"><a href="http://www.vit.ac.in/"><img
+                        src="/images/vit_logo_white.png"
+                        style="width: 70%;margin:5%"/></a>
         </div>
 
     </div>
