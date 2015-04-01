@@ -20,7 +20,7 @@ var express = require('express');
 var path = require('path');
 var async = require('async');
 var router = express.Router();
-var match = require(path.join(__dirname, '..', '..', 'matchCollection'));
+var match = require(path.join(__dirname, '..', 'matchCollection'));
 var mongo = require('mongodb').MongoClient;
 var mongoUri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/RPL';
 var log;
