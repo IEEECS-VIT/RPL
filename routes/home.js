@@ -32,10 +32,10 @@ if (process.env.LOGENTRIES_TOKEN)
                             });
 }
 
-var mongoPlayers = require(path.join(__dirname, '..', '..', 'db', 'mongo-players'));
-var mongoUsers = require(path.join(__dirname, '..', '..', 'db', 'mongo-users'));
-var mongoTeam = require(path.join(__dirname, '..', '..', 'db', 'mongo-team'));
-var mongoMatches = require(path.join(__dirname, '..', '..', 'db', 'mongo-matches'));
+var mongoPlayers = require(path.join(__dirname, '..', 'db', 'mongo-players'));
+var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
+var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
+var mongoMatches = require(path.join(__dirname, '..', 'db', 'mongo-matches'));
 
 router.get('/', function (req, res)
 {
