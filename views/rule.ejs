@@ -20,296 +20,296 @@
 <html class="lt-ie10" lang="en">
 <![endif]-->
 <html lang="en" class="no-js">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Riviera Premier League</title>
-        <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-        <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-        <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Riviera Premier League</title>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
 
-        <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
-        <script src="/javascript/rpl.js"></script>
-    </head>
-    <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
-        <div id="fb-root"></div>
-        <script>(function(d, s, id)
-            {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if(d.getElementById(id)) return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-        <!-- Container -->
-        <div style="padding: 0;margin: 0;overflow: hidden">
-            <!-- Header -->
-            <div class="col-md-12" style="background: white;z-index: 3" id="header">
-                <!--logo-->
-                <div class="row">
+    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+    <script src="/javascript/rpl.js"></script>
+</head>
+<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<!-- Container -->
+<div style="padding: 0;margin: 0;overflow: hidden">
+    <!-- Header -->
+    <div class="col-md-12" style="background: white;z-index: 3" id="header">
+        <!--logo-->
+        <div class="row">
 
-                    <div class="col-md-1 col-md-offset-2" align="center">
-                        <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
-                    </div>
-                    <div class="col-md-1"></div>
-                    <!--Riviera Premier League -->
-                    <div class="col-md-6" align="center" style="margin-left: -5%">
-
-                        <h1 style="margin-top:7%">
-                            <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League
-                            </small>
-                        </h1>
-                    </div>
-                </div>
-               <!--Menu -->
+            <div class="col-md-1 col-md-offset-2" align="center">
+                <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
             </div>
-            <!--Register-->
-            <!--test-->
-            <nav class="navbar navbar-default" role="navigation"
-                 style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/">Home</a></li>
-                            <li class="active"><a href="/rule">Rules</a></li>
-                            <li><a href="/prizes">Prizes</a></li>
-                            <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
-                            <li id="loginh">
-                                <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">Login</a>
-                            </li>
-                        </ul>
-                        <div id="fb-root"></div>
-                        <div id="login_small" class="col-md-4">
-                            <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit"
-                                 data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"
-                                 style="margin:10%"></div>
-                        </div>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-            <!--test-->
-            <!--Content-->
-            <!--Register-->
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
-                                                                                           style="color: #ffffff">×</span><span
-                                        class="sr-only">Close</span></button>
-                            <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Register</h2>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/register" method="post" name="signin" id="reg">
-                                <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
-                                <br/>
-                                <input name="m_name" type="text" placeholder="Manager's Name" id="m_name"/>
-                                <br/>
-                                <input name="t_name" type="text" placeholder="Team Name" id="t_name"/>
-                                <br/>
-                                <input name="rpass" type="password" placeholder="Password" id="rpass"/>
-                                <br/>
-                                <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass"/>
-                                <br/>
-                                <input name="pno" type="text" placeholder="Phone Number" id="pno"/>
-                                <br/>
-                                <input name="email" type="email" placeholder="example@domain.com" id="email"/>
-                                <br/>
-                                <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--login modal-->
-            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
-                                                                                           style="color: #ffffff">×</span><span
-                                        class="sr-only">Close</span></button>
-                            <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Login</h2>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/login" method="post">
+            <div class="col-md-1"></div>
+            <!--Riviera Premier League -->
+            <div class="col-md-6" align="center" style="margin-left: -5%">
 
-                                <input name="t_name" type="text" placeholder="Team Name"/>
-                                <br/>
-                                <input name="pass" type="password" placeholder="Password"/>
-                                <br/>
-                                <a href="#" style="">forgot password?</a>
-                                <br/>
-                                <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--login-->
-            <div class="col-md-1" style="float: right" id="login_container">
-                <div class="row" style="padding: 0;margin: 0">
-                    <div class="col-md-12" style="margin:0;padding: 0" id="log">
-                        <a href="#" onclick="login(1)">
-                            <div class="col-md-12" id="login">
-                                Login
-                            </div>
-
-                        </a>
-                    </div>
-                    <div class="col-md-8" id="login_box" style="display: none">
-                        <form action="/login" method="post">
-
-                            <input name="t_name" type="text" placeholder="Team Name"/>
-                            <br/>
-                            <input name="pass" type="password" placeholder="Password"/>
-                            <br/>
-                            <a href="/forgot" style="">forgot password?</a>
-                            <br/>
-                            <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!--Rules-->
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div align="center" class="col-md-8 box"
-                     style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-                    <div class="row" style="text-align: left;margin: 2%">
-                        <h1>
-                            <small>Riviera Premier League is a Football Fantasy Premier League where you can create and
-                                manage your own football team!
-                            </small>
-                        </h1>
-
-                        <h2 id="ini" style="font-weight: bold; text-decoration: underline">
-                            <small>Management</small>
-                        </h2>
-                        <h4>
-                            <small>
-                                After signing up, you need to buy your team and can be done only once.
-                                <br/><br/>
-                                You will be given 100 Million virtual Euros to buy your
-                                team. Any remaining amount of money will be rendered useless.
-                                <br/><br/>
-                                The players are classified into four categories: Forwards, Midfielders, Defenders and
-                                Goalkeepers. You need to choose at least 1 of each type.
-                                <br/><br/>
-                                The total number of players in your squad has to be 16.
-                                <br/><br/>
-                                After buying your team you will be deciding your formation.
-                                <br/><br/>
-                                Please note that if this is not done before the commencement of matches, then your team will
-                                forfeit the match by default.
-                                <br/><br/>
-                                You can change your formation at any point of time.
-                                <br /><br>
-                                <b>After a team has been chosen, the squad may be rotated but cannot be changed.</b>
-                            </small>
-                        </h4>
-                        <h2 id="lay" style="font-weight: bold; text-decoration: underline">
-                            <small>Layout</small>
-                        </h2>
-                        <h4>
-                            <small>
-                                Once the league begins, you will be pitted against 7 random opponents at the rate of one per day.
-                                <br/><br/>
-                                After the first round is complete, the top 512 teams will be selected for
-                                the second round.
-                                <br/><br/>
-                                The second round will proceed in exactly the same manner, but 8 will be selected for the final
-                                round.
-                                <br/><br/>
-                                The final round is a LIVE AUCTION!
-                            </small>
-                        </h4>
-                        <h2 id="mat" style="font-weight: bold; text-decoration: underline">
-                            <small>Matches</small>
-                        </h2>
-                        <h4>
-                            <small>
-                                Each win will fetch the team 3 points, a loss will fetch 0 points and a draw will fetch 1
-                                point. If your team wins due to the opponent forfeiting, then 2 points are awarded.
-                                <br/><br/>
-                                While selecting Teams for subsequent rounds, teams with same number of points will be
-                                considered on the basis of their Goal Difference and if Goal Difference is the same then the
-                                Goals
-                                Scored by the teams will be taken into consideration.
-                            </small>
-                        </h4>
-                        <hr>
-                        <h4>
-                            <small>
-                                Disputes, if any, shall be resolved at the auctioneer’s discretion. Under no
-                                circumstances may participants
-                                engage in cross-talk.
-                                <br/><br/>
-                                Failure to comply with any of the aforementioned instructions shall result in immediate
-                                disqualification.
-                            </small>
-                        </h4>
-                        <h5 style="font-weight: bold; text-decoration: underline">
-                            <small>Note</small>
-                        </h5>
-                        <h6>
-                            <small>
-                                All of the rules mentioned above are subject to change without any prior notice
-                                whatsoever. By appearing for the aforementioned auction, you agree to abide by the rules
-                                contained herein.
-                                <br/><br/>
-                                Disputes, if any, shall be resolved at the Event Coordinator’s discretion.
-                            </small>
-                        </h6>
-                    </div>
-                </div>
-            </div>
-            <!--Footer -->
-            <div class="col-md-12"
-                 style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
-                <hr/>
-                <div class="row">
-                    <div class="col-md-12" align="center" style="text-align: center">
-                        <a href="/developer">
-                            <h4>
-                                Developers
-                            </h4>
-                        </a>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
-                                    src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
-                    <div class="col-md-offset-4 col-md-4" align="center"><a href="http://www.vit.ac.in/"><img
-                                    src="/images/vit_logo_white.png"
-                                    style="width: 70%;margin:5%"/></a>
-                    </div>
-
-                </div>
-                <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count"
-                     data-action="like" data-show-faces="true" data-share="true"></div>
+                <h1 style="margin-top:7%">
+                    <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League
+                    </small>
+                </h1>
             </div>
         </div>
-    </body>
+        <!--Menu -->
+    </div>
+    <!--Register-->
+    <!--test-->
+    <nav class="navbar navbar-default" role="navigation"
+         style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/rule">Rules</a></li>
+                    <li><a href="/prizes">Prizes</a></li>
+                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
+                    <li id="loginh">
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">Login</a>
+                    </li>
+                </ul>
+                <div id="fb-root"></div>
+                <div id="login_small" class="col-md-4">
+                    <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit"
+                         data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"
+                         style="margin:10%"></div>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!--test-->
+    <!--Content-->
+    <!--Register-->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                                   style="color: #ffffff">×</span><span
+                                class="sr-only">Close</span></button>
+                    <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Register</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="/register" method="post" name="signin" id="reg">
+                        <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
+                        <br/>
+                        <input name="m_name" type="text" placeholder="Manager's Name" id="m_name"/>
+                        <br/>
+                        <input name="t_name" type="text" placeholder="Team Name" id="t_name"/>
+                        <br/>
+                        <input name="rpass" type="password" placeholder="Password" id="rpass"/>
+                        <br/>
+                        <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass"/>
+                        <br/>
+                        <input name="pno" type="text" placeholder="Phone Number" id="pno"/>
+                        <br/>
+                        <input name="email" type="email" placeholder="example@domain.com" id="email"/>
+                        <br/>
+                        <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--login modal-->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: rgba(0, 0, 0, 0.8);border-radius: 0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"
+                                                                                   style="color: #ffffff">×</span><span
+                                class="sr-only">Close</span></button>
+                    <h2 class="modal-title" id="myLargeModalLabel" style="color: #ffffff">Login</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="/login" method="post">
+
+                        <input name="t_name" type="text" placeholder="Team Name"/>
+                        <br/>
+                        <input name="pass" type="password" placeholder="Password"/>
+                        <br/>
+                        <a href="#" style="">forgot password?</a>
+                        <br/>
+                        <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--login-->
+    <div class="col-md-1" style="float: right" id="login_container">
+        <div class="row" style="padding: 0;margin: 0">
+            <div class="col-md-12" style="margin:0;padding: 0" id="log">
+                <a href="#" onclick="login(1)">
+                    <div class="col-md-12" id="login">
+                        Login
+                    </div>
+
+                </a>
+            </div>
+            <div class="col-md-8" id="login_box" style="display: none">
+                <form action="/login" method="post">
+
+                    <input name="t_name" type="text" placeholder="Team Name"/>
+                    <br/>
+                    <input name="pass" type="password" placeholder="Password"/>
+                    <br/>
+                    <a href="/forgot" style="">forgot password?</a>
+                    <br/>
+                    <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Rules-->
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div align="center" class="col-md-8 box"
+             style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+            <div class="row" style="text-align: left;margin: 2%">
+                <h1>
+                    <small>Riviera Premier League is a Football Fantasy Premier League where you can create and
+                        manage your own football team!
+                    </small>
+                </h1>
+
+                <h2 id="ini" style="font-weight: bold; text-decoration: underline">
+                    <small>Management</small>
+                </h2>
+                <h4>
+                    <small>
+                        After signing up, you need to buy your team and can be done only once.
+                        <br/><br/>
+                        You will be given 100 Million virtual Euros to buy your
+                        team. Any remaining amount of money will be rendered useless.
+                        <br/><br/>
+                        The players are classified into four categories: Forwards, Midfielders, Defenders and
+                        Goalkeepers. You need to choose at least 1 of each type.
+                        <br/><br/>
+                        The total number of players in your squad has to be 16.
+                        <br/><br/>
+                        After buying your team you will be deciding your formation.
+                        <br/><br/>
+                        Please note that if this is not done before the commencement of matches, then your team will
+                        forfeit the match by default.
+                        <br/><br/>
+                        You can change your formation at any point of time.
+                        <br/><br>
+                        <b>After a team has been chosen, the squad may be rotated but cannot be changed.</b>
+                    </small>
+                </h4>
+                <h2 id="lay" style="font-weight: bold; text-decoration: underline">
+                    <small>Layout</small>
+                </h2>
+                <h4>
+                    <small>
+                        Once the league begins, you will be pitted against 7 random opponents at the rate of one per
+                        day.
+                        <br/><br/>
+                        After the first round is complete, the top 512 teams will be selected for
+                        the second round.
+                        <br/><br/>
+                        The second round will proceed in exactly the same manner, but 8 will be selected for the final
+                        round.
+                        <br/><br/>
+                        The final round is a LIVE AUCTION!
+                    </small>
+                </h4>
+                <h2 id="mat" style="font-weight: bold; text-decoration: underline">
+                    <small>Matches</small>
+                </h2>
+                <h4>
+                    <small>
+                        Each win will fetch the team 3 points, a loss will fetch 0 points and a draw will fetch 1
+                        point. If your team wins due to the opponent forfeiting, then 2 points are awarded.
+                        <br/><br/>
+                        While selecting Teams for subsequent rounds, teams with same number of points will be
+                        considered on the basis of their Goal Difference and if Goal Difference is the same then the
+                        Goals
+                        Scored by the teams will be taken into consideration.
+                    </small>
+                </h4>
+                <hr>
+                <h4>
+                    <small>
+                        Disputes, if any, shall be resolved at the auctioneer’s discretion. Under no
+                        circumstances may participants
+                        engage in cross-talk.
+                        <br/><br/>
+                        Failure to comply with any of the aforementioned instructions shall result in immediate
+                        disqualification.
+                    </small>
+                </h4>
+                <h5 style="font-weight: bold; text-decoration: underline">
+                    <small>Note</small>
+                </h5>
+                <h6>
+                    <small>
+                        All of the rules mentioned above are subject to change without any prior notice
+                        whatsoever. By appearing for the aforementioned auction, you agree to abide by the rules
+                        contained herein.
+                        <br/><br/>
+                        Disputes, if any, shall be resolved at the Event Coordinator’s discretion.
+                    </small>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!--Footer -->
+    <div class="col-md-12"
+         style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
+        <hr/>
+        <div class="row">
+            <div class="col-md-12" align="center" style="text-align: center">
+                <a href="/developer">
+                    <h4>
+                        Developers
+                    </h4>
+                </a>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
+                            src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+            <div class="col-md-offset-4 col-md-4" align="center"><a href="http://www.vit.ac.in/"><img
+                            src="/images/vit_logo_white.png"
+                            style="width: 70%;margin:5%"/></a>
+            </div>
+
+        </div>
+        <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count"
+             data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
+</div>
+</body>
 </html>

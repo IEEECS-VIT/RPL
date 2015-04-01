@@ -18,171 +18,171 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Schedule | RPL</title>
-        <link type="text/css" rel="stylesheet" href="/bower_components/foundation/css/foundation.css"/>
-    </head>
-    <body style="background-color:#646464;font-family: 'PT Sans', sans-serif;height:100%;">
-        <div style="min-height: 100%">
-            <!--TOP BAR-->
-            <div class="large-12 top-bar" style="overflow: visible;">
-                <section class="top-bar-section small-only-text-center">
-                    <ul class="left">
-                        <li><a href="/"><img src="/images/small.png" style="height:42px;padding-bottom:3px;"/></a></li>
-                        <li><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs.png"
-                                                                              style="height:40px;"
-                                                                              align="center"/></a></li>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule | RPL</title>
+    <link type="text/css" rel="stylesheet" href="/bower_components/foundation/css/foundation.css"/>
+</head>
+<body style="background-color:#646464;font-family: 'PT Sans', sans-serif;height:100%;">
+<div style="min-height: 100%">
+    <!--TOP BAR-->
+    <div class="large-12 top-bar" style="overflow: visible;">
+        <section class="top-bar-section small-only-text-center">
+            <ul class="left">
+                <li><a href="/"><img src="/images/small.png" style="height:42px;padding-bottom:3px;"/></a></li>
+                <li><a href="https://www.facebook.com/ieeecsvit"><img src="/images/ieeecs.png"
+                                                                      style="height:40px;"
+                                                                      align="center"/></a></li>
 
-                    </ul>
-                    <ul class="right">
-                        <li><a href="/register">Register</a></li>
-                        <li class="has-dropdown not-click" style="border-radius: 5px">
-                            <a href="#" style="border-radius: 5px">Sign In</a>
-                            <ul class="dropdown" style="width:300%;">
-                                <form method="post" action="/login">
-                                    <li class="title back js-generated">
-                                        <h5>
-                                            <a href="javascript:void(0)">
-                                                Back
-                                            </a>
-                                        </h5>
-                                    </li>
+            </ul>
+            <ul class="right">
+                <li><a href="/register">Register</a></li>
+                <li class="has-dropdown not-click" style="border-radius: 5px">
+                    <a href="#" style="border-radius: 5px">Sign In</a>
+                    <ul class="dropdown" style="width:300%;">
+                        <form method="post" action="/login">
+                            <li class="title back js-generated">
+                                <h5>
+                                    <a href="javascript:void(0)">
+                                        Back
+                                    </a>
+                                </h5>
+                            </li>
 
 
-                                    <li>
+                            <li>
 
-                                        <div class="small-12 left" style="margin:1%;padding-bottom: 5%">
-                                            <div class="row">
-                                                <div class="small-3 columns" style="margin-left: -5%">
-                                                    <label for="team" class="right inline" style="color: white;">Team
-                                                        Name: </label>
-                                                </div>
-                                                <div class="small-9 columns">
-                                                    <input type="text" id="team" name="team_name"
-                                                           placeholder="Team Name"
-                                                           value=""
-                                                           style="margin:-4% 0 0 1%;border-radius: 5px">
-                                                </div>
-                                            </div>
+                                <div class="small-12 left" style="margin:1%;padding-bottom: 5%">
+                                    <div class="row">
+                                        <div class="small-3 columns" style="margin-left: -5%">
+                                            <label for="team" class="right inline" style="color: white;">Team
+                                                Name: </label>
                                         </div>
+                                        <div class="small-9 columns">
+                                            <input type="text" id="team" name="team_name"
+                                                   placeholder="Team Name"
+                                                   value=""
+                                                   style="margin:-4% 0 0 1%;border-radius: 5px">
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                                        <!--Username/Team Name -->
+                                <!--Username/Team Name -->
 
 
-                                        <div class="small-12 left" style="margin:1%;padding-bottom: 5%">
-                                            <div class="row" style="margin-top: 2%">
-                                                <div class="small-3 columns" style="margin-left: -5%">
-                                                    <label for="pass" class="right inline"
-                                                           style="color: white;">Password: </label>
-                                                </div>
-                                                <div class="small-9 columns">
-                                                    <input type="password" id="p
+                                <div class="small-12 left" style="margin:1%;padding-bottom: 5%">
+                                    <div class="row" style="margin-top: 2%">
+                                        <div class="small-3 columns" style="margin-left: -5%">
+                                            <label for="pass" class="right inline"
+                                                   style="color: white;">Password: </label>
+                                        </div>
+                                        <div class="small-9 columns">
+                                            <input type="password" id="p
                               ass" placeholder="Password" name="password" value=""
-                                                           style="margin:-4% 0 0 1%;border-radius: 5px">
-                                                </div>
-                                            </div>
+                                                   style="margin:-4% 0 0 1%;border-radius: 5px">
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <!-- password-->
+                                <!-- password-->
 
 
-                                    </li>
-                                    <li>
-                                        <input type="submit" align="center" class="button [tiny small large]"
-                                               value="Login"
-                                               id="button" name="login"
-                                               style="border-radius: 5px;background: rgba(30,30,30,1);margin-left: 38%;margin-bottom: 3%;"/>
-                                    </li>
+                            </li>
+                            <li>
+                                <input type="submit" align="center" class="button [tiny small large]"
+                                       value="Login"
+                                       id="button" name="login"
+                                       style="border-radius: 5px;background: rgba(30,30,30,1);margin-left: 38%;margin-bottom: 3%;"/>
+                            </li>
 
-                                    <li class="divider"><a href="/forgot">Forgot Password?</a></li>
-                                </form>
-                            </ul>
-                        </li>
+                            <li class="divider"><a href="/forgot">Forgot Password?</a></li>
+                        </form>
                     </ul>
-                </section>
-            </div>
-            <!-- top bar -->
-            <div class="row" align="center">
+                </li>
+            </ul>
+        </section>
+    </div>
+    <!-- top bar -->
+    <div class="row" align="center">
 
-                <div class="small-12 medium-12 large-12"
-                     style="background:rgba(200,200,200,0.5); border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 25px 5px rgba(0,0,0,0.5);box-shadow-top:0 0 0 0 rgba(0,0,0,0);margin-top:3%; ">
-                    <h4 style="color: white;text-align: center;background-color: rgba(30,30,30,0.8);border-radius: 5px;margin-top: 0;width: 100%;padding: 1%;">
-                        Schedule
-                    </h4>
-                    <table cellspacing="5px" style="border: none;border-radius: 5px;width:90%;">
-                        <tr>
-                            <td colspan="3"
-                                style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                Event goes live on 1<sup>st</sup> Sep 2014 at 7:00p.m.
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center;font-weight: bolder;">Round</th>
-                            <th style="text-align: center;font-weight: bolder;">Dates</th>
-                        </tr>
-                        <tr>
-                            <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                1
-                            </td>
-                            <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                5<sup>th</sup> September to 11<sup>th</sup> September
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                2
-                            </td>
-                            <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                13<sup>th</sup> September to 19<sup>th</sup> September
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                Auctions And Finals
-                            </td>
-                            <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
-                                28<sup>th</sup> September
-                            </td>
-                        </tr>
-                    </table>
+        <div class="small-12 medium-12 large-12"
+             style="background:rgba(200,200,200,0.5); border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 25px 5px rgba(0,0,0,0.5);box-shadow-top:0 0 0 0 rgba(0,0,0,0);margin-top:3%; ">
+            <h4 style="color: white;text-align: center;background-color: rgba(30,30,30,0.8);border-radius: 5px;margin-top: 0;width: 100%;padding: 1%;">
+                Schedule
+            </h4>
+            <table cellspacing="5px" style="border: none;border-radius: 5px;width:90%;">
+                <tr>
+                    <td colspan="3"
+                        style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        Event goes live on 1<sup>st</sup> Sep 2014 at 7:00p.m.
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align: center;font-weight: bolder;">Round</th>
+                    <th style="text-align: center;font-weight: bolder;">Dates</th>
+                </tr>
+                <tr>
+                    <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        1
+                    </td>
+                    <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        5<sup>th</sup> September to 11<sup>th</sup> September
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        2
+                    </td>
+                    <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        13<sup>th</sup> September to 19<sup>th</sup> September
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        Auctions And Finals
+                    </td>
+                    <td style="color: #ffffff;font-weight: bold;text-align: center;margin:2%;border-radius: 5px;height: auto;line-height: 100%;background-color: #000000;">
+                        28<sup>th</sup> September
+                    </td>
+                </tr>
+            </table>
 
-                    <p style="color: white;text-align: left;margin-left: 1%;">Note: The dates mentioned above are
-                        subject to
-                        change. All matches simulation is carried out at midnight.
-                    </p>
-                </div>
-            </div>
-
-            <!-- content -->
+            <p style="color: white;text-align: left;margin-left: 1%;">Note: The dates mentioned above are
+                subject to
+                change. All matches simulation is carried out at midnight.
+            </p>
         </div>
-        <footer class="large-12" style="bottom:0; position:relative;">
-            <div class="top-bar" style="position:relative;margin:2% 0 0 0; overflow: hidden;">
-                <section class="top-bar-section">
-                    <ul class="left">
-                        <li style="display:block;"><a href="http://vitriviera.com/"><img src="/images/riviera.png"
-                                                                                         style="height:45px;"/></a></li>
-                        <li><a href="https://www.vit.ac.in"><img src="/images/vit_logo_white.png"
-                                                                 style="height:40px;padding-top: 5px"
-                                                                 align="center"/></a></li>
-                    </ul>
-                    <ul class="right">
-                        <li><a href="/home/developers"><img src="/images/symbol.png" style="height:35px;"
-                                                            align="center"/><span
-                                        style="color:white;text-shadow: 1px 1px rgba(68,59,50,1);">Developers</span></a>
-                        </li>
+    </div>
 
-                    </ul>
+    <!-- content -->
+</div>
+<footer class="large-12" style="bottom:0; position:relative;">
+    <div class="top-bar" style="position:relative;margin:2% 0 0 0; overflow: hidden;">
+        <section class="top-bar-section">
+            <ul class="left">
+                <li style="display:block;"><a href="http://vitriviera.com/"><img src="/images/riviera.png"
+                                                                                 style="height:45px;"/></a></li>
+                <li><a href="https://www.vit.ac.in"><img src="/images/vit_logo_white.png"
+                                                         style="height:40px;padding-top: 5px"
+                                                         align="center"/></a></li>
+            </ul>
+            <ul class="right">
+                <li><a href="/home/developers"><img src="/images/symbol.png" style="height:35px;"
+                                                    align="center"/><span
+                                style="color:white;text-shadow: 1px 1px rgba(68,59,50,1);">Developers</span></a>
+                </li>
 
-                </section>
-                <p style="margin-left: 46%; font-size:60%;color:white;bottom:0; margin-top:2%">&copy;IEEE-CS VIT
-                    Chapter
-                </p>
+            </ul>
 
-            </div>
-        </footer>
-        <!-- footer -->
-    </body>
+        </section>
+        <p style="margin-left: 46%; font-size:60%;color:white;bottom:0; margin-top:2%">&copy;IEEE-CS VIT
+            Chapter
+        </p>
+
+    </div>
+</footer>
+<!-- footer -->
+</body>
 </html>
