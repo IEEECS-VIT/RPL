@@ -36,9 +36,9 @@ var email = require('nodemailer').createTransport({
     }
 });
 var uri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/RPL';
-var mongoInterest = require(path.join(__dirname, '..', '..', 'db', 'mongo-interest'));
-var mongoUsers = require(path.join(__dirname, '..', '..', 'db', 'mongo-users'));
-var mongoPlayers = require(path.join(__dirname, '..', '..', 'db', 'mongo-players'));
+var mongoInterest = require(path.join(__dirname, '..', 'db', 'mongo-interest'));
+var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
+var mongoPlayers = require(path.join(__dirname, '..', 'db', 'mongo-players'));
 var log;
 
 if (process.env.LOGENTRIES_TOKEN)
