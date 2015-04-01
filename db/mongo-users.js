@@ -180,7 +180,6 @@ exports.getleader = function (doc, callback)
         }
     };
     MongoClient.connect(mongoUri, onConnect);
-
 };
 
 exports.forgotPassword = function (doc, callback)
@@ -201,24 +200,83 @@ exports.forgotPassword = function (doc, callback)
                 {
                     callback(err, null);
                 }
+                else if (document)
+                {
+                    callback(null, document);
+                }
                 else
                 {
-                    if (document)
-                    {
-                        db.close();
-                        callback(null, document);
-                    }
-                    else
-                    {
-                        db.close();
-                        callback(false, null);
-                    }
-
+                    callback(false, null);
                 }
             };
             collection.findOne(doc, onFetch);
         }
+    };
+    MongoClient.connect(mongoUri, onConnect);
+};
 
+exports.getReset = function(doc, callback)
+{
+    var onConnect = function (err, db)
+    {
+        if (err)
+        {
+            callback(err, null);
+        }
+        else
+        {
+            var collection = db.collection(match);
+            var onFetch = function (err, document)
+            {
+                db.close();
+                if (err)
+                {
+                    callback(err, null);
+                }
+                else if (document)
+                {
+                    callback(null, document);
+                }
+                else
+                {
+                    callback(false, null);
+                }
+            };
+            collection.findOne(doc, onFetch);
+        }
+    };
+    MongoClient.connect(mongoUri, onConnect);
+};
+
+exports.resetPassword = function (doc, op, callback)
+{
+    var onConnect = function (err, db)
+    {
+        if (err)
+        {
+            callback(err, null);
+        }
+        else
+        {
+            var collection = db.collection(match);
+            var onFetch = function (err, document)
+            {
+                db.close();
+                if (err)
+                {
+                    callback(err, null);
+                }
+                else if (document)
+                {
+                    callback(null, document);
+                }
+                else
+                {
+                    callback(false, null);
+                }
+            };
+            collection.findOneAndUpdate(doc, op, {}, onFetch);
+        }
     };
     MongoClient.connect(mongoUri, onConnect);
 };

@@ -21,7 +21,6 @@ var path = require('path');
 var async = require('async');
 var router = express.Router();
 var match = require(path.join(__dirname, '..', 'matchCollection'));
-var mongo = require('mongodb').MongoClient;
 var mongoUri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/RPL';
 var log;
 if (process.env.LOGENTRIES_TOKEN)
@@ -176,8 +175,6 @@ router.get('/leaderboard', function (req, res) // Leaderboard/Standings
     {
         res.redirect("/");
     }
-
-
 });
 
 router.get('/matches', function (req, res)
@@ -267,7 +264,6 @@ router.post('/getsquad', function (req, res)
             '_id': teamname
         };
         var squad = [];
-        console.log(squad12);
         squad.push(parseInt(req.body.p1));
         squad.push(parseInt(req.body.p2));
         squad.push(parseInt(req.body.p3));
@@ -604,7 +600,7 @@ router.get('/developers', function (req, res) // developers page
         else{
             results.user = doc;
             console.log(doc);
-            res.render('developers',{results : results})
+            res.render('developers', {results : results});
         }
     };
     mongoUsers.fetch(credentials,onFetch);
@@ -619,30 +615,22 @@ router.get('/forgot', function(req, res){
 });
 
 router.get('/reset/:token', function(req, res){
-    mongo.connect(mongoUri, function(err, db) {
+    var onGetReset = function(err, doc)
+    {
         if(err)
         {
             console.log(err.message);
         }
+        else if(!doc)
+        {
+            res.redirect('/forgot');
+        }
         else
         {
-            db.collection(match).findOne({ token: req.params.token, expire: {$gt: Date.now()}}, function(err, doc) {
-                db.close();
-                if(err)
-                {
-                    console.log(err.message);
-                }
-                else if (!doc)
-                {
-                    res.redirect('/forgot');
-                }
-                else
-                {
-                    res.render('reset');
-                }
-            });
+            res.render('reset');
         }
-    });
+    };
+    mongoUsers.getReset({token: req.params.token, expire: {$gt: Date.now()}}, onGetReset);
 });
 
 /*router.get('/sort',function(req,res){
