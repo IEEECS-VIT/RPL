@@ -237,7 +237,7 @@ var generateSalt = function ()
         salt += set[p];
     }
     return salt;
-}
+};
 
 var md5 = function (str)
 {
