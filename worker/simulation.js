@@ -260,12 +260,20 @@ exports.simulate = function (data, callback)
             temp = temp.replace('/T', data.team[+!kick]._id);
             temp = temp.replace('/g', data.team[+kick].ratings[0].Name);
             temp = temp.replace('/G', data.team[+!kick].ratings[0].Name);
+            temp = temp.replace('/g', 'the goalkeeper');
+            temp = temp.replace('/G', 'the goalkeeper');
             temp = temp.replace('/f', striker[+kick][rand(striker[+kick].length)]);
             temp = temp.replace('/F', striker[+!kick][rand(striker[+!kick].length)]);
+            temp = temp.replace('/f', 'the striker');
+            temp = temp.replace('/F', 'the striker');
             temp = temp.replace('/d', defender[+kick][rand(defender[+kick].length)]);
             temp = temp.replace('/D', defender[+!kick][rand(defender[+!kick].length)]);
+            temp = temp.replace('/d', 'the defender');
+            temp = temp.replace('/D', 'the defender');
             temp = temp.replace('/m', midfielder[+kick][rand(midfielder[+kick].length)]);
             temp = temp.replace('/M', midfielder[+!kick][rand(midfielder[+!kick].length)]);
+            temp = temp.replace('/m', 'the midfielder');
+            temp = temp.replace('/M', 'the midfielder');
             data.match.commentary.push(temp);
         };
         var path = require('path');
@@ -465,8 +473,6 @@ exports.simulate = function (data, callback)
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
         data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
-        data.match.commentary.push('Form: ');
-        data.match.commentary.push(data.team[0]._id + ': ' + form[data.team[0].form * 100 / mean_rating[0]] + ' | ' + form[data.team[1].form * 100 / mean_rating[1]] + ' :' + data.team[1]._id);
         data.match.commentary.push(data.team[+kick]._id + ' shall kickoff.');
         index = kick;
         for(loop = 0; loop < 2; ++loop)
@@ -764,10 +770,9 @@ exports.simulate = function (data, callback)
                          }
                          strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
                          keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
-                         if (strike_performance_index > keeper_performance_index)
+                         if (strike_performance_index > 2 * keeper_performance_index) // TODO : adjust scale
                          {
                             com(score);
-                            console.log(strike_performance_index, keeper_performance_index);
                             data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
                             ++Goals[+kick];
                             kick = !kick;
@@ -786,7 +791,7 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push('Possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (pos * 100).toFixed(2) + ' % | % ' + ((1 - pos) * 100).toFixed(2) + ' :' + data.team[1]._id);
                     last_five_pos.unshift(pos);
-                    if(i > 3)
+                    if(i + loop * 45 > 4)
                     {
                         temp = last_five_pos[0] + last_five_pos[1] + last_five_pos[2] + last_five_pos[3] + last_five_pos[4];
                         data.match.commentary.push(' Possession during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
@@ -797,8 +802,8 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push('Overall possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (possession[0] * 100).toFixed(2) + ' % | % ' + (possession[1] * 100).toFixed(2) + ' :' + data.team[1]._id);
                     dom += +(possession[0] > possession[1]);
-                    last_five_dom.unshift(+(possession[0] > possession[1]));
-                    if(i > 3)
+                    last_five_dom.unshift(+(possession[0] > possession[1])); // TODO : adjust scale
+                    if(i + loop * 45 > 4)
                     {
                         temp = last_five_dom[0] + last_five_dom[1] + last_five_dom[2] + last_five_dom[3] + last_five_dom[4];
                         data.match.commentary.push(' Dominance during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);

@@ -16,7 +16,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var bcrypt = require('bcrypt');
+var bcrypt;
+try{
+    bcrypt = require('bcrypt');
+}
+catch(err)
+{
+    bcrypt = require('bcryptjs');
+}
 var express = require('express');
 var path = require('path');
 var router = express.Router();
@@ -24,13 +31,16 @@ var crypto = require('crypto');
 var email = require('nodemailer').createTransport({
     service: 'Gmail',
     auth: {
-        user: 'email@email.com',
+        user: 'rivierapremierleague@gmail.com',
         pass: process.env.PASSWORD
     }
 });
 var uri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/RPL';
-
+var mongoInterest = require(path.join(__dirname, '..', '..', 'db', 'mongo-interest'));
+var mongoUsers = require(path.join(__dirname, '..', '..', 'db', 'mongo-users'));
+var mongoPlayers = require(path.join(__dirname, '..', '..', 'db', 'mongo-players'));
 var log;
+
 if (process.env.LOGENTRIES_TOKEN)
 {
     var logentries = require('node-logentries');
@@ -38,11 +48,6 @@ if (process.env.LOGENTRIES_TOKEN)
                                 token: process.env.LOGENTRIES_TOKEN
                             });
 }
-
-var mongoInterest = require(path.join(__dirname, '..', '..', 'db', 'mongo-interest'));
-var mongoUsers = require(path.join(__dirname, '..', '..', 'db', 'mongo-users'));
-var mongoPlayers = require(path.join(__dirname, '..', '..', 'db', 'mongo-players'));
-
 
 router.get('/', function (req, res)
 {
@@ -78,7 +83,6 @@ router.post('/login', function (req, res)
         if (err)
         {
             console.log(err.message);
-            // Make it more user friendly, output the error to the view
             res.render('index', {response: "Incorrect Username"});
         }
         else if (doc)
@@ -99,13 +103,11 @@ router.post('/login', function (req, res)
         else
         {
             console.log('No user exists');
-            // Make it more user friendly, output the error to the view
             res.render('index', {response: "Incorrect Username"});
         }
     };
     mongoUsers.fetch(credentials, onFetch);
 });
-
 
 router.post('/forgot', function (req, res)
 {
@@ -159,7 +161,7 @@ router.post('/register', function (req, res)
     {
         if (err)
         {
-            // do something with the error
+            console.log(err.message);
         }
         else
         {
@@ -213,7 +215,6 @@ router.post('/register', function (req, res)
                     if (err)
                     {
                         console.log(err.message);
-                        // Make it more user friendly, output the error to the view
                         res.render('index', {response: "Team Name Already Exists"});
                     }
                     else
@@ -233,7 +234,6 @@ router.post('/register', function (req, res)
         }
     };
     mongoUsers.getCount(onGetCount);
-
 });
 
 router.get('/logout', function (req, res)
@@ -268,7 +268,7 @@ router.post('/interest', function (req, res) // interest form
     {
         if (err)
         {
-            // do something
+            console.log(err.message);
         }
         else
         {
@@ -298,18 +298,10 @@ router.get('/developer', function (req, res) // developers page
     }
     res.render('developer', {results: session });
 });
+
 router.get('/countdown', function (req, res) // page for countdown
 {
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = true;
-    }
-    else
-    {
-        session = false;
-    }
-    res.render('countdown', {Session: session});
+    res.render('countdown', {Session: (req.signedCookies.name ? true : false)});
 });
 
 router.get('/prizes', function (req, res) // page to view prizes
@@ -330,6 +322,7 @@ router.get('/prizes', function (req, res) // page to view prizes
     }
     res.render('prizes', {Session: session });
 });
+
 router.post('/forgot', function (req, res)
 {
     mongo.connect(uri, function(err, db){
@@ -341,7 +334,7 @@ router.post('/forgot', function (req, res)
         {
             crypto.randomBytes(20, function(err, buf) {
                 var token = buf.toString('hex');
-                db.collection('users').findAndModify({_id : req.body.t_name}, [], {$set:{token : token, expire : Date.now() + 3600000}}, {new : false}, function(err, doc){
+                db.collection('users').findOneAndUpdate({_id : req.body.t_name}, {$set:{token : token, expire : Date.now() + 3600000}}, {}, function(err, doc){
                     db.close();
                     if(err)
                     {
@@ -388,7 +381,7 @@ router.post('/reset/:token', function(req, res) {
         {
             var query = {token : req.params.token, expire : {$gt: Date.now()}},
                 op = {$set : {hash : bcrypt.hashSync(req.body.pass, bcrypt.genSaltSync(10))}, $unset : {token : '', expire : ''}};
-            db.collection(match).findAndModify(query, [], op, {new : true}, function(err, doc) {
+            db.collection(match).findOneAndUpdate(query, op, {}, function(err, doc) {
                 db.close();
                 if(err)
                 {
@@ -424,66 +417,28 @@ router.post('/reset/:token', function(req, res) {
     });
 });
 
-
 router.get('/rule', function (req, res)
 {
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = 1;
-    }
-    else
-    {
-        session = 0;
-    }
-    res.render('rule', {results: session });
+    res.render('rule', {results: (req.signedCookies.name ? 1 : 0)});
 });
 
 router.get('/sponsor', function (req, res) // sponsors page
 {
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = 1;
-    }
-    else
-    {
-        session = 0;
-    }
-    res.render('sponsor', {results: session });
+    res.render('sponsor', {results: (req.signedCookies.name ? 1 : 0)});
 });
 
 router.get('/trail', function (req, res) // trailer page
 {
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = 1;
-    }
-    else
-    {
-        session = 0;
-    }
-    res.render('trail', {results: session });
+    res.render('trail', {results: (req.signedCookies.name ? 1 : 0)});
 });
+
 router.get('/schedule', function (req, res) // schedule page
 {
-    var session;
-    if (req.signedCookies.name)
-    {
-        session = 1;
-    }
-    else
-    {
-        session = 0;
-    }
-    res.render('schedule', {results: session });
+    res.render('schedule', {results: (req.signedCookies.name ? 1 : 0)});
 });
 
 router.get('/players', function (req, res) // page for all players, only available if no squad has been chosen
 {
-
-
                 var onFetch = function (err, documents)
                 {
                     if (err)
@@ -501,9 +456,6 @@ router.get('/players', function (req, res) // page for all players, only availab
 
                 };
                 mongoPlayers.fetchPlayers(onFetch);
-
-
-
 });
 
 module.exports = router;
