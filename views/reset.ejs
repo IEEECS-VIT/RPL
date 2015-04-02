@@ -135,6 +135,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="/register" method="post" name="signin" id="reg">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
                         <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
                         <br/>
                         <input name="m_name" type="text" placeholder="Manager's Name" id="m_name"/>
@@ -172,7 +173,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="/login" method="post">
-
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
                         <input name="t_name" type="text" placeholder="Team Name"/>
                         <br/>
                         <input name="pass" type="password" placeholder="Password"/>
@@ -202,7 +203,7 @@
             </div>
             <div class="col-md-8" id="login_box">
                 <form action="/login" method="post">
-
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
                     <input name="t_name" type="text" placeholder="Team Name"/>
                     <br/>
                     <input name="pass" type="password" placeholder="Password"/>
@@ -227,6 +228,7 @@
                 </h2>
                 <hr/>
                 <form action="/home/reset" method="post" name="reset">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>"/>
                     <div class="row" style="padding: 1%">
                         <div class="col-md-5" style="text-align: left">
                             <h2>

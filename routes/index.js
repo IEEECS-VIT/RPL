@@ -157,7 +157,7 @@ router.get('/register', function (req, res)
     }
     else
     {
-        res.render('register', { response: "" });
+        res.render('register', { response: "" , csrfToken : req.csrfToken()});
     }
 });
 
