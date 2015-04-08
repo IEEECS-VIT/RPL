@@ -61,7 +61,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser(process.env.COOKIE_SECRET || 'randomsecretstring', {signed: true}));
 app.use(session({ secret : 'session secret key', resave : '', saveUninitialized : ''}));
-app.use(csurf());
+//app.use(csurf());
 app.use('/', index);
 app.use('/home', home);
 

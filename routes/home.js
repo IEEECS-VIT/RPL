@@ -610,29 +610,6 @@ router.get('/settings',function(req,res){
     res.render('settings',{});
 });
 
-router.get('/forgot', function(req, res){
-    res.render('forgot');
-});
-
-router.get('/reset/:token', function(req, res){
-    var onGetReset = function(err, doc)
-    {
-        if(err)
-        {
-            console.log(err.message);
-        }
-        else if(!doc)
-        {
-            res.redirect('/forgot');
-        }
-        else
-        {
-            res.render('reset');
-        }
-    };
-    mongoUsers.getReset({token: req.params.token, expire: {$gt: Date.now()}}, onGetReset);
-});
-
 /*router.get('/sort',function(req,res){
  var upper = req.body.upper;
  var lower = req.body.lower;

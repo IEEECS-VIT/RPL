@@ -108,6 +108,10 @@ router.post('/login', function (req, res)
     mongoUsers.fetch(credentials, onFetch);
 });
 
+router.get('/forgot', function(req, res){
+    res.render('forgot');
+});
+
 router.post('/forgot', function (req, res)
 {
     var onFetch = function(err, doc){
@@ -121,7 +125,7 @@ router.post('/forgot', function (req, res)
                 var token = buf.toString('hex');
                 var options = {
                     from: 'rivierapremierleague@gmail.com',
-                    to: req.body.email,
+                    to: doc.email,
                     subject: 'Time to get back in the game',
                     text: 'Please click on http://' + req.headers.host + '/reset/' + token + ' in order to reset your password.\n '
                     + 'In the event that this password reset was not requested by you,'
@@ -146,7 +150,27 @@ router.post('/forgot', function (req, res)
             res.redirect('/forgot');
         }
     };
-    mongoUsers.forgotPassword(doc, onFetch);
+    mongoUsers.forgotPassword({_id : req.body.t_name}, onFetch);
+});
+
+
+router.get('/reset/:token', function(req, res){
+    var onGetReset = function(err, doc)
+    {
+        if(err)
+        {
+            console.log(err.message);
+        }
+        else if(!doc)
+        {
+            res.redirect('/forgot');
+        }
+        else
+        {
+            res.render('reset');
+        }
+    };
+    mongoUsers.getReset({token: req.params.token, expire: {$gt: Date.now()}}, onGetReset);
 });
 
 router.get('/register', function (req, res)
@@ -157,7 +181,7 @@ router.get('/register', function (req, res)
     }
     else
     {
-        res.render('register', { response: "" , csrfToken : req.csrfToken()});
+        res.render('register', { response: ""});
     }
 });
 
@@ -225,7 +249,7 @@ router.post('/register', function (req, res)
                     }
                     else
                     {
-                        var name = docs[0]['_id'];
+                        var name = docs['_id'];
                         res.cookie('name', name, {maxAge: 86400000, signed: true});
                         res.redirect('/home/players');
                     }
