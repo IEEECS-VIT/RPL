@@ -11,6 +11,10 @@ Please report any bugs or issues [here](https://github.com/IEEECS-VIT/RPL/issues
 
     $ npm install
     
+###### Install security dependency manually (Microsoft Windows only)
+
+    # npm install bcryptjs
+    
 ###### Run the server locally at port 3000 or "PORT" in process.env
 
     $ npm start
