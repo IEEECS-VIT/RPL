@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/IEEECS-VIT/RPL.png?label=ready&title=Ready)](https://waffle.io/IEEECS-VIT/RPL)
 Riviera Premier League
 =======================
 
