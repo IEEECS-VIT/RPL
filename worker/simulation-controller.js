@@ -1,5 +1,5 @@
 /*
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var async = require('async');
-var path = require('path');
-var MongoClient = require('mongodb').MongoClient;
-var match = require(path.join(__dirname,'..','matchCollection'));
 var log;
+var path = require('path');
+var async = require('async');
+var simulator = require(path.join(__dirname, 'simulation'));
+var match = require(path.join(__dirname,'..','matchCollection'));
+
 if (process.env.LOGENTRIES_TOKEN)
 {
     var logentries = require('node-logentries');
@@ -29,26 +30,12 @@ if (process.env.LOGENTRIES_TOKEN)
                             });
 }
 
-var simulator = require(path.join(__dirname, 'simulation'));
-
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/RPL';
-var databaseOptions = {
-    server: {
-        socketOptions: {
-            keepAlive: 1,
-            connectTimeoutMS: 30000
-        },
-        auto_reconnect: true,
-        poolSize: 100
-    }
-};
-var database;
-
 exports.initSimulation = function (day, masterCallback)
 {
     var forEachMatch = function (matchDoc, callback)
     {
-        var parallelTasks = {
+        var parallelTasks =
+        {
             team1: function (asyncCallback)
             {
                 getTeamDetails({team_no: matchDoc.Team_1}, asyncCallback);
@@ -65,7 +52,7 @@ exports.initSimulation = function (day, masterCallback)
             {
                 var getEachRating = function (elt, subCallback)
                 {
-                    database.collection('players').findOne({_id: elt}, subCallback);
+                    db('players').find({_id: elt}).limit(1).next(subCallback);
                 };
 
                 var onGetRating = function (err, results)
@@ -86,21 +73,23 @@ exports.initSimulation = function (day, masterCallback)
                     }
                 }
                 else
+                {
                     console.log(userDoc);
+                }
             };
-            database.collection(match).findOne(query, getRating);
+            db(match).findOne(query, getRating);
         };
 
         var updateData = function (err, newData)
         {
             var updateUser = function (newUserDoc, asyncCallback)
             {
-                database.collection(match).updateOne({_id: newUserDoc._id}, newUserDoc, asyncCallback);
+                db(match).updateOne({_id: newUserDoc._id}, newUserDoc, asyncCallback);
             };
 
             var updateMatch = function (newMatchDoc, asyncCallback)
             {
-                database.collection('matchday' + day).updateOne({_id: newMatchDoc._id}, newMatchDoc, asyncCallback);
+                db('matchday' + day).updateOne({_id: newMatchDoc._id}, newMatchDoc, asyncCallback);
             };
 
             var parallelTasks2 = [
@@ -123,8 +112,10 @@ exports.initSimulation = function (day, masterCallback)
 
         var onTeamDetails = function (err, results)
         {
-            var data = {
-                team: [
+            var data =
+            {
+                team:
+                [
                     results.team1,
                     results.team2
                 ],
@@ -139,7 +130,6 @@ exports.initSimulation = function (day, masterCallback)
 
     var onFinish = function (err, results)
     {
-        database.close();
         if (err)
         {
             console.log(err.message);
@@ -154,37 +144,36 @@ exports.initSimulation = function (day, masterCallback)
 
     var getAllMatches = function (err, callback)
     {
-        var collectionName;
+        var collection;
         switch (day)
         {
             case 1:
-                collectionName = 'matchday1';
+                collection = 'matchday1';
                 break;
             case 2:
-                collectionName = 'matchday2';
+                collection = 'matchday2';
                 break;
             case 3:
-                collectionName = 'matchday3';
+                collection = 'matchday3';
                 break;
             case 4:
-                collectionName = 'matchday4';
+                collection = 'matchday4';
                 break;
             case 5:
-                collectionName = 'matchday5';
+                collection = 'matchday5';
                 break;
             case 6:
-                collectionName = 'matchday6';
+                collection = 'matchday6';
                 break;
             case 7:
-                collectionName = 'matchday7';
+                collection = 'matchday7';
                 break;
             default:
                 throw 'Invalid Day';
                 break;
         }
 
-        var collection = database.collection(collectionName);
-        collection.find().toArray(callback)
+        db(collectionName).find().toArray(callback)
     };
 
     var ForAllMatches = function (err, docs)
@@ -201,20 +190,5 @@ exports.initSimulation = function (day, masterCallback)
         }
     };
 
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            console.log(err.message);
-            if (log) log.log('debug', {Error: err.message});
-            throw err;
-        }
-        else
-        {
-            database = db;
-            getAllMatches(err, ForAllMatches);
-        }
-    };
-
-    MongoClient.connect(mongoUri, databaseOptions, onConnect);
+    getAllMatches(err, ForAllMatches);
 };

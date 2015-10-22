@@ -1,5 +1,5 @@
 /*
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -17,18 +17,24 @@
  */
 
 var express = require('express');
-var csurf = require('csurf');
+var app = express();
+app.use(require('compression')());
+if(!process.env.NODE_ENV)
+{
+    require('dotenv').load();
+}
+var log;
+var newrelic;
 var path = require('path');
-var favicon = require('serve-favicon');
+var csurf = require('csurf');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var newrelic;
-var log;
-var index = require(path.join(__dirname, 'routes', 'index'));
+var cookieParser = require('cookie-parser');
 var home = require(path.join(__dirname, 'routes', 'home'));
-var app = express();
+var index = require(path.join(__dirname, 'routes', 'index'));
+var social = require(path.join(__dirname, 'routes', 'social'));
 
 if (process.env.NEWRELIC_APP_NAME && process.env.NEWRELIC_LICENSE)
 {
@@ -61,35 +67,38 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser(process.env.COOKIE_SECRET || 'randomsecretstring', {signed: true}));
 app.use(session({ secret : 'session secret key', resave : '', saveUninitialized : ''}));
-//app.use(csurf());
+app.use(csurf());
 app.use('/', index);
+app.use('/auth', social);
 app.use('/home', home);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next)
-        {
-            var err = new Error('Not Found');
-            err.status = 404;
-            next(err);
-        });
+app.use(function (req, res) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    res.render('error', {
+        message: err.message,
+            status: err.status,
+            stack: err.stack
+    });
+});
 
 // error handlers
 // development error handler, will print stacktrace
 if (app.get('env') === 'development')
 {
-    app.use(function (err, req, res)
-            {
-                if (log)
-                {
-                    log.log('debug', {Error: err, Message: err.message});
-                }
-                res.status(err.status || 500);
-                res.render('error', {
-                    message: err.message,
-                    status: err.status,
-                    stack: err.stack
-                });
-            });
+    app.use(function (err, req, res) {
+        if (log)
+        {
+            log.log('debug', {Error: err, Message: err.message});
+        }
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            status: err.status,
+            stack: err.stack
+        });
+    });
 }
 
 // production error handler, no stacktraces leaked to user

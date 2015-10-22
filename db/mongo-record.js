@@ -1,8 +1,5 @@
-/**
- * Created by Kashish Singhal <singhal2.kashish@gmail.com> on 1/7/14.
- */
 /*
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -19,11 +16,39 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-module.exports = {
-
-    host: 'smtp.gmail.com',
-    user: process.env.EMAIL,
-    password: process.env.EMAIL_PASS,
-    sender: 'Kashish Singhal <singhal2.kashish@gmail.com>'
-
-}
+module.exports =
+{
+    _id : '',
+    dob : '',
+    team_no : '',
+    manager_name: '',
+    password_hash: '',
+    email: '',
+    phone: '',
+    squad: [],
+    team: [],
+    win: 0,
+    loss: 0,
+    tied: 0,
+    played: 0,
+    points: 0,
+    ratio: 0.0,
+    accuracy: 0.0,
+    shots : 0,
+    fouls : 0,
+    passes : 0,
+    goals_for : 0,
+    goals_against: 0,
+    goal_diff : 0,
+    progression: [],
+    authStrategy : '',
+    form : 1,
+    morale : 0.0,
+    streak : 0,
+    dominance : 0.0,
+    possession :0.0,
+    mean_goals_for : 0.0,
+    mean_goals_against: 0.0,
+    stats : {},
+    surplus : 0
+};

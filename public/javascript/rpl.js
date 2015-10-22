@@ -1,52 +1,39 @@
-/**
- * Created by burnualive on 4/11/14.
+/*
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
+ *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 function reg(x)
 {
-    if(x === 1)
-    {
-        document.getElementById('register').style.display = 'none';
-        /* $( document.getElementById('red') ).click(function() {
-         $( "#register" ).show( "fade" );
-         });*/
-    }
-    else
-    {
-        /*$( document.getElementById('x') ).click(function() {
-         $( "#register" ).hide( "fade" );
-         });*/
-        document.getElementById('register').style.display = 'block';
-    }
-
+    document.getElementById('register').style.display = (x === 1) ? 'none' : 'block';
 }
+
 function log(x)
 {
-    if(x === 1)
-    {
-        document.getElementById('login_small').style.display = 'none';
-        /* $( document.getElementById('red') ).click(function() {
-         $( "#register" ).show( "fade" );
-         });*/
-    }
-    else
-    {
-        /*$( document.getElementById('x') ).click(function() {
-         $( "#register" ).hide( "fade" );
-         });*/
-        document.getElementById('login_small').style.display = 'block';
-    }
-
+    document.getElementById('login_small').style.display = (x === 1) ? 'none' : 'block';
 }
+
 function login(x)
 {
     if(x === 1)
     {
-
         document.getElementById('login_container').className = 'col-md-4';
         document.getElementById('log').className = 'col-md-4';
         document.getElementById('log').innerHTML = "<a href='#' onclick='login(2)'><div class='col-md-12' id='login'>>></div></a>";
         document.getElementById('login_box').style.display = 'block';
-
     }
     else
     {
@@ -55,23 +42,23 @@ function login(x)
         document.getElementById('log').innerHTML = "<a href='#' onclick='login(1)'><div class='col-md-12' id='login'>Login</div></a>";
         document.getElementById('login_box').style.display = 'none';
     }
-
 }
+
 function valid_reset()
 {
     var x = document.getElementById('pass').value;
     var y = document.getElementById('cpass').value;
-    if(x.length == 0)
+    if(x.length === 0)
     {
         alert('Please enter password.');
         return false;
     }
-    else if(y.length == 0)
+    else if(y.length === 0)
     {
         alert('Please confirm password.');
         return false;
     }
-    else if(x.localeCompare(y) != 0)
+    else if(x.localeCompare(y) !== 0)
     {
         alert('Password and Confirm password do not match!');
         return false;
@@ -81,26 +68,27 @@ function valid_reset()
         document.reset.submit();
     }
 }
+
 function valid_change()
 {
     var x = document.getElementById('pass').value;
     var y = document.getElementById('cpass').value;
     var z = document.getElementById('o_pass').value;
-    if(x.length == 0)
+    if(x.length === 0)
     {
         alert('Please enter password.');
         return false;
     }
-    else if(y.length == 0)
+    else if(y.length === 0)
     {
         alert('Please confirm password.');
         return false;
     }
-    else if(z.length == 0)
+    else if(z.length === 0)
     {
         alert('Please enter your old password.')
     }
-    else if(x.localeCompare(y) != 0)
+    else if(x.localeCompare(y) !== 0)
     {
         alert('Password and Confirm password do not match!');
         return false;
@@ -113,6 +101,7 @@ function valid_change()
 
 function reg_valid()
 {
+    var i = 0;
     var display = "Error:\n";
     var team_name = document.signin.t_name;
     var pass = document.signin.rpass;
@@ -121,70 +110,68 @@ function reg_valid()
     var mob1 = document.signin.pno;
     var manager1 = document.signin.m_name;
 
-    var i = 0;
-    if(manager1.value.length == 0)
+    if(manager1.value.length === 0)
     {
-        i++;
+        ++i;
         manager1.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Enter Manager name.\n";
+        display += i + ". Enter Manager name.\n";
     }
-    if(team_name.value.length == 0)
+    if(team_name.value.length === 0)
     {
-        i++;
+        ++i;
         team_name.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Enter Team Name.\n";
+        display += i + ". Enter Team Name.\n";
     }
     else if(team_name.value.length > 25)
     {
-        i++;
+        ++i;
         team_name.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Team Name is too long. Maximum 25 Character.\n";
+        display += i + ". Team Name is too long. Maximum 25 Character.\n";
     }
-    if(pass.value.length == 0)
+    if(pass.value.length === 0)
     {
-        i++;
+        ++i;
         pass.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Enter Password.\n";
+        display += i + ". Enter Password.\n";
     }
     if(pass.value.length < 8 && pass.value.length != 0)
     {
-        i++;
-        display += i.toString() + ". Password too short. Minimum 8 characters.\n";
+        ++i;
+        display += i + ". Password too short. Minimum 8 characters.\n";
     }
-    if(cpass.value.length == 0)
+    if(cpass.value.length === 0)
     {
-        i++;
+        ++i;
         cpass.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Enter Confirm Password.\n";
+        display += i + ". Enter Confirm Password.\n";
     }
-
-    if(mob1.value.length == 0)
+    if(mob1.value.length === 0)
     {
-        i++;
+        ++i;
         mob1.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Please enter a phone number.\n";
+        display += i + ". Please enter a phone number.\n";
     }
-    if(email1.value.length == 0)
+    if(email1.value.length === 0)
     {
-        i++;
+        ++i;
         email1.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Enter Email.\n";
+        display += i + ". Enter Email.\n";
     }
-
     if(pass.value != cpass.value)
     {
-        i++;
+        ++i;
         pass.style.backgroundColor = 'Yellow';
         cpass.style.backgroundColor = 'Yellow';
-        display += i.toString() + ". Password and confirm password do not match.\n";
+        display += i + ". Password and confirm password do not match.\n";
     }
-    for(var z = 0; z < mob1.value.length; z++)
+
+    for(var z = 0; z < mob1.value.length; ++z)
     {
         if(isNaN(mob1.value[z]))
         {
-            i++;
+            ++i;
             mob1.style.backgroundColor = 'Yellow';
-            display += i.toString() + ". Enter a valid mobile number.\n";
+            display += i + ". Enter a valid mobile number.\n";
             break;
         }
     }
@@ -193,7 +180,6 @@ function reg_valid()
     {
         confirm(display);
         return false;
-
     }
     else
     {

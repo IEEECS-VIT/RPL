@@ -1,5 +1,5 @@
 <!--
-  Riviera Premier League
+  Riviera Premier League <rivierapremierleague@gmail.com>
   Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
 
   This program is free software: you can redistribute it and/or modify
@@ -21,228 +21,173 @@
 <html class="lt-ie10" lang="en">
 <![endif]-->
 <html lang="en" class="no-js">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riviera Premier League</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
-
-    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
-
-    <script src="/javascript/rpl.js"></script>
-    <style>
-        .panel-title a:hover {
-            color: rgba(0, 0, 0, 0.8);
-        }
-    </style>
-</head>
-<body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
-<!-- Container -->
-<div style="padding: 0;margin: 0;overflow: hidden">
-    <!-- Header -->
-    <div class="col-md-12" style="background: white;z-index: 3" id="header">
-        <!--logo-->
-        <div class="row">
-
-            <div class="col-md-1 col-md-offset-2" align="center">
-                <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
-            </div>
-            <div class="col-md-1"></div>
-            <!--Riviera Premier League -->
-            <div class="col-md-6" align="center" style="margin-left: -5%">
-
-                <h1 style="margin-top:7%">
-                    <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League
-                    </small>
-                </h1>
-
-            </div>
-
-
-        </div>
-        <!--Menu -->
-
-
-    </div>
-    <!--Register-->
-
-    <!--test-->
-    <nav class="navbar navbar-default col-xs-12 " role="navigation"
-         style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#home-bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/home/matches">Matches</a></li>
-                    <li><a href="/home/leaderboard">Leaderboard</a></li>
-                    <li><a href="/home/rules">Rules</a></li>
-                    <li><a href="/home/prize">Prizes</a></li>
-                    <li><a href="/logout">Logout</a></li>
-
-
-                </ul>
-
-
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <!--test-->
-
-
-    <!--Content-->
-
-
-    <!--test-->
-
-
-    <!--Content-->
-    <!--Register-->
-
-
-    <!--Rules-->
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div align="center" class="col-md-8 box"
-             style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
-
-
-            <div class="row" style="text-align: center;margin-bottom: 1%">
-                <h2>
-                    Settings
-                </h2>
-                <hr/>
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default" style="border-radius:0;">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a href="/home/formation">
-                                    Change Formation
-                                </a>
-                            </h4>
-                        </div>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Riviera Premier League</title>
+        <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css"/>
+        <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="/bower/jquery-ui/themes/smoothness/jquery-ui.css"/>
+        <script src="/bower/jquery-ui/jquery-ui.js"></script>
+        <script src="/bower/jquery/dist/jquery.js"></script>
+        <script src="/bower/bootstrap/dist/js/bootstrap.js"></script>
+        <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+        <script src="/javascript/rpl.js"></script>
+        <style>
+            .panel-title a:hover
+            {
+                color: rgba(0, 0, 0, 0.8);
+            }
+        </style>
+    </head>
+    <body style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+        <div style="padding: 0;margin: 0;overflow: hidden">
+            <!-- Header -->
+            <div class="col-md-12" style="background: white;z-index: 3" id="header">
+                <!--logo-->
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-2" align="center">
+                        <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
                     </div>
-                    <div class="panel panel-default" style="border-radius:0;">
-                        <div class="panel-heading" role="tab" id="headingTwo" style="border-radius:0;">
-                            <h4 class="panel-title" style="border-radius:0;">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                                   aria-expanded="false" aria-controls="collapseTwo" style="border-radius:0;">
-                                    Change password
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
-                             aria-labelledby="headingTwo" style="border-radius:0;">
-                            <div class="panel-body" style="border-radius:0;">
-                                <form action="/home/reset" method="post" name="reset" style="border-radius:0;">
-                                    <div class="row" style="padding: 1%">
-                                        <div class="col-md-5" style="text-align: left">
-                                            <h2>
-                                                <small>Enter old password:</small>
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-7" style="text-align: left"><input type="password"
-                                                                                              id="o_pass"
-                                                                                              name="o_pass"
-                                                                                              placeholder="Old Password"/>
-                                        </div>
+                    <div class="col-md-1"></div>
+                    <!--Riviera Premier League -->
+                    <div class="col-md-6" align="center" style="margin-left: -5%">
+                        <h1 style="margin-top:7%">
+                            <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League</small>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-default col-xs-12 " role="navigation" style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#home-bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/home">Home</a></li>
+                            <li><a href="/home/matches">Matches</a></li>
+                            <li><a href="/home/leaderboard">Leaderboard</a></li>
+                            <li><a href="/home/rules">Rules</a></li>
+                            <li><a href="/home/prize">Prizes</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div align="center" class="col-md-8 box" style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
+                    <div class="row" style="text-align: center;margin-bottom: 1%">
+                        <h2>Settings</h2>
+                        <hr>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default" style="border-radius:0;">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a href="/home/formation">Change Formation</a>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" style="border-radius:0;">
+                                <div class="panel-heading" role="tab" id="headingTwo" style="border-radius:0;">
+                                    <h4 class="panel-title" style="border-radius:0;">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                           aria-expanded="false" aria-controls="collapseTwo" style="border-radius:0;">
+                                            Change password
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingTwo" style="border-radius:0;">
+                                    <div class="panel-body" style="border-radius:0;">
+                                        <form action="/home/reset" method="post" name="reset" style="border-radius:0;">
+                                            <div class="row" style="padding: 1%">
+                                                <div class="col-md-5" style="text-align: left">
+                                                    <h2>
+                                                        <small>Enter old password:</small>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: left">
+                                                    <input type="password" id="o_pass" name="o_pass" placeholder="Old Password"/>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding: 1%">
+                                                <div class="col-md-5" style="text-align: left">
+                                                    <h2>
+                                                        <small>Enter new password:</small>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: left">
+                                                    <input type="password" id="pass" name="pass" placeholder="Password"/>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding: 1%">
+                                                <div class="col-md-5" style="text-align: left">
+                                                    <h2>
+                                                        <small>Enter confirm new password:</small>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-md-7" style="text-align: left">
+                                                    <input type="password" id="cpass" name="cpass" placeholder="Confirm Password"/>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin: 2%">
+                                                <a href="#" class="button" onclick="valid_change()">Submit</a>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="row" style="padding: 1%">
-                                        <div class="col-md-5" style="text-align: left">
-                                            <h2>
-                                                <small>Enter new password:</small>
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-7" style="text-align: left"><input type="password" id="pass"
-                                                                                              name="pass"
-                                                                                              placeholder="Password"/>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="padding: 1%">
-                                        <div class="col-md-5" style="text-align: left">
-                                            <h2>
-                                                <small>Enter confirm new password:</small>
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-7" style="text-align: left"><input type="password" id="cpass"
-                                                                                              name="cpass"
-                                                                                              placeholder="Confirm Password"/>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin: 2%"><a href="#" class="button"
-                                                                           onclick="valid_change()">Submit</a>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
-        </div>
-
-
-    </div>
-    <!--Footer -->
-    <div class="col-md-12"
-         style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
-        <hr/>
-        <div class="row">
-            <div class="col-md-12" align="center" style="text-align: center">
-                <a href="/developer">
-                    <h4>
-                        Developers
-                    </h4>
-                </a>
-
+            <!--Footer -->
+            <div class="col-md-12" style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%">
+                <hr>
+                <div class="row">
+                    <div class="col-md-12" align="center" style="text-align: center">
+                        <a href="/developer">
+                            <h4>Developers</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
+                                    src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
+                    <div class="col-md-offset-4 col-md-4" align="center"><a href="http://www.vit.ac.in/"><img
+                                    src="/images/vit_logo_white.png"
+                                    style="width: 70%;margin:5%"/></a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
-                            src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
-            <div class="col-md-offset-4 col-md-4" align="center"><a href="http://www.vit.ac.in/"><img
-                            src="/images/vit_logo_white.png"
-                            style="width: 70%;margin:5%"/></a>
+            <div id="fb-root"></div>
+            <div id="login_small" class="col-md-4">
+                <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count"
+                     data-action="like" data-show-faces="true" data-share="true" style="margin:10%"></div>
             </div>
-
+            <script>
+                (function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
         </div>
-    </div>
-    <div id="fb-root"></div>
-    <div id="login_small" class="col-md-4">
-        <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count"
-             data-action="like" data-show-faces="true" data-share="true" style="margin:10%"></div>
-    </div>
-    <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-</div>
-</body>
+    </body>
 </html>

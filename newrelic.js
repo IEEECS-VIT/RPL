@@ -1,5 +1,5 @@
 /*
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -36,10 +36,12 @@ if (process.env.NEWRELIC_APP_NAME && process.env.NEWRELIC_LICENSE)
     console.log('Using New Relic');
 }
 
-exports.config = {
+exports.config =
+{
     app_name: [app_name],
     license_key: license,
-    logging: {
+    logging:
+    {
         level: 'info'
     }
 };

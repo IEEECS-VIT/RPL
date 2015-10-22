@@ -1,5 +1,5 @@
 /*
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,29 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var MongoClient = require('mongodb').MongoClient;
-var path = require('path');
-var match = require(path.join(__dirname, '..','matchCollection'));
-var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/RPL';
+var i;
 var log;
+var flag;
+var slice =
+{
+    win: 1,
+    points: 1,
+    played: 1,
+    goal_diff: 1    
+};
+var options =
+{
+    "sort":
+    [
+        ['points', -1],
+        ['goal_diff', -1]
+    ]
+};
+var leaderboard;
+var path = require('path');
+var match = process.env.MATCH;
+var mongoFeatures = require(path.join(__dirname, 'mongo-features.js'));
+
 if (process.env.LOGENTRIES_TOKEN)
 {
     var logentries = require('node-logentries');
@@ -28,163 +46,20 @@ if (process.env.LOGENTRIES_TOKEN)
                                 token: process.env.LOGENTRIES_TOKEN
                             });
 }
-var options = { server: { socketOptions: { connectTimeoutMS: 50000 }}};
-exports.getCount = function (callback)
-{
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            throw err;
-        }
-        else
-        {
-            var collection = db.collection(match);
-            var onFetch = function (err, count)
-            {
-                db.close();
-                if (err)
-                {
-                    throw err;
-                }
-                else
-                {
-                    callback(null, count);
-                }
-            };
-            collection.find().count(onFetch);
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
 
+exports.getCount = function (query, callback)
+{
+    db.collection(match).count(query, callback);
 };
 
-exports.insert = function (doc, callback)
+exports.insert = function (col, doc, callback)
 {
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            callback(err);
-        }
-        else
-        {
-            var collection = db.collection(match);
-            var onInsert = function (err, docs)
-            {
-                db.close();
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else
-                {
-                    callback(null, docs);
-                }
-            };
-            collection.insertOne(doc, {w: 1}, onInsert);
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
-};
-
-exports.fetch = function (doc, callback)
-{
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            callback(err);
-        }
-        else
-        {
-            var collection = db.collection(match);
-            var onFetch = function (err, document)
-            {
-                db.close();
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else if (document)
-                {
-                    db.close();
-                    if (doc['_id'] === document['_id'])
-                    {
-                        callback(null, document);
-                    }
-                    else
-                    {
-                        callback(false, null);
-                    }
-
-                }
-                else
-                {
-                    callback(false, null);
-                }
-            };
-            collection.findOne(doc, onFetch);
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
+    db.collection(col).insertOne(doc, {w: 1}, callback);
 };
 
 exports.getleader = function (doc, callback)
 {
-    var onConnect = function (err, db)
-    {
-        console.log("get Leader Function2");
-        if (err)
-        {
-            callback(err);
-        }
-        else
-        {
-            console.log("get Leader Function3");
-            var collection = db.collection(match);
-            var onFetch = function (err, documents)
-            {
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else
-                {
-                    console.log("get Leader Function4");
-                    var onFetchOne = function (err, document)
-                    {
-                        if (err)
-                        {
-                            callback(err, null);
-                        }
-                        else
-                        {
-                            db.close();
-                            documents.push(document);
-                            callback(null, documents);
-                        }
-                    };
-                    collection.findOne(doc, onFetchOne);
-                }
-            };
-            var options =
-                {
-                    "limit": 10,
-                    "sort": [
-                        ['points', 'desc'],
-                        ['goal_diff', 'desc']
-                    ]
-                };
-            collection.find({}, options).toArray(onFetch);
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
-};
-
-exports.forgotPassword = function (doc, callback)
-{
-    var onConnect = function (err, db)
+    var onFetch = function (err, documents)
     {
         if (err)
         {
@@ -192,212 +67,191 @@ exports.forgotPassword = function (doc, callback)
         }
         else
         {
-            var collection = db.collection(match);
-            var onFetch = function (err, document)
+            flag = false;
+            leaderboard = [];
+
+            for (i = 0; i < documents.length; ++i)
             {
-                db.close();
-                if (err)
+                if (documents[i]._id == user)
                 {
-                    callback(err, null);
+                    flag = true;
+                    documents[i].rank = i + 1;
+
+                    leaderboard.push(documents[i]);
                 }
-                else if (document)
+                else if (leaderboard.length < 10)
                 {
-                    callback(null, document);
+                    leaderboard.push(documents[i]);
+                }
+                else if (flag)
+                {
+                    break;
+                }
+            }
+
+            callback(null, leaderboard);
+        }
+    };
+
+    db.collection(match).find({}, slice, options).toArray(onFetch);
+};
+
+exports.forgotPassword = function (doc, token, callback)
+{
+    var op =
+    {
+        $set:
+        {
+            resetToken : token,
+            expire : Date.now() + 3600000
+        }
+    };
+
+    var onFetch = function (err, document)
+    {
+        if (err)
+        {
+            callback(err, null);
+        }
+        else if (document.value)
+        {
+            mongoFeatures.forgotCount({password : 1}, callback);
+        }
+        else
+        {
+            callback(false, null);
+        }
+    };
+
+    db.collection(match).findOneAndUpdate(doc, op, onFetch);
+};
+
+exports.forgotUser = function (doc, callback)
+{
+    var onFetch = function (err, docs)
+    {
+        if (err)
+        {
+            callback(err, null);
+        }
+        else if (docs.length)
+        {
+            var results = "";
+            var onForgot = function(err)
+            {
+                if(err)
+                {
+                    callback(err);
                 }
                 else
                 {
-                    callback(false, null);
+                    callback(null, results);
                 }
             };
-            collection.findOne(doc, onFetch);
+
+            for (i = 0; i < docs.length; ++i)
+            {
+                results += '<li>' + docs[i]._id + ' (' + docs[i].authStrategy + ')' + '</li>';
+            }
+
+            mongoFeatures.forgotCount({user : 1}, onForgot);
+        }
+        else
+        {
+            callback(false, null);
         }
     };
-    MongoClient.connect(mongoUri, onConnect);
+
+    db.collection(match).find(doc, {authStrategy : 1}).toArray(onFetch);
 };
 
 exports.getReset = function(doc, callback)
 {
-    var onConnect = function (err, db)
+    var onFetch = function (err, document)
     {
         if (err)
         {
             callback(err, null);
         }
+        else if (document)
+        {
+            callback(null, document);
+        }
         else
         {
-            var collection = db.collection(match);
-            var onFetch = function (err, document)
-            {
-                db.close();
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else if (document)
-                {
-                    callback(null, document);
-                }
-                else
-                {
-                    callback(false, null);
-                }
-            };
-            collection.findOne(doc, onFetch);
+            callback(false, null);
         }
     };
-    MongoClient.connect(mongoUri, onConnect);
+
+    db.collection(match).find(doc).limit(1).next(onFetch);
 };
 
-exports.resetPassword = function (doc, op, callback)
+exports.resetPassword = function (token, hash, callback)
 {
-    var onConnect = function (err, db)
+    var query =
+    {
+        resetToken: token,
+        expire:
+        {
+            $gt: Date.now()
+        }
+    };
+    var op =
+    {
+        $set:
+        {
+            password_hash: hash
+        },
+        $unset:
+        {
+            resetToken: '',
+            expire: ''
+        }
+    };
+
+    var onFetch = function (err, document)
     {
         if (err)
         {
             callback(err, null);
         }
+        else if (document)
+        {
+            callback(null, document);
+        }
         else
         {
-            var collection = db.collection(match);
-            var onFetch = function (err, document)
-            {
-                db.close();
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else if (document)
-                {
-                    callback(null, document);
-                }
-                else
-                {
-                    callback(false, null);
-                }
-            };
-            collection.findOneAndUpdate(doc, op, {}, onFetch);
+            callback(false, null);
         }
     };
-    MongoClient.connect(mongoUri, onConnect);
+
+    db.collection(match).findOneAndUpdate(query, op, onFetch);
 };
 
-exports.updateUserTeam = function (doc, arr, callback)
+exports.updateUserTeam = function (doc, team, stats, cost, callback)
 {
-    var onConnect = function (err, db)
+    db.collection(match).findOneAndUpdate(doc,
     {
-        if (err)
+        $set:
         {
-            throw err;
+            'team': arr,
+            'stats': stats,
+            'surplus': cost
         }
-        else
-        {
-            var collection = db.collection(match);
-            var onUpdate = function (err, document)
-            {
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else
-                {
-                    db.close();
-                    callback(true, document);
-                }
-            };
-            collection.findOneAndUpdate(doc, [], {$set: {'team': arr}}, {}, onUpdate)
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
+    }, {}, callback)
 };
 
 exports.updateUserSquad = function (doc, arr, callback)
 {
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            throw err;
-        }
-        else
-        {
-            var collection = db.collection(match);
-            var onUpdate = function (err, document)
-            {
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else
-                {
-                    console.log("Done");
-                    db.close();
-                    callback(null, document);
-                }
-            };
-            collection.findOneAndUpdate(doc, [], {$set: {'squad': arr}}, {}, onUpdate);
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
+    db.collection(match).findOneAndUpdate(doc, {$set: {'squad': arr}}, {}, callback);
 };
 
-exports.fetchUser = function (doc, callback)
+exports.fetchUser = function (query, callback)
 {
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            callback(err);
-        }
-        else
-        {
-            var collection = db.collection(match);
-            var onFetch = function (err, document)
-            {
-                db.close();
-                if (err)
-                {
-                    callback(err, null);
-                }
-                else if (document)
-                {
-                    callback(null, document);
-                }
-
-            };
-            collection.findOne(doc, onFetch);
-        }
-    };
-    MongoClient.connect(mongoUri, onConnect);
+    db.collection(match).find(query).limit(1).next(callback);
 };
 
-exports.update = function (query, update, callback)
+exports.save = function (doc, callback)
 {
-    var onConnect = function (err, db)
-    {
-        if (err)
-        {
-            if (log) log.log('debug', {Error: err, Message: err.message});
-        }
-        else
-        {
-            var collection = db.collection(match);
-            var onUpdate = function (err, doc)
-            {
-                db.close();
-                if (err)
-                {
-                    if (log) log.log('debug', {Error: err, Message: err.message});
-                    callback(true, null);
-                }
-                else
-                {
-                    callback(null, doc);
-                }
-            };
-            collection.findOneAndUpdate(query, {}, { "$set" : update }, {"upsert": true}, onUpdate);
-
-        }
-    };
-    MongoClient.connect(mongoUri, options, onConnect);
+    db.collection(match).save(doc, callback);
 };
-

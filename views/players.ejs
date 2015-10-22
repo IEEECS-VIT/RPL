@@ -1,5 +1,5 @@
 <!--
-  Riviera Premier League
+  Riviera Premier League <rivierapremierleague@gmail.com>
   Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
 
   This program is free software: you can redistribute it and/or modify
@@ -21,493 +21,427 @@
 <html class="lt-ie10" lang="en">
 <![endif]-->
 <html lang="en" class="no-js">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riviera Premier League</title>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
-    <!-- <script src="/ejs/ejs.js"></script>-->
-    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
-    <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css"/>
-    <script src="/javascript/ejs_production.js"></script>
-    <script src="/javascript/rpl.js"></script>
-
-    <script src="/javascript/rpl_players.js"></script>
-    <script src="/javascript/modernizr-2.6.2.min.js"></script>
-    <script src="/javascript/pace.min.js"></script>
-    <script>
-
-        /*  function getData() {
-         // Grab the template
-         $.get('/home/sort', function (template) {
-         // Compile the EJS template.
-         var func = ejs.compile(template);
-
-         // Grab the data
-         $.get('/home/players', function (data) {
-         // Generate the html from the given data.
-         var html = func(data);
-
-         $('#fort').html(html);
-         });
-         });
-         }
-         $('#sort').submit(function () {
-         getData();
-         // this.preventDefault();
-         });*/
-    </script>
-    <style>
-        .affix {
-            top: 0;
-        }
-
-        #dis1 li, #dis2 li, #dis3 li, #dis4 li {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 1%;
-        }
-
-    </style>
-    <script>
-        function load() {
-
-            setTimeout(function () {
-
-                $('#preload').fadeIn('slow', function () {
-                }).click(function () {
-                    $('#preload').fadeOut('fast', function () {
-                    });
-                    $('body').addClass('loaded');
-                    setTimeout(function () {
-                        $('#loader-wrapper').css('display', 'none');
-                    }, 1000);
-                });
-            }, 700);
-
-        }
-
-
-    </script>
-
-
-</head>
-<body onload="load()"
-      style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
-<!-- Container -->
-<% if(err){ %>
-<script>
-    alert(<%= err %>);
-</script>
-<% } %>
-<div id="loader-wrapper">
-
-    <div id="loader" style="overflow: visible;"></div>
-
-    <div class="loader-section section-left" style="overflow: visible;">
-
-    </div>
-    <div class="col-md-6 col-md-offset-3" style="display:none;z-index: 1001;" id="preload">
-        <h2 id="ini" style="color: rgba(255,255,255,0.9)">Team Selection</h2>
-        <hr/>
-        <h4>
-            <small style="color: rgba(255,255,255,0.8)">
-                <br/>
-                This is the team selection page.
-                <br/><br/>
-                Each participant will have access to this page only once per account.
-                <br/><br/>
-                <b>After a team has been chosen it cannot be changed.</b>
-                <br/><br/>
-                You will be given 100 million Euro in virtual money which you have to use to buy your team.
-                <br/><br/>
-                The players are segregated into four categories: Forward, Midfielder, Defender and Goalkeeper.
-                You need
-                to choose atleast 1 of each type.
-                <br/><br/>
-                The total number of players in your squad has to be 16.
-                <br/><br/>
-
-            </small>
-        </h4>
-        <button id="preload_button">Start</button>
-    </div>
-    <div class="loader-section section-right" style="z-index: -1;"></div>
-
-
-</div>
-
-<div style="padding: 0;margin: 0;overflow: hidden">
-    <!-- Header -->
-    <div class="col-md-12" style="background: white;z-index: 3" id="header">
-        <!--logo-->
-        <div class="row">
-
-            <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
-                <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
-            </div>
-            <div class="col-md-1"></div>
-            <!--Riviera Premier League -->
-            <div class="col-md-6" align="center" style="margin-left: -5%">
-
-                <h1 style="margin-top:7%">
-                    <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League
-                    </small>
-                </h1>
-
-            </div>
-
-
-        </div>
-        <!--Menu -->
-
-
-    </div>
-    <!--Register-->
-
-    <!--test-->
-    <nav class="navbar navbar-default col-xs-12 " role="navigation"
-         style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#home-bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#">Matches</a></li>
-                    <li><a href="#">Leaderboard</a></li>
-                    <li><a href="/rule">Rules</a></li>
-                    <li><a href="/prizes">Prizes</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-    <!--test-->
-
-
-    <!--Content-->
-    <div class="content_wrap row " id="scroller">
-        <div>
-            <div class="col-md-9  col-xs-9 col-sm-9  affix"
-                 style="margin: 0;padding: 0; float: left;left:0;background: rgba(0,0,0,0.9);top:0;z-index: 999"
-                 data-spy="affix" data-value="0" data-offset-top="126" data-offset-bottom="810">
-
-                <div class="collapse navbar-collapse" id="myTab" style="float:left">
-                    <ul class="nav navbar-nav">
-                        <li role="presentation" class="active"><a href="#fort" aria-controls="fort" role="tab"
-                                                                  data-toggle="tab">Forwards</a></li>
-                        <li role="presentation"><a href="#midt" aria-controls="midt" role="tab"
-                                                   data-toggle="tab">Midfielders</a>
-                        </li>
-                        <li role="presentation"><a href="#deft" aria-controls="deft" role="tab"
-                                                   data-toggle="tab">Defenders</a>
-                        </li>
-                        <li role="presentation"><a href="#goalt" aria-controls="goalt" role="tab"
-                                                   data-toggle="tab">Goalkeepers</a>
-                        </li>
-
-
-                    </ul>
-
-                </div>
-                <form id="form" class="col-md-2" style="float: right;">
-                    <input style="display: none;" id="t1" name="p1" value=""/>
-                    <input style="display: none;" id="t2" name="p2" value=""/>
-                    <input style="display: none;" id="t3" name="p3" value=""/>
-                    <input style="display: none;" id="t4" name="p4" value=""/>
-                    <input style="display: none;" id="t5" name="p5" value=""/>
-                    <input style="display: none;" id="t6" name="p6" value=""/>
-                    <input style="display: none;" id="t7" name="p7" value=""/>
-                    <input style="display: none;" id="t8" name="p8" value=""/>
-                    <input style="display: none;" id="t9" name="p9" value=""/>
-                    <input style="display: none;" id="t10" name="p10" value=""/>
-                    <input style="display: none;" id="t11" name="p11" value=""/>
-                    <input style="display: none;" id="t12" name="p12" value=""/>
-                    <input style="display: none;" id="t13" name="p13" value=""/>
-                    <input style="display: none;" id="t14" name="p14" value=""/>
-                    <input style="display: none;" id="t15" name="p15" value=""/>
-                    <input style="display: none" id="t16" name="p16" value=""/>
-                    <input onclick="subm();"
-                           id="sub" class="button " type="button"
-                           style="border-radius: 0;float: right;height: 37px;width: 100%;padding: 2% 20%;margin:7% 5% auto auto"
-                           value="Done"/>
-
-                </form>
-                <!-- <div style="float: left;" class="col-md-12">
-
-                         <form id="sort" action="javascript:getData()" >
-                             <select style="float: left;width: 50%;margin-top: 1%;border-radius: 0">
-                                 <option value="10-9">10-9 Mil</option>
-                                 <option value="9-8">9-8 Mil</option>
-                                 <option value="8-7">8-7 Mil</option>
-                                 <option value="7-6">7-6 Mil</option>
-                                 <option value="6-5">6-5 Mil</option>
-                                 <option value="5-0">5-4 Mil</option>
-                             </select>
-                         <button onclick="" style="float: left;padding: 1%;margin-left:2%">Find in Range</button>
-
-                     </form>
-                 </div>-->
-            </div>
-
-            <div class=" col-md-3 col-xs-3 col-sm-3 affix" id="player_list"
-                 style="height:630px;overflow-y: scroll;right:0;margin-top: 0;top:0;float: right"
-                 data-spy="affix" data-offset-top="126" data-offset-bottom="100">
-                <h3>
-                    Squad
-                    <hr/>
-                    <small style="font-size: 60%;color:rgba(255,255,255,0.9);" id="budget">
-                        BUDGET: &euro; 100 Mil
-                        <br/>
-                        Selected : 0
-                    </small>
-                </h3>
-                <h4>
-                    <small>You need to choose atleast 1 player of each type.</small>
-                </h4>
-
-
-                <ul id="list">
-                    <li><a href="#">
-                            <h4 id="for">Forwards : 0</h4>
-                        </a>
-                        <hr/>
-                        <ul id="dis1">
-                        </ul>
-                    </li>
-                    <li><a href="#">
-                            <h4 id="mid">Midfielders : 0</h4>
-                        </a></li>
-                    <hr/>
-                    <ul id="dis2">
-
-                    </ul>
-                    <li><a href="#">
-                            <h4 id="def">Defenders : 0</h4>
-                        </a></li>
-                    <hr/>
-                    <ul id="dis3">
-
-                    </ul>
-                    <li><a href="#">
-                            <h4 id="goal">Goalkeepers : 0</h4>
-                        </a></li>
-                    <hr/>
-                    <ul id="dis4">
-
-                    </ul>
-
-                </ul>
-
-
-            </div>
-
-
-        </div>
-        <div class="tab-content" style="background: rgba(216,216,216,1);" data-spy="" data-offset-top="200"
-             data-offset-bottom="200" id="pl">
-
-            <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="fort">
-
-                <ul>
-
-                    <% var i; for(i = 0;i < Players.length;i++) { %>
-
-                    <% if(Players[i]._id <= 126){ %>
-                    <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
-                        <div class="row" style="padding:1%">
-                            <div class="col-xs-6">
-                                <img src="/images/forward/<%= Players[i]._id %>.jpg"/>
-                            </div>
-                            <div class="col-xs-6" style="padding: 0">
-                                <p><%= Players[i].Name %><br/><br/>
-                                    <%= Players[i].Price %> M<br/>
-                                    <br/>
-                                    <button data-toggle="tooltip" data-placement="bottom"
-                                            title="Click to add player"
-                                            onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                                            id="b<%= Players[i]._id %>">
-                                        Select
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                        <form name="h" style="display: none">
-                            <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        </form>
-
-                    </li>
-
-                    <% }  } %>
-
-                </ul>
-
-            </div>
-            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="midt">
-                <ul>
-
-                    <% for(i = 0;i < Players.length;i++) { %>
-
-                    <% if(Players[i]._id > 126 && Players[i]._id < 253){ %>
-                    <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
-                        <div class="row" style="padding:1%">
-                            <div class="col-xs-6">
-                                <img src="/images/mid/<%= Players[i]._id %>.jpg"/>
-                            </div>
-                            <div class="col-xs-6" style="padding: 0">
-                                <p><%= Players[i].Name %><br/><br/>
-                                    <%= Players[i].Price %> M<br/>
-                                    <br/>
-                                    <button onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                                            id="b<%= Players[i]._id %>">
-                                        Select
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                        <form name="h" style="display: none">
-                            <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        </form>
-
-                    </li>
-
-                    <% }  } %>
-
-                </ul>
-            </div>
-            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="deft">
-                <ul>
-
-                    <% for(i = 0;i < Players.length;i++) { %>
-
-                    <% if(Players[i]._id < 369 && Players[i]._id > 252){ %>
-                    <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
-                        <div class="row" style="padding:1%">
-                            <div class="col-xs-6">
-                                <img src="/images/def/<%= Players[i]._id %>.jpg"/>
-                            </div>
-                            <div class="col-xs-6" style="padding: 0">
-                                <p><%= Players[i].Name %><br/><br/>
-                                    <%= Players[i].Price %> M<br/>
-                                    <br/>
-                                    <button onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                                            id="b<%= Players[i]._id %>">
-                                        Select
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                        <form name="h" style="display: none">
-                            <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        </form>
-
-                    </li>
-
-                    <% }  } %>
-
-                </ul>
-            </div>
-            <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="goalt">
-                <ul>
-
-                    <% for(i = 0;i < Players.length;i++) { %>
-
-                    <% if(Players[i]._id > 368){ %>
-                    <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
-                        <div class="row" style="padding:1%">
-                            <div class="col-xs-6">
-                                <img src="/images/goal/<%= Players[i]._id %>.jpg"/>
-                            </div>
-                            <div class="col-xs-6" style="padding: 0">
-                                <p><%= Players[i].Name %><br/><br/>
-                                    <%= Players[i].Price %> M<br/>
-                                    <br/>
-                                    <button onclick="<%- 'sel(' + Players[i]._id + ')' %>"
-                                            id="b<%= Players[i]._id %>">
-                                        Select
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                        <form name="h" style="display: none">
-                            <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
-                            <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
-                        </form>
-
-                    </li>
-
-                    <% }  } %>
-
-                </ul>
-            </div>
-        </div>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Riviera Premier League</title>
+        <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css"/>
+        <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="/bower/jquery-ui/themes/smoothness/jquery-ui.css"/>
+        <!-- <script src="/ejs/ejs.js"></script>-->
+        <script src="/bower/jquery-ui/jquery-ui.js"></script>
+        <script src="/bower/jquery/dist/jquery.js"></script>
+        <script src="/bower/bootstrap/dist/js/bootstrap.js"></script>
+        <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
+        <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css"/>
+        <script src="/javascript/ejs_production.js"></script>
+        <script src="/javascript/rpl.js"></script>
+        <script src="/javascript/rpl_players.js"></script>
+        <script src="/javascript/modernizr-2.6.2.min.js"></script>
+        <script src="/javascript/pace.min.js"></script>
         <script>
-            $(function () {
-                $('#myTab a:first').tab('show')
-            })
+            /*  function getData() {
+             // Grab the template
+             $.get('/home/sort', function (template) {
+             // Compile the EJS template.
+             var func = ejs.compile(template);
+    
+             // Grab the data
+             $.get('/home/players', function (data) {
+             // Generate the html from the given data.
+             var html = func(data);
+    
+             $('#fort').html(html);
+             });
+             });
+             }
+             $('#sort').submit(function () {
+             getData();
+             // this.preventDefault();
+             });*/
         </script>
+        <style>
+            .affix {
+                top: 0;
+            }
+            #dis1 li, #dis2 li, #dis3 li, #dis4 li {
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.1);
+                margin: 1%;
+            }
+        </style>
+        <script>
+            var load = function() 
+            {
+                setTimeout(function () {
+                    $('#preload').fadeIn('slow', function () {
+                    }).click(function () {
+                        $('#preload').fadeOut('fast', function () {
+                        });
+                        $('body').addClass('loaded');
+                        setTimeout(function () {
+                            $('#loader-wrapper').css('display', 'none');
+                        }, 1000);
+                    });
+                }, 700);
+            }
+        </script>
+    </head>
+    <body onload="load()" style="overflow-x:hidden;background-color:rgba(200,200,200,0.7);font-family: 'PT Sans', sans-serif;height:100%;text-align: center">
+    <!-- Container -->
+    <% if(err){ %>
+    <script>
+        alert(<%= err %>);
+    </script>
+    <% } %>
+    <div id="loader-wrapper">
+        <div id="loader" style="overflow: visible;"></div>
+        <div class="loader-section section-left" style="overflow: visible;"></div>
+        <div class="col-md-6 col-md-offset-3" style="display:none;z-index: 1001;" id="preload">
+            <h2 id="ini" style="color: rgba(255,255,255,0.9)">Team Selection</h2>
+            <hr>
+            <h4>
+                <small style="color: rgba(255,255,255,0.8)">
+                    <br>
+                    This is the team selection page.
+                    <br><br>
+                    Each participant will have access to this page only once per account.
+                    <br><br>
+                    <b>After a team has been chosen it cannot be changed.</b>
+                    <br><br>
+                    You will be given 100 million Euro in virtual money which you have to use to buy your team.
+                    <br><br>
+                    The players are segregated into four categories: Forward, Midfielder, Defender and Goalkeeper.
+                    You need
+                    to choose atleast 1 of each type.
+                    <br><br>
+                    The total number of players in your squad has to be 16.
+                    <br><br>
+                </small>
+            </h4>
+            <button id="preload_button">Start</button>
+        </div>
+        <div class="loader-section section-right" style="z-index: -1;"></div>
     </div>
-
-
-</div>
-
-
-<!--Footer -->
-<div class="col-md-12 row"
-     style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;margin: 0;width: 100%">
-    <hr/>
-    <div class="row">
-        <div class="col-md-12" align="center" style="text-align: center">
-            <a href="/developer">
-                <h4>
-                    Developers
-                </h4>
-            </a>
-
+    <div style="padding: 0;margin: 0;overflow: hidden">
+        <!-- Header -->
+        <div class="col-md-12" style="background: white;z-index: 3" id="header">
+            <!--logo-->
+            <div class="row">
+                <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
+                    <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+                </div>
+                <div class="col-md-1"></div>
+                <!--Riviera Premier League -->
+                <div class="col-md-6" align="center" style="margin-left: -5%">
+                    <h1 style="margin-top:7%">
+                        <small style="font-size: 130%;text-shadow: 1px 2px rgba(0,0,0,0.3)">Riviera Premier League</small>
+                    </h1>
+                </div>
+            </div>
+            <!--Menu -->
+        </div>
+        <!--Register-->
+        <!--test-->
+        <nav class="navbar navbar-default col-xs-12 " role="navigation" style="margin:0;z-index: 2;background: rgba(0,0,0,0.8);position: relative;padding: 0;border: none;border-radius: 0">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#home-bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" id="brand">Riviera Premier League</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="home-bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Matches</a>
+                        </li>
+                        <li>
+                            <a href="#">Leaderboard</a>
+                        </li>
+                        <li>
+                            <a href="/rule">Rules</a>
+                        </li>
+                        <li>
+                            <a href="/prizes">Prizes</a>
+                        </li>
+                        <li>
+                            <a href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!--test-->
+        <!--Content-->
+        <div class="content_wrap row " id="scroller">
+            <div>
+                <div class="col-md-9  col-xs-9 col-sm-9  affix" style="margin: 0;padding: 0; float: left;left:0;background: rgba(0,0,0,0.9);top:0;z-index: 999"
+                     data-spy="affix" data-value="0" data-offset-top="126" data-offset-bottom="810">
+                    <div class="collapse navbar-collapse" id="myTab" style="float:left">
+                        <ul class="nav navbar-nav">
+                            <li role="presentation" class="active">
+                                <a href="#fort" aria-controls="fort" role="tab" data-toggle="tab">Forwards</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#midt" aria-controls="midt" role="tab" data-toggle="tab">Midfielders</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#deft" aria-controls="deft" role="tab" data-toggle="tab">Defenders</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#goalt" aria-controls="goalt" role="tab" data-toggle="tab">Goalkeepers</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form id="form" class="col-md-2" style="float: right;">
+                        <input style="display: none;" id="t1" name="p1" value=""/>
+                        <input style="display: none;" id="t2" name="p2" value=""/>
+                        <input style="display: none;" id="t3" name="p3" value=""/>
+                        <input style="display: none;" id="t4" name="p4" value=""/>
+                        <input style="display: none;" id="t5" name="p5" value=""/>
+                        <input style="display: none;" id="t6" name="p6" value=""/>
+                        <input style="display: none;" id="t7" name="p7" value=""/>
+                        <input style="display: none;" id="t8" name="p8" value=""/>
+                        <input style="display: none;" id="t9" name="p9" value=""/>
+                        <input style="display: none;" id="t10" name="p10" value=""/>
+                        <input style="display: none;" id="t11" name="p11" value=""/>
+                        <input style="display: none;" id="t12" name="p12" value=""/>
+                        <input style="display: none;" id="t13" name="p13" value=""/>
+                        <input style="display: none;" id="t14" name="p14" value=""/>
+                        <input style="display: none;" id="t15" name="p15" value=""/>
+                        <input style="display: none" id="t16" name="p16" value=""/>
+                        <input onclick="subm();"
+                               id="sub" class="button " type="button"
+                               style="border-radius: 0;float: right;height: 37px;width: 100%;padding: 2% 20%;margin:7% 5% auto auto"
+                               value="Done"/>
+                    </form>
+                    <!-- <div style="float: left;" class="col-md-12">
+                             <form id="sort" action="javascript:getData()" >
+                                 <select style="float: left;width: 50%;margin-top: 1%;border-radius: 0">
+                                     <option value="10-9">10-9 Mil</option>
+                                     <option value="9-8">9-8 Mil</option>
+                                     <option value="8-7">8-7 Mil</option>
+                                     <option value="7-6">7-6 Mil</option>
+                                     <option value="6-5">6-5 Mil</option>
+                                     <option value="5-0">5-4 Mil</option>
+                                 </select>
+                             <button onclick="" style="float: left;padding: 1%;margin-left:2%">Find in Range</button>
+                         </form>
+                     </div>-->
+                </div>
+                <div class=" col-md-3 col-xs-3 col-sm-3 affix" id="player_list" style="height:630px;overflow-y: scroll;right:0;margin-top: 0;top:0;float: right"
+                     data-spy="affix" data-offset-top="126" data-offset-bottom="100">
+                    <h3>
+                        Squad
+                        <hr>
+                        <small style="font-size: 60%;color:rgba(255,255,255,0.9);" id="budget">
+                            BUDGET: &euro; 100 Mil
+                            <br>
+                            Selected : 0
+                        </small>
+                    </h3>
+                    <h4>
+                        <small>You need to choose atleast 1 player of each type.</small>
+                    </h4>
+                    <ul id="list">
+                        <li>
+                            <a href="#">
+                                <h4 id="for">Forwards : 0</h4>
+                            </a>
+                            <hr>
+                            <ul id="dis1">
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <h4 id="mid">Midfielders : 0</h4>
+                            </a>
+                        </li>
+                        <li><hr></li>
+                        <li>
+                            <ul id="dis2"></ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <h4 id="def">Defenders : 0</h4>
+                            </a>
+                        </li>
+                        <li><hr></li>
+                        <li>
+                            <ul id="dis3"></ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <h4 id="goal">Goalkeepers : 0</h4>
+                            </a>
+                        </li>
+                        <li><hr></li>
+                        <li>
+                            <ul id="dis4"></ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" style="background: rgba(216,216,216,1);" data-spy="" data-offset-top="200"
+                 data-offset-bottom="200" id="pl">
+                <div role="tabpanel" class="tab-pane fade in active col-xs-9 playertab " id="fort">
+                    <ul>
+                        <% var i; for(i = 0; i < Players.length; ++i) { %>
+                        <% if(Players[i]._id < 127){ %>
+                        <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                            <div class="row" style="padding:1%">
+                                <div class="col-xs-6">
+                                    <img src="/images/forward/<%= Players[i]._id %>.jpg"/>
+                                </div>
+                                <div class="col-xs-6" style="padding: 0">
+                                    <p>
+                                        <%= Players[i].Name %><br><br>
+                                        <%= Players[i].Price %> M<br><br>
+                                        <button data-toggle="tooltip" data-placement="bottom"
+                                                title="Click to add player"
+                                                onclick="<%- 'sel(' + Players[i]._id + ')' %>"
+                                                id="b<%= Players[i]._id %>">
+                                            Select
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                            <form name="h" style="display: none">
+                                <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                                <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                                <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                            </form>
+                        </li>
+                        <% }  } %>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="midt">
+                    <ul>
+                        <% for(i = 0; i < Players.length; ++i) { %>
+                            <% if(Players[i]._id > 126 && Players[i]._id < 253){ %>
+                                <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                                    <div class="row" style="padding:1%">
+                                        <div class="col-xs-6">
+                                            <img src="/images/mid/<%= Players[i]._id %>.jpg"/>
+                                        </div>
+                                        <div class="col-xs-6" style="padding: 0">
+                                            <p>
+                                                <%= Players[i].Name %><br><br>
+                                                <%= Players[i].Price %> M<br><br>
+                                                <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                                                    Select
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <form name="h" style="display: none">
+                                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                                    </form>
+                                </li>
+                        <% }  } %>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="deft">
+                    <ul>
+                        <% for(i = 0;i < Players.length; ++i) { %>
+                            <% if(Players[i]._id < 369 && Players[i]._id > 252){ %>
+                                <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                                    <div class="row" style="padding:1%">
+                                        <div class="col-xs-6">
+                                            <img src="/images/def/<%= Players[i]._id %>.jpg"/>
+                                        </div>
+                                        <div class="col-xs-6" style="padding: 0">
+                                            <p>
+                                                <%= Players[i].Name %><br><br>
+                                                <%= Players[i].Price %> M<br><br>
+                                                <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                                                    Select
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <form name="h" style="display: none">
+                                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                                    </form>
+                                </li>
+                        <% }  } %>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade col-xs-9 playertab " id="goalt">
+                    <ul>
+                        <% for(i = 0; i < Players.length; ++i) { %>
+                            <% if(Players[i]._id > 368){ %>
+                                <li class="col-md-3 col-xs-5 " id="box<%= Players[i]._id %>" onclick="">
+                                    <div class="row" style="padding:1%">
+                                        <div class="col-xs-6">
+                                            <img src="/images/goal/<%= Players[i]._id %>.jpg"/>
+                                        </div>
+                                        <div class="col-xs-6" style="padding: 0">
+                                            <p>
+                                                <%= Players[i].Name %><br><br>
+                                                <%= Players[i].Price %> M<br><br>
+                                                <button onclick="<%- 'sel(' + Players[i]._id + ')' %>" id="b<%= Players[i]._id %>">
+                                                    Select
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <form name="h" style="display: none">
+                                        <input value="<%= Players[i].Name %>" id="cn<%= Players[i]._id %>"/>
+                                        <input value="<%= Players[i].Price %>" id="cp<%= Players[i]._id %>"/>
+                                        <input value="<%= Players[i].Cost %>" id="cc<%= Players[i]._id %>"/>
+                                    </form>
+                                </li>
+                        <% }  } %>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                $(function () {
+                    $('#myTab a:first').tab('show')
+                })
+            </script>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4" align="center"><a href="https://www.facebook.com/ieeecsvit"><img
-                        src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/></a></div>
-        <div class="col-md-offset-4 col-md-4" align="center"><a href="http://www.vit.ac.in/"><img
-                        src="/images/vit_logo_white.png"
-                        style="width: 70%;margin:5%"/></a>
+    <!--Footer -->
+    <div class="col-md-12 row" style="box-shadow: 1px 0 5px 5px rgba(0,0,0,0.2);color: white;background:rgba(0,0,0,0.9);min-height: 100%;margin: 0;width: 100%">
+        <hr>
+        <div class="row">
+            <div class="col-md-12" align="center" style="text-align: center">
+                <a href="/developer">
+                    <h4>Developers</h4>
+                </a>
+            </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-4" align="center">
+                <a href="https://www.facebook.com/ieeecsvit">
+                    <img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                </a>
+            </div>
+            <div class="col-md-offset-4 col-md-4" align="center">
+                <a href="http://www.vit.ac.in/">
+                    <img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/>
+                </a>
+            </div>
+        </div>
     </div>
-</div>
-
-
-<!--Rules-->
-
-</body>
-
+    <!--Rules-->
+    </body> 
 </html>

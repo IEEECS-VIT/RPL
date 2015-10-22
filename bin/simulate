@@ -1,7 +1,5 @@
-#!/usr/bin/env node
-
 /*
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -18,21 +16,52 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var day;
 var path = require('path');
-
+var mongo = require('mongodb').MongoClient.connect;
+var mongoUri = process.env.MONGO || 'mongodb://127.0.0.1:27017/GPL';
+var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
 var simulationControl = require(path.join(__dirname, '..', 'worker', 'simulation-controller'));
 
 if (process.argv.length !== 3)
 {
-    console.log('Please Enter the Match Day as argument');
-    process.exit(1);
+    console.log('Using application environment variable');
+    if(process.env.DAY)
+    {
+        day = parseInt(process.env.DAY);
+    }
+    else
+    {
+        console.log('Please enter the match day number (1-7) as an argument');
+        process.exit(1);
+    }
 }
 else
 {
-    var day = parseInt(process.argv[2]);
-    simulationControl.initSimulation(day, function ()
-    {
-        console.log('Simulation of Matches for Day ' + day + ' is complete');
-        process.exit(0);
-    });
+    day = parseInt(process.argv[2]);
 }
+
+mongo(mongoUri, function(err, database){
+    if(err)
+    {
+        throw err;
+    }
+    else
+    {
+        db = database;
+        simulationControl.initSimulation(day, function (){
+            console.log('Simulation of Matches for Day ' + day + ' is complete');
+            if(day == 7)
+            {
+                mongoTeam.shortList(function(err, result){
+                    if(err)
+                    {
+                        console.log(err.message);
+                    }
+                });
+            }
+            db.close();
+            process.exit(0);
+        });
+    }
+});

@@ -1,6 +1,5 @@
 /*
- Created by Kunal Nagpal on 08-11-2014.
- *  Riviera Premier League
+ *  Riviera Premier League <rivierapremierleague@gmail.com>
  *  Copyright (C) 2014  IEEE Computer Society - VIT Student Chapter <ieeecs@vit.ac.in>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -15,13 +14,21 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
- Change the collection name just once here. All other dependencies are adjusted automatically.
- Dependencies:
- db: mongo-team(64, 100), mongo-users(41, 71, 100, 144, 199, 239, 268, 298, 328)
- matchScheduleGeneration: Day1-7(41)
- worker: simulation-controller(95,102)
-*/
-module.exports = process.env.MATCH || 'users';
+var email = require("emailjs");
+var server = email.server.connect({
+    user: "rivierapremierleague@gmail.com",
+    password: process.env.KEY,
+    host: "smtp.gmail.com",
+    ssl: true
+});
 
-
+exports.send = function (message, callback)
+{
+    server.send(message, callback);
+};
+exports.wrap = function (content)
+{
+    return email.message.create(content);
+};
