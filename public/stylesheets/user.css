@@ -17,7 +17,6 @@
  */
 
 a {
-    target: _self;
     color: rgba(255, 255, 255, 1);
     text-decoration: none;
 }
@@ -27,7 +26,6 @@ a:active {
 }
 
 body {
-
     background-color: rgba(25, 25, 25, 1) /*url("waca.jpg")*/;
     overflow: visible;
     width: 960px /*80em*/;
@@ -46,7 +44,6 @@ body {
 }
 
 .button {
-
     height: 2em;
     width: 6em;
     color: white;
@@ -71,7 +68,6 @@ body {
 }
 
 #menu {
-
     background: rgba(0, 0, 0, 0.5);
     width: 100% /*79.4em*/;
     position: relative;
@@ -80,19 +76,15 @@ body {
     margin: auto;
     top: 2em;
     padding: 0.3em 0;
-    box-shadow: inset 0em 0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0em -0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0 0.2em 0.5em rgba(255, 255, 255, 0.2), inset 0 -0.2em 0.5em rgba(255, 255, 255, 0.2);
-
+    box-shadow: inset 0 0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0 -0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0 0.2em 0.5em rgba(255, 255, 255, 0.2), inset 0 -0.2em 0.5em rgba(255, 255, 255, 0.2);
     border-radius: 5px;
 }
 
 #menu #box {
-    margin: 0;
-    margin-left: 2.2em;
-
+    margin: 0 0 0 2.2em;
     padding: 0;
     width: auto;
     position: relative;
-
     z-index: 2;
 }
 
@@ -100,15 +92,13 @@ body {
     float: left;
     display: block;
     position: relative;
-
     overflow: hidden;
     color: rgba(255, 255, 255, 1);
     height: auto;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 0;
+    margin: 0 2em 0 0;
     left: 1em;
-    margin-right: 2em;
     /*border-right:1px rgba(0, 172, 237,0.3) solid;*/
 }
 
@@ -133,7 +123,6 @@ body {
     left: 0;
     padding: 0;
     margin: 0;
-
 }
 
 #leftm {
@@ -155,7 +144,7 @@ body {
 }
 
 #leftm a {
-    text-color: white;
+    color: #FFFFFF;
 }
 
 #leftm ul {
@@ -174,7 +163,6 @@ body {
     left: 0;
     background: rgba(0, 0, 0, 1);
     box-shadow: inset 0 0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0 -0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0 0.2em 0.5em rgba(255, 255, 255, 0.2), inset 0 -0.2em 0.5em rgba(255, 255, 255, 0.2);
-
 }
 
 #leftm li:hover {
@@ -185,7 +173,6 @@ body {
     inset 0 -0.2em 0.5em rgba(0, 0, 0, 0.2),
     inset 0 0.3em 1em rgba(0, 0, 0, 0.6),
     inset 0 -0.3em 1em rgba(0, 0, 0, 0.6);
-
     color: black;
     padding: 1em;
     cursor: pointer;
@@ -204,14 +191,11 @@ body {
 
 #rightm {
     padding: 0;
-    margin: 0;
-    /* margin-top:3em;*/
-    margin-left: 30.4% /*21em*/;
+    margin: 0 0 0 30.4%;
     width: 69.6% /*50em*/;
     height: auto;
     background: rgba(255, 255, 255, 0.8);
     position: absolute;
-
 }
 
 #h {
@@ -220,25 +204,18 @@ body {
     width: 100% /*61.2em*/;
     color: white;
     padding: 0.3em 0;
-
     position: relative;
     margin: 0;
-
     font-size: 1.2em;
     box-shadow: inset 0 0 1em rgba(255, 255, 255, 0.5);
 }
 
-#nottemp {
-}
-
 #temp li {
-
     background: rgba(25, 25, 25, 1);
     box-shadow: inset 0 0 2em rgba(255, 255, 255, 0.2);
     color: White;
     padding: 1em;
     cursor: pointer;
-
 }
 
 /*HEADER SECTION*/
@@ -272,13 +249,10 @@ body {
     list-style: none;
     float: right;
     border-left: 0 white solid;
-    padding: 0.3em;
-    padding-left: 0.4em;
-    padding-top: 0.5em;
+    padding: 0.5em 0.3em 0.3em 0.4em;
     height: 27px;
     box-shadow: inset 0.1em 0 0 rgba(255, 255, 255, 0.6), inset -0.1em 0 0.2em rgba(255, 255, 255, 0.3), inset 0.1em 0 0.5em rgba(255, 255, 255, 0.3);
     font-weight: bold;
-
 }
 
 .edgel {
@@ -297,47 +271,38 @@ body {
     list-style: none;
     float: left;
     border-left: 0 white solid;
-    padding: 0.3em;
-    padding-left: 0.4em;
-    padding-top: 0.5em;
+    padding: 0.5em 0.3em 0.3em 0.4em;
     height: 27px;
     box-shadow: inset -0.1em 0 0 rgba(255, 255, 255, 0.6), inset 0.1em 0 0.2em rgba(255, 255, 255, 0.3), inset -0.1em 0 0.5em rgba(255, 255, 255, 0.3);
     font-weight: bold;
     left: 0;
-
 }
 
 #header li:hover {
-
     background: rgba(255, 255, 255, 1);
     color: rgba(0, 0, 0, 1);
-
 }
 
 #header #leftbox li:hover {
-
     box-shadow: inset 0.1em 0 0.2em rgba(0, 0, 0, 0.3), inset -0.1em 0 0.5em rgba(0, 0, 0, 0.3);
 }
 
 #header #rightbox li:hover {
-
     box-shadow: inset -0.1em 0 0.2em rgba(0, 0, 0, 0.3), inset 0.1em 0 0.5em rgba(0, 0, 0, 0.3);
 }
 
 /*FOOTER SECTION */
 #footer {
-    margin: 0;
+    margin: 1em 0 0 0;
     top: 2em;
-    margin-top: 1em;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0 0;
     height: auto;
-    width: 100%/84.4em/;
+    width: 100%/*84.4em*/;
     background: rgba(0, 0, 0, 1);
     position: relative;
     left: 0;
-    text-color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
     box-shadow: inset 0.1em 0.1em 0.1em rgba(255, 255, 255, 0.5), inset -0.1em 0.1em 0.1em rgba(255, 255, 255, 0.5), inset 0 0.3em 0.5em rgba(255, 255, 255, 0.2);
-
 }
 
 #footer p {

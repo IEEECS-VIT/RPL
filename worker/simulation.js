@@ -15,6 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 exports.simulate = function (data, callback)
 {
     if (data.team[0].ratings.length < 12 && data.team[1].ratings.length < 12)
@@ -40,6 +41,7 @@ exports.simulate = function (data, callback)
     else
     {
         console.log(data.team[0]._id + ' vs ' + data.team[1]._id + ' is now being simulated');
+
         var rand = function(base, limit)
         {
             if(limit)
@@ -55,6 +57,7 @@ exports.simulate = function (data, callback)
                 return Math.random();
             }
         };
+
         var Make = function(team, arg)
         {
             average_strike_rating = average_mid_rating = average_keep_rating = average_def_rating = keep_count = def_count = strike_count = mid_count = 0;
@@ -68,6 +71,7 @@ exports.simulate = function (data, callback)
                     x : x,
                     y : y
                 };
+
                 if(i)
                 {
                     if(team[i].position.x == (36 + 57 * +!arg))
@@ -105,11 +109,13 @@ exports.simulate = function (data, callback)
                         break;
                 }
             }
+
             mean_rating[arg] = (average_def_rating + average_mid_rating + average_keep_rating + average_strike_rating) / 11;
             average_def_rating /= def_count;
             average_mid_rating /= mid_count;
             average_strike_rating /= strike_count;
             average_keep_rating /= keep_count;
+
             for (i = 0; i <= 11; ++i)
             {
                 switch(team[i].Type)
@@ -165,18 +171,23 @@ exports.simulate = function (data, callback)
                 x : 0,
                 y : 0
             };
+
             var flag;
             var reaction_time = 0;
+
             for(k = 0; k < 2; ++k)
             {
                 striker[k] = data.team[k].ratings.sort( function(a, b) {
                     return ((b.Type == 'strike') || (b.Overall >= a.Overall) && (b.Shot >= a.Shot));
                 }).slice(0, 5);
             }
+
             data.match.commentary.push(rand(penalty));
-            for( i = 0 ; i < 5 ; ++i )
+
+            for( i = 0 ; i < 5 ; ++i)
             {
                 k = 0;
+
                 for (b = 0; b < 2; ++b)
                 {
                     data.match.commentary.push(striker[+k][i].Name);
@@ -184,8 +195,8 @@ exports.simulate = function (data, callback)
                     direction.x = Math.pow(-1, rand(2)) * rand(10);
                     direction.y = rand(4);
                     error = (Math.abs(direction.x * direction.y)) * rand() * Math.pow(-1, rand(2)) * rand(101 - striker[+k][i].Overall - confidence[+k][i]) / 20;
-                    spin.y = (rand(striker[+k][i].Overall + confidence[+k][i] - direction.y) + 1) * Math.pow(-1, rand(2)) / (error ? error : 1);
-                    spin.x = (rand(striker[+k][i].Overall + confidence[+k][i] - Math.abs(direction.x) + 1) * Math.pow(-1, rand(2))) / (error ? error : 1);
+                    spin.y = (rand(striker[+k][i].Overall + confidence[+k][i] - direction.y) + 1) * Math.pow(-1, rand(2)) / (error || 1);
+                    spin.x = (rand(striker[+k][i].Overall + confidence[+k][i] - Math.abs(direction.x) + 1) * Math.pow(-1, rand(2))) / (error || 1);
                     force.x = rand(striker[+k][i].Shot * (1 - (striker[+k][i].Overall + confidence[+k][i]) / 100) + 1) + striker[+k][i].Shot * (striker[+k][i].Overall + confidence[+k][i]) / 100 - Math.abs(spin.x) + error;
                     force.y = rand(striker[+k][i].Shot * (1 - (striker[+k][i].Overall + confidence[+k][i]) / 100) + 1) + striker[+k][i].Shot * (striker[+k][i].Overall + confidence[+k][i]) / 100 - Math.abs(spin.y) + error;
                     force.z = Math.pow(Math.pow(force.x, 2) + Math.pow(force.y, 2), 0.5);
@@ -198,6 +209,7 @@ exports.simulate = function (data, callback)
                     dive.speed = (rand(dive.dist * (1 - keeper[+!k].Overall / 100) + 1) + dive.dist * keeper[+!k].Diving / 100) / reaction_time;
                     dive.x = dive.speed * time * direction.x / (Math.pow(Math.pow(direction.y, 2) + Math.pow(direction.x, 2), 0.5));
                     dive.y = dive.speed * time * direction.y / (Math.pow(Math.pow(direction.y, 2) + Math.pow(direction.x, 2), 0.5));
+
                     if ((y < 5) && (Math.abs(x) < 10))
                     {
                         if(((reaction_time - time) * (keeper[+!k].Overall + striker[+k][i].Overall) / 2 <= (keeper[+!k].Overall - striker[+k][i].Overall)) || (Math.abs(x - dive.x) <= 1 || Math.abs(y - dive.y) <= 1))
@@ -226,23 +238,29 @@ exports.simulate = function (data, callback)
                         data.match.commentary.push(temp);
                         flag = 0;
                     }
+
                     data.team[+k].ratings[strike].stamina -= 2;
                     data.team[+!k].ratings[0].stamina -= 2;
                     k = +!k;
                 }
+
                 for (j = i + 1; j < 6; ++j)
                 {
                     confidence[+k][j] -= Math.pow(-1, flag) * keeper[+!k].Overall / striker[+k][i].Overall;
                     confidence[+!k][j] += Math.pow(-1, flag) * keeper[+!k].Overall / striker[+k][i].Overall;
                 }
+
                 --data.team[+k].ratings[i].stamina;
                 --keeper[+!k].stamina;
+
                 if((Goals[1] + 4 - i < Goals[0]) || (Goals[0] + 4 - i < Goals[1]))
                 {
                     data.match.commentary.push(rand(hopeless));
                 }
             }
+
             data.match.commentary.push('Penalties: ' + data.team[0]._id + ': ' + (Goals[0] - aggregate) + ' | ' + (Goals[1] - aggregate) + ' :' + data.team[1]._id);
+
             if(Goals[0] == Goals[1])
             {
                 ++data.team[0].points;
@@ -254,6 +272,7 @@ exports.simulate = function (data, callback)
                 data.match.commentary.push(rand(tie));
                 return -1;
             }
+
             return +(Goals[1] > Goals[0]);
         };
         var com = function(arg)
@@ -308,7 +327,7 @@ exports.simulate = function (data, callback)
         var fouls = [0, 0];
         var passes = [0, 0];
         var mean_rating = [];
-        var possession = [0,0];
+        var possession = [0, 0];
         var last_five_pos = [];
         var last_five_dom = [];
         var striker = [[], []];
@@ -462,22 +481,27 @@ exports.simulate = function (data, callback)
         data.match.commentary.push(data.team[0]._id + ' VS ' + data.team[1]._id);
         data.match.commentary.push('Formations: ');
         data.match.commentary.push(data.team[0]._id + ': ' + formation[data.team[0].squad[11]][11] + ' | ' + formation[data.team[1].squad[11]][11] + ' :' + data.team[1]._id);
+
         if(data.team[0].played && data.team[1].played)
         {
             data.match.commentary.push('Form:');
             data.match.commentary.push(data.team[0]._id + ': ' + form[Math.floor(data.team[0].form * 100 / mean_rating[0])] + ' | ' + form[Math.floor(data.team[1].form * 100 / mean_rating[1])] + ' :' + data.team[1]._id);
         }
+
         data.match.commentary.push('Playing XI\'s:');
         data.match.commentary.push(data.team[0]._id + ' | ' + data.team[1]._id);
+
         for(i = 0; i < 11; ++i)
         {
             data.match.commentary.push(data.team[0].ratings[i].Name + '(' + data.team[0].ratings[i].Type + ') | ' + data.team[1].ratings[i].Name + '(' + data.team[1].ratings[i].Type + ')');
         }
+
         temp = (parseFloat(mean_rating[0] * 100)/(mean_rating[0] + mean_rating[1]) + temp).toFixed(2);
         data.match.commentary.push('Winning chances: ');
         data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
         data.match.commentary.push(data.team[+kick]._id + ' shall kickoff.');
         index = kick;
+
         for(loop = 0; loop < 2; ++loop)
         {
             for(i = 1; i < 46; ++i)
@@ -500,6 +524,7 @@ exports.simulate = function (data, callback)
                     {
                         kick = !kick;
                         hold = true;
+
                         if(ball.y < 0)
                         {
                             ball.x = parseInt(64.5 + ((64.5 - ball.x) / (ball.y - 34.5)) * 34.5);
@@ -511,17 +536,21 @@ exports.simulate = function (data, callback)
                             ball.y = 70;
                         }
                     }
+
                     data.match.commentary.push((i + loop * 45) + ': ');
+
                     if(!hold)
                     {
                         temp =(Math.pow(data.team[0].ratings[1].position.x - ball.x, 2) + Math.pow(data.team[+kick].ratings[1].position.y - ball.x, 2)) * (rand(50 - data.team[+kick].ratings[1].stamina) + 1);
                         temp /= (400 - data.team[+kick].ratings[1].Pace - data.team[+kick].ratings[1].Overall - data.team[+kick].ratings[1].Positioning - data.team[+kick].ratings[1].Physical);
+
                         for(y = 0; y < 2; ++y)
                         {
                             for(j = 1; j < 11; ++j)
                             {
                                 k = (Math.pow(data.team[y].ratings[j].position.x - ball.x, 2) + Math.pow(data.team[y].ratings[1].position.y - ball.x, 2)) * (rand(50 - data.team[y].ratings[1].stamina) + 1);
                                 k /= (400 - data.team[y].ratings[j].Pace - data.team[y].ratings[1].Overall - data.team[y].ratings[1].Positioning - data.team[y].ratings[1].Physical);
+
                                 if(k < temp)
                                 {
                                     temp = k;
@@ -530,12 +559,15 @@ exports.simulate = function (data, callback)
                                 }
                             }
                         }
+
                         hold = true;
                         ball.x = data.team[+kick].ratings[x].position.x;
                         ball.y = data.team[+kick].ratings[x].position.y;
                     }
+
                     friendly = [];
                     against  = [];
+
                     for (j = 1; j < 12; ++j)
                     {
                         if(((ball.x * Math.pow(-1, +kick)) < (data.team[+kick].ratings[j].position.x * Math.pow(-1, +kick))) && (((data.team[+kick].ratings[j].position.x * Math.pow(-1, +kick))) < (+!kick * 118 + 5.5) * (Math.pow(-1, +kick))))
@@ -549,9 +581,11 @@ exports.simulate = function (data, callback)
                             --data.team[+!kick].ratings[j].stamina;
                         }
                     }
+
                     temp = [];
                     k = 0;
                     temp = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+
                     if(friendly.length)
                     {
                         for(x = 0; x < data.team[+kick].ratings[0].length; ++x)
@@ -568,9 +602,11 @@ exports.simulate = function (data, callback)
                             {
                                 temp[0][k] += 1 / data.team[+kick].ratings[friendly[j]][x];
                             }
+
                             temp[0][k] = friendly.length / temp[0][k++];
                         }
                     }
+
                     k = 0;
                     if(against.length)
                     {
@@ -584,13 +620,16 @@ exports.simulate = function (data, callback)
                             {
                                 continue;
                             }
+
                             for(j = 0; j < against.length; ++j)
                             {
                                 temp[1][k] += 1 / data.team[+!kick].ratings[against[j]][x];
                             }
+
                             temp[1][k] = against.length / temp[1][k++];
                         }
                     }
+
                     for(k = 0; k < 2; ++k)
                     {
                         x = 1;
@@ -604,6 +643,7 @@ exports.simulate = function (data, callback)
                         y /= 13;
                         temp[k] = [x, y];
                     }
+
                     x = (Math.pow(-1, rand(2)) + (temp[0][1] - temp[1][0]) / 10) * rand(temp[0][0]) + temp[0][1];
                     y = (Math.pow(-1, rand(2)) + (temp[1][1] - temp[0][0]) / 10) * rand(temp[1][0]) + temp[1][1];
                     goal = (x - y) / 10;
@@ -631,15 +671,18 @@ exports.simulate = function (data, callback)
                         ++passes[+kick];
                         temp = Math.pow((data.team[+kick].ratings[friendly[0]].position.x - ball.x), 2) + Math.pow((data.team[+kick].ratings[friendly[0]].position.y - ball.y), 2);
                         y = friendly[0];
+
                         for(j = 0; j < friendly.length; ++j)
                         {
                             k = Math.pow((data.team[+kick].ratings[friendly[0]].position.x - ball.x), 2) + Math.pow((data.team[+kick].ratings[friendly[0]].position.y - ball.y), 2);
+
                             if(k < temp)
                             {
                                 temp = k;
                                 y = friendly[j];
                             }
                         }
+
                         com(pass);
                         ball.x = data.team[+kick].ratings[y].position.x;
                         ball.y = data.team[+kick].ratings[y].position.y;
@@ -651,6 +694,7 @@ exports.simulate = function (data, callback)
                         y = rand(ball.y - data.team[+kick].ratings[1].position.y) + Math.min(ball.y, data.team[+kick].ratings[1].position.y);
                         k = Math.pow(x - data.team[+kick].ratings[0].position.x , 2) + Math.pow(y - data.team[+kick].ratings[0].position.y, 2);
                         temp = 0;
+
                         for(j = 0; j < friendly.length; ++j)
                         {
                             if(Math.pow(x - data.team[+kick].ratings[j].position.x , 2) + Math.pow(y - data.team[+kick].ratings[j].position.y, 2) < k)
@@ -665,6 +709,7 @@ exports.simulate = function (data, callback)
                             ball.y = data.team[+kick].ratings[temp].position.y;
                             hold = true;
                         }
+
                         --data.team[+kick].ratings[temp].stamina;
                         com(intercept);
                     }
@@ -675,6 +720,7 @@ exports.simulate = function (data, callback)
                         temp[1] = Math.pow(ball.x - data.team[+!kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+!kick].ratings[1].position.y, 2);
                         x = 1;
                         y = 1;
+
                         for(j = 0; j < data.team[0].ratings.length; ++j)
                         {
                             if(Math.pow(ball.x - data.team[+!kick].ratings[j].position.x, 2) + Math.pow(ball.y - data.team[+kick].ratings[j].position.y, 2) < temp[0])
@@ -688,14 +734,17 @@ exports.simulate = function (data, callback)
                                 y = j;
                             }
                         }
+
                         temp[0] = data.team[+kick].ratings[x]. Physical * (1 + 10 / (100 - data.team[+kick].ratings[x].Overall) - data.team[+kick].ratings[x].Overall / 100);
                         temp[1] = data.team[+!kick].ratings[y]. Physical * (1 + 10 / (100 - data.team[+!kick].ratings[y].Overall) - data.team[+!kick].ratings[y].Overall / 100);
                         temp[0] = rand(temp[0]) + data.team[+kick].ratings[x].Physical * data.team[+kick].ratings[x].Overall / 100;
                         temp[1] = rand(temp[1]) + data.team[+!kick].ratings[y].Physical * data.team[+!kick].ratings[y].Overall / 100;
+
                         if(temp[1] > temp[0])
                         {
                             kick = !kick;
                         }
+
                         com(tackle);
                     }
                     else if(goal > 4 && goal <= 5) // foul
@@ -704,11 +753,13 @@ exports.simulate = function (data, callback)
                         hold = false;
                         ++fouls[+kick];
                         com(foul);
+
                         if(ball.x * Math.pow(-1, +kick) <= (23 + 83 * +kick) * Math.pow(-1, +kick))
                         {
                             strike = 10 - rand(striker[+kick].length);
                             strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
                             keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
+
                             if (strike_performance_index > keeper_performance_index)
                             {
                                 ++Goals[+kick];
@@ -722,6 +773,7 @@ exports.simulate = function (data, callback)
                                 ball.x = 5.5 + 118 * +!kick;
                                 com(miss);
                             }
+
                             ball.y = 34.5;
                             data.team[+kick].ratings[strike].stamina -= 2;
                             data.team[+!kick].ratings[0].stamina -= 2;
@@ -731,6 +783,7 @@ exports.simulate = function (data, callback)
                             ball.x = rand(ball.x - (5.5 + 118 * +kick)) + Math.min(ball.x, (5.5 + 118 * +kick));
                             ball.y = rand(ball.y - 34.5) + Math.min(ball.y, 34.5);
                         }
+
                         hold = true;
                     }
                     else if(goal > 5 && goal <= 6) // offside
@@ -763,6 +816,7 @@ exports.simulate = function (data, callback)
                                         +(data.team[+kick].ratings[j].Shot > data.team[+kick].ratings[strike].Shot),
                                         +(data.team[+kick].ratings[j].Positioning > data.team[+kick].ratings[strike].Positioning)
                                     ];
+
                                     if (temp[0] + temp[1] + temp[2] + temp[3] > 2)
                                     {
                                         temp = [0, 0, 0, 0];
@@ -771,9 +825,11 @@ exports.simulate = function (data, callback)
                                 }
                             }
                          }
+
                          strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
                          keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
-                         if (strike_performance_index > 2 * keeper_performance_index) // TODO : adjust scale
+
+                        if (strike_performance_index > 2 * keeper_performance_index) // TODO : adjust scale
                          {
                             com(score);
                             data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
@@ -787,39 +843,47 @@ exports.simulate = function (data, callback)
                             ball.x = 5.5 + 118 * +!kick;
                             hold = true;
                         }
+
                         ball.y = 34.5;
                         data.team[+kick].ratings[strike].stamina -= 2;
                         data.team[+!kick].ratings[0].stamina -= 2;
                     }
+
                     data.match.commentary.push('Possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (pos * 100).toFixed(2) + ' % | % ' + ((1 - pos) * 100).toFixed(2) + ' :' + data.team[1]._id);
                     last_five_pos.unshift(pos);
+
                     if(i + loop * 45 > 4)
                     {
                         temp = last_five_pos[0] + last_five_pos[1] + last_five_pos[2] + last_five_pos[3] + last_five_pos[4];
                         data.match.commentary.push(' Possession during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_pos.pop();
                     }
+
                     possession[0] = (possession[0] * (i + 45 * +loop - 1) + pos) / (i + 45 * +loop);
                     possession[1] = (possession[1] * (i + 45 * +loop - 1) + (1 - pos)) / (i + 45 * +loop);
                     data.match.commentary.push('Overall possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (possession[0] * 100).toFixed(2) + ' % | % ' + (possession[1] * 100).toFixed(2) + ' :' + data.team[1]._id);
                     dom += +(possession[0] > possession[1]);
                     last_five_dom.unshift(+(possession[0] > possession[1])); // TODO : adjust scale
+
                     if(i + loop * 45 > 4)
                     {
                         temp = last_five_dom[0] + last_five_dom[1] + last_five_dom[2] + last_five_dom[3] + last_five_dom[4];
                         data.match.commentary.push(' Dominance during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_dom.pop();
                     }
+
                     data.match.commentary.push('Dominance: ');
                     temp = (dom * 100 / (i + 45 * +loop) ).toFixed(2);
                     data.match.commentary.push(data.team[0]._id + ': ' + temp + ' % | % ' + (100 - temp) + ' :' + data.team[1]._id);
             }
+
             if(!loop)
             {
                 data.match.commentary.push('Half time: ');
                 data.match.commentary.push(rand(half));
+
                 for(i = 0; i < 2; ++i)
                 {
                     for(j = 0; j < 12; ++j)
@@ -827,6 +891,7 @@ exports.simulate = function (data, callback)
                         data.team[i].ratings[j].stamina += (50 - data.team[i].ratings[j].stamina) / (5 - (data.team[i].ratings[j].stamina / (100 - data.team[i].ratings[j].Overall)));
                     }
                 }
+
                 ball.x = 64.5;
                 ball.y = 34.5;
                 kick = !index;
@@ -836,9 +901,12 @@ exports.simulate = function (data, callback)
                 data.match.commentary.push('Final Score');
                 data.match.commentary.push(rand(end));
             }
+
             data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
         }
+
         winner = +(Goals[1] > Goals[0]);
+
         if(Goals[0] == Goals[1])
         {
             data.match.commentary.push(rand(shootout));
@@ -858,11 +926,12 @@ exports.simulate = function (data, callback)
             data.team[+!winner].goal_diff = data.team[+!winner].goals_for  - data.team[+!winner].goals_against;
             data.team[+winner].streak = (data.team[+winner].streak < 0) ? (1) : (data.team[+winner].streak + 1);
             data.team[+!winner].streak = (data.team[+!winner].streak > 0) ? (0) : (data.team[+!winner].streak - 1);
-            data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss ? data.team[+winner].loss : 1)).toFixed(2);
-            data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss ? data.team[+!winner].loss : 1)).toFixed(2);
+            data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss || 1)).toFixed(2);
+            data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss || 1)).toFixed(2);
         }
-        Goals[0] = Goals[0] ? Goals[0] : 1;
-        Goals[1] = Goals[1] ? Goals[1] : 1;
+
+        Goals[0] = Goals[0] || 1;
+        Goals[1] = Goals[1] || 1;
         ++data.team[0].played;
         ++data.team[1].played;
         data.team[0].shots += shots[0];
@@ -886,8 +955,10 @@ exports.simulate = function (data, callback)
         data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
         data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
     }
+
     delete data.team[0].ratings;
     delete data.team[1].ratings;
+
     var newData =
     {
         team1: data.team[0],

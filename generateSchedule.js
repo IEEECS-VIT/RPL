@@ -40,7 +40,7 @@ var onConnect = function (err, database)
 {
     if (err)
     {
-        console.log('Error: ', err.message);
+        console.log(err.message);
     }
     else
     {
@@ -56,7 +56,6 @@ var onConnect = function (err, database)
                 var j;
                 var day;
                 var temp;
-                var match;
                 var done = 0;
                 var schedule;
 
@@ -87,17 +86,15 @@ var onConnect = function (err, database)
                             for (i = 1; i <= count / 2; ++i)
                             {
                                 temp = (i + day - 1 + count / 2) % (count + 1);
-                                match =
-                                {
+
+                                schedule.push({
                                     "_id": i,
                                     "Team_1": i,
                                     "Team_2": (temp > count / 2 ? temp : (i + day - 1)),
                                     "commentary": [],
                                     "scorecard": [],
                                     "MoM": {}
-                                };
-
-                                schedule.push(match);
+                                });
                             }
 
                             break;
@@ -112,17 +109,15 @@ var onConnect = function (err, database)
                                     {
                                         for (j = 1; j <= count * temp / 4; j += temp)
                                         {
-                                            match =
-                                            {
+
+                                            schedule.push({
                                                 "_id": ++num,
                                                 "Team_1": (count / 2) * i + j,
                                                 "Team_2": (count / 2) * i + j + Math.pow((count / 4), +(day > 5)),
                                                 "commentary": [],
                                                 "scorecard": [],
                                                 "MoM": {}
-                                            };
-
-                                            schedule.push(match);
+                                            });
                                         }
                                     }
 
@@ -134,17 +129,14 @@ var onConnect = function (err, database)
                                         {
                                             temp = 2 * ((count / 4) * i + j) - 1;
 
-                                            match =
-                                            {
+                                            schedule.push({
                                                 "_id": (count / 4) * i + j,
                                                 "Team_1": temp,
                                                 "Team_2": ((count * (2 * i + 1)) / 2 + 1 - temp),
                                                 "commentary": [],
                                                 "scorecard": [],
                                                 "MoM": {}
-                                            };
-
-                                            schedule.push(match);
+                                            });
                                         }
                                     }
 

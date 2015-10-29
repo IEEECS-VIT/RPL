@@ -118,7 +118,11 @@ router.get('/', function (req, res) {
 });
 
 router.get('/leaderboard', function (req, res){ // Leaderboard/Standings
-    if ((req.signedCookies.name && process.env.DAY >= '1') || !process.env.NODE_ENV)                         // if cookies exists then access the database
+    if(req.signedCookies.name && req.signedCookies.lead && req.signedCookies.day == process.env.DAY)
+    {
+        res.render("leaderboard", {leaderboard: JSON.parse(req.signedCookies.lead)});
+    }
+    else if ((req.signedCookies.name && process.env.DAY >= '1') || !process.env.NODE_ENV)                         // if cookies exists then access the database
     {
         var onFetch = function (err, documents)
         {
@@ -128,7 +132,9 @@ router.get('/leaderboard', function (req, res){ // Leaderboard/Standings
             }
             else
             {
-                res.render("leaderboard", {leaderboard: documents, name: req.signedCookies.name});
+                res.cookie('day', process.env.DAY, {signed : true, maxAge : 86400000});
+                res.cookie('lead', JSON.stringify(documents), {signed : true, maxAge : 86400000});
+                res.render("leaderboard", {leaderboard: documents});
             }
         };
 
@@ -526,7 +532,11 @@ router.post('/feature', function (req, res) {
 });
 
 router.get('/dashboard', function (req, res) {
-    if (req.signedCookies.name && process.env.DAY >= '1')
+    if(req.signedCookies.name && req.signedCookies.dash && req.signedCookies.day == process.env.DAY)
+    {
+        res.render("dashboard", {result: JSON.parse(req.signedCookies.dash)});
+    }
+    else if (req.signedCookies.name && process.env.DAY >= '1')
     {
         credentials =
         {
@@ -551,6 +561,36 @@ router.get('/dashboard', function (req, res) {
     else
     {
         res.redirect('/');
+    }
+});
+
+router.get('/stats', function(req, res){
+    if(req.signedCookies.stats && req.signedCookies.day == process.env.DAY)
+    {
+        res.render('stats', {stats : JSON.parse(req.signedCookies.stats)});
+    }
+    else if (req.signedCookies.name && process.env.DAY >= '1')
+    {
+        var onGetStats = function (err, doc)
+        {
+            if (err)
+            {
+                console.log(err.message);
+                res.redirect('/');
+            }
+            else
+            {
+                res.cookie('day', process.env.DAY, {signed : true, maxAge : 86400000});
+                res.cookie('stats', JSON.stringify(doc), {signed : true, maxAge : 86400000});
+                res.render('stats', {stats: doc});
+            }
+        };
+
+        mongoFeatures.getStats(onGetStats);
+    }
+    else
+    {
+        res.redirect('/login');
     }
 });
 

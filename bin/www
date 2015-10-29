@@ -49,8 +49,10 @@ var onBind = function ()
             log.log('info', {Application: process.env.HOSTNAME});
         }
     }
+
     debug('Node.js Express server listening on port ' + server.address().port);
     debug('Using MongoDB: ' + mongoUri);
+
     if (process.env.HOSTNAME)
     {
         debug(process.env.HOSTNAME);
@@ -72,6 +74,7 @@ process.on('SIGINT', function(err){
     {
         console.log(err.message);
     }
+
     db.close();
     process.exit(0);
 });

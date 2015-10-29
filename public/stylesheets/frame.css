@@ -17,7 +17,6 @@
  */
 
 #rightm header {
-
     background: rgba(25, 25, 25, 1);
     width: 100% /*42.3em*/;
     color: white;
@@ -45,22 +44,17 @@
 #rightm td {
     padding: 1em;
     padding-right: 0;
-
 }
 
 #rightm img {
-
     width: 7em;
     height: 10em;
-
 }
 
 #dis {
     display: block;
-
 }
 
 #nodis {
-
     display: none;
 }

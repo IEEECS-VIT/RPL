@@ -44,6 +44,8 @@ var router = require('express').Router();
 var email = require(path.join(__dirname, '..', 'worker', 'email'));
 var record = require(path.join(__dirname, '..', 'db', 'mongo-record'));
 var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
+var developers = require(path.join(__dirname, '..', 'package.json')).contributors;
+developers.map((arg) => arg.map((x) => x.img = x.name.split(' ')[0]));
 
 register = interest = email.wrap({
     from: 'rivierapremierleague@gmail.com',
@@ -666,7 +668,7 @@ router.get('/simulate', function (req, res) {
 
 router.get(/\/developers?/, function (req, res) // developers page
 {
-    res.render('developer', {csrfToken : req.csrfToken()});
+    res.render('developer', {csrfToken : req.csrfToken(), obj : developers});
 });
 
 router.get('/countdown', function (req, res) // page for countdown
