@@ -51,7 +51,7 @@ mongo(mongoUri, function(err, database){
         db = database;
         simulationControl.initSimulation(day, function (){
             console.log('Simulation of Matches for Day ' + day + ' is complete');
-            if(day == 7)
+            if(day == 7 && process.env.MATCH !== 'round3')
             {
                 mongoTeam.shortList(function(err, result){
                     if(err)
