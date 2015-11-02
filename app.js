@@ -24,6 +24,7 @@ if(!process.env.NODE_ENV)
     require('dotenv').load();
 }
 var log;
+var status;
 var newrelic;
 var path = require('path');
 var csurf = require('csurf');
@@ -73,47 +74,27 @@ app.use('/auth', social);
 app.use('/home', home);
 
 // catch 404 and forward to error handler
-app.use(function (req, res) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
-    res.render('error', {
-        message: err.message,
-            status: err.status,
-            stack: err.stack
-    });
+    next(err);
 });
 
-// error handlers
-// development error handler, will print stacktrace
-if (app.get('env') === 'development')
-{
-    app.use(function (err, req, res) {
-        if (log)
-        {
-            log.log('debug', {Error: err, Message: err.message});
-        }
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            status: err.status,
-            stack: err.stack
-        });
-    });
-}
+// error handler
+app.use(function (err, req, res, next) {
+    if (log)
+    {
+        log.log('debug', {Error: err, Message: err.message});
+    }
 
-// production error handler, no stacktraces leaked to user
-app.use(function (err, req, res)
-        {
-            if (log)
-            {
-                log.log('debug', {Error: err, Message: err.message});
-            }
-            res.status(err.status || 500);
-            res.render('error', {
-                message: err.message,
-                status: err.status,
-                stack: ''
-            });
-        });
+    status = err.status || 500;
+
+    res.status(status);
+    res.render('error', {
+        message: err.message,
+        status: status,
+        stack: process.env.NODE_ENV ? '' : err.stack
+    });
+});
 
 module.exports = app;
