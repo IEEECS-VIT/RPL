@@ -73,11 +73,11 @@ router.get('/', authenticated, function (req, res) {
         }
         else if (doc)
         {
-            if (doc.team.length == 0)
+            if (!doc.team.length)
             {
                 res.redirect("/home/players");
             }
-            else if(doc.squad.length == 0)
+            else if(!doc.squad.length)
             {
                 res.redirect("/home/formation");
             }
@@ -101,7 +101,7 @@ router.get('/', authenticated, function (req, res) {
         }
         else
         {
-            res.clearCookie('name', { });
+            res.clearCookie('name', {});
             res.redirect('/home');
         }
     };
@@ -165,6 +165,7 @@ router.get('/matches', authenticated, function (req, res) {
                     }
                     else
                     {
+                        res.cookie('day', process.env.DAY, {signed : true, maxAge : 86400000});
                         res.render('matches', {match: matches, day : (process.env.DAY - 1) || 0, round : ref[process.env.MATCH]});
                     }
                 };
@@ -211,10 +212,7 @@ router.post('/getTeam', authenticated, function (req, res) {
     players = [];
     fields =
     {
-        _id: 1,
-        Name: 1,
-        Cost: 1,
-        Type: 1
+        Cost: 1
     };
     cost = 100000000;
     credentials =
@@ -222,12 +220,10 @@ router.post('/getTeam', authenticated, function (req, res) {
         _id: req.signedCookies.name
     };
 
-    for (i = 2; i < 17; ++i)
+    for (i = 1; i < 17; ++i)
     {
         players.push(req.body['p' + i]);
     }
-
-    players.push(req.body.p1);
 
     var onUpdate = function (err)
     {
@@ -244,40 +240,24 @@ router.post('/getTeam', authenticated, function (req, res) {
 
     var getCost = function (id, callback)
     {
-        if (id < 'd')
-        {
-            stats[id]         = {};
-            stats[id].MoM     = 0;
-            stats[id].form    = 0;
-            stats[id].morale  = 0;
-            stats[id].points  = 0;
-            stats[id].fatigue = 0;
-            stats[id].matches = 0;
-            stats[id].catches = 0;
+        stats[id] = {};
+        stats[id].MoM     = 0;
+        stats[id].form    = 0;
+        stats[id].morale  = 0;
+        stats[id].points  = 0;
+        stats[id].fatigue = 0;
+        stats[id].matches = 0;
 
-            if (!(id > 'b' && id < 'c'))
-            {
-                stats[id].outs        = 0;
-                stats[id].balls       = 0;
-                stats[id].high        = -1;
-                stats[id].fours       = 0;
-                stats[id].sixes       = 0;
-                stats[id].recent      = [];
-                stats[id].notouts     = 0;
-                stats[id].average     = 0.0;
-                stats[id].runs_scored = 0;
-                stats[id].strike_rate = 0.0;
-                stats[id].low         = Number.MAX_VALUE;
-            }
-            if (id > 'b' && id < 'd')
-            {
-                stats[id].sr            = 0.0;
-                stats[id].overs         = 0;
-                stats[id].avg           = 0.0;
-                stats[id].economy       = 0.0;
-                stats[id].runs_given    = 0;
-                stats[id].wickets_taken = 0;
-            }
+        switch(id[0])
+        {
+            case 'a': //def
+                break;
+            case 'b': //keep
+                break;
+            case 'c': //mid
+                break;
+            case 'd': //str
+                break;
         }
 
         mongoFeatures.getPlayer(id, fields, callback)
@@ -334,11 +314,14 @@ router.get('/players', authenticated, function (req, res) {// page for all playe
         {
             if (document.team.length)
             {
-                res.redirect("/home");
-            }
-            else if (!document.squad.length)
-            {
-                res.redirect("/home/team");
+                if (!document.squad.length)
+                {
+                    res.redirect("/home/team");
+                }
+                else
+                {
+                    res.redirect('/home');
+                }
             }
             else
             {
@@ -446,12 +429,16 @@ router.get(/\/developers?/, function (req, res) {// developers page
     res.render('developers');
 });
 
-router.get('/settings',function(req,res){
+router.get('/settings', authenticated, function(req,res){
     res.render('settings', {csrfToken: req.csrfToken()});
 });
 
 router.get('/stats', authenticated, function (req, res) {
-    if (process.env.DAY >= '1')
+    if(req.signedCookies.stats && req.signedCookies.day == process.env.DAY)
+    {
+        res.render('stats', {stats : JSON.parse(req.signedCookies.stats)});
+    }
+    else if (process.env.DAY >= '1')
     {
         var onGetStats = function (err, doc)
         {
@@ -462,6 +449,8 @@ router.get('/stats', authenticated, function (req, res) {
             }
             else
             {
+                res.cookie('day', process.env.DAY, {signed : true, maxAge : 86400000});
+                res.cookie('stats', JSON.stringify(doc), {signed : true, maxAge : 86400000});
                 res.render('stats', {stats: doc});
             }
         };
@@ -497,7 +486,7 @@ router.get('/dashboard', authenticated, function (req, res) {
     {
         res.render("dashboard", {result: JSON.parse(req.signedCookies.dash)});
     }
-    else if (process.env.DAY >= '1')
+    else if (process.env.DAY >= '1' || !process.env.NODE_ENV)
     {
         credentials =
         {
@@ -513,41 +502,13 @@ router.get('/dashboard', authenticated, function (req, res) {
             }
             else
             {
+                res.cookie('day', process.env.DAY, {signed: true, maxAge: 86400000});
+                res.cookie('dash', JSON.stringify(doc), {signed: true, maxAge: 86400000});
                 res.render('dashboard', {result: doc});
             }
         };
 
         mongoTeam.dashboard(credentials, onFind);
-    }
-    else
-    {
-        res.redirect('/home');
-    }
-});
-
-router.get('/stats', authenticated, function(req, res){
-    if(req.signedCookies.stats && req.signedCookies.day == process.env.DAY)
-    {
-        res.render('stats', {stats : JSON.parse(req.signedCookies.stats)});
-    }
-    else if (process.env.DAY >= '1')
-    {
-        var onGetStats = function (err, doc)
-        {
-            if (err)
-            {
-                console.log(err.message);
-                res.redirect('/home');
-            }
-            else
-            {
-                res.cookie('day', process.env.DAY, {signed : true, maxAge : 86400000});
-                res.cookie('stats', JSON.stringify(doc), {signed : true, maxAge : 86400000});
-                res.render('stats', {stats: doc});
-            }
-        };
-
-        mongoFeatures.getStats(onGetStats);
     }
     else
     {
