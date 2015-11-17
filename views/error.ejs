@@ -104,12 +104,12 @@
                         <div class="modal-body">
                             <form action="/register" method="post" name="signin" id="reg">
                                 <p style="color: rgba(255,255,255,0.8)">All fields are required.</p> <br>
-                                <input name="m_name" type="text" placeholder="Manager's Name" id="m_name"/> <br>
-                                <input name="t_name" type="text" placeholder="Team Name" id="t_name"/> <br>
-                                <input name="rpass" type="password" placeholder="Password" id="rpass"/> <br>
-                                <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass"/> <br>
-                                <input name="pno" type="text" placeholder="Phone Number" id="pno"/> <br>
-                                <input name="email" type="email" placeholder="example@domain.com" id="email"/> <br>
+                                <input name="m_name" type="text" placeholder="Manager's Name" id="m_name" required autofocus/> <br>
+                                <input name="t_name" type="text" placeholder="Team Name" id="t_name" required/> <br>
+                                <input name="rpass" type="password" placeholder="Password" id="rpass" required /> <br>
+                                <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass" required/> <br>
+                                <input name="pno" type="text" placeholder="Phone Number" id="pno" required/> <br>
+                                <input name="email" type="email" placeholder="example@domain.com" id="email" required/> <br>
                                 <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
                             </form>
                         </div>
@@ -162,8 +162,8 @@
                 <div class="col-md-2"></div>
                 <div align="center" class="col-md-8 box" style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
                     <div class="row" style="text-align: center;margin-bottom: 1%">
-                        <h1><%= message || '' %></h1>
-                        <h2><%= status || '' %></h2>
+                        <h1><%= message %></h1>
+                        <h2><%= status %></h2>
                         <% if(stack.length > 0){ %>
                             <pre style="border-radius:0;padding:2%;text-align: left"><%= stack %></pre>
                         <% } %>

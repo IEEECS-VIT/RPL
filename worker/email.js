@@ -16,6 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var ref =
+{
+    'users': 1,
+    'round2': 2,
+    'round3': 3
+};
 var email = require("emailjs");
 var server = email.server.connect({
     user: "rivierapremierleague@gmail.com",
@@ -23,6 +29,7 @@ var server = email.server.connect({
     host: "smtp.gmail.com",
     ssl: true
 });
+var version = (new Date).getFullYear() - 2013;
 
 exports.send = function (message, callback)
 {

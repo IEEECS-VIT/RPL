@@ -111,7 +111,7 @@ app.use(function (err, req, res, next) {
             error.stack   = err.stack;
         }
 
-        res.render('error');
+        res.render('error', error);
     }
 });
 
