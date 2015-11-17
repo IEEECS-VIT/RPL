@@ -3,24 +3,20 @@
   "version": "0.1.0",
   "description": "Riviera Premier League",
   "homepage": "http://www.rivierapremierleague.herokuapp.com/",
-  "bugs":
-  {
+  "bugs": {
     "url": "https://github.com/IEEECS-VIT/RPL/issues",
     "email": "rivierapremierleague@gmail.com"
   },
   "private": true,
   "main": "./bin/www",
-  "scripts":
-  {
+  "scripts": {
     "postinstall": "node ./node_modules/bower/bin/bower install",
     "start": "node ./bin/www"
   },
-  "cacheDirectories":
-  [
+  "cacheDirectories": [
     "public/bower"
   ],
-  "contributors":
-  [
+  "contributors": [
     [
       {
         "name": "Aneesh Neelam",
@@ -48,8 +44,7 @@
       }
     ]
   ],
-  "dependencies":
-  {
+  "dependencies": {
     "async": "^1.5.0",
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
@@ -62,35 +57,31 @@
     "emailjs": "^1.0.0",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "mongodb": "^2.0.47",
+    "mongodb": "^2.0.48",
     "morgan": "^1.6.1",
-    "newrelic": "^1.23.0",
+    "newrelic": "^1.23.1",
     "node-logentries": "^0.1.4",
-    "passport": "^0.3.0",
+    "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",
     "passport-google-oauth": "^0.2.0",
     "passport-twitter": "^1.0.3",
     "serve-favicon": "^2.3.0"
   },
-  "optionalDependencies":
-  {
+  "optionalDependencies": {
     "bcrypt": "~0.8.5"
   },
-  "repository":
-  {
+  "repository": {
     "type": "git",
     "url": "https://github.com/IEEECS-VIT/RPL.git"
   },
   "license": "GPL-3.0+",
-  "licenses":
-  [
+  "licenses": [
     {
       "type": "GPL-3.0+",
       "url": "https://www.gnu.org/licenses/gpl-3.0-standalone.html"
     }
   ],
-  "engines":
-  {
+  "engines": {
     "node": "4.2.x"
   }
 }

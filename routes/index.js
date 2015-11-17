@@ -17,110 +17,36 @@
  */
 
 var log;
+var time;
+var hash;
 var user;
 var reset;
 var token;
 var bcrypt;
 var newUser;
-var register;
-var interest;
-var password;
 var ref =
 {
-    'admin' :
+    'admin':
     [
         'admin',
         '/admin'
     ],
-    'local' :
+    'local':
     [
         'name',
         '/home'
     ]
 };
+var password;
+var credentials;
 var path = require('path');
 var crypto = require('crypto');
 var router = require('express').Router();
-var email = require(path.join(__dirname, '..', 'worker', 'email'));
 var record = require(path.join(__dirname, '..', 'db', 'mongo-record'));
+var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
 var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
 var developers = require(path.join(__dirname, '..', 'package.json')).contributors;
 developers.map((arg) => arg.map((x) => x.img = x.name.split(' ')[0]));
-
-register = interest = email.wrap({
-    from: 'rivierapremierleague@gmail.com',
-    subject: 'Welcome to graVITas premier league 2.0!'
-});
-
-password = user = email.wrap({
-    from: 'rivierapremierleague@gmail.com',
-    subject: 'Time to get back in the game'
-});
-
-reset = email.wrap({
-    from: 'rivierapremierleague@gmail.com',
-    subject: 'Password change successful!'
-});
-
-interest.attach_alternative("<table background='http://res.cloudinary.com/rpl/general/img0.jpg' align='center' cellpadding='0' cellspacing='0' width='600' style='box-shadow: 5px 5px 15px #888888; border-radius: 12px; background-position: center; border-collapse: collapse;'>" +
-    "<tr><td align='center' style='font-family:Lucida Sans Unicode; font-size:50px; padding: 40px 0 40px 0;color: #ffd195;'>Riviera Premier League</td>" +
-    "</tr><tr><td align='center' style='padding: 5px 30px 40px 30px;font-family: Arial; line-height:30px; font-size:x-large;'> Thank you for your interest in Riviera Premier League <br>" +
-    "Please check out  our Facebook <a href='http://www.facebook.com/rivierapremierleague' style='text-decoration: none;'>page</a> to stay close to all the action! </td>" +
-    "</tr><tr><td align='left' style='padding: 20px 20px 20px 20px; font-family: courier; font-size: large;color: #ffd195; font-weight: bold;'>Regards,<br>Team RPL,<br>IEEE Computer Society<br>IEEE Computer Society<br>VIT student chapter</td></tr></table>");
-
-register.attach_alternative("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>" +
-    "<html xmlns='http://www.w3.org/1999/xhtml' xmlns='http://www.w3.org/1999/xhtml'>" +
-    "  <head>" +
-    "    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />" +
-    "    <meta name='viewport' content='width=device-width' />" +
-    "  </head>" +
-    "  <body style='width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0; padding: 0;'>" +
-    "    <table class='body' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='center' align='center' valign='top' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;'>" +
-    "        <center style='width: 100%; min-width: 580px;'>" +
-    "          <table class='row header' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; background: #0D5B67; padding: 0px;' bgcolor='#0D5B67'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='center' align='center' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;' valign='top'>" +
-    "                <center style='width: 100%; min-width: 580px;'>" +
-    "                  <table class='container' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='wrapper last' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0 0' align='left' valign='top'>" +
-    "                        <table class='twelve columns' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='six sub-columns' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; min-width: 0; width: 50%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0 10px 10px 0;' align='left' valign='top'>" +
-    "                              <img src='http://res.cloudinary.com/gpl/general/gpllogo.png' height='50' style='outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; float: left; clear: both; display: block;' align='left' /></td>" +
-    "                            <td class='six sub-columns last' style='text-align: right; vertical-align: middle; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; min-width: 0; width: 50%; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;' align='right' valign='middle'>" +
-    "                              <span class='template-label' style='color: #ffffff; font-weight: bold; font-size: 11px;'>Riviera Premier League</span>" +
-    "                            </td>" +
-    "                            <td class='expander' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;' align='left' valign='top'></td>" +
-    "                          </tr></table></td>" +
-    "                    </tr></table></center>" +
-    "              </td>" +
-    "            </tr></table><table class='container' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;' align='left' valign='top'>" +
-    "                <table class='row' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='wrapper last' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0px 0px;' align='left' valign='top'>" +
-    "                      <table class='twelve columns' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; margin: 0 auto; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px;' align='left' valign='top'>" +
-    "                            <h1 style='color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 40px; margin: 0; padding: 0;' align='left'>Hi,</h1>" + "                                        <p class='lead' style='color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 21px; font-size: 18px; margin: 0 0 10px; padding: 0;' align='left'>This is to inform that that you have successfully registered for Gravitas Premier League 2.0." +
-    "                          </p>" +
-    "                          <p style='color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 19px; font-size: 14px; margin: 0 0 10px; padding: 0;' align='left'><a href='http://gravitaspremierleague.com/' style='color: #2ba6cb; text-decoration: none;'>Click here</a> for more details. <br />" +
-    "                          Good luck! <br /><br />" +
-    "                          Regards<br />" +
-    "                          Team RPL,<br />" +
-    "                          IEEE Computer Society,<br />" +
-    "                          VIT Student Chapter" +
-    "                             </p>" +
-    "                          </td>" +
-    "                          <td class='expander' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;' align='left' valign='top'></td>" +
-    "                        </tr></table></td>" +
-    "                  </tr></table><table class='row footer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='wrapper' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; background: #ebebeb; margin: 0; padding: 10px 20px 0px 0px;' align='left' bgcolor='#ebebeb' valign='top'>" +
-    "                      <table class='six columns' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 280px; margin: 0 auto; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td class='left-text-pad' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 0px 10px 10px;' align='left' valign='top'>" +
-    "                            <h5 style='color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 24px; margin: 0; padding: 0 0 10px;' align='left'>Connect With Us:</h5>" +
-    "                            <table class='tiny-button facebook' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; display: block; width: auto !important; background: #3b5998; margin: 0; padding: 5px 0 4px; border: 1px solid #2d4473;' align='center' bgcolor='#3b5998' valign='top'>" +
-    "                                  <a href='https://www.facebook.com/gravitaspremierleague' style='color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;'>Facebook</a>" +
-    "                                </td>" +
-    "                              </tr></table><br /><table class='tiny-button twitter' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; overflow: hidden; padding: 0;'><tr style='vertical-align: top; text-align: left; padding: 0;' align='left'><td style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #ffffff; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; display: block; width: auto !important; background: #00acee; margin: 0; padding: 5px 0 4px; border: 1px solid #0087bb;' align='center' bgcolor='#00acee' valign='top'>" +
-    "                                  <a href='https://twitter.com/graVITasgpl' style='color: #ffffff; text-decoration: none; font-weight: normal; font-family: Helvetica, Arial, sans-serif; font-size: 12px;'>Twitter</a>" +
-    "                                </td>" +
-    "                              </tr></table><br /></td>" +
-    "                          <td class='expander' style='word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; visibility: hidden; width: 0px; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;' align='left' valign='top'></td>" +
-    "                        </tr></table></td>" +
-    "                  </tr></table><!-- container end below --></td>" +
-    "            </tr></table></center>" +
-    "            </td>" +
-    "        </tr></table></body>" +
-    "</html>");
 
 try
 {
@@ -155,7 +81,7 @@ router.get('/', function (req, res) {
     }
     else if (process.env.NODE_ENV && process.env.LIVE === '0')
     {
-        var time = new Date;
+        time = new Date;
         time.setTime(time.getTime() + time.getTimezoneOffset() * 60000 + 19800000);
         var date =
         {
@@ -176,7 +102,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/interest', function (req, res) {
-    if(process.env.LIVE === '0')
+    if(process.env.LIVE === '0' || !process.env.NODE_ENV || req.signedCookies.admin)
     {
         res.render('interest', {csrfToken: req.csrfToken()});
     }
@@ -188,7 +114,7 @@ router.get('/interest', function (req, res) {
 
 router.post('/interest', function (req, res) // interest form
 {
-    var newUser =
+    newUser =
     {
         name: req.body.name,
         regno: req.body.regno,
@@ -204,22 +130,7 @@ router.post('/interest', function (req, res) // interest form
         }
         else
         {
-            var onSend = function (err)
-            {
-                if (err)
-                {
-                    console.log(err.message);
-                }
-                else
-                {
-                    console.log('Sent!');
-                }
-
-                res.redirect('/interest');
-            };
-
-            interest.header.to = newUser.email;
-            email.send(interest, onSend);
+            res.redirect('/interest');
         }
     };
 
@@ -247,8 +158,8 @@ router.get('/login', function (req, res) {
 
 router.post('/login', function (req, res)
 {
-    var password = req.body.password;
-    var credentials =
+    password = req.body.password;
+    credentials =
     {
         '_id': req.body.team.trim().toUpperCase(),
         $or :
@@ -299,13 +210,13 @@ router.post('/login', function (req, res)
     mongoUsers.fetchUser(credentials, onFetch);
 });
 
-router.get('/forgot/password', function(req, res){
-    res.render('forgot', {csrfToken : req.csrfToken(), mode:'password'});
+router.get(/^\/forgot\/password|user$/, function(req, res){
+    res.render('forgot', {csrfToken : req.csrfToken(), mode: req.originalUrl.split('/')[2]});
 });
 
 router.post('/forgot/password', function (req, res)
 {
-    var doc =
+    credentials =
     {
         _id: req.body.team.trim().toUpperCase(),
         email: req.body.email,
@@ -314,46 +225,25 @@ router.post('/forgot/password', function (req, res)
 
     crypto.randomBytes(20, function (err, buf) {
         token = buf.toString('hex');
-        password.header.to = req.body.email;
-        password.attach_alternative("<table background='http://res.cloudinary.com/rpl/general/img1.jpg' align='center' cellpadding='0' cellspacing='0' width='600' style ='box-shadow: 5px 5px 15px #888888; border-radius: 12px; background-position: center; border-collapse: collapse;'>" +
-            "<tr><td align='center' style='font-family:Lucida Sans Unicode; font-size:50px; padding: 40px 0 40px 0;color: #ffd195;'>Riviera Premier League</td>" +
-            "</tr><tr><td style='color:#FFFFFF;' align=\'left\' style=\'padding: 2px 30px 40px 30px;font-family: Arial; line-height:30px; font-size:large;\'> Please click <a href=\"http://" + req.headers.host + "/reset/" + token + "\">here</a> in order to reset your password.<br>" +
-            "For the purposes of security, this link is valid for one use only, and shall expire in sixty minutes. <br> In the event that this password reset was not requested by you, please ignore this message and your password shall remain intact.<br>" +
-            "</tr><tr><td align='left' style='padding: 20px 20px 20px 20px; font-family: courier; font-size: large;color: #ffd195; font-weight: bold;'>Regards,<br>Team RPL<br>IEEE Computer Society<br>VIT Student chapter</td></tr></table>");
 
         var onFetch = function(err, doc){
-            if(err)
+            if(err || !doc)
             {
                 console.log(err.message);
-            }
-            else if(doc)
-            {
-                email.sendMail(password, function(err) {
-                    if(err)
-                    {
-                        console.log(err.message);
-                    }
-
-                    res.redirect('/login');
-                });
+                res.redirect('/forgot');
             }
             else
             {
-                console.log('Invalid credentials!');
-                res.redirect('/forgot');
+                res.redirect('/login');
             }
         };
 
-        mongoUsers.forgotPassword(doc, token, onFetch);
+        mongoUsers.forgotPassword(credentials, token, req.headers.host, onFetch);
     });
 });
 
-router.get('/forgot/user', function(req, res){
-    res.render('forgot', {csrfToken: req.csrfToken(), mode:'user'});
-});
-
 router.post('/forgot/user', function (req, res) {
-    var doc =
+    credentials =
     {
         phone: req.body.phone,
         email: req.body.email
@@ -361,32 +251,18 @@ router.post('/forgot/user', function (req, res) {
 
     var onFetch = function (err, docs)
     {
-        if (err)
+        if (err || !docs)
         {
             console.log(err.message);
             res.redirect('/forgot/user');
         }
-        else if (docs)
-        {
-            user.header.to = req.body.email;
-            user.attach_alternative("The following teams were found in association with your details:<br><br><ol>" + docs + "</ol><br><br><br>Regards, <br>Team G.P.L<br>IEEE Computer Society");
-
-            email.send(user, function (err) {
-                if (err)
-                {
-                    console.log(err.message);
-                }
-
-                res.redirect('/login');
-            });
-        }
         else
         {
-            res.redirect('/forgot/user');
+            res.redirect('/login');
         }
     };
 
-    mongoUsers.forgotUser(doc, onFetch);
+    mongoUsers.forgotUser(credentials, onFetch);
 });
 
 router.get('/reset/:token', function(req, res){
@@ -413,6 +289,7 @@ router.get('/reset/:token', function(req, res){
 router.post('/reset/:token', function(req, res) {
     if(req.body.password === req.body.confirm)
     {
+        hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
         var onReset = function(err, doc)
         {
             if(err)
@@ -422,27 +299,11 @@ router.post('/reset/:token', function(req, res) {
             }
             else if(!doc)
             {
-                console.log('No matches found!');
                 res.redirect('/forgot');
             }
             else
             {
-                reset.header.to = doc.value.email;
-                reset.attach_alternative("<table background='http://res.cloudinary.com/rpl/general/img3.jpg' align='center' cellpadding='0' cellspacing='0' width='600' style='box-shadow: 5px 5px 15px #888888; border-radius: 12px; background-position: center; border-collapse: collapse;'>" +
-                    "<tr><td align='center' style='font-family:Lucida Sans Unicode; font-size:50px; padding: 40px 0 40px 0;color: #ffd195;'>Riviera Premier League</td>" +
-                    "</tr><tr><td style='color:#FFFFFF;' align='left' style='padding: 5px 30px 40px 30px;font-family: Arial; line-height:30px; font-size:x-large;'>Hey there, " + doc.value.manager_name + "!<br>We\'re just writing in to let you know that the recent password change for your team " +
-                    doc.value._id + " was successful.<br>Welcome Back to R.P.L!" +
-                    "</tr><tr><td align='left' style='padding: 20px 20px 20px 20px; font-family: courier; font-size: large;color: #ffd195; font-weight: bold;'>Regards,<br>Team RPL<br>IEEE Computer Society<br>VIT Student chapter</td></tr></table>"
-                );
-
-                email.send(reset, function(err) {
-                    if(err)
-                    {
-                        console.log(err.message);
-                    }
-
-                    res.redirect('/login');
-                });
+                res.redirect('/login');
             }
         };
 
@@ -472,33 +333,31 @@ router.get('/register', function (req, res)
 
 router.post('/register', function (req, res)
 {
-    if (req.signedCookies.name)
-    {
-        res.clearCookie('name', {});
-        res.clearCookie('admin', {});
-    }
+    res.clearCookie('name', {});
+    res.clearCookie('admin', {});
 
     var onGetCount = function (err, number)
     {
         if (err)
         {
             console.log(err.message);
+            res.render('register', {response: "Unknown error, please try again", csrfToken: req.csrfToken()});
         }
         else
         {
             if (req.body.rpass === req.body.rcpass)
             {
                 newUser = record;
-                newUser._id = req.body.t_name.trim().toUpperCase();
                 newUser.dob = new Date();
-                newUser.team_no = parseInt(number) + 1;
-                newUser.password_hash = bcrypt.hashSync(req.body.rpass, bcrypt.genSaltSync(10));
-                newUser.manager_name = req.body.m_name;
-                newUser.email = req.body.email;
                 newUser.phone = req.body.pno;
+                newUser.email = req.body.email;
                 newUser.authStrategy = 'local';
+                newUser.team_no = parseInt(number) + 1;
+                newUser.manager_name = req.body.m_name;
+                newUser._id = req.body.t_name.trim().toUpperCase();
+                newUser.password_hash = bcrypt.hashSync(req.body.rpass, bcrypt.genSaltSync(10));
 
-                var onInsert = function (err, docs)
+                var onInsert = function (err)
                 {
                     if (err)
                     {
@@ -507,17 +366,8 @@ router.post('/register', function (req, res)
                     }
                     else
                     {
-                        register.header.to = newUser.email;
-                        res.cookie('name', docs._id, {maxAge: 86400000, signed: true});
-
-                        email.send(register, function(err){
-                            if(err)
-                            {
-                                console.log(err.message);
-                            }
-
-                            res.redirect('/home/players');
-                        });
+                        res.cookie('name', newUser._id, {maxAge: 86400000, signed: true});
+                        res.redirect('/home/players');
                     }
                 };
 
@@ -559,7 +409,7 @@ router.get('/admin', function (req, res) {
             }
             else
             {
-                res.redirect('/');
+                res.redirect('/login');
             }
         };
 
@@ -609,39 +459,6 @@ router.post('/social/register', function (req, res) {
     res.redirect('/social/register');
 });
 
-router.get('/social/callback', function (req, res) {
-    if (req.signedCookies.team)
-    {
-        res.cookie('name', req.user._id, {maxAge: 86400000, signed: true});
-        delete req.user;
-        res.clearCookie('team', {});
-        res.clearCookie('phone', {});
-
-        if(req.signedCookies.email)
-        {
-            register.header.to = req.signedCookies.email;
-            res.clearCookie('email', {});
-
-            email.send(register, function (err) {
-                if (err)
-                {
-                    console.log(err.message);
-                }
-
-                res.redirect('/home/players');
-            });
-        }
-        else
-        {
-            res.redirect('/home/players');
-        }
-    }
-    else
-    {
-        res.redirect('/');
-    }
-});
-
 router.get('/simulate', function (req, res) {
     if (req.signedCookies.admin)
     {
@@ -663,39 +480,12 @@ router.get('/simulate', function (req, res) {
     res.redirect('/admin');
 });
 
-router.get(/\/developers?/, function (req, res) // developers page
-{
-    res.render('developer', {csrfToken : req.csrfToken(), obj : developers});
+router.get(/^\/developers|prizes$/, function (req, res) { // developers page
+    res.render(req.originalUrl.slice(1), {csrfToken : req.csrfToken(), obj: developers});
 });
 
-router.get('/countdown', function (req, res) // page for countdown
-{
-    res.render('countdown');
-});
-
-router.get('/prizes', function (req, res) // page to view prizes
-{
-    res.render('prizes', {csrfToken: req.csrfToken()});
-});
-
-router.get(/^\/rules?$/, function (req, res)
-{
-    res.render('rule');
-});
-
-router.get(/^\/sponsors?$/, function (req, res) // sponsors page
-{
-    res.render('sponsor');
-});
-
-router.get('/trailer', function (req, res) // trailer page
-{
-    res.render('trail');
-});
-
-router.get('/schedule', function (req, res) // schedule page
-{
-    res.render('schedule');
+router.get(/^\/countown|rules|sponsors|trailer|schedule$/, function (req, res) { // page for countdown
+    res.render(req.originalUrl.slice(1));
 });
 
 module.exports = router;

@@ -17,18 +17,24 @@
  */
 
 var log;
+var match;
 var path = require('path');
 var async = require('async');
+var days = [1, 2, 3, 4, 5, 6, 7];
+var email = require(path.join(__dirname, 'email'));
 var simulator = require(path.join(__dirname, 'simulation'));
-var match = require(path.join(__dirname,'..','matchCollection'));
+
+if(!process.env.NODE_ENV)
+{
+    require('dotenv').load({path : path.join(__dirname, '..', '.env')});
+}
 
 if (process.env.LOGENTRIES_TOKEN)
 {
-    var logentries = require('node-logentries');
-    log = logentries.logger({
-                                token: process.env.LOGENTRIES_TOKEN
-                            });
+    log = require('node-logentries').logger({token: process.env.LOGENTRIES_TOKEN});
 }
+
+match = process.env.MATCH;
 
 exports.initSimulation = function (day, masterCallback)
 {
@@ -60,6 +66,7 @@ exports.initSimulation = function (day, masterCallback)
                     userDoc.ratings = results;
                     asyncCallback(err, userDoc);
                 };
+
                 if(userDoc)
                 {
                     if(userDoc.squad.length < 11)
@@ -77,7 +84,8 @@ exports.initSimulation = function (day, masterCallback)
                     console.log(userDoc);
                 }
             };
-            db(match).findOne(query, getRating);
+
+            db(match).find(query).limit(1).next(getRating);
         };
 
         var updateData = function (err, newData)
@@ -92,7 +100,8 @@ exports.initSimulation = function (day, masterCallback)
                 db('matchday' + day).updateOne({_id: newMatchDoc._id}, newMatchDoc, asyncCallback);
             };
 
-            var parallelTasks2 = [
+            var parallelTasks2 =
+            [
                 function (asyncCallback)
                 {
                     updateUser(newData.team1, asyncCallback);
@@ -133,7 +142,12 @@ exports.initSimulation = function (day, masterCallback)
         if (err)
         {
             console.log(err.message);
-            if (log) log.log('debug', {Error: err.message});
+
+            if (log)
+            {
+                log.log('debug', {Error: err.message});
+            }
+
             throw err;
         }
         else
@@ -145,35 +159,17 @@ exports.initSimulation = function (day, masterCallback)
     var getAllMatches = function (err, callback)
     {
         var collection;
-        switch (day)
+        switch (days.indexOf(day))
         {
-            case 1:
-                collection = 'matchday1';
-                break;
-            case 2:
-                collection = 'matchday2';
-                break;
-            case 3:
-                collection = 'matchday3';
-                break;
-            case 4:
-                collection = 'matchday4';
-                break;
-            case 5:
-                collection = 'matchday5';
-                break;
-            case 6:
-                collection = 'matchday6';
-                break;
-            case 7:
-                collection = 'matchday7';
+            case -1:
+                throw 'Invalid day!';
                 break;
             default:
-                throw 'Invalid Day';
+                collection = 'matchday' + day;
                 break;
         }
 
-        db(collectionName).find().toArray(callback)
+        db(collection).find().toArray(callback)
     };
 
     var ForAllMatches = function (err, docs)
@@ -181,7 +177,11 @@ exports.initSimulation = function (day, masterCallback)
         if (err)
         {
             console.log(err.message);
-            if (log) log.log('debug', {Error: err.message});
+            if (log)
+            {
+                log.log('debug', {Error: err.message});
+            }
+
             throw err;
         }
         else

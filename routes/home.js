@@ -17,7 +17,6 @@
  */
 
 var log;
-var temp;
 var team;
 var cost;
 var squad;
@@ -33,7 +32,6 @@ var ref =
 var credentials;
 var path = require('path');
 var async = require('async');
-var match = process.env.MATCH;
 var router = require('express').Router();
 var authenticated = function(req, res, next)
 {
@@ -52,10 +50,7 @@ var mongoFeatures = require(path.join(__dirname, '..', 'db', 'mongo-features'));
 
 if (process.env.LOGENTRIES_TOKEN)
 {
-    var logentries = require('node-logentries');
-    log = logentries.logger({
-        token: process.env.LOGENTRIES_TOKEN
-    });
+    log = require('node-logentries').logger({token: process.env.LOGENTRIES_TOKEN});
 }
 
 router.get('/', authenticated, function (req, res) {

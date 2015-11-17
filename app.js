@@ -24,6 +24,7 @@ if(!process.env.NODE_ENV)
     require('dotenv').load();
 }
 var log;
+var error;
 var status;
 var newrelic;
 var path = require('path');
@@ -44,10 +45,7 @@ if (process.env.NEWRELIC_APP_NAME && process.env.NEWRELIC_LICENSE)
 
 if (process.env.LOGENTRIES_TOKEN)
 {
-    var logentries = require('node-logentries');
-    log = logentries.logger({
-                                token: process.env.LOGENTRIES_TOKEN
-                            });
+    log = require('node-logentries').logger({token: process.env.LOGENTRIES_TOKEN});
 }
 
 if (newrelic)
@@ -90,11 +88,31 @@ app.use(function (err, req, res, next) {
     status = err.status || 500;
 
     res.status(status);
-    res.render('error', {
-        message: err.message,
-        status: status,
-        stack: process.env.NODE_ENV ? '' : err.stack
-    });
+
+    if(err.code === 'EBADCSRFTOKEN')
+    {
+        res.redirect(req.headers.referer);
+    }
+    else
+    {
+        error =
+        {
+            status: status
+        };
+
+        if (process.env.NODE_ENV)
+        {
+            error.message = '';
+            error.stack   = '';
+        }
+        else
+        {
+            error.message = err.message;
+            error.stack   = err.stack;
+        }
+
+        res.render('error');
+    }
 });
 
 module.exports = app;

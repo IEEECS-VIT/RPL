@@ -18,7 +18,6 @@
 
 var log;
 var path = require('path');
-var async = require('async');
 var mongo = require('mongodb').MongoClient.connect;
 
 if(!process.env.NODE_ENV)
@@ -27,10 +26,7 @@ if(!process.env.NODE_ENV)
 }
 if (process.env.LOGENTRIES_TOKEN)
 {
-    var logentries = require('node-logentries');
-    log = logentries.logger({
-        token: process.env.LOGENTRIES_TOKEN
-    });
+    log = require('node-logentries').logger({token: process.env.LOGENTRIES_TOKEN});
 }
 
 var match = process.env.MATCH;
@@ -109,7 +105,6 @@ var onConnect = function (err, database)
                                     {
                                         for (j = 1; j <= count * temp / 4; j += temp)
                                         {
-
                                             schedule.push({
                                                 "_id": ++num,
                                                 "Team_1": (count / 2) * i + j,
