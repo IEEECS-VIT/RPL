@@ -13,7 +13,7 @@
     "start": "forever bin/www",
     "stop": "forever stop bin/www",
     "restart": "forever restart bin/www",
-    "postinstall": "node bower/bin/bower install"
+    "postinstall": "bower install"
   },
   "cacheDirectories": [
     "public/bower"
