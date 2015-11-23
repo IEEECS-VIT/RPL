@@ -184,7 +184,7 @@ exports.adminInfo = function (callback)
     {
         interest: function (asyncCallback)
         {
-            mongoFeatures.quantify(asyncCallback);
+            mongoFeatures.getCount('interest', {authStrategy : {$ne : 'admin'}}, asyncCallback);
         },
         total: function (asyncCallback)
         {
@@ -216,7 +216,7 @@ exports.adminInfo = function (callback)
         },
         features: function (asyncCallback)
         {
-            mongoFeatures.notify(asyncCallback);
+            mongoFeatures.getCount('features', {}, asyncCallback);
         },
         forgot: function (asyncCallback)
         {

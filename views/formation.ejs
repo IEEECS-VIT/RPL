@@ -25,18 +25,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Riviera Premier League</title>
-        <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.css"/>
         <link type="text/css" rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css"/>
-        <link type="text/css" rel="stylesheet" href="/bower/jquery-ui/themes/smoothness/jquery-ui.css"/>
-        <script src="/bower/jquery-ui/jquery-ui.js"></script>
-        <script src="/bower/jquery/dist/jquery.js"></script>
-        <script src="/bower/bootstrap/dist/js/bootstrap.js"></script>
-        <link href="/stylesheets/rplmain.css" rel="stylesheet" type="text/css"/>
-        <link href="/stylesheets/pace.css" rel="stylesheet" type="text/css"/>
-        <script src="/javascript/rpl.js"></script>
+        <link type="text/css" rel="stylesheet" href="/bower/jquery-ui/themes/smoothness/jquery-ui.min.css"/>
+        <script src="/bower/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/bower/jquery/dist/jquery.min.js"></script>
+        <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link href="/stylesheets/rplmain.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/stylesheets/pace.min.css" rel="stylesheet" type="text/css"/>
+        <script src="/javascript/rpl.min.js"></script>
         <script src="/javascript/modernizr-2.6.2.min.js"></script>
         <script src="/javascript/pace.min.js"></script>
-        <script src="/javascript/rpl_formation.js"></script>
+        <script src="/javascript/rpl_formation.min.js"></script>
         <style>
             #dis1, #dis2, #dis3, #dis4 {
                 margin: 10% 0;
@@ -116,7 +115,7 @@
                 <!--logo-->
                 <div class="row">
                     <div class="col-md-1 col-xs-1 col-xs-offset-2 col-md-offset-2" align="center">
-                        <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+                        <img src="http://res.cloudinary.com/rpl/general/rplsmall.jpg" style="height:9em;">
                     </div>
                     <div class="col-md-1"></div>
                     <!--Riviera Premier League -->
@@ -160,33 +159,40 @@
                         <!--data-spy="affix" data-value="0" data-offset-top="126" data-offset-bottom="630">-->
                         <div class="collapse navbar-collapse" id="myTab" style="float:left">
                             <ul class="nav navbar-nav">
-                                <li role="presentation" class="active"><a href="#for1" aria-controls="for1" role="tab"
-                                                                          data-toggle="tab" onclick="clear_all()">Formation
-                                        1</a>
+                                <li role="presentation" class="active">
+                                    <a href="#for1" aria-controls="for1" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 1
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#for2" aria-controls="for2" role="tab" data-toggle="tab"
-                                                           onclick="clear_all()">Formation 2</a>
+                                    <a href="#for2" aria-controls="for2" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 2
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#for3" aria-controls="for3" role="tab" data-toggle="tab"
-                                                           onclick="clear_all()">Formation 3</a>
+                                    <a href="#for3" aria-controls="for3" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 3
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#for4" aria-controls="for4" role="tab" data-toggle="tab"
-                                                           onclick="clear_all()">Formation 4</a>
+                                    <a href="#for4" aria-controls="for4" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 4
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#for5" aria-controls="for5" role="tab" data-toggle="tab"
-                                                           onclick="clear_all()">Formation 5</a>
+                                    <a href="#for5" aria-controls="for5" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 5
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#for6" aria-controls="for6" role="tab" data-toggle="tab"
-                                                           onclick="clear_all()">Formation 6</a>
+                                    <a href="#for6" aria-controls="for6" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 6
+                                    </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#for7" aria-controls="for6" role="tab" data-toggle="tab"
-                                                           onclick="clear_all()">Formation 7</a>
+                                    <a href="#for7" aria-controls="for6" role="tab" data-toggle="tab" onclick="clear_all()">
+                                        Formation 7
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -211,7 +217,7 @@
                                     <% var i;  for(i = 0;i < results.team.length; ++i) { %>
                                     <% if(results.team[i]._id > 368){ %>
                                     <li id="box<%= results.team[i]._id %>">
-                                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                                        <img src='http://res.cloudinary.com.rpl/players/keepers/<%= results.team[i]._id %>.jpg'/>
                                         <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
                                         <p><%= results.team[i].Name %></p>
                                         <form name="h" style="display: none">
@@ -232,7 +238,7 @@
                                 <% for(i = 0;i < results.team.length;i++) { %>
                                 <% if(results.team[i]._id < 369 && results.team[i]._id > 252){ %>
                                 <li id="box<%= results.team[i]._id %>">
-                                    <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                                    <img src='http://res.cloudinary.com.rpl/players/defenders/<%= results.team[i]._id %>.jpg'/>
                                     <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
                                     <p><%= results.team[i].Name %></p>
                                     <form name="h" style="display: none">
@@ -250,7 +256,7 @@
                                 <% for(i = 0;i < results.team.length;++i) { %>
                                 <% if(results.team[i]._id > 126 && results.team[i]._id < 253){ %>
                                 <li id="box<%= results.team[i]._id %>">
-                                    <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                                    <img src='http://res.cloudinary.com.rpl/players/midfielders/<%= results.team[i]._id %>.jpg'/>
                                     <button onclick='rem(<%= results.team[i]._id %>)'> <<</button>
                                     <p><%= results.team[i].Name %></p>
                                     <form name="h" style="display: none">
@@ -271,7 +277,7 @@
                                     <% for(i = 0;i < results.team.length;++i) { %>
                                     <% if(results.team[i]._id <= 126){ %>
                                     <li id="box<%= results.team[i]._id %>">
-                                        <img src='/images/goal/<%= results.team[i]._id %>.jpg'/>
+                                        <img src='http://res.cloudinary.com.rpl/players/<%= results.team[i]._id %>.jpg'/>
                                         <button onclick='rem(<%= results.team[i]._id %>)'><<</button>
                                         <p><%= results.team[i].Name %></p>
                                         <form name="h" style="display: none">
@@ -512,12 +518,12 @@
             <div class="row">
                 <div class="col-md-4" align="center">
                     <a href="https://www.facebook.com/ieeecsvit">
-                        <img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                        <img src="http://res.cloudinary.com.rpl/general/ieeecs logo.gif" style="width: 70%;margin:5%"/>
                     </a>
                 </div>
                 <div class="col-md-offset-4 col-md-4" align="center">
                     <a href="http://www.vit.ac.in/">
-                        <img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/>
+                        <img src="http://res.cloudinary.com.rpl/general/vit_logo_white.png" style="width: 70%;margin:5%"/>
                     </a>
                 </div>
             </div>

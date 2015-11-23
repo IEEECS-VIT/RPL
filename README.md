@@ -11,9 +11,9 @@ Please report any bugs or issues [here](https://github.com/IEEECS-VIT/RPL/issues
 #### Instructions for Installation:
 ###### Install Node.js 4.2.x
 ###### Install the latest version of MongoDB
-###### Install all dependencies (Ignore the errors that would come up on a Windows environment)
+###### Install all dependencies
 
-    $ npm install
+    $ npm install --silent
     
 ###### Install security dependency manually (Microsoft Windows only)
 
@@ -42,3 +42,5 @@ Please report any bugs or issues [here](https://github.com/IEEECS-VIT/RPL/issues
 * A valid "COOKIE_SECRET" string in process.env for better security (Optional)
 * A valid "LOGENTRIES_TOKEN" in process.env for Logentries support (Optional)
 * A valid "NEWRELIC_APP_NAME" and "NEWRELIC_LICENSE" in process.env for New Relic support (Optional)
+
+PS: Configure a file watcher to incorporate auto-minification of public .css and .js files.

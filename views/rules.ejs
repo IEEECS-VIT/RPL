@@ -52,7 +52,7 @@
                 <!--logo-->
                 <div class="row">
                     <div class="col-md-1 col-md-offset-2" align="center">
-                        <img src="/images/rplsmall.jpg" style="height:9em;"> <!--/images/rpllogo.jpg-->
+                        <img src="http://res.cloudinary.com/rpl/general/rplsmall.jpg" style="height:9em;">
                     </div>
                     <div class="col-md-1"></div>
                     <!--Riviera Premier League -->
@@ -124,17 +124,17 @@
                             <form action="/register" method="post" name="signin" id="reg">
                                 <p style="color: rgba(255,255,255,0.8)">All fields are required.</p>
                                 <br>
-                                <input name="m_name" type="text" placeholder="Manager's Name" id="m_name"/>
+                                <input name="m_name" type="text" placeholder="Manager's Name" id="m_name" required autofocus/>
                                 <br>
-                                <input name="t_name" type="text" placeholder="Team Name" id="t_name"/>
+                                <input name="t_name" type="text" placeholder="Team Name" id="t_name" required/>
                                 <br>
-                                <input name="rpass" type="password" placeholder="Password" id="rpass"/>
+                                <input name="rpass" type="password" placeholder="Password" id="rpass" required/>
                                 <br>
-                                <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass"/>
+                                <input name="rcpass" type="password" placeholder="Confirm Password" id="rcpass" required/>
                                 <br>
-                                <input name="pno" type="text" placeholder="Phone Number" id="pno"/>
+                                <input name="pno" type="text" placeholder="Phone Number" id="pno" required/>
                                 <br>
-                                <input name="email" type="email" placeholder="example@domain.com" id="email"/>
+                                <input name="email" type="email" placeholder="example@domain.com" id="email" required/>
                                 <br>
                                 <a href="#" onclick="reg_valid()" class="button" style="font-size: 100%;margin: 2%">Submit</a>
                             </form>
@@ -287,7 +287,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12" align="center" style="text-align: center">
-                        <a href="/developer">
+                        <a href="/developers">
                             <h4>Developers </h4>
                         </a>
                     </div>
@@ -295,12 +295,12 @@
                 <div class="row">
                     <div class="col-md-4" align="center">
                         <a href="https://www.facebook.com/ieeecsvit">
-                            <img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                            <img src="http://res.cloudinary.com.rpl/general/ieeecs logo.gif" style="width: 70%;margin:5%"/>
                         </a>
                     </div>
                     <div class="col-md-offset-4 col-md-4" align="center">
                         <a href="http://www.vit.ac.in/">
-                            <img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/></a>
+                            <img src="http://res.cloudinary.com.rpl/general/vit_logo_white.png" style="width: 70%;margin:5%"/></a>
                     </div>
                 </div>
                 <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count"

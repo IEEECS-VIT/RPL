@@ -53,9 +53,23 @@ if (process.env.LOGENTRIES_TOKEN)
     log = require('node-logentries').logger({token: process.env.LOGENTRIES_TOKEN});
 }
 
-exports.getCount = function (query, callback)
+exports.getCount = function (col, query, callback)
 {
-    db.collection(match).count(query, callback);
+    switch(typeof col)
+    {
+        case 'function':
+                        callback = col;
+                        query = {};
+                        col = match;
+                        break;
+        case 'object':
+                        callback = query;
+                        query = {};
+                        col = match;
+                        break;
+    }
+
+    db.collection(col).count(query, callback);
 };
 
 exports.insert = function (col, doc, callback)

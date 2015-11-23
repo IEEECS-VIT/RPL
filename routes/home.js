@@ -177,6 +177,49 @@ router.get('/matches', authenticated, function (req, res) {
     }
 });
 
+router.get('/match/:day', authenticated, function(req, res){
+    if(process.env.DAY >= '0' && req.params.day >= '1' && req.params.day <= '7')
+    {
+        credentials =
+        {
+            '_id' : req.signedCookies.name
+        };
+
+        var onMap = function (err, num)
+        {
+            if (err)
+            {
+                console.log(err.message);
+                res.redirect('/home');
+            }
+            else
+            {
+                var onMatch = function (err, match)
+                {
+                    if (err)
+                    {
+                        console.log(err.message);
+                        res.redirect('/home');
+                    }
+                    else
+                    {
+                        res.cookie('day', process.env.DAY, {signed : true, maxAge : 86400000});
+                        res.render('match', {match: match || {}, day : (process.env.DAY - 1) || 0, round : ref[process.env.MATCH]});
+                    }
+                };
+
+                mongoFeatures.match(req.params.day, num, onMatch);
+            }
+        };
+
+        mongoTeam.map(credentials, onMap);
+    }
+    else
+    {
+        res.redirect('/home');
+    }
+});
+
 router.post('/getsquad', authenticated, function (req, res) {
     credentials =
     {
@@ -202,7 +245,7 @@ router.post('/getsquad', authenticated, function (req, res) {
     mongoUsers.updateUserSquad(credentials, squad, onFetch);
 });
 
-router.post('/getTeam', authenticated, function (req, res) {
+router.post('/players', authenticated, function (req, res) {
     stats = {};
     players = [];
     fields =

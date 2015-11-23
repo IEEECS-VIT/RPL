@@ -60,6 +60,7 @@ mongo(mongoUri, function(err, database){
                     }
                 });
             }
+
             db.close();
             process.exit(0);
         });

@@ -380,7 +380,7 @@ router.post('/register', function (req, res)
         }
     };
 
-    mongoUsers.getCount({authStrategy : {$ne : 'admin'}}, onGetCount);
+    mongoUsers.getCount(process.env.MATCH, {authStrategy : {$ne : 'admin'}}, onGetCount);
 });
 
 router.get('/logout', function (req, res)

@@ -22,12 +22,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Interest | RPL</title>
-        <link type="text/css" rel="stylesheet" href="/bower/foundation/css/foundation.css"/>
-        <link type="text/css" rel="stylesheet" href="/stylesheets/rplmain.css"/>
+        <link type="text/css" rel="stylesheet" href="/bower/bootstrap/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="/stylesheets/rplmain.min.css"/>
         <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
-        <script src="/javascript/int.js"></script>
-        <script src="/bower/foundation/js/foundation/foundation.dropdown.js"></script>
-        <script src="/bower/foundation/js/foundation/foundation.topbar.js"></script>
+        <script src="/javascript/int.min.js"></script>
     </head>
     <body style="background-color:#646464;font-family: 'PT Sans', sans-serif;height:100%;">
         <div style="min-height: 100%">
@@ -36,12 +34,12 @@
                     <ul class="left">
                         <li>
                             <a href="/">
-                                <img src="/images/small.png" style="height:42px;padding-bottom:3px;"/>
+                                <img src="http://res.cloudinary.com.rpl/general/rplsmall.jpg" style="height:42px;padding-bottom:3px;"/>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.facebook.com/ieeecsvit">
-                                <img src="/images/ieeecs.png" style="height:40px;" align="center"/>
+                                <img src="http://res.cloudinary.com.rpl/general/ieeecs.png" style="height:40px;" align="center"/>
                             </a>
                         </li>
                     </ul>
@@ -114,7 +112,7 @@
                                                         style="color:red;">*</i> </label>
                                         </div>
                                         <div class="small-9 columns">
-                                            <input type="text" id="team" placeholder="Name" name="name"/>
+                                            <input type="text" id="team" placeholder="Name" name="name" required autofocus/>
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +124,7 @@
                                                         style="color:red;">*</i> </label>
                                         </div>
                                         <div class="small-9 columns">
-                                            <input type="tel" id="mob" placeholder="9876543210" name="phone"/>
+                                            <input type="tel" id="mob" placeholder="9876543210" name="phone" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -138,16 +136,13 @@
                                                         style="color:red;">*</i> </label>
                                         </div>
                                         <div class="small-9 columns">
-                                            <input type="email" id="email" placeholder="example@domain.com"
-                                                   name="email"/>
+                                            <input type="email" id="email" placeholder="example@domain.com" name="email"
+                                                   required/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="large-12" align="center">
-                                    <input type="submit" id="button" class="button"
-                                           style="margin:1%;background: rgba(50,50,50,1);border-radius: 5px"
-                                           align="center"
-                                           name="button"
+                                    <input type="submit" id="button" class="button" style="margin:1%;background: rgba(50,50,50,1);border-radius: 5px" align="center" name="button"
                                            onclick="valid()"/>
                                 </div>
                             </div>

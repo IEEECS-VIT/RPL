@@ -108,11 +108,6 @@ exports.match = function (day, team, callback)
     }
 };
 
-exports.quantify = function(callback)
-{
-    db.collection('interest').count(callback);
-};
-
 exports.fetchPlayers = function (callback)
 {
     db.collection('players').find({}, {_id : 1, Name : 1, Type : 1, Country : 1, Price : 1, Cost : 1}).toArray(callback);
