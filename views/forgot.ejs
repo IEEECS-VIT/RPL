@@ -70,7 +70,7 @@
                                 <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="/rule">Rules</a>
+                                <a href="/rules">Rules</a>
                             </li>
                             <li>
                                 <a href="/prizes">Prizes</a>
@@ -134,8 +134,8 @@
                         </div>
                         <div class="modal-body">
                             <form action="/login" method="post">
-                                <input name="t_name" type="text" placeholder="Team Name"/><br>
-                                <input name="pass" type="password" placeholder="Password"/><br>
+                                <input name="t_name" type="text" placeholder="Team Name" required autofocus/><br>
+                                <input name="pass" type="password" placeholder="Password" required/><br>
                                 <a href="/forgot" style="">forgot password?</a><br>
                                 <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                             </form>
@@ -152,8 +152,8 @@
                     </div>
                     <div class="col-md-8" id="login_box" style="display: none">
                         <form action="/login" method="post">
-                            <input name="t_name" type="text" placeholder="Team Name"/><br>
-                            <input name="pass" type="password" placeholder="Password"/><br>
+                            <input name="t_name" type="text" placeholder="Team Name" required autofocus/><br>
+                            <input name="pass" type="password" placeholder="Password" required/><br>
                             <a href="/forgot" style="">forgot password?</a><br>
                             <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                         </form>
@@ -185,7 +185,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12" align="center" style="text-align: center">
-                        <a href="/developer">
+                        <a href="/developers">
                             <h4>Developers</h4>
                         </a>
                     </div>
@@ -193,12 +193,12 @@
                 <div class="row">
                     <div class="col-md-4" align="center">
                         <a href="https://www.facebook.com/ieeecsvit">
-                            <img src="/images/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                            <img src="http://res.cloudinary.com/rpl/general/ieeecs.png" style="width: 70%;margin:5%"/>
                         </a>
                     </div>
                     <div class="col-md-offset-4 col-md-4" align="center">
                         <a href="http://www.vit.ac.in/">
-                            <img src="/images/vit_logo_white.png" style="width: 70%;margin:5%"/>
+                            <img src="http://res.cloudinary.com/rpl/general/vit_logo_white.png" style="width: 70%;margin:5%"/>
                         </a>
                     </div>
                 </div>

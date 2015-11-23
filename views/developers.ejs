@@ -86,7 +86,7 @@
                                 <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="/rule">Rules</a>
+                                <a href="/rules">Rules</a>
                             </li>
                             <li>
                                 <a href="/prizes">Prizes</a>
@@ -152,8 +152,8 @@
                         <div class="modal-body">
                             <form action="/login" method="post">
                                 <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                                <input name="t_name" type="text" placeholder="Team Name"/> <br>
-                                <input name="pass" type="password" placeholder="Password"/> <br>
+                                <input name="t_name" type="text" placeholder="Team Name" required autofocus/> <br>
+                                <input name="pass" type="password" placeholder="Password" required/> <br>
                                 <a href="#" style="">forgot password?</a> <br/>
                                 <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                             </form>
@@ -172,8 +172,8 @@
                     <div class="col-md-8" id="login_box" style="display: none">
                         <form action="/login" method="post">
                             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                            <input name="t_name" type="text" placeholder="Team Name"/> <br/>
-                            <input name="pass" type="password" placeholder="Password"/> <br/>
+                            <input name="t_name" type="text" placeholder="Team Name" required autofocus/> <br/>
+                            <input name="pass" type="password" placeholder="Password" required/> <br/>
                             <a href="/forgot" style="">forgot password?</a> <br/>
                             <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                         </form>
@@ -186,66 +186,18 @@
                 <div align="center" class="col-md-8 box" style="background: rgba(255,255,255,1);margin: 2%;box-shadow: 0 0 5px 5px rgba(0,0,0,0.2)">
                     <h2> Developers </h2>
                     <hr>
+                    <%for(i = 0; i < obj.length / 2; ++i){%>
                     <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
-                        <div class="col-md-4">
-                            <img src="http://res.cloudinary.com/rpl/developers/shivam.jpg" style="width: auto"/>
+                        <div class="col-md-<%=4*(i%2+1)%>">
+                            <img src="http://res.cloudinary.com/rpl/general/developers/<%=obj[i].img%>.jpg" style="width: auto"/>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-<%=4*((i+1)%2+1)%>">
                             <h1>
-                                <small>Shivam Mathur</small>
+                                <small><%=obj[i].name%></small>
                             </h1>
                         </div>
                     </div>
-                    <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
-                        <div class="col-md-8">
-                            <h1>
-                                <small>Ayush Agarwal</small>
-                            </h1>
-                        </div>
-                        <div class="col-md-4">
-                            <img src="http://res.cloudinary.com/rpl/developers/ayush.jpg" style="width: auto"/>
-                        </div>
-                    </div>
-                    <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
-                        <div class="col-md-4">
-                            <img src="http://res.cloudinary.com/rpl/developers/kashish.jpg" style="width: auto"/>
-                        </div>
-                        <div class="col-md-8">
-                            <h1>
-                                <small>Kashish Singhal</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
-                        <div class="col-md-8">
-                            <h1>
-                                <small>Kunal Nagpal</small>
-                            </h1>
-                        </div>
-                        <div class="col-md-4">
-                            <img src="http://res.cloudinary.com/rpl/developers/kunal.jpg" style="width: auto"/>
-                        </div>
-                    </div>
-                    <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
-                        <div class="col-md-4">
-                            <img src="http://res.cloudinary.com/rpl/developers/aneesh.jpg" style="width: auto"/>
-                        </div>
-                        <div class="col-md-8">
-                            <h1>
-                                <small>Aneesh Neelam</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);margin-bottom: 2%">
-                        <div class="col-md-8">
-                            <h1>
-                                <small>Shubham Sagar</small>
-                            </h1>
-                        </div>
-                        <div class="col-md-4">
-                            <img src="http://res.cloudinary.com/rpl/developers/shubham.jpg" style="width: auto"/>
-                        </div>
-                    </div>
+                    <%}%>
                 </div>
             </div>
             <!--Footer -->
@@ -253,7 +205,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12" align="center" style="text-align: center">
-                        <a href="/developer">
+                        <a href="/developers">
                             <h4> Developers </h4>
                         </a>
                     </div>
@@ -261,7 +213,7 @@
                 <div class="row">
                     <div class="col-md-4" align="center">
                         <a href="https://www.facebook.com/ieeecsvit">
-                            <img src="http://res.cloudinary.com/rpl/general/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                            <img src="http://res.cloudinary.com/rpl/general/ieeecs.png" style="width: 70%;margin:5%"/>
                         </a>
                     </div>
                     <div class="col-md-offset-4 col-md-4" align="center">

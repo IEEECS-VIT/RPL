@@ -86,7 +86,7 @@
                                 <a href="/">Home</a>
                             </li>
                             <li class="active">
-                                <a href="/rule">Rules</a>
+                                <a href="/rules">Rules</a>
                             </li>
                             <li>
                                 <a href="/prizes">Prizes</a>
@@ -156,9 +156,9 @@
                         </div>
                         <div class="modal-body">
                             <form action="/login" method="post">
-                                <input name="t_name" type="text" placeholder="Team Name"/>
+                                <input name="t_name" type="text" placeholder="Team Name" required autofocus/>
                                 <br>
-                                <input name="pass" type="password" placeholder="Password"/>
+                                <input name="pass" type="password" placeholder="Password" required/>
                                 <br>
                                 <a href="#" style="">forgot password?</a>
                                 <br>
@@ -178,9 +178,9 @@
                     </div>
                     <div class="col-md-8" id="login_box" style="display: none">
                         <form action="/login" method="post">
-                            <input name="t_name" type="text" placeholder="Team Name"/>
+                            <input name="t_name" type="text" placeholder="Team Name" required autofocus/>
                             <br>
-                            <input name="pass" type="password" placeholder="Password"/>
+                            <input name="pass" type="password" placeholder="Password" required/>
                             <br>
                             <a href="/forgot" style="">forgot password?</a>
                             <br>
@@ -295,7 +295,7 @@
                 <div class="row">
                     <div class="col-md-4" align="center">
                         <a href="https://www.facebook.com/ieeecsvit">
-                            <img src="http://res.cloudinary.com/rpl/general/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                            <img src="http://res.cloudinary.com/rpl/general/ieeecs.png" style="width: 70%;margin:5%"/>
                         </a>
                     </div>
                     <div class="col-md-offset-4 col-md-4" align="center">

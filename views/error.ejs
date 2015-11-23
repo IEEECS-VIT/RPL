@@ -69,7 +69,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="/">Home</a></li>
-                            <li><a href="/rule">Rules</a></li>
+                            <li><a href="/rules">Rules</a></li>
                             <li><a href="/prizes">Prizes</a></li>
                             <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Register</a></li>
                             <li id="loginh">
@@ -129,8 +129,8 @@
                         </div>
                         <div class="modal-body">
                             <form action="/login" method="post">
-                                <input name="t_name" type="text" placeholder="Team Name"/> <br>
-                                <input name="pass" type="password" placeholder="Password"/> <br>
+                                <input name="t_name" type="text" placeholder="Team Name" required autofocus/> <br>
+                                <input name="pass" type="password" placeholder="Password" required/> <br>
                                 <a href="#" style="">forgot password?</a> <br>
                                 <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                             </form>
@@ -148,8 +148,8 @@
                     </div>
                     <div class="col-md-8" id="login_box" style="display: none">
                         <form action="/login" method="post">
-                            <input name="t_name" type="text" placeholder="Team Name"/> <br>
-                            <input name="pass" type="password" placeholder="Password"/> <br>
+                            <input name="t_name" type="text" placeholder="Team Name" required autofocus/> <br>
+                            <input name="pass" type="password" placeholder="Password" required/> <br>
                             <a href="/forgot" style="">forgot password?</a> <br>
                             <button type="submit" value="Submit" style="font-size: 100%;margin: 2%">Submit</button>
                         </form>
@@ -163,7 +163,7 @@
                     <div class="row" style="text-align: center;margin-bottom: 1%">
                         <h1><%= message %></h1>
                         <h2><%= status %></h2>
-                        <% if(stack.length > 0){ %>
+                        <% if(stack.length){ %>
                             <pre style="border-radius:0;padding:2%;text-align: left"><%= stack %></pre>
                         <% } %>
                     </div>
@@ -182,7 +182,7 @@
                 <div class="row">
                     <div class="col-md-4" align="center">
                         <a href="https://www.facebook.com/ieeecsvit">
-                            <img src="http://res.cloudinary.com/rpl/general/ieeecs logo.gif" style="width: 70%;margin:5%"/>
+                            <img src="http://res.cloudinary.com/rpl/general/ieeecs.png" style="width: 70%;margin:5%"/>
                         </a>
                     </div>
                     <div class="col-md-offset-4 col-md-4" align="center">
@@ -196,7 +196,6 @@
             <div id="login_small" class="col-md-4">
                 <div class="fb-like" data-href="https://www.facebook.com/ieeecsvit" data-layout="button_count"
                      data-action="like" data-show-faces="true" data-share="true" style="margin:10%">
-
                 </div>
             </div>
             <script>

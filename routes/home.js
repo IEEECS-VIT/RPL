@@ -327,14 +327,6 @@ router.post('/players', authenticated, function (req, res) {
     async.map(players, getCost, onFinish);
 });
 
-router.get(/\/prizes?/, function (req, res) {// page to view prizes
-    res.render('prize');
-});
-
-router.get(/\/sponsors?/, function (req, res) {// sponsors page
-    res.render('sponsors');
-});
-
 router.get('/players', authenticated, function (req, res) {// page for all players, only available if no squad has been chosen
     credentials =
     {
@@ -461,10 +453,6 @@ router.get('/formation', authenticated, function (req, res) {
     };
 
     mongoUsers.fetch(credentials, onFetch);
-});
-
-router.get(/\/developers?/, function (req, res) {// developers page
-    res.render('developers');
 });
 
 router.get('/settings', authenticated, function(req,res){

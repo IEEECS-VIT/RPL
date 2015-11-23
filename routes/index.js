@@ -484,7 +484,7 @@ router.get(/^\/developers|prizes$/, function (req, res) { // developers page
     res.render(req.originalUrl.slice(1), {csrfToken : req.csrfToken(), obj: developers});
 });
 
-router.get(/^\/countown|rules|sponsors|trailer|schedule$/, function (req, res) { // page for countdown
+router.get(/^\/countown|rules?|sponsors|trailer|schedule$/, function (req, res) { // page for countdown
     res.render(req.originalUrl.slice(1));
 });
 

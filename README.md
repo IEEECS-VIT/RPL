@@ -4,13 +4,13 @@ Riviera Premier League
 
 The Riviera Premier League code repository
 
-This website is hosted [here](http://www.rivierapremierleague.herokuapp.com)
+This website is hosted [here](http://www.rpl.ieeecsvit.com)
 
-Please report any bugs or issues [here](https://github.com/IEEECS-VIT/RPL/issues) 
+Please report any bugs or issues [here](https://github.com/IEEECS-VIT/RPL/issues)
 
 #### Instructions for Installation:
-###### Install Node.js 4.2.x
-###### Install the latest version of MongoDB
+###### Install the latest version of Node.js from [here] (https://nodejs.org/en/download)
+###### Install the latest version of MongoDB from [here] (https://www.mongodb.org/downloads#production) 
 ###### Install all dependencies
 
     $ npm install --silent

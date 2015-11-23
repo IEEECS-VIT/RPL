@@ -2,7 +2,7 @@
   "name": "RPL",
   "version": "0.1.0",
   "description": "Riviera Premier League",
-  "homepage": "http://www.rivierapremierleague.herokuapp.com/",
+  "homepage": "http://www.rivierapremierleague.herokuapp.com",
   "bugs": {
     "url": "https://github.com/IEEECS-VIT/RPL/issues",
     "email": "rivierapremierleague@gmail.com"
@@ -11,8 +11,6 @@
   "main": "./bin/www",
   "scripts": {
     "start": "forever bin/www",
-    "stop": "forever stop bin/www",
-    "restart": "forever restart bin/www",
     "postinstall": "bower install"
   },
   "cacheDirectories": [

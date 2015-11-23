@@ -97,7 +97,7 @@ exports.insert = function (col, doc, callback)
     db.collection(col).insertOne(doc, {w: 1}, onInsert);
 };
 
-exports.getleader = function (doc, callback)
+exports.getLeader = function (doc, callback)
 {
     var onFetch = function (err, documents)
     {

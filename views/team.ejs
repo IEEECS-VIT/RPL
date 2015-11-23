@@ -202,7 +202,7 @@
                     style="background:rgba(30,30,30,0.9); border: none; box-shadow: inset 0 0 5px 3px rgba(255,255,255,0.2);margin-top: 5%;">
                     <li><a href="/home" style="color: #ffffff;">Home</a></li>
                     <li><a href="/matches" style="color: #ffffff;">Match</a></li>
-                    <li><a href="/home/rules" style="color:#ffffff;">Rules</a></li>
+                    <li><a href="/rules" style="color:#ffffff;">Rules</a></li>
                     <li><a href="/home/leaderboard" style="color:#ffffff;">Leader Board</a></li>
                     <li><a href="/home/sponsors" style="color:#ffffff;">Sponsors</a></li>
                     <li><a href="/home/prize" style="color: white;">Prizes</a></li>
@@ -220,23 +220,12 @@
                             <script type="text/javascript">document.write("<br />" + "Batsmen : " + cb + "<br />" + "Bowlers : " + cbo + "<br />" + "All Rounders : " + ca + "<br />")</script>
                         </b>
                     </h4>
-                    <div style="max-height:29em;overflow-y:scroll" id="squad">
-                    </div>
+                    <div style="max-height:29em;overflow-y:scroll" id="squad"></div>
                     <form style="text-align: center" id="form">
-                        <input style="display: none" id="t1" name="p1" value=""/>
-                        <input style="display: none" id="t2" name="p2" value=""/>
-                        <input style="display: none" id="t3" name="p3" value=""/>
-                        <input style="display: none" id="t4" name="p4" value=""/>
-                        <input style="display: none" id="t5" name="p5" value=""/>
-                        <input style="display: none" id="t6" name="p6" value=""/>
-                        <input style="display: none" id="t7" name="p7" value=""/>
-                        <input style="display: none" id="t8" name="p8" value=""/>
-                        <input style="display: none" id="t9" name="p9" value=""/>
-                        <input style="display: none" id="t10" name="p10" value=""/>
-                        <input style="display: none" id="t11" name="p11" value=""/>
-                        <input onmousedown="subm();" type="submit"
-                               style="background: rgba(60,60,60,1);border-radius: 5px;margin:1%" id="sub"
-                               class="button"/>
+                        <%for(i = 1; i < 12; ++i){%>
+                            <input style="display: none" id="t<%=i%>" name="p<%=i%>" value=""/>
+                        <%}%>
+                        <input onmousedown="subm();" type="submit" style="background: rgba(60,60,60,1);border-radius: 5px;margin:1%" id="sub" class="button"/>
                     </form>
                 </div>
                 <div class="large-8 small-12 columns">
@@ -318,9 +307,7 @@
                         </li>
                     </ul>
                 </section>
-                <p style="margin-left: 46%; font-size:60%;color:white;bottom:0; margin-top:2%">&copy;IEEE-CS VIT
-                    Chapter
-                </p>
+                <p style="margin-left: 46%; font-size:60%;color:white;bottom:0; margin-top:2%">&copy;IEEE-CS VIT Chapter</p>
             </div>
         </footer>
         <!-- footer -->
