@@ -113,8 +113,7 @@ router.get('/interest', function (req, res) {
     }
 });
 
-router.post('/interest', function (req, res) // interest form
-{
+router.post('/interest', function (req, res) { // interest form
     newUser =
     {
         name: req.body.name,
@@ -157,8 +156,7 @@ router.get('/login', function (req, res) {
     }
 });
 
-router.post('/login', function (req, res)
-{
+router.post('/login', function (req, res) {
     password = req.body.password;
     credentials =
     {
@@ -215,8 +213,7 @@ router.get(/^\/forgot\/password|user$/, function(req, res){
     res.render('forgot', {csrfToken : req.csrfToken(), mode: req.originalUrl.split('/')[2]});
 });
 
-router.post('/forgot/password', function (req, res)
-{
+router.post('/forgot/password', function (req, res) {
     credentials =
     {
         _id: req.body.team.trim().toUpperCase(),
@@ -316,8 +313,7 @@ router.post('/reset/:token', function(req, res) {
     }
 });
 
-router.get('/register', function (req, res)
-{
+router.get('/register', function (req, res) {
     if(!process.env.NODE_ENV || (process.env.DAY === '0' && process.env.MATCH == 'users' && process.env.LIVE === '1'))
     {
         res.render('register', {csrfToken: req.csrfToken()});
@@ -332,8 +328,7 @@ router.get('/register', function (req, res)
     }
 });
 
-router.post('/register', function (req, res)
-{
+router.post('/register', function (req, res) {
     res.clearCookie('name', {});
     res.clearCookie('admin', {});
 
@@ -384,8 +379,7 @@ router.post('/register', function (req, res)
     mongoUsers.getCount(process.env.MATCH, {authStrategy : {$ne : 'admin'}}, onGetCount);
 });
 
-router.get('/logout', function (req, res)
-{
+router.get('/logout', function (req, res) {
     res.clearCookie('team', {});
     res.clearCookie('email', {});
     res.clearCookie('phone', {});
