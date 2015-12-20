@@ -17,6 +17,7 @@
  */
 
 var log;
+var date;
 var time;
 var hash;
 var user;
@@ -83,7 +84,7 @@ router.get('/', function (req, res) {
     {
         time = new Date;
         time.setTime(time.getTime() + time.getTimezoneOffset() * 60000 + 19800000);
-        var date =
+        date =
         {
             seconds: time.getSeconds(),
             minutes: time.getMinutes(),
@@ -389,7 +390,10 @@ router.get('/logout', function (req, res)
     res.clearCookie('email', {});
     res.clearCookie('phone', {});
     res.clearCookie('admin', {});
-    res.clearCookie('name', { });
+    res.clearCookie('name', {});
+    res.clearCookie('lead', {});
+    res.clearCookie('dash', {});
+    res.clearCookie('stats', {});
     res.redirect('/login');
 });
 
@@ -486,6 +490,19 @@ router.get(/^\/developers|prizes$/, function (req, res) { // developers page
 
 router.get(/^\/countown|rules?|sponsors|trailer|schedule$/, function (req, res) { // page for countdown
     res.render(req.originalUrl.slice(1));
+});
+
+router.get('/check/:name', function(req, res){
+    if(req.headers.referer)
+    {
+        mongoUsers.fetchUser({_id: req.params.name}, function(err, user){
+            res.send(!err || !user);
+        });
+    }
+    else
+    {
+        res.redirect('/');
+    }
 });
 
 module.exports = router;

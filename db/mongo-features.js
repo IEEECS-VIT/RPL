@@ -15,6 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+var simulator = require(path.join(__dirname, '..', 'worker', 'simulation-controller'));
 
 exports.getStats = function (callback)
 {
@@ -28,8 +29,7 @@ exports.notify = function (callback)
 
 exports.simulate = function (callback)
 {
-    var simulationControl = require(path.join(__dirname, '..', 'worker', 'simulation-controller'));
-    simulationControl.initSimulation(process.env.DAY, callback);
+    simulator.initSimulation(process.env.DAY, callback);
 };
 
 exports.forgotCount = function(option, callback)
@@ -148,4 +148,9 @@ exports.getPlayer = function (id, fields, callback)
     };
 
     db.collection('players').find(query, fields || {}).limit(1).next(onGetPlayer);
+};
+
+exports.adminStats = function(callback)
+{
+    db.stats(callback);
 };

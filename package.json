@@ -11,7 +11,7 @@
   "main": "./bin/www",
   "scripts": {
     "start": "forever bin/www",
-    "postinstall": "bower install"
+    "postinstall": "node node_modules/bower/bin/bower install"
   },
   "cacheDirectories": [
     "public/bower"
@@ -46,8 +46,8 @@
   ],
   "dependencies": {
     "async": "^1.5.0",
-    "body-parser": "^1.14.1",
-    "bower": "^1.6.5",
+    "body-parser": "^1.14.2",
+    "bower": "^1.7.1",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
     "csurf": "^1.8.3",
@@ -57,7 +57,7 @@
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "forever": "^0.15.1",
-    "mongodb": "^2.0.49",
+    "mongodb": "^2.1.0",
     "morgan": "^1.6.1",
     "newrelic": "^1.24.0",
     "node-logentries": "^0.1.4",

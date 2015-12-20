@@ -26,9 +26,9 @@ exports.getTeam = function (doc, callback)
 {
     var onFetch = function (err, document)
     {
-        if(document.team.length === 0)
+        if(!document.team.length)
         {
-            callback(null,[]);
+            callback(null, []);
         }
         else if (err)
         {
@@ -65,18 +65,18 @@ exports.getSquad = function (doc, callback)
             {
                 callback(err, null);
             }
-            else if(document.team.length !== 0)
+            else if(document.team.length)
             {
                async.map(document.squad, mongoFeatures.getPlayer, onFinish);
             }
             else
             {
-                callback(null,[]);
+                callback(null, []);
             }
         }
         else
         {
-            callback(null,[]);
+            callback(null, []);
         }
     };
 
@@ -86,12 +86,12 @@ exports.getSquad = function (doc, callback)
 exports.dashboard = function (doc, callback)
 {
     var slice =
-        {
-            _id : 0,
-            progression : 1,
-            goals_scored : 1,
-            goals_conceded : 1
-        };
+    {
+        _id : 0,
+        progression : 1,
+        goals_scored : 1,
+        goals_conceded : 1
+    };
 
     db.collection(match).find(doc, slice).limit(1).next(callback);
 };
@@ -116,23 +116,23 @@ exports.map = function (doc, callback)
 exports.shortList = function (callback) // TODO: add email notification for shortlisted team owners.
 {
     var ref =
+    {
+        'users' :
         {
-            'users' :
-            {
-                out : 'round2',
-                limit : parseInt(process.env.ONE)
-            },
-            'round2' :
-            {
-                out : 'round3',
-                limit : 8
-            },
-            'round3' :
-            {
-                out : null,
-                limit : 8
-            }
-        };
+            out : 'round2',
+            limit : parseInt(process.env.ONE)
+        },
+        'round2' :
+        {
+            out : 'round3',
+            limit : 8
+        },
+        'round3' :
+        {
+            out : null,
+            limit : 8
+        }
+    };
 
     var onShortList = function (err, docs)
     {
@@ -142,10 +142,7 @@ exports.shortList = function (callback) // TODO: add email notification for shor
         }
         else
         {
-            for(i = 0; i < docs.length; ++i)
-            {
-                docs[i].team_no = i + 1;
-            }
+            docs.map((arg, i) => arg.team_no = i + 1);
 
             db.collection(ref[match].out).insertMany(docs, callback);
         }
@@ -176,6 +173,16 @@ exports.adminInfo = function (callback)
         }
         else
         {
+            delete result.database.ok;
+            delete result.database.extentFreeList;
+            result.database.indexSize = (result.database.indexSize / 1024).toFixed(2) + ' KB';
+            result.database.avgObjSize = (result.database.avgObjSize / 1024).toFixed(2) + ' KB';
+            result.database.dataSize = (result.database.dataSize / 1024 / 1024).toFixed(2) + ' MB';
+            result.database.fileSize = (result.database.fileSize / 1024 / 1024).toFixed(2) + ' MB';
+            result.database.storageSize = (result.database.storageSize / 1024 / 1024).toFixed(2) + ' MB';
+            result.database.version = result.database.dataFileVersion.major + '.' + result.database.dataFileVersion.minor;
+            delete result.database.dataFileVersion;
+
             callback(null, result);
         }
     };
@@ -221,6 +228,10 @@ exports.adminInfo = function (callback)
         forgot: function (asyncCallback)
         {
             mongoFeatures.forgotCount({password : 0}, asyncCallback);
+        },
+        stats: function(asyncCallback)
+        {
+            mongoFeatures.adminStats(asyncCallback);
         }
     };
 

@@ -25,6 +25,7 @@ module.exports =
     password_hash: '',
     email: '',
     phone: '',
+    status: 0, // 0 => users, 1 => round2, and so on. This will be incremented for shortlisted teams, as opposed to the usual method of aggregating separate collections
     squad: [],
     team: [],
     win: 0,

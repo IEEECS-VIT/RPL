@@ -24,33 +24,29 @@ function valid()
     var email = document.int.email;
     var mob = document.int.mob;
 
-    if(name.value.length === 0)
+    if(!name.value.length)
     {
-        ++i;
         name.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Name.\n";
+        display += ++i + ". Enter Name.\n";
     }
 
-    if(email.value.length === 0)
+    if(!email.value.length)
     {
-        ++i;
         email.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Email.\n";
+        display += ++i + ". Enter Email.\n";
     }
     if(mob.value.length < 10)
     {
-        ++i;
         mob.style.backgroundColor = 'Yellow';
-        display += i + ". Enter a valid mobile number.\n";
+        display += ++i + ". Enter a valid mobile number.\n";
     }
 
     for(var z = 0; z < mob.value.length; ++z)
     {
         if(isNaN(mob.value[z]))
         {
-            ++i;
             mob.style.backgroundColor = 'Yellow';
-            display += i + ". Enter a valid mobile number.\n";
+            display += ++i + ". Enter a valid mobile number.\n";
             break;
         }
     }

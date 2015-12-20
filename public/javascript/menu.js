@@ -16,8 +16,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var i = 0;
-
 function ch(i)
 {
     var j = i.toString() + "0";

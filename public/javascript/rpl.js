@@ -48,17 +48,17 @@ function valid_reset()
 {
     var x = document.getElementById('pass').value;
     var y = document.getElementById('cpass').value;
-    if(x.length === 0)
+    if(!x.length)
     {
         alert('Please enter password.');
         return false;
     }
-    else if(y.length === 0)
+    else if(!y.length)
     {
         alert('Please confirm password.');
         return false;
     }
-    else if(x.localeCompare(y) !== 0)
+    else if(x.localeCompare(y))
     {
         alert('Password and Confirm password do not match!');
         return false;
@@ -74,21 +74,21 @@ function valid_change()
     var x = document.getElementById('pass').value;
     var y = document.getElementById('cpass').value;
     var z = document.getElementById('o_pass').value;
-    if(x.length === 0)
+    if(!x.length)
     {
         alert('Please enter password.');
         return false;
     }
-    else if(y.length === 0)
+    else if(!y.length)
     {
         alert('Please confirm password.');
         return false;
     }
-    else if(z.length === 0)
+    else if(!z.length)
     {
         alert('Please enter your old password.')
     }
-    else if(x.localeCompare(y) !== 0)
+    else if(x.localeCompare(y))
     {
         alert('Password and Confirm password do not match!');
         return false;
@@ -110,68 +110,58 @@ function reg_valid()
     var mob1 = document.signin.pno;
     var manager1 = document.signin.m_name;
 
-    if(manager1.value.length === 0)
+    if(!manager1.value.length)
     {
-        ++i;
         manager1.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Manager name.\n";
+        display += ++i + ". Enter Manager name.\n";
     }
-    if(team_name.value.length === 0)
+    if(!team_name.value.length)
     {
-        ++i;
         team_name.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Team Name.\n";
+        display += ++i + ". Enter Team Name.\n";
     }
     else if(team_name.value.length > 25)
     {
-        ++i;
         team_name.style.backgroundColor = 'Yellow';
-        display += i + ". Team Name is too long. Maximum 25 Character.\n";
+        display += ++i + ". Team Name is too long. Maximum 25 Character.\n";
     }
-    if(pass.value.length === 0)
+    if(!pass.value.length)
     {
-        ++i;
         pass.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Password.\n";
+        display += ++i + ". Enter Password.\n";
     }
-    if(pass.value.length < 8 && pass.value.length != 0)
+    if(pass.value.length < 8 && pass.value.length)
     {
-        ++i;
-        display += i + ". Password too short. Minimum 8 characters.\n";
+        display += ++i + ". Password too short. Minimum 8 characters.\n";
     }
-    if(cpass.value.length === 0)
+    if(!cpass.value.length)
     {
-        ++i;
         cpass.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Confirm Password.\n";
+        display += ++i + ". Enter Confirm Password.\n";
     }
-    if(mob1.value.length === 0)
+    if(!mob1.value.length)
     {
-        ++i;
         mob1.style.backgroundColor = 'Yellow';
-        display += i + ". Please enter a phone number.\n";
+        display += ++i + ". Please enter a phone number.\n";
     }
-    if(email1.value.length === 0)
+    if(!email1.value.length)
     {
-        ++i;
         email1.style.backgroundColor = 'Yellow';
-        display += i + ". Enter Email.\n";
+        display += ++i + ". Enter Email.\n";
     }
     if(pass.value != cpass.value)
     {
-        ++i;
         pass.style.backgroundColor = 'Yellow';
         cpass.style.backgroundColor = 'Yellow';
-        display += i + ". Password and confirm password do not match.\n";
+        display += ++i + ". Password and confirm password do not match.\n";
     }
 
     for(var z = 0; z < mob1.value.length; ++z)
     {
         if(isNaN(mob1.value[z]))
         {
-            ++i;
             mob1.style.backgroundColor = 'Yellow';
-            display += i + ". Enter a valid mobile number.\n";
+            display += ++i + ". Enter a valid mobile number.\n";
             break;
         }
     }

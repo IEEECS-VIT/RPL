@@ -97,7 +97,7 @@ function disp(id)
             b = parseInt(a[0]);
         }
 
-        b = b - 15;
+        b -= 15;
         a = b + '%';
         li.style.marginLeft = a;
     }
