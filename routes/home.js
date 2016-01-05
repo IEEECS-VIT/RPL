@@ -41,7 +41,7 @@ var authenticated = function(req, res, next)
     }
     else
     {
-        res.redirect('/login');
+        res.redirect('/');
     }
 };
 var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));

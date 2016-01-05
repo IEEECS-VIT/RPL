@@ -75,12 +75,6 @@
                                 <a href="/home">Home</a>
                             </li>
                             <li>
-                                <a href="/home/matches">Matches</a>
-                            </li>
-                            <li>
-                                <a href="/home/leaderboard">Leaderboard</a>
-                            </li>
-                            <li>
                                 <a href="/rules">Rules</a>
                             </li>
                             <li class="active">
@@ -98,43 +92,7 @@
             <div>
                 <div class="col-md-12  col-xs-12 col-sm-12" style="margin: 0;padding: 0; float: right;background: none;font-size: 70%">
                     <div class="col-xs-3 stats" style="background: rgba(0,0,0,0.8);color: white;padding: 0;z-index: 1001">
-                        <ul style="padding: 0;margin: 0">
-                            <li>
-                                <p>
-                                    <small>Team</small>
-                                    <br/> <%= results.user._id %>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <small>Wins</small>
-                                    <br/> <%= results.user.win %>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <small>Loss</small>
-                                    <br/> <%= results.user.played - results.user.win %>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <small>Points</small>
-                                    <br/> <%= results.user.points %>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <small>GD</small>
-                                    <br/> <%= results.user.goal_diff %>
-                                </p>
-                            </li>
-                            <li style="margin-left: 5%">
-                                <a href="/home/settings" style="width: 100%; font-size: 200%">
-                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                                </a>
-                            </li>
-                        </ul>
+                        <ul style="padding: 0;margin: 0"></ul>
                     </div>
                 </div>
             </div>

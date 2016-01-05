@@ -187,16 +187,18 @@
                     <h2> Developers </h2>
                     <hr>
                     <%for(i = 0; i < obj.length / 2; ++i){%>
-                    <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
-                        <div class="col-md-<%=4*(i%2+1)%>">
-                            <img src="http://res.cloudinary.com/rpl/general/developers/<%=obj[i].img%>.jpg" style="width: auto"/>
+                        <%for(j = 0; j < obj[i].length; ++j){%>
+                        <div class="col-md-10 col-md-offset-1" style="border: 1px solid rgba(0,0,0,0.2);margin-top:2%;box-shadow: 0 0 2px 2px rgba(0,0,0,0.2)">
+                            <div class="col-md-<%=4*(i%2+1)%>">
+                                <img src="http://res.cloudinary.com/rpl/developers/<%=obj[i][j].img%>.jpg" style="width: auto"/>
+                            </div>
+                            <div class="col-md-<%=4*((i+1)%2+1)%>">
+                                <h1>
+                                    <small><%=obj[i][j].name%></small>
+                                </h1>
+                            </div>
                         </div>
-                        <div class="col-md-<%=4*((i+1)%2+1)%>">
-                            <h1>
-                                <small><%=obj[i].name%></small>
-                            </h1>
-                        </div>
-                    </div>
+                        <%}%>
                     <%}%>
                 </div>
             </div>

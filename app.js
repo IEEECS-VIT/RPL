@@ -28,12 +28,16 @@ var error;
 var status;
 var newrelic;
 var path = require('path');
-var csurf = require('csurf');
-var logger = require('morgan');
-var favicon = require('serve-favicon');
+var csurf = require('csurf')();
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
+var json = bodyParser.json();
+var passport = require('passport').initialize();
+var url = bodyParser.urlencoded({extended: true});
+var stat = express.static(path.join(__dirname, 'public'));
+var logger = require('morgan')(process.env.LOGGER_LEVEL || 'dev');
+var favicon = require('serve-favicon')(path.join(__dirname, 'public', 'images', 'favicon.ico'));
+var session = require('express-session')({ secret : 'session secret key', resave : '', saveUninitialized : ''});
+var cookieParser = require('cookie-parser')(process.env.COOKIE_SECRET || 'randomsecretstring', {signed: true});
 var home = require(path.join(__dirname, 'routes', 'home'));
 var index = require(path.join(__dirname, 'routes', 'index'));
 var social = require(path.join(__dirname, 'routes', 'social'));
@@ -53,26 +57,26 @@ if (newrelic)
     app.locals.newrelic = newrelic;
 }
 
-var loggerLevel = process.env.LOGGER_LEVEL || 'dev';
-app.use(logger(loggerLevel));
+app.use(logger);
 app.set('title', 'RPL');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+app.use(stat);
+app.use(favicon);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.enable('trust proxy');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookieParser(process.env.COOKIE_SECRET || 'randomsecretstring', {signed: true}));
-app.use(session({ secret : 'session secret key', resave : '', saveUninitialized : ''}));
-app.use(csurf());
+app.use(json);
+app.use(url);
+app.use(cookieParser);
+app.use(session);
+app.use(passport);
+app.use(csurf);
 app.use('/', index);
 app.use('/auth', social);
 app.use('/home', home);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req, res) {
     res.redirect('/');
 });
 

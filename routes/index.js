@@ -152,7 +152,7 @@ router.get('/login', function (req, res) {
     }
     else
     {
-        res.render('login', {csrfToken: req.csrfToken()});
+        res.redirect('/');
     }
 });
 
@@ -209,7 +209,7 @@ router.post('/login', function (req, res) {
     mongoUsers.fetchUser(credentials, onFetch);
 });
 
-router.get(/^\/forgot\/password|user$/, function(req, res){
+router.get(/^\/forgot(\/password|user)?$/, function(req, res){
     res.render('forgot', {csrfToken : req.csrfToken(), mode: req.originalUrl.split('/')[2]});
 });
 
@@ -388,7 +388,7 @@ router.get('/logout', function (req, res) {
     res.clearCookie('lead', {});
     res.clearCookie('dash', {});
     res.clearCookie('stats', {});
-    res.redirect('/login');
+    res.redirect('/');
 });
 
 router.get('/admin', function (req, res) {
@@ -478,8 +478,13 @@ router.get('/simulate', function (req, res) {
     res.redirect('/admin');
 });
 
-router.get(/^\/developers|prizes$/, function (req, res) { // developers page
-    res.render(req.originalUrl.slice(1), {csrfToken : req.csrfToken(), obj: developers});
+router.get('/prizes$', function (req, res) { // developers page
+    res.render(req.originalUrl.slice(1), {csrfToken : req.csrfToken()});
+});
+
+router.get('/developers', function (req, res) { // developers page
+    console.log(developers);
+    res.render('developers', {csrfToken : req.csrfToken(), obj: developers});
 });
 
 router.get(/^\/countown|rules?|sponsors|trailer|schedule$/, function (req, res) { // page for countdown
