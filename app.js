@@ -29,6 +29,7 @@ var status;
 var newrelic;
 var path = require('path');
 var csurf = require('csurf')();
+var helmet = require('helmet')();
 var bodyParser = require('body-parser');
 var json = bodyParser.json();
 var passport = require('passport').initialize();
@@ -57,6 +58,7 @@ if (newrelic)
     app.locals.newrelic = newrelic;
 }
 
+app.use(helmet);
 app.use(logger);
 app.set('title', 'RPL');
 app.use(stat);
@@ -69,6 +71,26 @@ app.use(json);
 app.use(url);
 app.use(cookieParser);
 app.use(session);
+app.use(function(req, res, next){
+    if(!req.session.flash)
+    {
+        req.session.flash = [];
+    }
+
+    req.flash = function(content)
+    {
+        if(content)
+        {
+            this.session.flash.push(content);
+        }
+        else
+        {
+            return this.session.flash.pop();
+        }
+
+        next();
+    };
+});
 app.use(passport);
 app.use(csurf);
 app.use('/', index);
