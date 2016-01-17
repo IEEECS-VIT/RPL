@@ -190,19 +190,28 @@ router.post('/login', function (req, res) {
         }
         else if (doc)
         {
-            if (bcrypt.compareSync(password, doc.password_hash))
-            {
-                res.cookie(ref[doc.authStrategy][0], doc._id, {maxAge: 86400000, signed: true});
-                res.redirect(ref[doc.authStrategy][1]);
-            }
-            else
-            {
-                res.render('login', {response: "Incorrect Password"});
-            }
+            bcrypt.compare(password, doc.password_hash, function(err, result){
+                if(err)
+                {
+                    req.flash('An unexpected error has occurred, please re-try');
+                    res.redirect('/login');
+                }
+                else if(result)
+                {
+                    res.cookie(ref[doc.authStrategy][0], doc._id, {maxAge: 86400000, signed: true});
+                    res.redirect(ref[doc.authStrategy][1]);
+                }
+                else
+                {
+                    req.flash('Incorrect credentials!');
+                    res.redirect('/login');
+                }
+            });
         }
         else
         {
-            res.render('login', {response: "Incorrect Username"});
+            req.flash('Incorrect credentials!');
+            res.redirect('/login');
         }
     };
 
@@ -227,7 +236,6 @@ router.post('/forgot/password', function (req, res) {
         var onFetch = function(err, doc){
             if(err || !doc)
             {
-                console.log(err.message);
                 res.redirect('/forgot');
             }
             else
@@ -251,7 +259,6 @@ router.post('/forgot/user', function (req, res) {
     {
         if (err || !docs)
         {
-            console.log(err.message);
             res.redirect('/forgot/user');
         }
         else
@@ -268,7 +275,6 @@ router.get('/reset/:token', function(req, res){
     {
         if(err)
         {
-            console.log(err.message);
             res.redirect('/forgot/password');
         }
         else if(!doc)
@@ -287,12 +293,10 @@ router.get('/reset/:token', function(req, res){
 router.post('/reset/:token', function(req, res) {
     if(req.body.password === req.body.confirm)
     {
-        hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
         var onReset = function(err, doc)
         {
             if(err)
             {
-                console.log(err.message);
                 res.redirect('/reset/' + req.params.token);
             }
             else if(!doc)
@@ -305,7 +309,17 @@ router.post('/reset/:token', function(req, res) {
             }
         };
 
-        mongoUsers.resetPassword(req.params.token, hash, onReset);
+        bcrypt.hash(req.body.password, 10, function(err, hash){
+            if(err)
+            {
+                req.flash('An unexpected error has occurred, please re-try.');
+                res.redirect('/reset/' + req.params.token);
+            }
+            else
+            {
+                mongoUsers.resetPassword(req.params.token, hash, onReset);
+            }
+        });
     }
     else
     {
@@ -341,6 +355,19 @@ router.post('/register', function (req, res) {
         }
         else
         {
+            var onInsert = function (err)
+            {
+                if (err)
+                {
+                    res.render('register', {response: "Team Name Already Exists"});
+                }
+                else
+                {
+                    res.cookie('name', newUser._id, {maxAge: 86400000, signed: true});
+                    res.redirect('/home/players');
+                }
+            };
+
             if (req.body.rpass === req.body.rcpass)
             {
                 newUser = record;
@@ -351,27 +378,24 @@ router.post('/register', function (req, res) {
                 newUser.team_no = parseInt(number) + 1;
                 newUser.manager_name = req.body.m_name;
                 newUser._id = req.body.t_name.trim().toUpperCase();
-                newUser.password_hash = bcrypt.hashSync(req.body.rpass, bcrypt.genSaltSync(10));
 
-                var onInsert = function (err)
-                {
-                    if (err)
+                bcrypt.hash(req.body.rpass, 10, function(err, hash){
+                    if(err)
                     {
-                        console.log(err.message);
-                        res.render('register', {response: "Team Name Already Exists"});
+                        req.flash('An unexected error has occurred, please re-try.');
+                        res.redirect('/register');
                     }
                     else
                     {
-                        res.cookie('name', newUser._id, {maxAge: 86400000, signed: true});
-                        res.redirect('/home/players');
+                        newUser.password_hash = hash;
+                        mongoUsers.insert(process.env.MATCH, newUser, onInsert);
                     }
-                };
-
-                mongoUsers.insert(process.env.MATCH, newUser, onInsert);
+                });
             }
             else
             {
-                res.render('register', {response: "Passwords do not match", csrfToken : req.csrfToken()});
+                req.flash('Passwords do not match!');
+                res.redirect('/register');
             }
         }
     };
@@ -398,7 +422,6 @@ router.get('/admin', function (req, res) {
         {
             if (err)
             {
-                console.log(err.message);
                 res.redirect('/');
             }
             else if (doc)
@@ -478,23 +501,34 @@ router.get('/simulate', function (req, res) {
     res.redirect('/admin');
 });
 
-router.get('/prizes$', function (req, res) { // developers page
-    res.render(req.originalUrl.slice(1), {csrfToken : req.csrfToken()});
+router.get('/prizes', function (req, res) { // developers page
+    res.render('prizes', {csrfToken : req.csrfToken()});
 });
 
 router.get('/developers', function (req, res) { // developers page
-    console.log(developers);
     res.render('developers', {csrfToken : req.csrfToken(), obj: developers});
 });
 
-router.get(/^\/countown|rules?|sponsors|trailer|schedule$/, function (req, res) { // page for countdown
-    res.render(req.originalUrl.slice(1));
+router.get('/rules', function (req, res) { // page for countdown
+    res.render('rules');
+});
+
+router.get('/sponsors', function (req, res) {
+    res.render('sponsors');
+});
+
+router.get('/trailer', function (req, res) {
+    res.render('trailer');
+});
+
+router.get('/schedule', function (req, res) {
+    res.render('schedule');
 });
 
 router.get('/check/:name', function(req, res){
-    if(req.headers.referer)
+    if(req.headers.referer && req.headers.referer.split('/')[2] === req.headers.host)
     {
-        mongoUsers.fetchUser({_id: req.params.name}, function(err, user){
+        mongoUsers.fetchUser({_id: req.params.name.trim().toUpperCae()}, function(err, user){
             res.send(!err || !user);
         });
     }

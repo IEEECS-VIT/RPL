@@ -33,6 +33,10 @@ var credentials;
 var path = require('path');
 var async = require('async');
 var router = require('express').Router();
+var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
+var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
+var mongoFeatures = require(path.join(__dirname, '..', 'db', 'mongo-features'));
+
 var authenticated = function(req, res, next)
 {
     if(req.signedCookies.name || req.signedCookies.admin)
@@ -44,9 +48,6 @@ var authenticated = function(req, res, next)
         res.redirect('/');
     }
 };
-var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
-var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
-var mongoFeatures = require(path.join(__dirname, '..', 'db', 'mongo-features'));
 
 if (process.env.LOGENTRIES_TOKEN)
 {
@@ -63,7 +64,6 @@ router.get('/', authenticated, function (req, res) {
     {
         if (err)
         {
-            console.log(err.message);
             res.redirect('/home');
         }
         else if (doc)
@@ -82,7 +82,6 @@ router.get('/', authenticated, function (req, res) {
                 {
                     if (err)
                     {
-                        console.log(err.message);
                         res.redirect('/home');
                     }
                     else
@@ -115,7 +114,6 @@ router.get('/leaderboard', authenticated, function (req, res){ // Leaderboard/St
         {
             if (err)
             {
-                console.log(err.message);
                 res.redirect("/home");
             }
             else
@@ -146,7 +144,6 @@ router.get('/matches', authenticated, function (req, res) {
         {
             if (err)
             {
-                console.log(err.message);
                 res.redirect('/home');
             }
             else
@@ -155,7 +152,6 @@ router.get('/matches', authenticated, function (req, res) {
                 {
                     if (err)
                     {
-                        console.log(err.message);
                         res.redirect('/home');
                     }
                     else
@@ -189,7 +185,6 @@ router.get('/match/:day', authenticated, function(req, res){
         {
             if (err)
             {
-                console.log(err.message);
                 res.redirect('/home');
             }
             else
@@ -198,7 +193,6 @@ router.get('/match/:day', authenticated, function(req, res){
                 {
                     if (err)
                     {
-                        console.log(err.message);
                         res.redirect('/home');
                     }
                     else
@@ -267,7 +261,6 @@ router.post('/players', authenticated, function (req, res) {
     {
         if (err)
         {
-            console.log(err.message);
             res.redirect('/home/players');
         }
         else
@@ -305,22 +298,34 @@ router.post('/players', authenticated, function (req, res) {
     {
         if (err)
         {
-            console.log(err.message);
             res.redirect('/home');
         }
         else
         {
-            for (var i = 0; i < documents.length; ++i)
+            var reduction = function(arg, callback)
             {
-                cost -= parseInt(documents[i].Cost);
-
-                if (cost < 0)
+                cost -= parseInt(arg.Cost);
+                callback();
+            };
+            var onReduce = function(err)
+            {
+                if(err)
                 {
-                    res.render('players', {err: "Cost Exceeded"});
+                    req.flash('An unexpected error has occurred. Please re-try.');
+                    res.redirect('/players');
                 }
-            }
+                else if(cost < 0)
+                {
+                    req.flash('Cost Exceeded!');
+                    res.redirect('/players');
+                }
+                else
+                {
+                    mongoUsers.updateUserTeam(credentials, players, stats, cost, onUpdate);
+                }
+            };
 
-            mongoUsers.updateUserTeam(credentials, players, stats, cost, onUpdate);
+            async.each(documents, reduction, onReduce);
         }
     };
 
@@ -337,7 +342,6 @@ router.get('/players', authenticated, function (req, res) {// page for all playe
     {
         if (err)
         {
-            console.log(err.message);
             res.redirect("/home");
         }
         else
@@ -385,7 +389,6 @@ router.get('/team', authenticated, function (req, res) {// view the assigned pla
     {
         if (err)
         {
-            console.log(err.message);
             res.redirect('/home');
         }
         else
@@ -411,7 +414,6 @@ router.get('/formation', authenticated, function (req, res) {
     {
         if (err)
         {
-            console.log(err.message);
             res.redirect('/home');
         }
         else if (doc)
@@ -434,7 +436,6 @@ router.get('/formation', authenticated, function (req, res) {
             {
                 if (err)
                 {
-                    console.log(err.message);
                     res.redirect('/home');
                 }
                 else
@@ -470,7 +471,6 @@ router.get('/stats', authenticated, function (req, res) {
         {
             if (err)
             {
-                console.log(err.message);
                 res.redirect('/home');
             }
             else
@@ -523,7 +523,6 @@ router.get('/dashboard', authenticated, function (req, res) {
         {
             if (err)
             {
-                console.log(err.message);
                 res.redirect('/home');
             }
             else
