@@ -88,7 +88,7 @@ exports.interest = exports.wrap({
     "<tr>" +
         "<td align='center' style='padding: 5px 30px 40px 30px;font-family: Arial; line-height:30px; font-size:x-large;'>" +
             " Thank you for your interest in Riviera Premier League <br>" +
-            "Please check out  our Facebook <a href='http://www.facebook.com/rivierapremierleague' style='text-decoration: none;'>" +
+            "Please check out  our Facebook <a href='http://~www.facebook.com/rivierapremierleague' style='text-decoration: none;'>" +
             "page</a> to stay close to all the action!" +
         "</td>" +
     "</tr>" +
@@ -108,8 +108,8 @@ exports.register = exports.wrap({
     'from': 'rivierapremierleague@gmail.com',
     subject: 'Welcome to R.P.L ' + version + '.0!'
 }).attach_alternative(
-"<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>" +
-"<html xmlns='http://www.w3.org/1999/xhtml' xmlns='http://www.w3.org/1999/xhtml'>" +
+"<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://~www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>" +
+"<html xmlns='http://~www.w3.org/1999/xhtml' xmlns='http://~www.w3.org/1999/xhtml'>" +
     "<head>" +
         "<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />" +
         "<meta name='viewport' content='width=device-width' />" +
@@ -290,7 +290,7 @@ exports.register = exports.wrap({
                                                                         " display: block; width: auto !important; background: #3b5998;" +
                                                                         " margin: 0; padding: 5px 0 4px; border: 1px solid #2d4473;'" +
                                                                         " align='center' bgcolor='#3b5998' valign='top'>" +
-                                                                        "<a href='https://www.facebook.com/rivierapremierleague'" +
+                                                                        "<a href='https://~www.facebook.com/rivierapremierleague'" +
                                                                             " style='color: #ffffff; text-decoration: none;" +
                                                                             " font-weight: normal; font-family: Helvetica, Arial, sans-serif;" +
                                                                             " font-size: 12px;'>" +

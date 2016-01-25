@@ -21,7 +21,7 @@ var match;
 var path = require('path');
 var async = require('async');
 var days = [1, 2, 3, 4, 5, 6, 7];
-var email = require(path.join(__dirname, 'email'));
+var email = require(path.join(__dirname, '..', 'utils', 'email'));
 var simulator = require(path.join(__dirname, 'simulation'));
 
 if(!process.env.NODE_ENV)

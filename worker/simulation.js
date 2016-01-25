@@ -299,22 +299,22 @@ exports.simulate = function (data, callback)
             data.match.commentary.push(temp);
         };
         var path = require('path');
-        var tie = require(path.join(__dirname, 'commentary' , 'tie'));
-        var end = require(path.join(__dirname, 'commentary' , 'end'));
-        var foul = require(path.join(__dirname, 'commentary' , 'foul'));
-        var half = require(path.join(__dirname, 'commentary' , 'half'));
-        var pass = require(path.join(__dirname, 'commentary' , 'pass'));
-        var miss = require(path.join(__dirname, 'commentary' , 'miss'));
-        var intro = require(path.join(__dirname, 'commentary' , 'intro'));
-        var score = require(path.join(__dirname, 'commentary' , 'score'));
-        var block = require(path.join(__dirname, 'commentary' , 'block'));
-        var tackle = require(path.join(__dirname, 'commentary' , 'tackle'));
-        var offside = require(path.join(__dirname, 'commentary' , 'offside'));
-        var penalty = require(path.join(__dirname, 'commentary' , 'penalty'));
-        var general = require(path.join(__dirname, 'commentary' , 'general'));
-        var shootout = require(path.join(__dirname, 'commentary' , 'shootout'));
-        var hopeless = require(path.join(__dirname, 'commentary' , 'hopeless'));
-        var intercept = require(path.join(__dirname, 'commentary' , 'intercept'));
+        var tie = require(path.join(__dirname, '..', 'utils', 'commentary' , 'tie'));
+        var end = require(path.join(__dirname, '..', 'utils', 'commentary' , 'end'));
+        var foul = require(path.join(__dirname, '..', 'utils', 'commentary' , 'foul'));
+        var half = require(path.join(__dirname, '..', 'utils', 'commentary' , 'half'));
+        var pass = require(path.join(__dirname, '..', 'utils', 'commentary' , 'pass'));
+        var miss = require(path.join(__dirname, '..', 'utils', 'commentary' , 'miss'));
+        var intro = require(path.join(__dirname, '..', 'utils', 'commentary' , 'intro'));
+        var score = require(path.join(__dirname, '..', 'utils', 'commentary' , 'score'));
+        var block = require(path.join(__dirname, '..', 'utils', 'commentary' , 'block'));
+        var tackle = require(path.join(__dirname, '..', 'utils', 'commentary' , 'tackle'));
+        var offside = require(path.join(__dirname, '..', 'utils', 'commentary' , 'offside'));
+        var penalty = require(path.join(__dirname, '..', 'utils', 'commentary' , 'penalty'));
+        var general = require(path.join(__dirname, '..', 'utils', 'commentary' , 'general'));
+        var shootout = require(path.join(__dirname, '..', 'utils', 'commentary' , 'shootout'));
+        var hopeless = require(path.join(__dirname, '..', 'utils', 'commentary' , 'hopeless'));
+        var intercept = require(path.join(__dirname, '..', 'utils', 'commentary' , 'intercept'));
         var ball =
         {
             x : 64.5,
