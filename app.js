@@ -69,7 +69,7 @@ var flash = function(req, res, next)
 
 if (process.env.NEWRELIC_APP_NAME && process.env.NEWRELIC_LICENSE)
 {
-    newrelic = require('newrelic');
+    newrelic = require(path.join(__dirname, 'utils', 'newrelic'));
 }
 
 if (process.env.LOGENTRIES_TOKEN)

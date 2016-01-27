@@ -19,7 +19,6 @@
 var day;
 var path = require('path');
 var mongo = require('mongodb').MongoClient.connect;
-var mongoUri = process.env.MONGO || 'mongodb://127.0.0.1:27017/GPL';
 var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
 var simulationControl = require(path.join(__dirname, '..', 'worker', 'simulation-controller'));
 
@@ -41,14 +40,14 @@ else
     day = parseInt(process.argv[2]);
 }
 
-mongo(mongoUri, function(err, database){
+mongo(process.env.MONGO, function(err, db){
     if(err)
     {
         throw err;
     }
     else
     {
-        db = database;
+        database = db;
         simulationControl.initSimulation(day, function (){
             console.log('Simulation of Matches for Day ' + day + ' is complete');
             if(day == 7 && process.env.MATCH !== 'round3')
@@ -61,7 +60,7 @@ mongo(mongoUri, function(err, database){
                 });
             }
 
-            db.close();
+            database.close();
             process.exit(0);
         });
     }

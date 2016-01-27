@@ -30,7 +30,6 @@ if (process.env.LOGENTRIES_TOKEN)
 }
 
 var match = process.env.MATCH;
-var mongoUri = process.env.MONGO;
 
 var onConnect = function (err, database)
 {
@@ -148,4 +147,4 @@ var onConnect = function (err, database)
     }
 };
 
-mongo(mongoUri, onConnect);
+mongo(process.env.MONGO, onConnect);

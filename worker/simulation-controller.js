@@ -58,7 +58,7 @@ exports.initSimulation = function (day, masterCallback)
             {
                 var getEachRating = function (elt, subCallback)
                 {
-                    db('players').find({_id: elt}).limit(1).next(subCallback);
+                    database.collection('players').find({_id: elt}).limit(1).next(subCallback);
                 };
 
                 var onGetRating = function (err, results)
@@ -85,19 +85,19 @@ exports.initSimulation = function (day, masterCallback)
                 }
             };
 
-            db(match).find(query).limit(1).next(getRating);
+            database.collection(match).find(query).limit(1).next(getRating);
         };
 
         var updateData = function (err, newData)
         {
             var updateUser = function (newUserDoc, asyncCallback)
             {
-                db(match).updateOne({_id: newUserDoc._id}, newUserDoc, asyncCallback);
+                database.collection(match).updateOne({_id: newUserDoc._id}, newUserDoc, asyncCallback);
             };
 
             var updateMatch = function (newMatchDoc, asyncCallback)
             {
-                db('matchday' + day).updateOne({_id: newMatchDoc._id}, newMatchDoc, asyncCallback);
+                database.collection('matchday' + day).updateOne({_id: newMatchDoc._id}, newMatchDoc, asyncCallback);
             };
 
             var parallelTasks2 =
@@ -169,7 +169,7 @@ exports.initSimulation = function (day, masterCallback)
                 break;
         }
 
-        db(collection).find().toArray(callback)
+        database.collection(collection).find().toArray(callback)
     };
 
     var ForAllMatches = function (err, docs)
