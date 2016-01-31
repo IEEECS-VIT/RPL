@@ -10,8 +10,9 @@
   "private": true,
   "main": "./bin/www",
   "scripts": {
-    "start": "forever bin/www",
-    "postinstall": "node node_modules/bower/bin/bower install"
+    "start": "node node_modules/.bin/forever bin/www",
+    "test": "node node_modules/.bin/mocha tests --recursive",
+    "postinstall": "node node_modules/.bin/bower install"
   },
   "cacheDirectories": [
     "public/bower",
@@ -73,6 +74,7 @@
   },
   "devDependencies": {
     "dotenv": "^2.0.0",
+    "mocha": "^2.4.5",
     "yuicompressor": "^2.4.8"
   },
   "repository": {

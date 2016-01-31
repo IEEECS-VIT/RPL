@@ -60,7 +60,7 @@ var onBind = function ()
 mongo(process.env.MONGO, function(err, database){
     if(err)
     {
-        throw err;
+        throw process.env.NODE_ENV ? 'process.env.MONGO does not contain a valid connection string' : 'The localhost mongod server is not running on pot 27017';
     }
 
     db = database;
