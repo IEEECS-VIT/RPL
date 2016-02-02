@@ -62,9 +62,9 @@ var flash = function(req, res, next)
         {
             return this.session.flash.pop();
         }
-
-        next();
     };
+
+    next();
 };
 
 if (process.env.NEWRELIC_APP_NAME && process.env.NEWRELIC_LICENSE)

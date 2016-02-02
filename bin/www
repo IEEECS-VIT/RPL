@@ -60,7 +60,7 @@ var onBind = function ()
 mongo(process.env.MONGO, function(err, database){
     if(err)
     {
-        throw process.env.NODE_ENV ? 'process.env.MONGO does not contain a valid connection string' : 'The localhost mongod server is not running on pot 27017';
+        throw process.env.NODE_ENV ? 'process.env.MONGO does not contain a valid connection string' : 'The localhost mongod server is not running on port 27017';
     }
 
     db = database;
@@ -73,6 +73,23 @@ process.on('SIGINT', function(err){
         console.log(err.message);
     }
 
+    db.close();
+    exit();
+});
+
+process.on('SIGTERM', function(err){
+    if(err)
+    {
+        console.log(err.message);
+    }
+
+    db.close();
+    exit();
+});
+
+process.on('uncaughtException', function (err) {
+    console.error((new Date).toUTCString() + ' uncaughtException:', err.message);
+    console.error(err.stack);
     db.close();
     exit();
 });
