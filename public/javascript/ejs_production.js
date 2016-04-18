@@ -2,7 +2,7 @@
 {
     var rsplit = function(string, regex)
     {
-        var result = regex.exec(string), retArr = new Array(), first_idx, last_idx, first_bit;
+        var result = regex.exec(string), retArr = [], first_idx, last_idx, first_bit;
         while(result != null)
         {
             first_idx = result.index;
@@ -614,4 +614,4 @@ EJS.Helpers.prototype.img_tag = function(B, C, A)
     A.src = B;
     A.alt = C;
     return this.single_tag_for("img", A)
-}
+};

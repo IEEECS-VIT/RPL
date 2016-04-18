@@ -33,9 +33,9 @@ var credentials;
 var path = require('path');
 var async = require('async');
 var router = require('express').Router();
-var mongoTeam = require(path.join(__dirname, '..', 'db', 'mongo-team'));
-var mongoUsers = require(path.join(__dirname, '..', 'db', 'mongo-users'));
-var mongoFeatures = require(path.join(__dirname, '..', 'db', 'mongo-features'));
+var mongoTeam = require(path.join(__dirname, '..', 'database', 'mongoTeam'));
+var mongoUsers = require(path.join(__dirname, '..', 'database', 'mongoUsers'));
+var mongoFeatures = require(path.join(__dirname, '..', 'database', 'mongoFeatures'));
 
 var authenticated = function(req, res, next)
 {

@@ -38,7 +38,7 @@ var onRetrieve = function(req, res, next)
     })(req, res, next);
 };
 var router = require('express').Router();
-require(path.join(__dirname, '..', 'db', 'mongo-passport.js')); // pass passport for configuration
+require(path.join(__dirname, '..', 'database', 'mongoPassport.js')); // pass passport for configuration
 
 router.get('/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
