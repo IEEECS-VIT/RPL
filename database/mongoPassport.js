@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var key;
 var user;
 var path = require('path');
 var passport = require('passport');
@@ -47,10 +48,10 @@ var callback = function(req, token, refresh, profile, done)
                         delete user.password_hash;
                         user.profile = profile.id;
                         user._id = req.signedCookies.team;
-                        user.team_no = parseInt(number) + 1;
                         user.authStrategy = profile.provider;
-                        user.phone = req.signedCookies.phone;
-                        user.manager_name = profile.displayName;
+						user.phone = req.signedCookies.phone;
+						user.team_no = parseInt(number, 10) + 1;
+						user.manager_name = profile.displayName;
 
                         if(profile.provider !== 'twitter')
                         {
@@ -74,39 +75,32 @@ var ref =
 {
     undefined: 'http://localhost:3000/auth/',
     'dev': 'http://rpl-test.herokuapp.com/auth/',
-    'production': 'http://rivierapremierleague.herokuapp.com/auth/'
+    'production': 'http://rpl.ieeecsvit.com/auth/'
 };
 //var twitter = require('passport-twitter').Strategy;
 var facebook = require('passport-facebook').Strategy;
 var google = require('passport-google-oauth').OAuth2Strategy;
-var record = require(path.join(__dirname, 'mongo-record.js'));
-var mongoUsers = require(path.join(__dirname, 'mongo-users.js'));
+var record = require(path.join(__dirname, 'mongoRecord.js'));
+var mongoUsers = require(path.join(__dirname, 'mongoUsers.js'));
+var strategies =
+{
+	GOOGLE: google,
+	FACEBOOK: facebook
+};
 
-passport.use(new facebook({
-        clientID: process.env.FACEBOOK_ID,
-        clientSecret: process.env.FACEBOOK_KEY,
-        callbackURL: ref[process.env.NODE_ENV] + 'facebook/callback',
-        passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-    },
-    callback
-));
-
-passport.use(new google({
-        clientID: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_KEY,
-        callbackURL: ref[process.env.NODE_ENV] + 'google/callback',
-        passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-    },
-    callback
-));
-
-/*
-passport.use(new twitter({
-        consumerKey: process.env.TWITTER_ID,
-        consumerSecret: process.env.TWITTER_KEY,
-        callbackURL: ref[process.env.NODE_ENV] + 'twitter/callback',
-        passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-    },
-    callback
-));
-*/
+for(key in strategies)
+{
+	if(strategies.hasOwnProperty(key))
+	{
+		passport.use(new strategies[key]({
+				enableProof: true,
+				clientID: process.env[`${key}_ID`],
+				clientSecret: process.env[`${key}_KEY`],
+				profileFields: ["id", "email", "displayName"],
+				callbackURL: ref[process.env.NODE_ENV] + key.toLowerCase() + '/callback',
+				passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+			},
+			callback
+		));
+	}
+}

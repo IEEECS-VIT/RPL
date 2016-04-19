@@ -41,12 +41,10 @@ var authenticated = function(req, res, next)
 {
     if(req.signedCookies.name || req.signedCookies.admin)
     {
-        next();
+        return next();
     }
-    else
-    {
-        res.redirect('/');
-    }
+
+	res.redirect('/');
 };
 
 if (process.env.LOGENTRIES_TOKEN)
@@ -461,7 +459,7 @@ router.get('/settings', authenticated, function(req,res){
 });
 
 router.get('/stats', authenticated, function (req, res) {
-    if(req.signedCookies.stats && req.signedCookies.day == process.env.DAY)
+    if(req.signedCookies.stats && req.signedCookies.day === process.env.DAY)
     {
         res.render('stats', {stats : JSON.parse(req.signedCookies.stats)});
     }
@@ -508,7 +506,7 @@ router.post('/feature', authenticated, function (req, res) {
 });
 
 router.get('/dashboard', authenticated, function (req, res) {
-    if(req.signedCookies.dash && req.signedCookies.day == process.env.DAY)
+    if(req.signedCookies.dash && req.signedCookies.day === process.env.DAY)
     {
         res.render("dashboard", {result: JSON.parse(req.signedCookies.dash)});
     }

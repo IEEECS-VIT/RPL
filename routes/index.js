@@ -59,7 +59,7 @@ catch(err)
     {
         bcrypt = require('bcryptjs');
     }
-    catch(err)
+    catch(error)
     {
         throw "Failure to compile run time requirement: bcrypt(js)";
     }
@@ -161,15 +161,7 @@ router.post('/login', function (req, res) {
     credentials =
     {
         '_id': req.body.team.trim().toUpperCase(),
-        $or :
-        [
-            {
-                'authStrategy' : 'admin'
-            },
-            {
-                'authStrategy' : 'local'
-            }
-        ]
+        'authStrategy': {$in: ['local', 'admin']}
     };
 
     if (req.signedCookies.name)
@@ -227,10 +219,15 @@ router.post('/forgot/password', function (req, res) {
     {
         _id: req.body.team.trim().toUpperCase(),
         email: req.body.email,
-        authStrategy : 'local'
+        authStrategy: {$in: ['local', 'admin']}
     };
 
     crypto.randomBytes(20, function (err, buf) {
+		if(err)
+		{
+			console.log(err.message);
+		}
+
         token = buf.toString('hex');
 
         var onFetch = function(err, doc){
@@ -328,7 +325,7 @@ router.post('/reset/:token', function(req, res) {
 });
 
 router.get('/register', function (req, res) {
-    if(!process.env.NODE_ENV || (process.env.DAY === '0' && process.env.MATCH == 'users' && process.env.LIVE === '1'))
+    if(!process.env.NODE_ENV || (process.env.DAY === '0' && process.env.MATCH === 'users' && process.env.LIVE === '1'))
     {
         res.render('register', {csrfToken: req.csrfToken()});
     }
@@ -375,14 +372,14 @@ router.post('/register', function (req, res) {
                 newUser.phone = req.body.pno;
                 newUser.email = req.body.email;
                 newUser.authStrategy = 'local';
-                newUser.team_no = parseInt(number) + 1;
+                newUser.team_no = parseInt(number, 10) + 1;
                 newUser.manager_name = req.body.m_name;
                 newUser._id = req.body.t_name.trim().toUpperCase();
 
                 bcrypt.hash(req.body.rpass, 10, function(err, hash){
                     if(err)
                     {
-                        req.flash('An unexected error has occurred, please re-try.');
+                        req.flash('An unexpected error has occurred, please re-try.');
                         res.redirect('/register');
                     }
                     else

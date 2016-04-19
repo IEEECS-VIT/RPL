@@ -3,11 +3,11 @@
     var rsplit = function(string, regex)
     {
         var result = regex.exec(string), retArr = [], first_idx, last_idx, first_bit;
-        while(result != null)
+        while(result !== null)
         {
             first_idx = result.index;
             last_idx = regex.lastIndex;
-            if((first_idx) != 0)
+            if((first_idx) !== 0)
             {
                 first_bit = string.substring(0, first_idx);
                 retArr.push(string.substring(0, first_idx));
@@ -17,7 +17,7 @@
             string = string.slice(result[0].length);
             result = regex.exec(string)
         }
-        if(!string == "")
+        if(!string === "")
         {retArr.push(string)}
         return retArr
     }, chop = function(string){return string.substr(0, string.length - 1)}, extend = function(d, s)
@@ -30,28 +30,26 @@
     };
     EJS = function(options)
     {
-        options = typeof options == "string" ? { view : options } : options;
+        options = typeof options === "string" ? { view : options } : options;
         this.set_options(options);
         if(options.precompiled)
         {
-            this.template = {};
-            this.template.process = options.precompiled;
+            this.template = {
+				process: options.precompiled
+			};
             EJS.update(this.name, this);
-            return
+            return;
         }
         if(options.element)
         {
-            if(typeof options.element == "string")
+            if(typeof options.element === "string")
             {
                 var name = options.element;
                 options.element = document.getElementById(options.element);
-                if(options.element == null)
+                if(options.element === null)
                 {throw name + "does not exist!"}
             }
-            if(options.element.value)
-            {this.text = options.element.value}
-            else
-            {this.text = options.element.innerHTML}
+			this.text = options.element.value || options.element.innerHTML;
             this.name = options.element.id;
             this.type = "["
         }
@@ -65,12 +63,12 @@
                 var template = EJS.get(this.name, this.cache);
                 if(template)
                 {return template}
-                if(template == EJS.INVALID_PATH)
+                if(template === EJS.INVALID_PATH)
                 {return null}
                 try
                 {this.text = EJS.request(url + (this.cache ? "" : "?" + Math.random()))}catch(e)
                 {}
-                if(this.text == null)
+                if(this.text === null)
                 {throw ({ type : "EJS", message : "There is no template at " + url })}
             }
         }
@@ -88,14 +86,14 @@
             return this.template.process.call(object, object, v)
         }, update : function(element, options)
         {
-            if(typeof element == "string")
+            if(typeof element === "string")
             {element = document.getElementById(element)}
-            if(options == null)
+            if(options === null)
             {
                 _template = this;
                 return function(object){EJS.prototype.update.call(_template, element, object)}
             }
-            if(typeof options == "string")
+            if(typeof options === "string")
             {
                 params = {};
                 params.url = options;
@@ -112,7 +110,7 @@
         }, out : function(){return this.template.out}, set_options : function(options)
         {
             this.type = options.type || EJS.type;
-            this.cache = options.cache != null ? options.cache : EJS.cache;
+            this.cache = options.cache !== null ? options.cache : EJS.cache;
             this.text = options.text || null;
             this.name = options.name || null;
             this.ext = options.ext || EJS.ext;
@@ -136,14 +134,14 @@
             left_equal : left + "%=",
             left_comment : left + "%#"
         });
-        this.SplitRegexp = left == "[" ? /(\[%%)|(%%\])|(\[%=)|(\[%#)|(\[%)|(%\]\n)|(%\])|(\n)/ : new RegExp("(" + this.double_left + ")|(%%" + this.double_right + ")|(" + this.left_equal + ")|(" + this.left_comment + ")|(" + this.left_delimiter + ")|(" + this.right_delimiter + "\n)|(" + this.right_delimiter + ")|(\n)");
+        this.SplitRegexp = left === "[" ? /(\[%%)|(%%\])|(\[%=)|(\[%#)|(\[%)|(%\]\n)|(%\])|(\n)/ : new RegExp("(" + this.double_left + ")|(%%" + this.double_right + ")|(" + this.left_equal + ")|(" + this.left_comment + ")|(" + this.left_delimiter + ")|(" + this.right_delimiter + "\n)|(" + this.right_delimiter + ")|(\n)");
         this.source = source;
         this.stag = null;
         this.lines = 0
     };
     EJS.Scanner.to_text = function(input)
     {
-        if(input == null || input === undefined)
+        if(input === null || input === undefined)
         {return ""}
         if(input instanceof Date)
         {return input.toDateString()}
@@ -156,7 +154,7 @@
         {
             scanline = this.scanline;
             regex = this.SplitRegexp;
-            if(!this.source == "")
+            if(!this.source === "")
             {
                 var source_split = rsplit(this.source, /\n/);
                 for(var i = 0; i < source_split.length; i++)
@@ -172,7 +170,7 @@
             for(var i = 0; i < line_split.length; i++)
             {
                 var token = line_split[i];
-                if(token != null)
+                if(token !== null)
                 {
                     try
                     {block(token, this)}catch(e)
@@ -183,7 +181,7 @@
     };
     EJS.Buffer = function(pre_cmd, post_cmd)
     {
-        this.line = new Array();
+        this.line = [];
         this.script = "";
         this.pre_cmd = pre_cmd;
         this.post_cmd = post_cmd;
@@ -195,7 +193,7 @@
         cr : function()
         {
             this.script = this.script + this.line.join("; ");
-            this.line = new Array();
+            this.line = [];
             this.script = this.script + "\n"
         },
         close : function()
@@ -212,11 +210,11 @@
     EJS.Compiler = function(source, left)
     {
         this.pre_cmd = ["var ___ViewO = [];"];
-        this.post_cmd = new Array();
+        this.post_cmd = [];
         this.source = " ";
-        if(source != null)
+        if(source !== null)
         {
-            if(typeof source == "string")
+            if(typeof source === "string")
             {
                 source = source.replace(/\r\n/g, "\n");
                 source = source.replace(/\r/g, "\n");
@@ -227,7 +225,7 @@
                 if(source.innerHTML)
                 {this.source = source.innerHTML}
             }
-            if(typeof this.source != "string")
+            if(typeof this.source !== "string")
             {this.source = ""}
         }
         left = left || "<";
@@ -264,7 +262,7 @@
             };
             this.scanner.scan(function(token, scanner)
             {
-                if(scanner.stag == null)
+                if(scanner.stag === null)
                 {
                     switch(token)
                     {
@@ -298,7 +296,7 @@
                             switch(scanner.stag)
                             {
                                 case scanner.left_delimiter:
-                                    if(content[content.length - 1] == "\n")
+                                    if(content[content.length - 1] === "\n")
                                     {
                                         content = chop(content);
                                         buff.push(content);
@@ -331,13 +329,13 @@
             try
             {eval(to_be_evaled)}catch(e)
             {
-                if(typeof JSLINT != "undefined")
+                if(typeof JSLINT !== "undefined")
                 {
                     JSLINT(this.out);
                     for(var i = 0; i < JSLINT.errors.length; i++)
                     {
                         var error = JSLINT.errors[i];
-                        if(error.reason != "Unnecessary semicolon.")
+                        if(error.reason !== "Unnecessary semicolon.")
                         {
                             error.line++;
                             var e = new Error();
@@ -356,14 +354,14 @@
     };
     EJS.config = function(options)
     {
-        EJS.cache = options.cache != null ? options.cache : EJS.cache;
-        EJS.type = options.type != null ? options.type : EJS.type;
-        EJS.ext = options.ext != null ? options.ext : EJS.ext;
+        EJS.cache = options.cache !== null ? options.cache : EJS.cache;
+        EJS.type = options.type !== null ? options.type : EJS.type;
+        EJS.ext = options.ext !== null ? options.ext : EJS.ext;
         var templates_directory = EJS.templates_directory || {};
         EJS.templates_directory = templates_directory;
         EJS.get = function(path, cache)
         {
-            if(cache == false)
+            if(cache === false)
             {return null}
             if(templates_directory[path])
             {return templates_directory[path]}
@@ -371,7 +369,7 @@
         };
         EJS.update = function(path, template)
         {
-            if(path == null)
+            if(path === null)
             {return }
             templates_directory[path] = template
         };
@@ -394,7 +392,7 @@
             return new EJS(options).render(data, helpers)
         }, to_text : function(input, null_text)
         {
-            if(input == null || input === undefined)
+            if(input === null || input === undefined)
             {return null_text || ""}
             if(input instanceof Date)
             {return input.toDateString()}
@@ -411,7 +409,7 @@
             try
             {
                 var request = factories[i]();
-                if(request != null)
+                if(request !== null)
                 {return request}
             }catch(e)
             {continue}
@@ -424,7 +422,7 @@
         try
         {request.send(null)}catch(e)
         {return null}
-        if(request.status == 404 || request.status == 2 || (request.status == 0 && request.responseText == ""))
+        if(request.status === 404 || request.status === 2 || (request.status === 0 && request.responseText === ""))
         {return null}
         return request.responseText
     };
@@ -434,9 +432,9 @@
         var request = new EJS.newRequest();
         request.onreadystatechange = function()
         {
-            if(request.readyState == 4)
+            if(request.readyState === 4)
             {
-                if(request.status == 200)
+                if(request.status === 200)
                 {params.onComplete(request)}
                 else
                 {params.onComplete(request)}
@@ -470,7 +468,7 @@ EJS.Helpers.prototype.form_tag = function(B, A)
 {
     A = A || {};
     A.action = B;
-    if(A.multipart == true)
+    if(A.multipart === true)
     {
         A.method = "post";
         A.enctype = "multipart/form-data"
@@ -488,7 +486,7 @@ EJS.Helpers.prototype.input_field_tag = function(A, D, C, B)
     B.name = A;
     return this.single_tag_for("input", B)
 };
-EJS.Helpers.prototype.is_current_page = function(A){return (window.location.href == A || window.location.pathname == A ? true : false)};
+EJS.Helpers.prototype.is_current_page = function(A){return (window.location.href === A || window.location.pathname === A ? true : false)};
 EJS.Helpers.prototype.link_to = function(B, A, C)
 {
     if(!B)
@@ -520,13 +518,13 @@ EJS.Helpers.prototype.submit_link_to = function(B, A, C)
     C.onclick = C.onclick + (A ? this.url_for(A) : "") + "return false;";
     return this.start_tag_for("input", C)
 };
-EJS.Helpers.prototype.link_to_if = function(F, B, A, D, C, E){return this.link_to_unless((F == false), B, A, D, C, E)};
+EJS.Helpers.prototype.link_to_if = function(F, B, A, D, C, E){return this.link_to_unless((F === false), B, A, D, C, E)};
 EJS.Helpers.prototype.link_to_unless = function(E, B, A, C, D)
 {
     C = C || {};
     if(E)
     {
-        if(D && typeof D == "function")
+        if(D && typeof D === "function")
         {return D(B, A, C, D)}
         else
         {return B}
@@ -552,7 +550,7 @@ EJS.Helpers.prototype.select_tag = function(D, G, H, F)
     {
         var C = H[E];
         var A = { value : C.value };
-        if(C.value == G)
+        if(C.value === G)
         {A.selected = "selected"}
         B += this.start_tag_for("option", A) + C.text + this.tag_end("option")
     }
@@ -575,13 +573,13 @@ EJS.Helpers.prototype.tag = function(C, E, D)
     var B = " ";
     for(var A in E)
     {
-        if(E[A] != null)
+        if(E[A] !== null)
         {var F = E[A].toString()}
         else
         {var F = ""}
-        if(A == "Class")
+        if(A === "Class")
         {A = "class"}
-        if(F.indexOf("'") != -1)
+        if(F.indexOf("'") !== -1)
         {B += A + '="' + F + '" '}
         else
         {B += A + "='" + F + "' "}

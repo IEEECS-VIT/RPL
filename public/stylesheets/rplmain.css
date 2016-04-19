@@ -690,16 +690,6 @@ button:hover
 	z-index: 1000;
 }
 
-#loader:before
-{
-
-}
-
-#loader:after
-{
-
-}
-
 @-webkit-keyframes spin
 {
 	0%

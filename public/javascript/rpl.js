@@ -149,7 +149,7 @@ function reg_valid()
         email1.style.backgroundColor = 'Yellow';
         display += ++i + ". Enter Email.\n";
     }
-    if(pass.value != cpass.value)
+    if(pass.value !== cpass.value)
     {
         pass.style.backgroundColor = 'Yellow';
         cpass.style.backgroundColor = 'Yellow';
@@ -166,7 +166,7 @@ function reg_valid()
         }
     }
 
-    if(display != "Error:\n")
+    if(display !== "Error:\n")
     {
         confirm(display);
         return false;

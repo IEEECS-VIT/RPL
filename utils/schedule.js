@@ -64,7 +64,7 @@ var onConnect = function (err, database)
                     {
                         console.log(doc.ops);
 
-                        if(++done == 7)
+                        if(++done === 7)
                         {
                             database.close();
                         }

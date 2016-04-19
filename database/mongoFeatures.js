@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 var path = require('path');
-var simulator = require(path.join(__dirname, '..', 'worker', 'simulation-controller'));
+var simulator = require(path.join(__dirname, '..', 'worker', 'simController'));
 
 exports.getStats = function (callback)
 {

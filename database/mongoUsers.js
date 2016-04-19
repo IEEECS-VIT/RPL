@@ -24,7 +24,7 @@ var slice =
     win: 1,
     points: 1,
     played: 1,
-    goal_diff: 1    
+    goal_diff: 1
 };
 var options =
 {
@@ -38,7 +38,7 @@ var leaderboard;
 var path = require('path');
 var match = process.env.MATCH;
 var email = require(path.join(__dirname, '..', 'utils', 'email'));
-var mongoFeatures = require(path.join(__dirname, 'mongo-features.js'));
+var mongoFeatures = require(path.join(__dirname, 'mongoFeatures'));
 
 var ref =
 {
@@ -78,7 +78,7 @@ exports.insert = function (col, doc, callback)
     {
         if(err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
@@ -89,7 +89,7 @@ exports.insert = function (col, doc, callback)
             }
             else
             {
-                callback(null);
+				return callback(null);
             }
         }
     };
@@ -103,7 +103,7 @@ exports.getLeader = function (doc, callback)
     {
         if (err)
         {
-            callback(err, null);
+			return callback(err, null);
         }
         else
         {
@@ -112,7 +112,7 @@ exports.getLeader = function (doc, callback)
 
             for (i = 0; i < documents.length; ++i)
             {
-                if (documents[i]._id == user)
+                if (documents[i]._id === user)
                 {
                     flag = true;
                     documents[i].rank = i + 1;
@@ -129,7 +129,7 @@ exports.getLeader = function (doc, callback)
                 }
             }
 
-            callback(null, leaderboard);
+			return callback(null, leaderboard);
         }
     };
 
@@ -151,7 +151,7 @@ exports.forgotPassword = function (doc, token, host, callback)
     {
         if (err)
         {
-            callback(err, null);
+			return callback(err, null);
         }
         else if (document.value)
         {
@@ -188,7 +188,7 @@ exports.forgotPassword = function (doc, token, host, callback)
         }
         else
         {
-            callback(false, null);
+			return callback(false, null);
         }
     };
 
@@ -201,13 +201,11 @@ exports.forgotUser = function (doc, callback)
     {
         if (err)
         {
-            callback(err, null);
+			return callback(err, null);
         }
         else if (docs.length)
         {
-            var results = "";
-
-            docs.map((arg) => (results += '<li>' + arg._id + ' (' + arg.authStrategy + ')' + '</li>'));
+            var results = docs.reduce((a, b) => (a + `<li>${b._id} (${b.authStrategy})</li>`), '');
 
             ref.other.header.to = doc.email;
             ref.other.header.subject = 'Time to get back in the game';
@@ -218,7 +216,7 @@ exports.forgotUser = function (doc, callback)
             {
                 if(err)
                 {
-                    callback(err);
+					return callback(err);
                 }
                 else
                 {
@@ -230,7 +228,7 @@ exports.forgotUser = function (doc, callback)
         }
         else
         {
-            callback(false, null);
+			return callback(false, null);
         }
     };
 
@@ -243,15 +241,15 @@ exports.getReset = function(doc, callback)
     {
         if (err)
         {
-            callback(err, null);
+			return callback(err, null);
         }
         else if (document)
         {
-            callback(null, document);
+			return callback(null, document);
         }
         else
         {
-            callback(false, null);
+			return callback(false, null);
         }
     };
 
@@ -285,7 +283,7 @@ exports.resetPassword = function (token, hash, callback)
     {
         if (err)
         {
-            callback(err, null);
+			return callback(err, null);
         }
         else if (doc)
         {
@@ -298,7 +296,7 @@ exports.resetPassword = function (token, hash, callback)
                 "<tr>" +
                     "<td align='center' style='font-family:Lucida Sans Unicode; font-size:50px; padding: 40px 0 40px 0;" +
                         "color: #ffd195;'>" +
-                        "graVITas Premier League" +
+                        "Riviera Premier League" +
                     "</td>" +
                 "</tr>" +
                 "<tr>" +
@@ -306,13 +304,13 @@ exports.resetPassword = function (token, hash, callback)
                         "line-height:30px; font-size:x-large;'>" +
                         "Hey there, " + doc.value.manager_name + "!<br>We\'re just writing in to let you know that " +
                         "the recent password change for your team " + doc.value._id + " was successful.<br>Welcome " +
-                        "Back to G.P.L!" +
+                        "Back to R.P.L!" +
                     "</td>" +
                 "</tr>" +
                 "<tr>" +
                     "<td align='left' style='padding: 20px 20px 20px 20px; font-family: courier; font-size: large;color:" +
                         " #ffd195; font-weight: bold;'>" +
-                        "Regards,<br>Team GPL<br>IEEE Computer Society<br>VIT Student chapter" +
+                        "Regards,<br>Team RPL<br>IEEE Computer Society<br>VIT Student chapter" +
                     "</td>" +
                 "</tr>" +
             "</table>"
@@ -322,7 +320,7 @@ exports.resetPassword = function (token, hash, callback)
         }
         else
         {
-            callback(false, null);
+			return callback(false, null);
         }
     };
 

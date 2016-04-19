@@ -37,18 +37,16 @@ function t_ch(id)
     {
         return 1;
     }
-    else if(id < 253)
+    if(id < 253)
     {
         return 2;
     }
-    else if(id < 369)
+    if(id < 369)
     {
         return 3;
     }
-    else
-    {
-        return 4;
-    }
+
+	return 4;
 }
 
 function rem(id)
@@ -90,11 +88,11 @@ function disp(id)
 
         if(a.length > 2)
         {
-            b = parseInt(a[0] + a[1]);
+            b = parseInt(a[0] + a[1], 10);
         }
         else
         {
-            b = parseInt(a[0]);
+            b = parseInt(a[0], 10);
         }
 
         b -= 15;
@@ -104,7 +102,7 @@ function disp(id)
     else
     {
         a = li.style.marginTop;
-        b = parseInt(a[0] + a[1]);
+        b = parseInt(a[0] + a[1], 10);
 
         if(b > 10)
         {
@@ -136,11 +134,11 @@ function ret(id, li)
         a = radio.style.marginLeft;
         if(a.length > 2)
         {
-            b = parseInt(a[0] + a[1]);
+            b = parseInt(a[0] + a[1], 10);
         }
         else
         {
-            b = parseInt(a[0]);
+            b = parseInt(a[0], 10);
         }
 
         b = b + 15;
@@ -150,9 +148,9 @@ function ret(id, li)
     else
     {
         a = radio.style.marginTop;
-        b = parseInt(a[0] + a[1]);
+        b = parseInt(a[0] + a[1], 10);
 
-        if(b != 10)
+        if(b !== 10)
         {
             b += 10;
         }

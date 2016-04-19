@@ -48,14 +48,12 @@ exports.simulate = function (data, callback)
             {
                 return base + ((limit > base) ? rand(limit - base) : 0);
             }
-            else if(base)
+            if(base)
             {
-                return ((typeof(base) == 'object') ? base[rand(base.length)] : parseInt(Math.random() * 1000000000000000) % base);
+                return ((typeof(base) === 'object') ? base[rand(base.length)] : parseInt(Math.random() * 1e15, 10) % base);
             }
-            else
-            {
-                return Math.random();
-            }
+
+			return Math.random();
         };
 
         var Make = function(team, arg)
@@ -68,13 +66,13 @@ exports.simulate = function (data, callback)
                 team[i].stamina = 50;
                 team[i].position =
                 {
-                    x : x,
-                    y : y
+                    x: x,
+                    y: y
                 };
 
                 if(i)
                 {
-                    if(team[i].position.x == (36 + 57 * +!arg))
+                    if(team[i].position.x === (36 + 57 * +!arg))
                     {
                         defender[arg].push(team[i].Name);
                     }
@@ -105,7 +103,7 @@ exports.simulate = function (data, callback)
                         average_mid_rating += team[i].Overall;
                         ++mid_count;
                         break;
-                    default :
+                    default:
                         break;
                 }
             }
@@ -145,20 +143,20 @@ exports.simulate = function (data, callback)
             var time = 0;
             var force =
             {
-                x : 0,
-                y : 0,
-                z : 0
+                x: 0,
+                y: 0,
+                z: 0
             };
             var direction =
             {
-                x : 0,
-                y : 0,
-                z : 0
+                x: 0,
+                y: 0,
+                z: 0
             };
             var spin =
             {
-                x : 0,
-                y : 0
+                x: 0,
+                y: 0
             };
             striker = [];
             var keeper = [data.team[0].ratings[0], data.team[1].ratings[0]];
@@ -166,10 +164,10 @@ exports.simulate = function (data, callback)
             var distance;
             var dive =
             {
-                dist : 0,
-                speed : 0,
-                x : 0,
-                y : 0
+                dist: 0,
+                speed: 0,
+                x: 0,
+                y: 0
             };
 
             var flag;
@@ -178,7 +176,7 @@ exports.simulate = function (data, callback)
             for(k = 0; k < 2; ++k)
             {
                 striker[k] = data.team[k].ratings.sort( function(a, b) {
-                    return ((b.Type == 'strike') || (b.Overall >= a.Overall) && (b.Shot >= a.Shot));
+                    return ((b.Type === 'strike') || (b.Overall >= a.Overall) && (b.Shot >= a.Shot));
                 }).slice(0, 5);
             }
 
@@ -261,7 +259,7 @@ exports.simulate = function (data, callback)
 
             data.match.commentary.push('Penalties: ' + data.team[0]._id + ': ' + (Goals[0] - aggregate) + ' | ' + (Goals[1] - aggregate) + ' :' + data.team[1]._id);
 
-            if(Goals[0] == Goals[1])
+            if(Goals[0] === Goals[1])
             {
                 ++data.team[0].points;
                 ++data.team[1].points;
@@ -299,26 +297,27 @@ exports.simulate = function (data, callback)
             data.match.commentary.push(temp);
         };
         var path = require('path');
-        var tie = require(path.join(__dirname, '..', 'utils', 'commentary' , 'tie'));
-        var end = require(path.join(__dirname, '..', 'utils', 'commentary' , 'end'));
-        var foul = require(path.join(__dirname, '..', 'utils', 'commentary' , 'foul'));
-        var half = require(path.join(__dirname, '..', 'utils', 'commentary' , 'half'));
-        var pass = require(path.join(__dirname, '..', 'utils', 'commentary' , 'pass'));
-        var miss = require(path.join(__dirname, '..', 'utils', 'commentary' , 'miss'));
-        var intro = require(path.join(__dirname, '..', 'utils', 'commentary' , 'intro'));
-        var score = require(path.join(__dirname, '..', 'utils', 'commentary' , 'score'));
-        var block = require(path.join(__dirname, '..', 'utils', 'commentary' , 'block'));
-        var tackle = require(path.join(__dirname, '..', 'utils', 'commentary' , 'tackle'));
-        var offside = require(path.join(__dirname, '..', 'utils', 'commentary' , 'offside'));
-        var penalty = require(path.join(__dirname, '..', 'utils', 'commentary' , 'penalty'));
-        var general = require(path.join(__dirname, '..', 'utils', 'commentary' , 'general'));
-        var shootout = require(path.join(__dirname, '..', 'utils', 'commentary' , 'shootout'));
-        var hopeless = require(path.join(__dirname, '..', 'utils', 'commentary' , 'hopeless'));
-        var intercept = require(path.join(__dirname, '..', 'utils', 'commentary' , 'intercept'));
+		var dir = [__dirname, '..', 'utils', 'commentary'];
+        var tie = require(path.join(...dir, 'tie'));
+        var end = require(path.join(...dir, 'end'));
+        var foul = require(path.join(...dir, 'foul'));
+        var half = require(path.join(...dir, 'half'));
+        var pass = require(path.join(...dir, 'pass'));
+        var miss = require(path.join(...dir, 'miss'));
+        var intro = require(path.join(...dir, 'intro'));
+        var score = require(path.join(...dir, 'score'));
+        var block = require(path.join(...dir, 'block'));
+        var tackle = require(path.join(...dir, 'tackle'));
+        var offside = require(path.join(...dir, 'offside'));
+        var penalty = require(path.join(...dir, 'penalty'));
+        var general = require(path.join(...dir, 'general'));
+        var shootout = require(path.join(...dir, 'shootout'));
+        var hopeless = require(path.join(...dir, 'hopeless'));
+        var intercept = require(path.join(...dir, 'intercept'));
         var ball =
         {
-            x : 64.5,
-            y : 34.5
+            x: 64.5,
+            y: 34.5
         };
         var against = [];
         var friendly = [];
@@ -345,107 +344,107 @@ exports.simulate = function (data, callback)
             */
             // formation[0] ==> 4 - 4 - 2
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 3 },      // 1
-                { x : 36, y : 24 },     // 2
-                { x : 36, y : 45 },     // 3
-                { x : 36, y : 66 },     // 4
-                { x : 70, y : 3 },      // 5
-                { x : 70, y : 24 },     // 6
-                { x : 70, y : 45 },     // 7
-                { x : 70, y : 66 },     // 8
-                { x : 111, y : 24 },    // 9
-                { x : 111, y : 45 },     // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 3 },      // 1
+                { x: 36, y: 24 },     // 2
+                { x: 36, y: 45 },     // 3
+                { x: 36, y: 66 },     // 4
+                { x: 70, y: 3 },      // 5
+                { x: 70, y: 24 },     // 6
+                { x: 70, y: 45 },     // 7
+                { x: 70, y: 66 },     // 8
+                { x: 111, y: 24 },    // 9
+                { x: 111, y: 45 },     // 10
                 '4 - 4 - 2'
             ],
             // formation[1] ==> 4 - 3 - 3
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 3 },      // 1
-                { x : 36, y : 24 },     // 2
-                { x : 36, y : 45 },     // 3
-                { x : 36, y : 66 },     // 4
-                { x : 74.5, y : 12.5 }, // 5
-                { x : 74.5, y : 34.5 }, // 6
-                { x : 74.5, y : 56.5 }, // 7
-                { x : 107.5, y : 12.5 },// 8
-                { x : 107.5, y : 56.5 },// 9
-                { x : 109.5, y : 34.5 }, // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 3 },      // 1
+                { x: 36, y: 24 },     // 2
+                { x: 36, y: 45 },     // 3
+                { x: 36, y: 66 },     // 4
+                { x: 74.5, y: 12.5 }, // 5
+                { x: 74.5, y: 34.5 }, // 6
+                { x: 74.5, y: 56.5 }, // 7
+                { x: 107.5, y: 12.5 },// 8
+                { x: 107.5, y: 56.5 },// 9
+                { x: 109.5, y: 34.5 }, // 10
                 '4 - 3 - 3'
             ],
             // formation[2] ==> 3 - 5 - 2
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 12 },     // 1
-                { x : 36, y : 34.5 },   // 2
-                { x : 36, y : 57 },     // 3
-                { x : 74.5, y : 6 },    // 4
-                { x : 74.5, y : 20 },   // 5
-                { x : 74.5, y : 34.5 }, // 6
-                { x : 74.5, y : 49 },   // 7
-                { x : 74.5, y : 63 },   // 8
-                { x : 111, y : 24 },    // 9
-                { x : 111, y : 45 },     // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 12 },     // 1
+                { x: 36, y: 34.5 },   // 2
+                { x: 36, y: 57 },     // 3
+                { x: 74.5, y: 6 },    // 4
+                { x: 74.5, y: 20 },   // 5
+                { x: 74.5, y: 34.5 }, // 6
+                { x: 74.5, y: 49 },   // 7
+                { x: 74.5, y: 63 },   // 8
+                { x: 111, y: 24 },    // 9
+                { x: 111, y: 45 },     // 10
                 '3 - 5 - 2'
             ],
             // formation[3] ==> 4 - 5 - 1
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 3 },      // 1
-                { x : 36, y : 24 },     // 2
-                { x : 36, y : 45 },     // 3
-                { x : 36, y : 66 },     // 4
-                { x : 74.5, y : 6 },    // 5
-                { x : 74.5, y : 20 },   // 6
-                { x : 74.5, y : 34.5 }, // 7
-                { x : 74.5, y : 49 },   // 8
-                { x : 74.5, y : 63 },   // 9
-                { x : 107.5, y : 34.5 }, // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 3 },      // 1
+                { x: 36, y: 24 },     // 2
+                { x: 36, y: 45 },     // 3
+                { x: 36, y: 66 },     // 4
+                { x: 74.5, y: 6 },    // 5
+                { x: 74.5, y: 20 },   // 6
+                { x: 74.5, y: 34.5 }, // 7
+                { x: 74.5, y: 49 },   // 8
+                { x: 74.5, y: 63 },   // 9
+                { x: 107.5, y: 34.5 }, // 10
                 '4 - 5 - 1'
             ],
             // formation[4] ==> 3 - 4 - 3
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 12 },     // 1
-                {x : 36, y : 34.5 },   // 2
-                { x : 36, y : 57 },     // 3
-                { x : 70, y : 3 },      // 4
-                { x : 70, y : 24 },     // 5
-                { x : 70, y : 45 },     // 6
-                { x : 70, y : 66 },     // 7
-                { x : 107.5, y : 12.5 },// 8
-                { x : 107.5, y : 56.5 },// 9
-                { x : 109.5, y : 34.5 }, // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 12 },     // 1
+                {x: 36, y: 34.5 },   // 2
+                { x: 36, y: 57 },     // 3
+                { x: 70, y: 3 },      // 4
+                { x: 70, y: 24 },     // 5
+                { x: 70, y: 45 },     // 6
+                { x: 70, y: 66 },     // 7
+                { x: 107.5, y: 12.5 },// 8
+                { x: 107.5, y: 56.5 },// 9
+                { x: 109.5, y: 34.5 }, // 10
                 '3 - 4 - 3'
             ],
             // formation[5] ==> 5 - 3 - 2
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 6 },      // 1
-                { x : 36, y : 20 },     // 2
-                { x : 36, y : 34.5 },   // 3
-                { x : 36, y : 49 },     // 4
-                { x : 36, y : 63 },     // 5
-                { x : 74.5, y : 12.5 }, // 6
-                { x : 74.5, y : 34.5 }, // 7
-                { x : 74.5, y : 56.5 }, // 8
-                { x : 111, y : 24 },    // 9
-                { x : 111, y : 45},     // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 6 },      // 1
+                { x: 36, y: 20 },     // 2
+                { x: 36, y: 34.5 },   // 3
+                { x: 36, y: 49 },     // 4
+                { x: 36, y: 63 },     // 5
+                { x: 74.5, y: 12.5 }, // 6
+                { x: 74.5, y: 34.5 }, // 7
+                { x: 74.5, y: 56.5 }, // 8
+                { x: 111, y: 24 },    // 9
+                { x: 111, y: 45},     // 10
                 '5 - 3 - 2'
             ],
             // formation[6] ==> 3 - 3 - 4
             [
-                { x : 5.5, y : 34.5 },  // 0
-                { x : 36, y : 12 },     // 1
-                { x : 36, y : 34.5 },   // 2
-                { x : 36, y : 57 },     // 3
-                { x : 74.5, y : 12.5 }, // 4
-                { x : 74.5, y : 34.5 }, // 5
-                { x : 74.5, y : 56.5 }, // 6
-                { x : 111, y : 12 },    // 7
-                { x : 111, y : 24 },    // 8
-                { x : 111, y : 47 },    // 9
-                { x : 111, y : 57},     // 10
+                { x: 5.5, y: 34.5 },  // 0
+                { x: 36, y: 12 },     // 1
+                { x: 36, y: 34.5 },   // 2
+                { x: 36, y: 57 },     // 3
+                { x: 74.5, y: 12.5 }, // 4
+                { x: 74.5, y: 34.5 }, // 5
+                { x: 74.5, y: 56.5 }, // 6
+                { x: 111, y: 12 },    // 7
+                { x: 111, y: 24 },    // 8
+                { x: 111, y: 47 },    // 9
+                { x: 111, y: 57},     // 10
                 '3 - 3 - 4'
             ]
         ];
@@ -527,12 +526,12 @@ exports.simulate = function (data, callback)
 
                         if(ball.y < 0)
                         {
-                            ball.x = parseInt(64.5 + ((64.5 - ball.x) / (ball.y - 34.5)) * 34.5);
+                            ball.x = parseInt(64.5 + ((64.5 - ball.x) / (ball.y - 34.5)) * 34.5, 10);
                             ball.y = 0;
                         }
                         else if(ball.y > 70)
                         {
-                            ball.x = parseInt(64.5 + (( ball.x - 64.5) / (ball.y - 34.5)) * 36.5);
+                            ball.x = parseInt(64.5 + (( ball.x - 64.5) / (ball.y - 34.5)) * 36.5, 10);
                             ball.y = 70;
                         }
                     }
@@ -590,11 +589,11 @@ exports.simulate = function (data, callback)
                     {
                         for(x = 0; x < data.team[+kick].ratings[0].length; ++x)
                         {
-                            if(x == 'Price')
+                            if(x === 'Price')
                             {
                                 break;
                             }
-                            else if(x == '_id' || x == 'Name')
+                            if(x === '_id' || x === 'Name')
                             {
                                 continue;
                             }
@@ -612,11 +611,11 @@ exports.simulate = function (data, callback)
                     {
                         for(x = 0; data.team[+!kick].ratings[0]/length; ++x)
                         {
-                            if(x == 'Price')
+                            if(x === 'Price')
                             {
                                 break;
                             }
-                            else if(x == '_id' || x == 'Name')
+                            if(x === '_id' || x === 'Name')
                             {
                                 continue;
                             }
@@ -651,7 +650,7 @@ exports.simulate = function (data, callback)
                     goal = Math.abs(goal);
                     pos = Math.abs((temp) ? (1 / goal) : (1 - 1 / goal));
                     pos = (pos > 1) ? 1 : pos;
-                    kick = temp ? !kick : kick;
+                    kick ^= temp;
                     // limits to be rearranged based on test results
                     if(!goal)
                     {
@@ -660,7 +659,7 @@ exports.simulate = function (data, callback)
                     else if(goal > 0 && goal <= 1) // missed pass
                     {
                         hold = false;
-                        j = parseInt(rand(friendly.length));
+                        j = parseInt(rand(friendly.length), 10);
                         ball.x = rand(ball.x - data.team[+kick].ratings[j].position.x) + Math.min(ball.x, data.team[+kick].ratings[j].position.x);
                         ball.y = rand(ball.y - data.team[+kick].ratings[j].position.y) + Math.min(ball.y, data.team[+kick].ratings[j].position.y);
                         com(intercept);
@@ -718,8 +717,7 @@ exports.simulate = function (data, callback)
                         temp = [];
                         temp[0] = Math.pow(ball.x - data.team[+kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+kick].ratings[1].position.y, 2);
                         temp[1] = Math.pow(ball.x - data.team[+!kick].ratings[1].position.x, 2) + Math.pow(ball.y - data.team[+!kick].ratings[1].position.y, 2);
-                        x = 1;
-                        y = 1;
+                        x = y = 1;
 
                         for(j = 0; j < data.team[0].ratings.length; ++j)
                         {
@@ -740,10 +738,7 @@ exports.simulate = function (data, callback)
                         temp[0] = rand(temp[0]) + data.team[+kick].ratings[x].Physical * data.team[+kick].ratings[x].Overall / 100;
                         temp[1] = rand(temp[1]) + data.team[+!kick].ratings[y].Physical * data.team[+!kick].ratings[y].Overall / 100;
 
-                        if(temp[1] > temp[0])
-                        {
-                            kick = !kick;
-                        }
+                        kick ^= (temp[1] > temp[0]);
 
                         com(tackle);
                     }
@@ -811,10 +806,10 @@ exports.simulate = function (data, callback)
                                 {
                                     temp =
                                     [
-                                        +(data.team[+kick].ratings[j].Overall > data.team[+kick].ratings[strike].Overall),
-                                        +(data.team[+kick].ratings[j].Pace > data.team[+kick].ratings[strike].Pace),
-                                        +(data.team[+kick].ratings[j].Shot > data.team[+kick].ratings[strike].Shot),
-                                        +(data.team[+kick].ratings[j].Positioning > data.team[+kick].ratings[strike].Positioning)
+                                        (data.team[+kick].ratings[j].Overall > data.team[+kick].ratings[strike].Overall),
+                                        (data.team[+kick].ratings[j].Pace > data.team[+kick].ratings[strike].Pace),
+                                        (data.team[+kick].ratings[j].Shot > data.team[+kick].ratings[strike].Shot),
+                                        (data.team[+kick].ratings[j].Positioning > data.team[+kick].ratings[strike].Positioning)
                                     ];
 
                                     if (temp[0] + temp[1] + temp[2] + temp[3] > 2)
@@ -829,8 +824,8 @@ exports.simulate = function (data, callback)
                          strike_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+kick].ratings[strike].Overall - data.team[+!kick].ratings[0].Overall) / 10) * (rand(Math.pow((data.team[+kick].ratings[strike].Shot * data.team[+kick].ratings[strike].Pace)), 0.5)) + (data.team[+kick].ratings[strike].Pace + data.team[+kick].ratings[strike].Shot) / 2);
                          keeper_performance_index = ((Math.pow(-1, (rand(2))) + (data.team[+!kick].ratings[0].Overall - data.team[+kick].ratings[strike].Overall) / 10) * (rand(Math.pow((data.team[+!kick].ratings[strike].Reflexes) * data.team[+!kick].ratings[strike].Positioning * data.team[+!kick].ratings[strike].Speed), 1 / 2)) + (data.team[+!kick].ratings[strike].Positioning + data.team[+!kick].ratings[strike].Reflexes + data.team[+!kick].ratings[strike].Speed) / 2);
 
-                        if (strike_performance_index > 2 * keeper_performance_index) // TODO : adjust scale
-                         {
+                        if (strike_performance_index > 2 * keeper_performance_index) // adjust scale
+                        {
                             com(score);
                             data.match.commentary.push(data.team[0]._id + ': ' + Goals[0] + ' | ' + Goals[1] + ' :' + data.team[1]._id);
                             ++Goals[+kick];
@@ -855,7 +850,7 @@ exports.simulate = function (data, callback)
 
                     if(i + loop * 45 > 4)
                     {
-                        temp = last_five_pos[0] + last_five_pos[1] + last_five_pos[2] + last_five_pos[3] + last_five_pos[4];
+                        temp = last_five_pos.reduce((a, b) => (a + b), 0);
                         data.match.commentary.push(' Possession during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_pos.pop();
                     }
@@ -865,11 +860,11 @@ exports.simulate = function (data, callback)
                     data.match.commentary.push('Overall possession: ');
                     data.match.commentary.push(data.team[0]._id + ': ' + (possession[0] * 100).toFixed(2) + ' % | % ' + (possession[1] * 100).toFixed(2) + ' :' + data.team[1]._id);
                     dom += +(possession[0] > possession[1]);
-                    last_five_dom.unshift(+(possession[0] > possession[1])); // TODO : adjust scale
+                    last_five_dom.unshift(+(possession[0] > possession[1])); // adjust scale
 
                     if(i + loop * 45 > 4)
                     {
-                        temp = last_five_dom[0] + last_five_dom[1] + last_five_dom[2] + last_five_dom[3] + last_five_dom[4];
+                        temp = last_five_dom.reduce((a, b) => (a + b), 0);
                         data.match.commentary.push(' Dominance during the last 5 minutes: ' + data.team[0]._id + ': ' + (temp * 20).toFixed(2) + ' % | % ' + ((5 - temp) * 20).toFixed(2) + ' :' + data.team[1]._id);
                         last_five_dom.pop();
                     }
@@ -907,53 +902,48 @@ exports.simulate = function (data, callback)
 
         winner = +(Goals[1] > Goals[0]);
 
-        if(Goals[0] == Goals[1])
+        if(Goals[0] === Goals[1])
         {
             data.match.commentary.push(rand(shootout));
             winner = penalty_shootout();
         }
-        if (parseInt(+winner) != -1)
+        if (parseInt(+winner, 10) !== -1)
         {
             data.match.commentary.push(data.team[+winner]._id + ' wins against ' + data.team[+!winner]._id);
             ++data.team[+winner].win;
             ++data.team[+!winner].loss;
             data.team[+winner].points += 3;
-            data.team[+winner].goals_for += Goals[+winner];
-            data.team[+!winner].goals_for += Goals[+!winner];
-            data.team[+!winner].goals_against += Goals[+winner];
-            data.team[+winner].goals_against += Goals[+!winner];
-            data.team[+winner].goal_diff = data.team[+winner].goals_for  - data.team[+winner].goals_against;
-            data.team[+!winner].goal_diff = data.team[+!winner].goals_for  - data.team[+!winner].goals_against;
+
+			for(i = 0; i < 2; ++i)
+			{
+				data.team[i].goals_for += Goals[i];
+				data.team[i].goals_against += Goals[+!i];
+				data.team[i].goal_diff = data.team[i].goals_for - data.team[+!i].goals_against;
+				data.team[i].ratio = parseFloat((data.team[i].win / (data.team[i].loss || 1)).toFixed(2));
+			}
+
             data.team[+winner].streak = (data.team[+winner].streak < 0) ? (1) : (data.team[+winner].streak + 1);
             data.team[+!winner].streak = (data.team[+!winner].streak > 0) ? (0) : (data.team[+!winner].streak - 1);
-            data.team[+winner].ratio = (data.team[+winner].win / (data.team[+winner].loss || 1)).toFixed(2);
-            data.team[+!winner].ratio = (data.team[+!winner].win / (data.team[+!winner].loss || 1)).toFixed(2);
         }
 
-        Goals[0] = Goals[0] || 1;
-        Goals[1] = Goals[1] || 1;
-        ++data.team[0].played;
-        ++data.team[1].played;
-        data.team[0].shots += shots[0];
-        data.team[1].shots += shots[1];
-        data.team[0].fouls += fouls[0];
-        data.team[1].fouls += fouls[1];
-        data.team[0].passes += passes[0];
-        data.team[1].passes += passes[1];
-        data.team[0].accuracy = (data.team[0].goals_for * 100 / data.team[0].shots).toFixed(2);
-        data.team[1].accuracy = (data.team[1].goals_for * 100 / data.team[1].shots).toFixed(2);
-        data.team[0].mean_goals_for = (data.team[0].goals_for / data.team[0].played).toFixed(2);
-        data.team[1].mean_goals_for = (data.team[1].goals_for / data.team[1].played).toFixed(2);
-        data.team[0].mean_goals_against = (data.team[0].goals_against / data.team[0].played).toFixed(2);
-        data.team[1].mean_goals_against = (data.team[1].goals_against / data.team[1].played).toFixed(2);
-        data.team[0].possession = (((data.team[0].played - 1) * data.team[0].possession + possession[0]) / data.team[0].played).toFixed(2);
-        data.team[1].possession = (((data.team[1].played - 1) * data.team[1].possession + possession[1]) / data.team[1].played).toFixed(2);
-        data.team[0].dominance = parseFloat(((data.team[0].dominance * (data.team[0].played - 1) + dom / 90) / data.team[0].played).toFixed(2));
-        data.team[1].dominance = parseFloat(((data.team[1].dominance * (data.team[1].played - 1) + (1 - dom / 90)) / data.team[1].played).toFixed(2));
-        data.team[0].form += parseFloat(((possession[0] * mean_rating[1] / Goals[1] - possession[1] * mean_rating[0] / Goals[0]) / 1000).toFixed(2));
-        data.team[1].form += parseFloat(((possession[1] * mean_rating[0] / Goals[0] - possession[0] * mean_rating[1] / Goals[1] ) / 1000).toFixed(2));
-        data.team[0].morale += parseFloat(((Math.pow(-1, +winner) * Goals[0] * mean_rating[1] / (Goals[1] * mean_rating[0]) * dom) / 100).toFixed(2));
-        data.team[1].morale -= parseFloat(((Math.pow(-1, +winner) * Goals[1] * mean_rating[0] / (Goals[0] * mean_rating[1]) * (90 - dom)) / 100).toFixed(2));
+        Goals[0] |= 1;
+        Goals[1] |= 1;
+
+		for(i = 0; i < 2; ++i)
+		{
+			temp = Math.pow(-1, i);
+			++data.team[i].played;
+			data.team[i].shots += shots[i];
+			data.team[i].fouls += fouls[i];
+			data.team[i].passes += passes[i];
+			data.team[i].accuracy = (data.team[i].goals_for * 100 / data.team[i].shots).toFixed(2);
+			data.team[i].mean_goals_for = (data.team[i].goals_for / data.team[i].played).toFixed(2);
+			data.team[i].mean_goals_against = (data.team[i].goals_against / data.team[i].played).toFixed(2);
+			data.team[i].possession = (((data.team[i].played - 1) * data.team[i].possession + possession[i]) / data.team[i].played).toFixed(2);
+			data.team[i].dominance = parseFloat(((data.team[i].dominance * (data.team[i].played - 1) + i + temp *dom / 90) / data.team[i].played).toFixed(2));
+			data.team[i].form += parseFloat(((possession[i] * mean_rating[+!i] / Goals[+!i] - possession[+!i] * mean_rating[i] / Goals[i]) / 1000).toFixed(2));
+			data.team[i].morale += parseFloat(((Math.pow(-1, +winner) * Goals[i] * mean_rating[+!i] / (Goals[+!i] * mean_rating[i]) * (90 * i + temp * dom)) / 100).toFixed(2));
+		}
     }
 
     delete data.team[0].ratings;

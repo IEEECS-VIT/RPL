@@ -19,8 +19,8 @@
 var path = require('path');
 var async = require('async');
 var match = process.env.MATCH;
-var mongoUsers = require(path.join(__dirname, 'mongo-users'));
-var mongoFeatures = require(path.join(__dirname, 'mongo-features'));
+var mongoUsers = require(path.join(__dirname, 'mongoUsers'));
+var mongoFeatures = require(path.join(__dirname, 'mongoFeatures'));
 
 exports.getTeam = function (doc, callback)
 {
@@ -28,11 +28,11 @@ exports.getTeam = function (doc, callback)
     {
         if(!document.team.length)
         {
-            callback(null, []);
+            return callback(null, []);
         }
         else if (err)
         {
-            callback(err, null);
+			return callback(err, null);
         }
         else
         {
@@ -49,11 +49,11 @@ exports.getSquad = function (doc, callback)
     {
         if (err)
         {
-            callback(err);
+			return callback(err);
         }
         else
         {
-            callback(null, documents);
+			return callback(null, documents);
         }
     };
 
@@ -63,7 +63,7 @@ exports.getSquad = function (doc, callback)
         {
             if (err)
             {
-                callback(err, null);
+				return callback(err, null);
             }
             else if(document.team.length)
             {
@@ -71,12 +71,12 @@ exports.getSquad = function (doc, callback)
             }
             else
             {
-                callback(null, []);
+				return callback(null, []);
             }
         }
         else
         {
-            callback(null, []);
+			return callback(null, []);
         }
     };
 
@@ -102,25 +102,25 @@ exports.map = function (doc, callback)
     {
         if (err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
-            callback(null, doc.team_no);
+            return callback(null, doc.team_no);
         }
     };
 
     db.collection(match).find(doc, {team_no: 1}).limit(1).next(onFind);
 };
 
-exports.shortList = function (callback) // TODO: add email notification for shortlisted team owners.
+exports.shortList = function (callback) // add email notification for shortlisted team owners.
 {
     var ref =
     {
         'users' :
         {
             out : 'round2',
-            limit : parseInt(process.env.ONE)
+            limit : parseInt(process.env.ONE, 10)
         },
         'round2' :
         {
@@ -138,7 +138,7 @@ exports.shortList = function (callback) // TODO: add email notification for shor
     {
         if (err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
@@ -169,7 +169,7 @@ exports.adminInfo = function (callback)
     {
         if (err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
@@ -183,7 +183,7 @@ exports.adminInfo = function (callback)
             result.database.version = result.database.dataFileVersion.major + '.' + result.database.dataFileVersion.minor;
             delete result.database.dataFileVersion;
 
-            callback(null, result);
+            return callback(null, result);
         }
     };
 
@@ -281,11 +281,11 @@ exports.check = function (team, callback)
     {
         if (err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
-            callback(null, result ? false : true);
+            return callback(null, result ? false : true);
         }
     };
 
@@ -311,11 +311,11 @@ exports.opponent = function (day, team, callback)
     {
         if (err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
-            callback(null, (team == doc.Team_1) ? doc.Team_2 : doc.Team_1);
+            return callback(null, (team === doc.Team_1) ? doc.Team_2 : doc.Team_1);
         }
     };
 
@@ -330,14 +330,14 @@ exports.squad = function (doc, callback)
 
         if (err)
         {
-            callback(err);
+            return callback(err);
         }
         else
         {
             var onGet = function (err, results)
             {
                 doc.team = results;
-                callback(null, doc);
+                return callback(null, doc);
             };
 
             async.map(doc.team, mongoFeatures.getPlayer, onGet);

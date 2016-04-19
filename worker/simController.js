@@ -21,8 +21,8 @@ var match;
 var path = require('path');
 var async = require('async');
 var days = [1, 2, 3, 4, 5, 6, 7];
-var email = require(path.join(__dirname, '..', 'utils', 'email'));
 var simulator = require(path.join(__dirname, 'simulation'));
+var email = require(path.join(__dirname, '..', 'utils', 'email'));
 
 if(!process.env.NODE_ENV)
 {
@@ -90,6 +90,11 @@ exports.initSimulation = function (day, masterCallback)
 
         var updateData = function (err, newData)
         {
+			if(err)
+			{
+				throw err;
+			}
+
             var updateUser = function (newUserDoc, asyncCallback)
             {
                 database.collection(match).updateOne({_id: newUserDoc._id}, newUserDoc, asyncCallback);
@@ -121,7 +126,12 @@ exports.initSimulation = function (day, masterCallback)
 
         var onTeamDetails = function (err, results)
         {
-            var data =
+            if(err)
+			{
+				throw err;
+			}
+
+			var data =
             {
                 team:
                 [
@@ -159,11 +169,11 @@ exports.initSimulation = function (day, masterCallback)
     var getAllMatches = function (err, callback)
     {
         var collection;
+
         switch (days.indexOf(day))
         {
             case -1:
                 throw 'Invalid day!';
-                break;
             default:
                 collection = 'matchday' + day;
                 break;

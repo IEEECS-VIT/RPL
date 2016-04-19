@@ -53,7 +53,7 @@ function validator()
         pass.style.backgroundColor = 'Yellow';
         display += ++i + ". Enter Password.\n";
     }
-    if(pass.value.length < 8 && pass.value.length != 0)
+    if(pass.value.length < 8 && pass.value.length !== 0)
     {
         display += ++i + ". Password too short. Minimum 8 characters.\n";
     }
@@ -77,7 +77,7 @@ function validator()
         manager1.style.backgroundColor = 'Yellow';
         display += ++i + ". Enter Manager name.\n";
     }
-    if(pass.value != cpass.value)
+    if(pass.value !== cpass.value)
     {
         pass.style.backgroundColor = 'Yellow';
         cpass.style.backgroundColor = 'Yellow';
@@ -93,7 +93,7 @@ function validator()
         }
     }
 
-    if(display != "Error:\n")
+    if(display !== "Error:\n")
     {
         confirm(display);
         return false;

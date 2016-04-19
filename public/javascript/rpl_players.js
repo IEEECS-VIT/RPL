@@ -238,20 +238,19 @@ function rem(co)
 
 function ch()
 {
-    if(cf === 0 || cm === 0 || cd === 0 || cg === 0)
+    if(cf * cm * cd * cg === 0)
     {
         return -1;
     }
-    else
-    {
-        return 0;
-    }
+
+	return 0;
 }
 
 function app()
 {
     var i = 0;
     var j;
+
     while(i != k)
     {
         for(j = 0; j < cf; ++j)
@@ -281,18 +280,16 @@ function t_ch(id)
     {
         return 1;
     }
-    else if(id < 253)
+    if(id < 253)
     {
         return 2;
     }
-    else if(id < 369)
+    if(id < 369)
     {
         return 3;
     }
-    else
-    {
-        return 4;
-    }
+
+	return 4;
 }
 
 function add(id)

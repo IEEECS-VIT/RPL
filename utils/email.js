@@ -50,13 +50,13 @@ exports.match = exports.wrap({
     "width='600' style='box-shadow: 5px 5px 15px #888888; border-radius: 12px; background-position: center; border-collapse: collapse;'>" +
     "<tr>" +
         "<td align='center' style='font-family:Lucida Sans Unicode; font-size:50px; padding: 40px 0 40px 0;color: #ffd195;'>" +
-            "graVITas Premier League" +
+            "Riviera Premier League" +
         "</td>" +
     "</tr>" +
     "<tr>" +
         "<td align='center' style='padding: 40px 30px 40px 30px;font-family: Arial; line-height:30px; font-size:x-large;'>" +
             "This is to inform that the match results are out<br>Please click " +
-            "<a href='http://rivierapremierleague.com/home/matches' style='text-decoration: none;'>" +
+            "<a href='http://rpl.ieeecsvit.com/home/matches' style='text-decoration: none;'>" +
                 "here" +
             "</a>" +
             " to view your scores." +
